@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GeneratorSurveillanceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GeneratorFuelling">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Vendor" Type="varchar(max)" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="VolumeOfDiesel" Type="float" Nullable="false" />
+          <Property Name="CostOfDiesel" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GeneratorMaintenance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="MaintenanceType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="TotalCost" Type="float" Nullable="false" />
+          <Property Name="Comments" Type="varchar" MaxLength="2000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GeneratorRunningHrs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Generator" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Hours" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GeneratorScheduler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="GeneratorName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EveryHrs" Type="float" Nullable="false" />
+          <Property Name="HrsThreshold" Type="float" Nullable="false" />
+          <Property Name="Authorizer" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GeneratorUsage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="GeneratorName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="GeneratorStarted" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="GeneratorStopped" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="IsArchived" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="GeneratorSurveillanceDBModelStoreContainer">
+          <EntitySet Name="GeneratorFuelling" EntityType="Self.GeneratorFuelling" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeneratorMaintenance" EntityType="Self.GeneratorMaintenance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeneratorRunningHrs" EntityType="Self.GeneratorRunningHrs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeneratorScheduler" EntityType="Self.GeneratorScheduler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeneratorUsage" EntityType="Self.GeneratorUsage" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GeneratorSurveillanceDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GeneratorFuelling">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="VolumeOfDiesel" Type="Double" Nullable="false" />
+          <Property Name="CostOfDiesel" Type="Double" Nullable="false" />
+          <Property Name="Vendor" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="GeneratorMaintenance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="MaintenanceType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TotalCost" Type="Double" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GeneratorRunningHr">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Generator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Hours" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GeneratorScheduler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="GeneratorName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EveryHrs" Type="Double" Nullable="false" />
+          <Property Name="HrsThreshold" Type="Double" Nullable="false" />
+          <Property Name="Authorizer" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GeneratorUsage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GeneratorName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GeneratorStarted" Type="DateTime" Precision="7" Nullable="false" />
+          <Property Name="GeneratorStopped" Type="DateTime" Precision="7" Nullable="false" />
+          <Property Name="IsArchived" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="GeneratorSurveillanceDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GeneratorFuellings" EntityType="Self.GeneratorFuelling" />
+          <EntitySet Name="GeneratorMaintenances" EntityType="Self.GeneratorMaintenance" />
+          <EntitySet Name="GeneratorRunningHrs" EntityType="Self.GeneratorRunningHr" />
+          <EntitySet Name="GeneratorSchedulers" EntityType="Self.GeneratorScheduler" />
+          <EntitySet Name="GeneratorUsages" EntityType="Self.GeneratorUsage" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GeneratorSurveillanceDBModelStoreContainer" CdmEntityContainer="GeneratorSurveillanceDBEntities">
+          <EntitySetMapping Name="GeneratorFuellings">
+            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorFuelling">
+              <MappingFragment StoreEntitySet="GeneratorFuelling">
+                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="VolumeOfDiesel" ColumnName="VolumeOfDiesel" />
+                <ScalarProperty Name="CostOfDiesel" ColumnName="CostOfDiesel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GeneratorMaintenances">
+            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorMaintenance">
+              <MappingFragment StoreEntitySet="GeneratorMaintenance">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MaintenanceType" ColumnName="MaintenanceType" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GeneratorRunningHrs">
+            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorRunningHr">
+              <MappingFragment StoreEntitySet="GeneratorRunningHrs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Generator" ColumnName="Generator" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GeneratorSchedulers">
+            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorScheduler">
+              <MappingFragment StoreEntitySet="GeneratorScheduler">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GeneratorName" ColumnName="GeneratorName" />
+                <ScalarProperty Name="EveryHrs" ColumnName="EveryHrs" />
+                <ScalarProperty Name="HrsThreshold" ColumnName="HrsThreshold" />
+                <ScalarProperty Name="Authorizer" ColumnName="Authorizer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GeneratorUsages">
+            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorUsage">
+              <MappingFragment StoreEntitySet="GeneratorUsage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="GeneratorName" ColumnName="GeneratorName" />
+                <ScalarProperty Name="GeneratorStarted" ColumnName="GeneratorStarted" />
+                <ScalarProperty Name="GeneratorStopped" ColumnName="GeneratorStopped" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

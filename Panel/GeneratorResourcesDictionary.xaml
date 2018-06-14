@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:Panel">
+    
+        <sys:String x:Key="packUriInput">pack://application:,,,/Views/InputViews/InputView.xaml</sys:String>
+        <sys:String x:Key="packUriFuelling">pack://application:,,,/Views/InputViews/FuellingView.xaml</sys:String>
+        <sys:String x:Key="packUriMaintenance">pack://application:,,,/Views/InputViews/MaintenanceView.xaml</sys:String>
+        <sys:String x:Key="packUriUsage">pack://application:,,,/Views/InputViews/UsageView.xaml</sys:String>
+        <sys:String x:Key="packUriRHSTables">pack://application:,,,/Views/TableViews/RunningHrsSchedulingTablesView.xaml</sys:String>
+        <sys:String x:Key="packUriUFTables">pack://application:,,,/Views/TableViews/UsageFuellingTablesView.xaml</sys:String>
+        <sys:String x:Key="packUriCharts">pack://application:,,,/Views/ChartViews/ChartView.xaml</sys:String>
+        <sys:String x:Key="packUriReports">pack://application:,,,/Views/ReportViews/ReportView.xaml</sys:String>
+        <sys:String x:Key="packUriHelp">pack://application:,,,/Views/HelpViews/HelpView.xaml</sys:String>
+  
+</ResourceDictionary>

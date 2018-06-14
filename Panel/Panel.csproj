@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2BAA868A-B28B-44AA-ACE2-8430B9578BFC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Panel</RootNamespace>
+    <AssemblyName>Panel</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net46\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Unity.Abstractions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net46\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Configuration, Version=5.2.1.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net46\Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.8.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net46\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Interception, Version=5.5.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net46\Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Interception.Configuration, Version=5.1.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net46\Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RegistrationByConvention, Version=2.1.5.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net46\Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ServiceLocation, Version=2.1.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.8.6\lib\net46\Unity.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="BusinessLogic\AuxilliaryMethods\ParseTimeFromDateTime.cs" />
+    <Compile Include="BusinessLogic\ChartsLogic\ExtrudeInterveningDates.cs" />
+    <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\CalculateUsageHours.cs" />
+    <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\ConfigureChart.cs" />
+    <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\GeneratorMaintenanceLogic.cs" />
+    <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\GeneratorUsageLogic.cs" />
+    <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\GetOrdinateData.cs" />
+    <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\PlotChart.cs" />
+    <Compile Include="BusinessLogic\ChartsLogic\SelectChart.cs" />
+    <Compile Include="BusinessLogic\RaiseRadioButtonClick.cs" />
+    <Compile Include="Commands\GenericDelegateCommand.cs" />
+    <Compile Include="Commands\InputCommands.cs" />
+    <Compile Include="Commands\MainMenuCommands.cs" />
+    <Compile Include="Commands\NavigationCommands.cs" />
+    <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Commands\TableCommands.cs" />
+    <Compile Include="Converters\ConvertIntToTwoCharString.cs" />
+    <Compile Include="Converters\ConvertIntArrayToTwoCharStringArray.cs" />
+    <Compile Include="Converters\ConvertBooleanToBrush.cs" />
+    <Compile Include="Converters\ConvertBoolToString.cs" />
+    <Compile Include="Converters\ConvertComboBoxItemToString.cs" />
+    <Compile Include="Converters\ConvertControlToControl.cs" />
+    <Compile Include="Converters\ConvertDateTimeToDate.cs" />
+    <Compile Include="Converters\ConvertDateTimeToTime.cs" />
+    <Compile Include="Converters\ConvertDateTimeToFullDate.cs" />
+    <Compile Include="Converters\ConvertCategoryToPhrase.cs" />
+    <Compile Include="Converters\ConvertItemCountToPhrase.cs" />
+    <Compile Include="Converters\ConvertYesNoToBoolean.cs" />
+    <Compile Include="Converters\ConvObjsToDtpkrCmbx.cs" />
+    <Compile Include="Converters\FloatConverter.cs" />
+    <Compile Include="Converters\InputViewMultiConverter.cs" />
+    <Compile Include="Converters\PassCheckBoxBoolListBoxAsCommandParameters.cs" />
+    <Compile Include="Converters\PassListBoxAsCommandParameter.cs" />
+    <Compile Include="Converters\PassRadioButtonListBoxAsCommandParameters.cs" />
+    <Compile Include="GeneratorFuelling.cs">
+      <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratorMaintenance.cs">
+      <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratorRunningHr.cs">
+      <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratorScheduler.cs">
+      <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratorSurveillanceDBEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneratorSurveillanceDBEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratorSurveillanceDBEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratorSurveillanceDBEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratorUsage.cs">
+      <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IChartsLogic.cs" />
+    <Compile Include="Interfaces\IGeneratorFuellingRepository.cs" />
+    <Compile Include="Interfaces\IGeneratorInformationRepository.cs" />
+    <Compile Include="Interfaces\IGeneratorMaintenanceRepository.cs" />
+    <Compile Include="Interfaces\IGeneratorRunningHrsRepository.cs" />
+    <Compile Include="Interfaces\IGeneratorSchedulerRepository.cs" />
+    <Compile Include="Interfaces\IGeneratorSurveillanceDBEntities.cs" />
+    <Compile Include="Interfaces\IGeneratorUsageRepository.cs" />
+    <Compile Include="Interfaces\INavigationService.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IView.cs" />
+    <Compile Include="Interfaces\IViewModel.cs" />
+    <Compile Include="Models\ChartModels\ChartClass.cs" />
+    <Compile Include="Models\ChartModels\ChartType.cs" />
+    <Compile Include="Models\GeneratorScheduleModel.cs" />
+    <Compile Include="Models\InputModels\AMPMModel.cs" />
+    <Compile Include="Models\InputModels\GeneratorInformationModel.cs" />
+    <Compile Include="Models\InputModels\GeneratorNameModel.cs" />
+    <Compile Include="Models\InputModels\GeneratorStartedModel.cs" />
+    <Compile Include="Models\InputModels\GeneratorStoppedModel.cs" />
+    <Compile Include="Models\InputModels\HoursModel.cs" />
+    <Compile Include="Models\InputModels\MinutesModel.cs" />
+    <Compile Include="Models\InputModels\RecordDateModel.cs" />
+    <Compile Include="Models\InputModels\SecondsModel.cs" />
+    <Compile Include="Models\TableModels\GeneratorFuellingTableModel.cs" />
+    <Compile Include="Models\TableModels\GeneratorMaintenancetableModel.cs" />
+    <Compile Include="Models\TableModels\GeneratorUsageTableModel.cs" />
+    <Compile Include="Models\ValidateNotifyModelBase.cs" />
+    <Compile Include="Repositories\GeneratorFuellingRepository.cs" />
+    <Compile Include="Repositories\GeneratorInformationRepository.cs" />
+    <Compile Include="Repositories\GeneratorMaintenanceRepository.cs" />
+    <Compile Include="Repositories\GeneratorRunningHrsRepository.cs" />
+    <Compile Include="Repositories\GeneratorSchedulerRepository.cs" />
+    <Compile Include="Repositories\GeneratorUsageRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\UnitOfWork.cs" />
+    <Compile Include="Services\NavigationServices\FrameNavigationService.cs" />
+    <Compile Include="UserControls\ExportReportType.xaml.cs">
+      <DependentUpon>ExportReportType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\InputLinkBar.xaml.cs">
+      <DependentUpon>InputLinkBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Validations\ValidateFuelVolumeCostRule.cs" />
+    <Compile Include="Validations\ValidateMaintenanceCommentsRule.cs" />
+    <Compile Include="Validations\ValidateMaintenanceTotalCostRule.cs" />
+    <Compile Include="Validations\ValidateRunningHoursRule.cs" />
+    <Compile Include="Validations\ValidateVendorNameRule.cs" />
+    <Compile Include="Validations\ValidGeneratorNameRule.cs" />
+    <Compile Include="Validations\ValidGeneratorNameRuleAsync.cs" />
+    <Compile Include="ViewModels\ChartViewModels\ChartViewModel.cs" />
+    <Compile Include="ViewModels\HelpViewModels\HelpViewModel.cs" />
+    <Compile Include="ViewModels\InputViewModels\FuellingViewModel.cs" />
+    <Compile Include="ViewModels\InputViewModels\InputViewModel.cs" />
+    <Compile Include="ViewModels\InputViewModels\MaintenanceViewModel.cs" />
+    <Compile Include="ViewModels\InputViewModels\UsageViewModel.cs" />
+    <Compile Include="ViewModels\ReportViewModels\ReportViewModel.cs" />
+    <Compile Include="ViewModels\TableViewModels\RunningHrsSchedulingTablesViewModel.cs" />
+    <Compile Include="ViewModels\TableViewModels\UsageFuellingTablesViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\ChartViews\ChartView.xaml.cs">
+      <DependentUpon>ChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpViews\HelpView.xaml.cs">
+      <DependentUpon>HelpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InputViews\FuellingView.xaml.cs">
+      <DependentUpon>FuellingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InputViews\InputView.xaml.cs">
+      <DependentUpon>InputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InputViews\MaintenanceView.xaml.cs">
+      <DependentUpon>MaintenanceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportViews\ReportView.xaml.cs">
+      <DependentUpon>ReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TableViews\RunningHrsSchedulingTablesView.xaml.cs">
+      <DependentUpon>RunningHrsSchedulingTablesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InputViews\UsageView.xaml.cs">
+      <DependentUpon>UsageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TableViews\UsageFuellingTablesView.xaml.cs">
+      <DependentUpon>UsageFuellingTablesView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="GeneratorResourcesDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="UserControls\ExportReportType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\InputLinkBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChartViews\ChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HelpViews\HelpView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InputViews\FuellingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InputViews\InputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InputViews\MaintenanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReportViews\ReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TableViews\RunningHrsSchedulingTablesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InputViews\UsageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TableViews\UsageFuellingTablesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EntityDeploy Include="GeneratorSurveillanceDBEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GeneratorSurveillanceDBEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="GeneratorSurveillanceDBEntities.edmx.diagram">
+      <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\XAML_DatepickerButton.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Back.jpg" />
+    <Resource Include="Images\Next.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SplashScreens\GSS - SplashScreen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Day.jpg" />
+    <Resource Include="Images\Months1.jpg" />
+    <Resource Include="Images\Months2.jpg" />
+    <Resource Include="Images\Quarter.png" />
+    <Resource Include="Images\Week1.png" />
+    <Resource Include="Images\Week2.png" />
+    <Resource Include="Images\Year.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SplashScreens\GSS - SplashScreen - Final.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Ardorners\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GeneratorSurveillanceDBEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
+      <LastGenOutput>GeneratorSurveillanceDBEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="GeneratorSurveillanceDBEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
+      <LastGenOutput>GeneratorSurveillanceDBEntities.cs</LastGenOutput>
+    </Content>
+    <Resource Include="Images\Snipe.png" />
+    <Resource Include="Images\Camera.png" />
+    <Resource Include="Images\Copy.png" />
+    <Resource Include="Images\Print.png" />
+    <Resource Include="Images\Clear.png" />
+    <Resource Include="Images\GroupBy_Blue.png" />
+    <Resource Include="Images\GroupBy_Green.png" />
+    <Resource Include="Images\GroupBy_Red.jpg" />
+    <Resource Include="Images\PowerGenerator.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

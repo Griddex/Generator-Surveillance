@@ -1,2 +1,2 @@
-# GeneratorSurveillanceRepository
+# GeneratorSurveillance
 Generator Surveillance Project

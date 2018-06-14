@@ -1,0 +1,42 @@
+﻿<Page x:Class="Panel.Views.HelpViews.HelpView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Panel.Views.HelpViews"
+      xmlns:usercontrol="clr-namespace:Panel.UserControls"
+      xmlns:vml="clr-namespace:Panel.ViewModels"
+      xmlns:cmds="clr-namespace:Panel.Commands"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="920" d:DesignWidth="1930"
+      Title="Help"
+      Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="1" Style="{StaticResource GroupBoxStyle}" Header="Help Resources" Width="845" Height="750">
+            <TextBox>
+                
+            </TextBox>
+        </GroupBox>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
+            <Hyperlink Command="{x:Static cmds:NavigationCommands.InputToUsageView}">Usage</Hyperlink>
+            </TextBlock>
+            <TextBlock Width=" 80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
+            <Hyperlink Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}">Fuelling</Hyperlink>
+            </TextBlock>
+            <TextBlock Width="110" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
+            <Hyperlink Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}">Maintenance</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+        
+    </Grid>
+</Page>

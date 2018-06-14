@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Panel.UserControls.ExportReportType"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Panel.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="400"
+             Background="White">
+
+    <UserControl.CommandBindings>
+
+    </UserControl.CommandBindings>
+
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBlock Width="60" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Hyperlink NavigateUri="Usage.xaml">
+                PDF
+            </Hyperlink>
+        </TextBlock>
+        <TextBlock Width=" 60" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Hyperlink NavigateUri="Fuelling.xaml">
+                Word
+            </Hyperlink>
+        </TextBlock>
+        <TextBlock Width="60" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Hyperlink NavigateUri="Maintenance.xaml">
+                Excel
+            </Hyperlink>
+        </TextBlock>
+    </StackPanel>
+</UserControl>
