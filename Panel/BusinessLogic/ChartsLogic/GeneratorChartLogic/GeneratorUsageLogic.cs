@@ -39,7 +39,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                     chtStackPanel.Children.Add(cartesianChart);
                     List<List<double>> AllCartesianOrdinateSeriesInHours = GetOrdinateData.GetData(SelectedGeneratorName, SelectedChartType,
                                                                                             DurationPerspective,lstBoxSelectedStringValues);
-                    Tuple<Axis, Series> AxisCartesianSeriesTuple = ConfigureChart.ConfigureChartByChartType(SelectedChartType, 
+                    Tuple<Axis, List<Series>> AxisCartesianSeriesTuple = ConfigureChart.ConfigureChartByChartType(SelectedChartType, 
                                                                                                     lstBoxSelectedStringValues);
                     AssembleChart.ShowPlot(SelectedChartType, AllCartesianOrdinateSeriesInHours, AxisCartesianSeriesTuple, cartesianChart);
                     
@@ -50,7 +50,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                     chtStackPanel.Children.Add(pieChart);
                     List<List<double>> AllPieOrdinateSeriesInHours = GetOrdinateData.GetData(SelectedGeneratorName, SelectedChartType,
                                                                                            DurationPerspective, lstBoxSelectedStringValues);
-                    Tuple<Axis, Series> AxisPieSeriesTuple = ConfigureChart.ConfigureChartByChartType(SelectedChartType, 
+                    Tuple<Axis, List<Series>> AxisPieSeriesTuple = ConfigureChart.ConfigureChartByChartType(SelectedChartType, 
                                                                                                     lstBoxSelectedStringValues);
                     AssembleChart.ShowPlot(SelectedChartType, AllPieOrdinateSeriesInHours, AxisPieSeriesTuple, pieChart);
 

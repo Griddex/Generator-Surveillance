@@ -26,7 +26,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
             {
                 HoursByDayList.Add(UnitOfWork.GeneratorUsage.GetAllGeneratorUsages()
                                             .Where(x => SelectedGeneratorName == x.GeneratorName)
-                                            .Where(x => x.Date.ToString("MMMM dd, yyyy") == dateString)
+                                            .Where(x => x.Date.ToLongDateString() == dateString)
                                             .Select(x => (x.GeneratorStopped - x.GeneratorStarted).TotalHours)
                                             .Aggregate((x, y) => x + y));
             }
@@ -40,7 +40,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
             {
                 HoursByDayList.Add(24.0 - (UnitOfWork.GeneratorUsage.GetAllGeneratorUsages()
                                             .Where(x => SelectedGeneratorName == x.GeneratorName)
-                                            .Where(x => x.Date.ToString() == dateString)
+                                            .Where(x => x.Date.ToLongDateString() == dateString)
                                             .Select(x => (x.GeneratorStopped - x.GeneratorStarted).TotalHours)
                                             .Aggregate((x, y) => x + y)));
             }

@@ -10,10 +10,9 @@ using System.Threading.Tasks;
 
 namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
 {
-    //AbscissaAxis
     public static class ConfigureChart
     {
-        public static Tuple<Axis, Series> ConfigureChartByChartType(string SeriesChartType, List<string> lstBoxSelectedStringValues)
+        public static Tuple<Axis, List<Series>> ConfigureChartByChartType(string SeriesChartType, List<string> lstBoxSelectedStringValues)
         {
             
             Axis AbscissaAxis = new Axis()
@@ -32,7 +31,9 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                         DataLabels = false,
                         Values = new ChartValues<double>()
                     };
-                    return new Tuple<Axis, Series>(AbscissaAxis, columnSeries);
+                    List<Series> columnSeriesList = new List<Series>();
+                    columnSeriesList.Add(columnSeries);
+                    return new Tuple<Axis, List<Series>>(AbscissaAxis, columnSeriesList);
 
                 case "Stacked Column":
                     StackedColumnSeries stackedColumnSeries = new StackedColumnSeries()
@@ -40,7 +41,9 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                         DataLabels = false,
                         Values = new ChartValues<double>()
                     };
-                    return new Tuple<Axis, Series>(AbscissaAxis, stackedColumnSeries);
+                    List<Series> stackedColumnSeriesList = new List<Series>();
+                    stackedColumnSeriesList.Add(stackedColumnSeries);
+                    return new Tuple<Axis, List<Series>>(AbscissaAxis, stackedColumnSeriesList);
 
                 case "Stacked Area":
                     StackedAreaSeries stackedAreaSeries = new StackedAreaSeries()
@@ -48,7 +51,9 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                         DataLabels = false,
                         Values = new ChartValues<DateTimePoint>()
                     };
-                    return new Tuple<Axis, Series>(AbscissaAxis, stackedAreaSeries);
+                    List<Series> stackedAreaSeriesList = new List<Series>();
+                    stackedAreaSeriesList.Add(stackedAreaSeries);
+                    return new Tuple<Axis, List<Series>>(AbscissaAxis, stackedAreaSeriesList);
 
                 case "Line":                    
                     LineSeries lineSeries = new LineSeries()
@@ -56,7 +61,9 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                         DataLabels = false,                        
                         Values = new ChartValues<double>()
                     };
-                    return new Tuple<Axis, Series>(AbscissaAxis, lineSeries);
+                    List<Series> lineSeriesList = new List<Series>();
+                    lineSeriesList.Add(lineSeries);
+                    return new Tuple<Axis, List<Series>>(AbscissaAxis, lineSeriesList);
 
                 case "Pie":
                     PieSeries pieSeries = new PieSeries()
@@ -64,7 +71,9 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                         DataLabels = false,
                         Values = new ChartValues<double>()
                     };
-                    return new Tuple<Axis, Series>(AbscissaAxis, pieSeries);
+                    List<Series> pieSeriesList = new List<Series>();
+                    pieSeriesList.Add(pieSeries);
+                    return new Tuple<Axis, List<Series>>(AbscissaAxis, pieSeriesList);
 
                 default:
                     break;
