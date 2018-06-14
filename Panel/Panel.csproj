@@ -126,7 +126,6 @@
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\GeneratorUsageLogic.cs" />
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\GetOrdinateData.cs" />
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\PlotChart.cs" />
-    <Compile Include="BusinessLogic\ChartsLogic\SelectChart.cs" />
     <Compile Include="BusinessLogic\RaiseRadioButtonClick.cs" />
     <Compile Include="Commands\GenericDelegateCommand.cs" />
     <Compile Include="Commands\InputCommands.cs" />

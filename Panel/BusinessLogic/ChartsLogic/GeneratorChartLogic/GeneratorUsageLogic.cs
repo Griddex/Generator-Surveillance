@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace Panel.BusinessLogic.ChartsLogic.GeneratorMaintenanceChartLogic
+namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
 {
     public static class GeneratorUsageLogic
     {
@@ -36,7 +36,8 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorMaintenanceChartLogic
                                                                                             DurationPerspective,lstBoxSelectedStringValues);
                     Tuple<Axis, Series> AxisCartesianSeriesTuple = ConfigureChart.ConfigureChartByChartType(SelectedChartType, 
                                                                                                     lstBoxSelectedStringValues);
-
+                    PlotChart.ShowPlot(SelectedChartType, AllCartesianOrdinateSeriesInHours, AxisCartesianSeriesTuple, cartesianChart);
+                    
                     break;
 
                 case "Pie":
