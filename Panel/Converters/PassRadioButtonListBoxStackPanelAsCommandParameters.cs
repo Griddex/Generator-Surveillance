@@ -9,11 +9,11 @@ using System.Windows.Data;
 
 namespace Panel.Converters
 {
-    class PassRadioButtonListBoxAsCommandParameters : IMultiValueConverter
+    class PassRadioButtonListBoxStackPanelAsCommandParameters : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return new Tuple<TextBlock, ListBox>((TextBlock)values[0], (ListBox)values[1]);
+            return new Tuple<TextBlock, ListBox, StackPanel>((TextBlock)values[0], (ListBox)values[1], (StackPanel)values[2]);
         }
 
 

@@ -18,10 +18,15 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
             foreach (var control in chtStackPanel.Children)
             {
                 if (control is CartesianChart)
+                {
                     chtStackPanel.Children.Remove((CartesianChart)control);
+                    break;
+                }                    
                 else if (control is PieChart)
+                {
                     chtStackPanel.Children.Remove((PieChart)control);
-                break;
+                    break;
+                }                   
             }
 
             switch (SelectedChartType)
@@ -36,7 +41,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                                                                                             DurationPerspective,lstBoxSelectedStringValues);
                     Tuple<Axis, Series> AxisCartesianSeriesTuple = ConfigureChart.ConfigureChartByChartType(SelectedChartType, 
                                                                                                     lstBoxSelectedStringValues);
-                    PlotChart.ShowPlot(SelectedChartType, AllCartesianOrdinateSeriesInHours, AxisCartesianSeriesTuple, cartesianChart);
+                    AssembleChart.ShowPlot(SelectedChartType, AllCartesianOrdinateSeriesInHours, AxisCartesianSeriesTuple, cartesianChart);
                     
                     break;
 
@@ -47,6 +52,8 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                                                                                            DurationPerspective, lstBoxSelectedStringValues);
                     Tuple<Axis, Series> AxisPieSeriesTuple = ConfigureChart.ConfigureChartByChartType(SelectedChartType, 
                                                                                                     lstBoxSelectedStringValues);
+                    AssembleChart.ShowPlot(SelectedChartType, AllPieOrdinateSeriesInHours, AxisPieSeriesTuple, pieChart);
+
                     break;
                 default:
                     break;

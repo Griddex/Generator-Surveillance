@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 
 namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
 {
-    public static class PlotChart
+    public static class AssembleChart
     {
         public static void ShowPlot(string SelectedChartType, List<List<double>> AllOrdinateSeriesInHours,
                                     Tuple<Axis, Series> AxisSeriesTuple, Chart Chart)
         {
+            Chart.Height = 690;
+            Chart.Width = 1150;
+
             switch (SelectedChartType)
             {
                 case "Column":

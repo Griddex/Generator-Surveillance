@@ -23,7 +23,7 @@
         <convtrs:ConvertCategoryToPhrase x:Key="CategoryToPhrase"/>
         <convtrs:ConvertComboBoxItemToString x:Key="ComboBoxItemToString"/>
         <convtrs:ConvertIntToTwoCharString x:Key="IntToTwoCharString"/>
-        <convtrs:PassRadioButtonListBoxAsCommandParameters x:Key="PassRadioButtonListBox"/>
+        <convtrs:PassRadioButtonListBoxStackPanelAsCommandParameters x:Key="PassRadioButtonListBoxStackPanel"/>
         <convtrs:PassCheckBoxBoolListBoxAsCommandParameters x:Key="PassCheckBoxBoolListBox"/>
         <convtrs:PassListBoxAsCommandParameter x:Key="PassListBox"/>
 

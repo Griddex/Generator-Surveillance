@@ -13,7 +13,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                                             string DurationPerspective, List<string> lstBoxSelectedStringValues)
         {
             List<List<double>> ListOfHoursList = new List<List<double>>();
-            CalculateUsageHours calculateUsageHours = new CalculateUsageHours();
+            CalculateUsageHours calculateUsageHours = new CalculateUsageHours(new UnitOfWork(new GeneratorSurveillanceDBEntities()));
             switch (DurationPerspective)
             {
                 case "Day":

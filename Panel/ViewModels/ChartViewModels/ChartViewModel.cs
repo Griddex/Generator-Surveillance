@@ -19,6 +19,8 @@ using LiveCharts.Defaults;
 using System.Windows.Controls;
 using Panel.BusinessLogic.AuxilliaryMethods;
 using Panel.BusinessLogic;
+using Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic;
+using System.Windows.Media;
 
 namespace Panel.ViewModels.ChartViewModels
 {
@@ -127,7 +129,7 @@ namespace Panel.ViewModels.ChartViewModels
         public int SelectedStopSecond { get; set; }
         public string SelectedStopAMPM { get; set; }
 
-        public bool? SelectedDurationPerspective { get; set; }
+        public string SelectedDurationPerspective { get; set; }
 
         private void InitialiseChartViewModel()
         {
@@ -173,6 +175,26 @@ namespace Panel.ViewModels.ChartViewModels
             }
         }
 
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
+        }
+
         private ICommand _populateLstBoxCmd;
         public ICommand PopulateLstBoxCmd
         {
@@ -187,9 +209,21 @@ namespace Panel.ViewModels.ChartViewModels
                             if (x != null)
                             {
                                 StackPanel StkplDurationPerspective = (StackPanel)x;
-                                RadioButton rdbtnYear = StkplDurationPerspective.Children.OfType<RadioButton>()
-                                                                .FirstOrDefault(r => r.Name == "rdbtnYear");
-                                rdbtnYear.IsChecked = true;
+                                RadioButton rdbtnDurationPerspective = StkplDurationPerspective
+                                                                       .Children.OfType<RadioButton>()
+                                                                       .FirstOrDefault(r => r.IsChecked == true);
+                                if(rdbtnDurationPerspective == null)
+                                {
+                                    MessageBox.Show("Please select a duration perspective", "Information",
+                                        MessageBoxButton.OK, MessageBoxImage.Information);
+                                    return;
+                                }
+
+                                IEnumerable<TextBlock> xtxblkDurationPerspective = FindVisualChildren<TextBlock>(rdbtnDurationPerspective);
+                                foreach (var control in xtxblkDurationPerspective)
+                                {
+                                    SelectedDurationPerspective = control.Name.Split(new string[] { "txtBlk" }, StringSplitOptions.RemoveEmptyEntries)[0];
+                                }                                              
                             }
                         },
                         y => true
@@ -249,17 +283,18 @@ namespace Panel.ViewModels.ChartViewModels
                             DateTime StartDateTime = Convert.ToDateTime($"{SelectedStartDate.ToString(sysDateFormat)} {StartTime.TimeOfDay.ToString()}");
                             DateTime StopDateTime = Convert.ToDateTime($"{SelectedStopDate.ToString(sysDateFormat)} {StopTime.TimeOfDay.ToString()}");
 
-                            Tuple<TextBlock, ListBox> txtBlkLstBxTuple = (Tuple<TextBlock, ListBox>)x;
-                            string DateDurationPerspective = txtBlkLstBxTuple.Item1.Text;
+                            Tuple<TextBlock, ListBox, StackPanel> txtBlkLstBxStkPnlTuple = (Tuple<TextBlock, ListBox, StackPanel>)x;
+                            string DateDurationPerspective = txtBlkLstBxStkPnlTuple.Item1.Text;
+                            SelectedDurationPerspective = DateDurationPerspective;
                             IEnumerable<string> DatePerspectiveList = ExtrudeInterveningDates.GetInterveningDates(StartDateTime, 
                                                                         StopDateTime, SelectedGeneratorName, DateDurationPerspective);
                             try
                             {
-                                txtBlkLstBxTuple.Item2.Items.Clear();
+                                txtBlkLstBxStkPnlTuple.Item2.Items.Clear();
                             }
                             catch (Exception) { }                            
                             
-                            txtBlkLstBxTuple.Item2.ItemsSource = DatePerspectiveList;                           
+                            txtBlkLstBxStkPnlTuple.Item2.ItemsSource = DatePerspectiveList;
                             PlotButtonPressedCount++;
                         },
                         y => true
@@ -332,50 +367,28 @@ namespace Panel.ViewModels.ChartViewModels
                     (
                         x =>
                         {
-                            Tuple<ListBox, GroupBox> lstBxChtGrpBxTuple = (Tuple<ListBox, GroupBox>)x;
-                            List<string> lstBoxStringValues = lstBxChtGrpBxTuple.Item1.SelectedItems.Cast<string>().ToList();
-                            GroupBox chtGroupBox = lstBxChtGrpBxTuple.Item2;
-                            StackPanel chtStackPanel = (StackPanel)chtGroupBox.Content;
-                            
-                            //SeriesCollection = new SeriesCollection
-                            //{
-                            //    new LineSeries()
-                            //    {
-                            //        Title = "Generator On",
-                            //        Values = chtDateTimeValues,
-                            //        PointGeometry = DefaultGeometries.Circle,
-                            //        PointGeometrySize = 5
-                            //    }                                
-                            //};
-
-                            //XFormatter = v => v.ToString("MM/dd/yyyy");
-                            
-
-                            //CartesianChart cartesianChart = lstBxChtGrpBxTuple.Item2;
-                            cartesian.Height = 650;
-                            cartesian.Width = 1200;
-                            cartesian.Series.Clear();
-                            cartesian.AxisX.Clear();
-                            cartesian.AxisY.Clear();
-
-                            ColumnSeries col = new ColumnSeries()
+                            if (SelectedDurationPerspective == null)
                             {
-                                DataLabels = false,
-                                LabelsPosition = BarLabelPosition.Top,
-                                Values = new ChartValues<double>()                             
-                            };
-     
-                           
-                            foreach (var item in YValues)
-                            {
-                                col.Values.Add(item);
+                                MessageBox.Show("Please select a duration perspective", "Information",
+                                        MessageBoxButton.OK, MessageBoxImage.Information);
+                                return;
                             }
 
-                            cartesian.Series.Add(col);
-                            cartesian.AxisX.Add(XAxis);
-                            
-                            //cartesianChart.AxisX.Add(dateAxis);
-                            //cartesianChart.AxisY.Add(new Axis { LabelFormatter = v => v.ToString() });
+                            Tuple<ListBox, GroupBox> lstBxChtGrpBxStkPnlTuple = (Tuple<ListBox, GroupBox>)x;
+
+                            List<string> lstBoxStringValues = lstBxChtGrpBxStkPnlTuple.Item1.SelectedItems.Cast<string>().ToList();
+                            if (lstBoxStringValues.Count == 0)
+                            {
+                                MessageBox.Show("Please select one or more date values", "Information",
+                                       MessageBoxButton.OK, MessageBoxImage.Information);
+                                return;
+                            }
+                            GroupBox chtGroupBox = lstBxChtGrpBxStkPnlTuple.Item2;
+                            StackPanel chtStackPanel = (StackPanel)chtGroupBox.Content;                           
+
+                            GeneratorUsageLogic.PlotChart(SelectedGeneratorName, SelectedChartType, SelectedDurationPerspective, 
+                                                            lstBoxStringValues, lstBoxStringValues.Count, chtStackPanel);
+
                         },
                         y => true
                     )

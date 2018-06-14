@@ -125,7 +125,7 @@
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\GeneratorMaintenanceLogic.cs" />
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\GeneratorUsageLogic.cs" />
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\GetOrdinateData.cs" />
-    <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\PlotChart.cs" />
+    <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\AssembleChart.cs" />
     <Compile Include="BusinessLogic\RaiseRadioButtonClick.cs" />
     <Compile Include="Commands\GenericDelegateCommand.cs" />
     <Compile Include="Commands\InputCommands.cs" />
@@ -150,7 +150,7 @@
     <Compile Include="Converters\InputViewMultiConverter.cs" />
     <Compile Include="Converters\PassCheckBoxBoolListBoxAsCommandParameters.cs" />
     <Compile Include="Converters\PassListBoxAsCommandParameter.cs" />
-    <Compile Include="Converters\PassRadioButtonListBoxAsCommandParameters.cs" />
+    <Compile Include="Converters\PassRadioButtonListBoxStackPanelAsCommandParameters.cs" />
     <Compile Include="GeneratorFuelling.cs">
       <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
     </Compile>

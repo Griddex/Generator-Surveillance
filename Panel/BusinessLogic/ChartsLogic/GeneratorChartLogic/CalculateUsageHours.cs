@@ -3,13 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
 {
     public  class CalculateUsageHours
     {
+        public CalculateUsageHours(UnitOfWork unitOfWork)
+        {
+            UnitOfWork = unitOfWork;
+        }
+
         public UnitOfWork UnitOfWork { get; set; }
 
         public List<double> GetGeneratorHoursByDay(string SelectedGeneratorName, List<string> lstBoxSelectedStringValues)
@@ -19,7 +26,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
             {
                 HoursByDayList.Add(UnitOfWork.GeneratorUsage.GetAllGeneratorUsages()
                                             .Where(x => SelectedGeneratorName == x.GeneratorName)
-                                            .Where(x => x.Date.ToString() == dateString)
+                                            .Where(x => x.Date.ToString("MMMM dd, yyyy") == dateString)
                                             .Select(x => (x.GeneratorStopped - x.GeneratorStarted).TotalHours)
                                             .Aggregate((x, y) => x + y));
             }
