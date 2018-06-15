@@ -295,12 +295,18 @@
                 <StackPanel Orientation="Vertical">
                     <ToolBarTray Height="30">
                         <ToolBar>
-                            <Button x:Name="btnCamera" Width="30" Height="30" ToolTip="Take a Chart snapshot">
+                            <Button x:Name="btnCamera" Width="30" Height="30" ToolTip="Take a snapshot"
+                                    Command="{Binding CopyChartCmd}">
+                                <Button.CommandParameter>
+                                    <MultiBinding Converter="{StaticResource PassGroupBox}">     
+                                        <Binding ElementName="grpBxChart"/>
+                                    </MultiBinding>
+                                </Button.CommandParameter>
                                 <Button.Content>
                                     <Image Source="/Images/Camera.png" />
                                 </Button.Content>
                             </Button>
-                            <Button x:Name="btnSnipe" Width="30" Height="30" ToolTip="Take a Chart snipe">
+                            <Button x:Name="btnSnipe" Width="30" Height="30" ToolTip="Take a snipe">
                                 <Button.Content>
                                     <Image Source="/Images/Snipe.png" />
                                 </Button.Content>
@@ -310,11 +316,11 @@
                                     <Image Source="/Images/Print.png"/>
                                 </Button.Content>
                             </Button>
-                            <Button x:Name="btnCopy" Width="30" Height="30" ToolTip="Copy Chart to Clipboard">
+                            <!--<Button x:Name="btnCopy" Width="30" Height="30" ToolTip="Copy Chart to Clipboard">
                                 <Button.Content>
                                     <Image Source="/Images/Copy.png"/>
                                 </Button.Content>
-                            </Button>
+                            </Button>-->
                         </ToolBar>
                     </ToolBarTray>
                     <!--<lvc:CartesianChart x:Name="chtGeneratorSurveillance" Height="650" Width="1200" 

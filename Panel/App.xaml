@@ -26,6 +26,7 @@
         <convtrs:PassRadioButtonListBoxStackPanelAsCommandParameters x:Key="PassRadioButtonListBoxStackPanel"/>
         <convtrs:PassCheckBoxBoolListBoxAsCommandParameters x:Key="PassCheckBoxBoolListBox"/>
         <convtrs:PassListBoxAsCommandParameter x:Key="PassListBox"/>
+        <convtrs:PassGroupBoxAsCommandParameter x:Key="PassGroupBox"/>
 
         <Style TargetType="{x:Type GroupItem}" x:Key="DataGridGroupItemStyle">
             <Setter Property="Margin" Value="0,0,0,5"/>

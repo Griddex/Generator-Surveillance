@@ -41,7 +41,8 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                                                                                             DurationPerspective,lstBoxSelectedStringValues);
                     Tuple<Axis, List<Series>> AxisCartesianSeriesTuple = ConfigureChart.ConfigureChartByChartType(SelectedChartType, 
                                                                                                     lstBoxSelectedStringValues);
-                    AssembleChart.ShowPlot(SelectedChartType, AllCartesianOrdinateSeriesInHours, AxisCartesianSeriesTuple, cartesianChart);
+                    AssembleChart.ShowPlot(SelectedChartType, AllCartesianOrdinateSeriesInHours, AxisCartesianSeriesTuple, cartesianChart, 
+                                                                                    lstBoxSelectedStringValues);
                     
                     break;
 
@@ -52,7 +53,8 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                                                                                            DurationPerspective, lstBoxSelectedStringValues);
                     Tuple<Axis, List<Series>> AxisPieSeriesTuple = ConfigureChart.ConfigureChartByChartType(SelectedChartType, 
                                                                                                     lstBoxSelectedStringValues);
-                    AssembleChart.ShowPlot(SelectedChartType, AllPieOrdinateSeriesInHours, AxisPieSeriesTuple, pieChart);
+                    AssembleChart.ShowPlot(SelectedChartType, AllPieOrdinateSeriesInHours, AxisPieSeriesTuple, pieChart,
+                                                                            lstBoxSelectedStringValues);
 
                     break;
                 default:

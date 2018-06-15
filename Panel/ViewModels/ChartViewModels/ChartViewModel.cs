@@ -21,6 +21,10 @@ using Panel.BusinessLogic.AuxilliaryMethods;
 using Panel.BusinessLogic;
 using Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic;
 using System.Windows.Media;
+using LiveCharts.Wpf.Charts.Base;
+using System.IO;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Panel.ViewModels.ChartViewModels
 {
@@ -329,29 +333,7 @@ namespace Panel.ViewModels.ChartViewModels
             }
         }
 
-        private ICommand _getSelectedItemsCmd;
-        public ICommand GetSelectedItemsCmd
-        {
-            get
-            {
-                return this._getSelectedItemsCmd ??
-                (
-                    this._getSelectedItemsCmd = new DelegateCommand
-                    (
-                        x =>
-                        {
-                            if (x != null)
-                            {
-                                ListBox LstBx = (ListBox)x;
-                                lstBxSelectedItems = LstBx.SelectedItems.Cast<string>().ToList();
-                            }
-                        },
-                        y => true
-                    )
-                );
-            }
-        }
-
+        
         public SeriesCollection SeriesCollection { get; set; }
         public Func<double, string> XFormatter { get; set; }
         public Func<double,string> YFormatter { get; set; }
@@ -394,6 +376,61 @@ namespace Panel.ViewModels.ChartViewModels
                     )
                 );
             }
-        }       
+        }
+
+        private ICommand _copyChartCmd;
+        public ICommand CopyChartCmd
+        {
+            get
+            {
+                return this._copyChartCmd ??
+                (
+                    this._copyChartCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            if (x != null)
+                            {
+                                Tuple<GroupBox> GrpBx = (Tuple<GroupBox>)x;
+                                foreach (var control in FindVisualChildren<Chart>(GrpBx.Item1))
+                                {
+                                    if (control is CartesianChart || control is PieChart)
+                                    {
+                                        double width = control.ActualWidth;
+                                        double height = control.ActualHeight;
+                                        RenderTargetBitmap bmpCopied = new RenderTargetBitmap
+                                                                       (
+                                                                            (int)Math.Round(width), (int)Math.Round(height),
+                                                                            96, 96, PixelFormats.Default
+                                                                       );
+
+                                        Rectangle rectWhiteBackground = new Rectangle()
+                                        {
+                                            Width = width,
+                                            Height = height,
+                                            Fill = Brushes.White
+                                        };
+                                        rectWhiteBackground.Arrange(new Rect(new Point(), new Size(width, height)));
+                                        bmpCopied.Render(rectWhiteBackground);
+
+                                        DrawingVisual dv = new DrawingVisual();
+                                        using (DrawingContext dc = dv.RenderOpen())
+                                        {
+                                            VisualBrush vb = new VisualBrush(control);
+                                            dc.DrawRectangle(vb, null, new Rect(new Point(), new Size(width, height)));
+                                        }
+
+                                        bmpCopied.Render(dv);
+                                        Clipboard.SetImage(bmpCopied);                                        
+                                        MessageBox.Show("Chart copied", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    }
+                                }
+                            }
+                        },
+                        y => true
+                    )
+                );
+            }
+        }
     }
 }

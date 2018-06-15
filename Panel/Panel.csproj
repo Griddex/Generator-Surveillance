@@ -150,6 +150,7 @@
     <Compile Include="Converters\InputViewMultiConverter.cs" />
     <Compile Include="Converters\PassCheckBoxBoolListBoxAsCommandParameters.cs" />
     <Compile Include="Converters\PassListBoxAsCommandParameter.cs" />
+    <Compile Include="Converters\PassGroupBoxAsCommandParameter.cs" />
     <Compile Include="Converters\PassRadioButtonListBoxStackPanelAsCommandParameters.cs" />
     <Compile Include="GeneratorFuelling.cs">
       <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>

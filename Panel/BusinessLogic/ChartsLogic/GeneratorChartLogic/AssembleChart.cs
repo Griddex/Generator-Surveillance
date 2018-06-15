@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
 {
@@ -13,7 +14,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
     {
         public static Func<ChartPoint,string> PointLabel { get; set; }
         public static void ShowPlot(string SelectedChartType, List<List<double>> AllOrdinateSeriesInHours,
-                                    Tuple<Axis, List<Series>> AxisSeriesTuple, Chart Chart)
+                                    Tuple<Axis, List<Series>> AxisSeriesTuple, Chart Chart, List<string> lstBoxSelectedStringValues)
         {
             Chart.Height = 690;
             Chart.Width = 1150;
@@ -53,18 +54,19 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                     Chart.AxisX.Add(AxisSeriesTuple.Item1);
                     break;
 
-                //case "Stacked Area":
-                //    StackedAreaSeries StackedAreaSeries = (StackedAreaSeries)AxisSeriesTuple.Item2;
-                //    for (int i = 0; i < AllOrdinateSeriesInHours.Count(); i++)
-                //    {
-                //        foreach (var seriesValue in AllOrdinateSeriesInHours[i])
-                //        {
-                //            StackedAreaSeries.Values.Add(seriesValue);
-                //        }
-                //        Chart.Series.Add(StackedAreaSeries);
-                //    }
-                //    Chart.AxisX.Add(AxisSeriesTuple.Item1);
-                //    break;
+                case "Stacked Area":
+                    //StackedAreaSeries StackedAreaSeries = (StackedAreaSeries)AxisSeriesTuple.Item2;
+                    //for (int i = 0; i < AllOrdinateSeriesInHours.Count(); i++)
+                    //{
+                    //    foreach (var seriesValue in AllOrdinateSeriesInHours[i])
+                    //    {
+                    //        StackedAreaSeries.Values.Add(seriesValue);
+                    //    }
+                    //    Chart.Series.Add(StackedAreaSeries);
+                    //}
+                    //Chart.AxisX.Add(AxisSeriesTuple.Item1);
+                    MessageBox.Show("Implementation coming soon", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
 
                 case "Line":
                     List<LineSeries> LineSeries = AxisSeriesTuple.Item2.Cast<LineSeries>().ToList();
@@ -77,7 +79,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                     break;
 
                 case "Pie":
-                    PointLabel = chtPt => string.Format($"{chtPt.Y} ({chtPt.Participation:P})");
+                    PointLabel = chtPt => string.Format($"{chtPt.Y.ToString("N")} hours");
                     List<Series> SeriesCollection = AxisSeriesTuple.Item2;
                     for (int i = 0; i < AllOrdinateSeriesInHours[0].Count; i++)
                     {
@@ -85,6 +87,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                         (
                             new PieSeries
                             {
+                                Title = lstBoxSelectedStringValues[i],
                                 DataLabels = true,
                                 LabelPoint = PointLabel,
                                 Values = new ChartValues<double>() { AllOrdinateSeriesInHours[0][i] }
@@ -92,6 +95,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                         );
                     }
                     Chart.AxisX.Add(AxisSeriesTuple.Item1);
+                    Chart.LegendLocation = LegendLocation.Bottom;
                     break;
 
                 default:
