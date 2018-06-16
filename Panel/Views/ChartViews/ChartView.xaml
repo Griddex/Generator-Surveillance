@@ -196,6 +196,7 @@
                                     <TextBlock x:Name="txtBxYear" Text="Year" Foreground="Black" FontSize="12"/>
                                 </WrapPanel>
                             </RadioButton>
+                            <Separator/>
                             <RadioButton Margin="0,10,0,0"  GroupName="DateCategory"
                                          Command="{Binding DurationPerspectiveCmd}">
                                 <RadioButton.CommandParameter>
@@ -306,12 +307,19 @@
                                     <Image Source="/Images/Camera.png" />
                                 </Button.Content>
                             </Button>
-                            <Button x:Name="btnSnipe" Width="30" Height="30" ToolTip="Take a snipe">
+                            <Button x:Name="btnSnipe" Width="30" Height="30" ToolTip="Take a snipe"
+                                    Command="{Binding SnipeCmd}">
                                 <Button.Content>
                                     <Image Source="/Images/Snipe.png" />
                                 </Button.Content>
                             </Button>
-                            <Button x:Name="btnPrint" Width="30" Height="30" ToolTip="Print Chart">
+                            <Button x:Name="btnPrint" Width="30" Height="30" ToolTip="Print Chart"
+                                    Command="{Binding PrintCmd}">
+                                <Button.CommandParameter>
+                                    <MultiBinding Converter="{StaticResource PassGroupBox}">
+                                        <Binding ElementName="grpBxChart"/>
+                                    </MultiBinding>
+                                </Button.CommandParameter>
                                 <Button.Content>
                                     <Image Source="/Images/Print.png"/>
                                 </Button.Content>

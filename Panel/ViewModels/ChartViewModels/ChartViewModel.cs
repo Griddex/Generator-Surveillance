@@ -25,6 +25,10 @@ using LiveCharts.Wpf.Charts.Base;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Panel.UserControls;
+using System.Drawing.Printing;
+using Panel.BusinessLogic.PrintLogic;
+
 
 namespace Panel.ViewModels.ChartViewModels
 {
@@ -178,27 +182,7 @@ namespace Panel.ViewModels.ChartViewModels
                 return "";
             }
         }
-
-        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
-        {
-            if (depObj != null)
-            {
-                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-                {
-                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-                    if (child != null && child is T)
-                    {
-                        yield return (T)child;
-                    }
-
-                    foreach (T childOfChild in FindVisualChildren<T>(child))
-                    {
-                        yield return childOfChild;
-                    }
-                }
-            }
-        }
-
+        
         private ICommand _populateLstBoxCmd;
         public ICommand PopulateLstBoxCmd
         {
@@ -223,7 +207,7 @@ namespace Panel.ViewModels.ChartViewModels
                                     return;
                                 }
 
-                                IEnumerable<TextBlock> xtxblkDurationPerspective = FindVisualChildren<TextBlock>(rdbtnDurationPerspective);
+                                IEnumerable<TextBlock> xtxblkDurationPerspective = FindChildren.FindVisualChildren<TextBlock>(rdbtnDurationPerspective);
                                 foreach (var control in xtxblkDurationPerspective)
                                 {
                                     SelectedDurationPerspective = control.Name.Split(new string[] { "txtBlk" }, StringSplitOptions.RemoveEmptyEntries)[0];
@@ -392,7 +376,13 @@ namespace Panel.ViewModels.ChartViewModels
                             if (x != null)
                             {
                                 Tuple<GroupBox> GrpBx = (Tuple<GroupBox>)x;
-                                foreach (var control in FindVisualChildren<Chart>(GrpBx.Item1))
+                                if (FindChildren.FindVisualChildren<Chart>(GrpBx.Item1).FirstOrDefault() == null)
+                                {
+                                    MessageBox.Show($"Generate a chart", "Error",
+                                         MessageBoxButton.OK, MessageBoxImage.Error);
+                                    return;
+                                }
+                                foreach (var control in FindChildren.FindVisualChildren<Chart>(GrpBx.Item1))
                                 {
                                     if (control is CartesianChart || control is PieChart)
                                     {
@@ -426,6 +416,73 @@ namespace Panel.ViewModels.ChartViewModels
                                     }
                                 }
                             }
+                        },
+                        y => true
+                    )
+                );
+            }
+        }
+
+        private ICommand _snipesCmd;
+        public ICommand SnipeCmd
+        {
+            get
+            {
+                return this._snipesCmd ??
+                (
+                    this._snipesCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            if (true)
+                            {
+                                MessageBox.Show($"Implementation coming soon", "Information",
+                                     MessageBoxButton.OK, MessageBoxImage.Information);                                
+                            }
+                            else
+                            {
+                                //SnipingTool snipingTool = new SnipingTool();
+                                //snipingTool.Show();
+                                //snipingTool.Width = 220;
+                                //snipingTool.Height = 90;
+                                //return;
+                            }
+                            return;
+                        },
+                        y => true
+                    )
+                );
+            }
+        }
+
+        Tuple<GroupBox> chtGroupBoxTuple;
+        private ICommand _printCmd;
+        public ICommand PrintCmd
+        {
+            get
+            {
+                return this._printCmd ??
+                (
+                    this._printCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            if(x != null)
+                            {
+                                chtGroupBoxTuple = (Tuple<GroupBox>)x;
+                                Chart chart = FindChildren.FindVisualChildren<Chart>(chtGroupBoxTuple.Item1).FirstOrDefault();
+                                if(chart == null)
+                                {
+                                    MessageBox.Show($"Generate a chart", "Error",
+                                         MessageBoxButton.OK, MessageBoxImage.Error);
+                                    return;
+                                }                                
+                                PrintDialog printDialog = new PrintDialog();
+                                if (printDialog.ShowDialog() == true)
+                                {
+                                    printDialog.PrintVisual(chart, "Printing chart...");
+                                }                                   
+                            }                           
                         },
                         y => true
                     )

@@ -58,6 +58,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Gma.System.MouseKeyHook, Version=5.6.130.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MouseKeyHook.5.6.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
+    </Reference>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
     </Reference>
@@ -71,11 +74,13 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -118,6 +123,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BusinessLogic\AuxilliaryMethods\FindChildren.cs" />
     <Compile Include="BusinessLogic\AuxilliaryMethods\ParseTimeFromDateTime.cs" />
     <Compile Include="BusinessLogic\ChartsLogic\ExtrudeInterveningDates.cs" />
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\CalculateUsageHours.cs" />
@@ -126,7 +132,9 @@
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\GeneratorUsageLogic.cs" />
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\GetOrdinateData.cs" />
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\AssembleChart.cs" />
+    <Compile Include="BusinessLogic\PrintLogic\Print.cs" />
     <Compile Include="BusinessLogic\RaiseRadioButtonClick.cs" />
+    <Compile Include="BusinessLogic\SnipingToolLogic\SnipingToolHelperMethods.cs" />
     <Compile Include="Commands\GenericDelegateCommand.cs" />
     <Compile Include="Commands\InputCommands.cs" />
     <Compile Include="Commands\MainMenuCommands.cs" />
@@ -226,6 +234,9 @@
     <Compile Include="UserControls\InputLinkBar.xaml.cs">
       <DependentUpon>InputLinkBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SnipingTool.xaml.cs">
+      <DependentUpon>SnipingTool.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Validations\ValidateFuelVolumeCostRule.cs" />
     <Compile Include="Validations\ValidateMaintenanceCommentsRule.cs" />
     <Compile Include="Validations\ValidateMaintenanceTotalCostRule.cs" />
@@ -290,6 +301,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\InputLinkBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SnipingTool.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -418,6 +433,7 @@
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
       <LastGenOutput>GeneratorSurveillanceDBEntities.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\OpenFolder.jpg" />
     <Resource Include="Images\Snipe.png" />
     <Resource Include="Images\Camera.png" />
     <Resource Include="Images\Copy.png" />
