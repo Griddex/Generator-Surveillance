@@ -28,8 +28,8 @@ namespace Panel.Repositories
         {
             int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorUsages.Count();
             bool isNull = GeneratorSurveillanceDBContext.GeneratorUsages
-                                                       .SingleOrDefault(x => x.Id == NoOfRecords - 1)
-                                                       .GeneratorStopped == null ? true : false;
+                                                       .SingleOrDefault(x => x.Id == NoOfRecords)
+                                                       .GeneratorStopped.Year.ToString() == "1" ? true : false;
 
             string lastGenName = GeneratorSurveillanceDBContext.GeneratorUsages
                                                                .SingleOrDefault(x => x.Id == NoOfRecords - 1)

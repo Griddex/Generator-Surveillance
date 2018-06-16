@@ -28,7 +28,7 @@ namespace Panel.Repositories
             (
                 new GeneratorUsage
                 {
-                    Id = NoOfRecords,
+                    Id = NoOfRecords + 1,
                     Date = RecordDate,
                     GeneratorName = GeneratorName,
                     GeneratorStarted = GeneratorStarted,
