@@ -62,5 +62,18 @@ namespace Panel.Repositories
                                     );
             return AllGeneratorFuellings;
         }
+
+        public ObservableCollection<GeneratorFuelling> GetAnyPageGeneratorFuellings(int pageIndex = 0, int pageSize = 10)
+        {
+            var FirstPageGeneratorFuellings = new ObservableCollection<GeneratorFuelling>
+                                            (
+                                                GeneratorSurveillanceDBContext.GeneratorFuellings
+                                                .OrderBy(x => x.Id)
+                                                .Skip((pageIndex - 1) * pageSize)
+                                                .Take(pageSize)
+                                                .AsParallel<GeneratorFuelling>()
+                                            );
+            return FirstPageGeneratorFuellings;
+        }
     }
 }

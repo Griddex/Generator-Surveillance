@@ -157,6 +157,7 @@
     <Compile Include="Converters\ConvObjsToDtpkrCmbx.cs" />
     <Compile Include="Converters\FloatConverter.cs" />
     <Compile Include="Converters\InputViewMultiConverter.cs" />
+    <Compile Include="Converters\PassTwoTextBoxesAsCommandParameters.cs" />
     <Compile Include="Converters\PassCheckBoxBoolListBoxAsCommandParameters.cs" />
     <Compile Include="Converters\PassListBoxAsCommandParameter.cs" />
     <Compile Include="Converters\PassGroupBoxAsCommandParameter.cs" />
@@ -236,6 +237,9 @@
     <Compile Include="UserControls\InputLinkBar.xaml.cs">
       <DependentUpon>InputLinkBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Pagination.xaml.cs">
+      <DependentUpon>Pagination.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SnipingTool.xaml.cs">
       <DependentUpon>SnipingTool.xaml</DependentUpon>
     </Compile>
@@ -303,6 +307,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\InputLinkBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Pagination.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

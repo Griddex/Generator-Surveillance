@@ -61,5 +61,19 @@ namespace Panel.Repositories
                                     );
             return AllGeneratorMaintenance;
         }
+
+        public ObservableCollection<GeneratorMaintenance> GetAnyPageGeneratorMaintenance(int pageIndex = 0, int pageSize = 10)
+        {
+            var FirstPageGeneratorMaintenance = new ObservableCollection<GeneratorMaintenance>
+                                            (
+                                                GeneratorSurveillanceDBContext.GeneratorMaintenances
+                                                .OrderBy(x => x.Id)
+                                                .Skip((pageIndex - 1) * pageSize)
+                                                .Take(10)
+                                                .AsParallel<GeneratorMaintenance>()
+                                            );
+            return FirstPageGeneratorMaintenance;
+        }
+
     }
 }

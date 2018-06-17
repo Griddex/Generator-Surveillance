@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Panel.UserControls.Pagination"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Panel.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="25" d:DesignWidth="300">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Go to Page:" Background="White" FontSize="10"
+                   Width="60"/>
+            <TextBox Width="30" Text="10" HorizontalContentAlignment="Center"
+                     VerticalContentAlignment="Center"/>
+            <Label Content="No. Of Rows:" Background="White" FontSize="10"/>
+            <ComboBox Width="40">
+                <ComboBoxItem FontSize="10">5</ComboBoxItem>
+                <ComboBoxItem FontSize="10">10</ComboBoxItem>
+                <ComboBoxItem FontSize="10">25</ComboBoxItem>
+                <ComboBoxItem FontSize="10">50</ComboBoxItem>
+                <ComboBoxItem FontSize="10">100</ComboBoxItem>
+            </ComboBox>
+            <Image Source="/Images/Back.jpg" Width="25" Height="25"/>
+            <TextBox Width="52" Text="10" HorizontalContentAlignment="Center"
+                     VerticalContentAlignment="Center"/>
+            <Image Source="/Images/Next.jpg" Width="25" Height="25"/>
+        </StackPanel> 
+    </Grid>
+</UserControl>

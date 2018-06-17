@@ -13,6 +13,7 @@ namespace Panel.Interfaces
         void GeneratorStarted(DateTime RecordDate, string GeneratorName, DateTime GeneratorStarted);
         void GeneratorStopped(DateTime GeneratorStopped);
         ObservableCollection<GeneratorUsage> GetAllGeneratorUsages();
+        ObservableCollection<GeneratorUsage> GetAnyPageGeneratorUsages(int pageIndex = 1, int pageSize = 10);
         DateTime GetStartedDate(string GeneratorName);
         DateTime GetStoppedDate(string GeneratorName);
         DateTime GetStartedTime(string GeneratorName);

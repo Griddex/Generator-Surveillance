@@ -8,6 +8,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -18,34 +20,48 @@ namespace Panel.ViewModels.TableViewModels
         public UsageFuellingTablesViewModel(UnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
-            AllGeneratorUsageRecords = UnitOfWork.GeneratorUsage.GetAllGeneratorUsages();
-            AllGeneratorFuellingRecords = UnitOfWork.GeneratorFuelling.GetAllGeneratorFuellings();
-            AllGeneratorMaintenanceRecords = UnitOfWork.GeneratorMaintenance.GetAllGeneratorFuellings();
+            AnyPageUsageRecords = UnitOfWork.GeneratorUsage.GetAnyPageGeneratorUsages();
+            AnyPageFuellingRecords = UnitOfWork.GeneratorFuelling.GetAnyPageGeneratorFuellings();
+            AnyPageMaintenanceRecords = UnitOfWork.GeneratorMaintenance.GetAnyPageGeneratorMaintenance();
         }
         public UnitOfWork UnitOfWork { get; set; }
-        public ObservableCollection<GeneratorUsage> AllGeneratorUsageRecords { get; }
-        public ObservableCollection<GeneratorFuelling> AllGeneratorFuellingRecords { get; }
-        public ObservableCollection<GeneratorMaintenance> AllGeneratorMaintenanceRecords { get; }
+
+        private ObservableCollection<GeneratorUsage> _anyPageUsageRecords;
+        public ObservableCollection<GeneratorUsage> AnyPageUsageRecords
+        {
+            get => _anyPageUsageRecords;
+            set
+            {
+                _anyPageUsageRecords = value;
+                OnPropertyChanged(nameof(AnyPageUsageRecords));
+            }
+        }
+        public ObservableCollection<GeneratorFuelling> AnyPageFuellingRecords { get; }
+        public ObservableCollection<GeneratorMaintenance> AnyPageMaintenanceRecords { get; }
 
 
 
-        //private ICommand _groupByCategory;
-        //public ICommand GroupByCategory
-        //{
-        //    get
-        //    {
-        //        return _groupByCategory ??
-        //        (
-        //            _groupByCategory = new DelegateCommand
-        //            (
-        //                x =>
-        //                {
-        //                    ICollectionView cvsGeneratorUsages = CollectionViewSource.GetDefaultView()
-        //                }
-        //            )
-        //       );
-        //    }
-        //}
+        private ICommand _nextPageCmd;
+        public ICommand NextPageCmd
+        {
+            get
+            {
+                return this._nextPageCmd ??
+                (
+                    this._nextPageCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            Tuple<TextBox, TextBox> txtBxTxtBx = (Tuple<TextBox, TextBox>)x;
+                            int pageIndex = Convert.ToInt32(txtBxTxtBx.Item1.Text);
+                            int pageSize = Convert.ToInt32(txtBxTxtBx.Item2.Text);
+                            _anyPageUsageRecords = UnitOfWork.GeneratorUsage.GetAnyPageGeneratorUsages(pageIndex, pageSize);
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
 
 
     }

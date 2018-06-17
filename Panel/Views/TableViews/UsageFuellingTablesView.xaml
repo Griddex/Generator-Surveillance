@@ -17,11 +17,11 @@
       Background="White">
     <Page.Resources>
         <CollectionViewSource x:Key="cvsGeneratorUsages" 
-                              Source="{Binding AllGeneratorUsageRecords}"/>
+                              Source="{Binding AnyPageUsageRecords}"/>
         <CollectionViewSource x:Key="cvsGeneratorFuellings"
-                              Source="{Binding AllGeneratorFuellingRecords}"/>
+                              Source="{Binding AnyPageFuellingRecords}"/>
         <CollectionViewSource x:Key="cvsGeneratorMaintenance"
-                              Source="{Binding AllGeneratorMaintenanceRecords}"/>
+                              Source="{Binding AnyPageMaintenanceRecords}"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -47,12 +47,11 @@
                       Width="550" Height="750">
                 <DockPanel>
                     <ToolBarTray DockPanel.Dock="Top">
-                        <ToolBar Height="45">
+                        <ToolBar Height="25">
                             <Button Click="GroupbyGenerator_Click">
                                 <Button.Content>
-                                    <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                                         <Image Source="/Images/GroupBy_Red.jpg" Height="20" Width="20"/>
-                                        <TextBlock Text=" Groupby Generator" FontSize="10"/>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
@@ -60,7 +59,6 @@
                                 <Button.Content>
                                     <StackPanel Orientation="Vertical">
                                         <Image Source="/Images/GroupBy_Green.png" Height="20" Width="20"/>
-                                        <TextBlock Text=" Groupby Archival" FontSize="10"/>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
@@ -68,10 +66,43 @@
                                 <Button.Content>
                                     <StackPanel Orientation="Vertical">
                                         <Image Source="/Images/Clear.png" Height="20" Width="20"/>
-                                        <TextBlock Text=" Clear Grouping" FontSize="10"/>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
+                            <StackPanel Orientation="Horizontal" Margin="110,0,0,0" Height="25">
+                                <Label Content="Go to Page:"  FontSize="10"
+                                        Width="70" HorizontalContentAlignment="Right"
+                                       Background="#EEF5FD"/>
+                                <TextBox x:Name="txtbxPageIndex" Width="30" Text="1" HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center" FontSize="10"/>
+                                <Label Content="No. Of Rows:" Background="#EEF5FD" FontSize="10"
+                                       HorizontalContentAlignment="Right"/>
+                                <ComboBox Width="40" FontSize="10">
+                                    <ComboBoxItem FontSize="10">5</ComboBoxItem>
+                                    <ComboBoxItem FontSize="10">10</ComboBoxItem>
+                                    <ComboBoxItem FontSize="10">25</ComboBoxItem>
+                                    <ComboBoxItem FontSize="10">50</ComboBoxItem>
+                                    <ComboBoxItem FontSize="10">100</ComboBoxItem>
+                                </ComboBox>
+                                <Button>
+                                    <Button.Content>
+                                        <Image Source="/Images/Back.jpg" Width="25" Height="25"/>
+                                    </Button.Content>
+                                </Button>
+                                <TextBox x:Name="txtbxPageSize" Width="52" Text="10" HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center" FontSize="10"/>
+                                <Button Command="{Binding NextPageCmd}">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource PassTwoTextBoxes}">
+                                            <Binding ElementName="txtbxPageIndex"/>
+                                            <Binding ElementName="txtbxPageIndex"/>
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
+                                    <Button.Content>
+                                        <Image Source="/Images/Next.jpg" Width="25" Height="25"/>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
                         </ToolBar>
                     </ToolBarTray>
                     <DataGrid x:Name="dtgdGenUsageTable" Style="{StaticResource DataGridStyle}"
@@ -164,12 +195,11 @@
                       HorizontalAlignment="Center">
                 <DockPanel>
                     <ToolBarTray DockPanel.Dock="Top">
-                        <ToolBar Height="45">
+                        <ToolBar Height="25">
                             <Button Click="GroupbyVendor_Click">
                                 <Button.Content>
                                     <StackPanel Orientation="Vertical">
                                         <Image Source="/Images/GroupBy_Red.jpg" Height="20" Width="20"/>
-                                        <TextBlock Text=" Groupby Vendor" FontSize="10"/>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
@@ -177,10 +207,37 @@
                                 <Button.Content>
                                     <StackPanel Orientation="Vertical">
                                         <Image Source="/Images/Clear.png" Height="20" Width="20"/>
-                                        <TextBlock Text=" Clear Grouping" FontSize="10"/>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
+                            <StackPanel Orientation="Horizontal" Margin="390,0,0,0" Height="25">
+                                <Label Content="Go to Page:"  FontSize="10"
+                                        Width="70" HorizontalContentAlignment="Right"
+                                       Background="#EEF5FD"/>
+                                <TextBox Width="30" Text="1" HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center" FontSize="10"/>
+                                <Label Content="No. Of Rows:" Background="#EEF5FD" FontSize="10"
+                                       HorizontalContentAlignment="Right"/>
+                                <ComboBox Width="40" FontSize="10">
+                                    <ComboBoxItem FontSize="10">5</ComboBoxItem>
+                                    <ComboBoxItem FontSize="10">10</ComboBoxItem>
+                                    <ComboBoxItem FontSize="10">25</ComboBoxItem>
+                                    <ComboBoxItem FontSize="10">50</ComboBoxItem>
+                                    <ComboBoxItem FontSize="10">100</ComboBoxItem>
+                                </ComboBox>
+                                <Button>
+                                    <Button.Content>
+                                        <Image Source="/Images/Back.jpg" Width="25" Height="25"/>
+                                    </Button.Content>
+                                </Button>
+                                <TextBox Width="52" Text="10" HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center" FontSize="10"/>
+                                <Button>
+                                    <Button.Content>
+                                        <Image Source="/Images/Next.jpg" Width="25" Height="25"/>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
                         </ToolBar>
                     </ToolBarTray>
                     <DataGrid x:Name="dtgdGenFuellingTable" Style="{StaticResource DataGridStyle}"
@@ -263,12 +320,11 @@
                       Header="Generator Maintenance Table" Width="800" Height="360">
                 <DockPanel>
                     <ToolBarTray DockPanel.Dock="Top">
-                        <ToolBar Height="45">
+                        <ToolBar Height="25">
                             <Button Click="GroupbyType_Click">
                                 <Button.Content>
                                     <StackPanel Orientation="Vertical">
                                         <Image Source="/Images/GroupBy_Red.jpg" Height="20" Width="20"/>
-                                        <TextBlock Text=" Groupby Maintenance" FontSize="10"/>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
@@ -276,10 +332,37 @@
                                 <Button.Content>
                                     <StackPanel Orientation="Vertical">
                                         <Image Source="/Images/Clear.png" Height="20" Width="20"/>
-                                        <TextBlock Text=" Clear Grouping" FontSize="10"/>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
+                            <StackPanel Orientation="Horizontal" Margin="390,0,0,0" Height="25">
+                                <Label Content="Go to Page:"  FontSize="10"
+                                        Width="70" HorizontalContentAlignment="Right"
+                                       Background="#EEF5FD"/>
+                                <TextBox Width="30" Text="1" HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center" FontSize="10"/>
+                                <Label Content="No. Of Rows:" Background="#EEF5FD" FontSize="10"
+                                       HorizontalContentAlignment="Right"/>
+                                <ComboBox Width="40" FontSize="10">
+                                    <ComboBoxItem FontSize="10">5</ComboBoxItem>
+                                    <ComboBoxItem FontSize="10">10</ComboBoxItem>
+                                    <ComboBoxItem FontSize="10">25</ComboBoxItem>
+                                    <ComboBoxItem FontSize="10">50</ComboBoxItem>
+                                    <ComboBoxItem FontSize="10">100</ComboBoxItem>
+                                </ComboBox>
+                                <Button>
+                                    <Button.Content>
+                                        <Image Source="/Images/Back.jpg" Width="25" Height="25"/>
+                                    </Button.Content>
+                                </Button>
+                                <TextBox Width="52" Text="10" HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center" FontSize="10"/>
+                                <Button>
+                                    <Button.Content>
+                                        <Image Source="/Images/Next.jpg" Width="25" Height="25"/>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
                         </ToolBar>
                     </ToolBarTray>
                     <DataGrid x:Name="dtgdGenMaintenanceTable" Style="{StaticResource DataGridStyle}"
