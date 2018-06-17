@@ -32,7 +32,8 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Generator" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="Hours" Type="float" Nullable="false" />
+          <Property Name="RunningHours" Type="float" Nullable="false" />
+          <Property Name="CumFuelVolumeSinceLastReading" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="GeneratorScheduler">
           <Key>
@@ -93,7 +94,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Generator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Hours" Type="Double" Nullable="false" />
+          <Property Name="RunningHours" Type="Double" Nullable="false" />
+          <Property Name="CumFuelVolumeSinceLastReading" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="GeneratorScheduler">
           <Key>
@@ -154,10 +156,11 @@
           <EntitySetMapping Name="GeneratorRunningHrs">
             <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorRunningHr">
               <MappingFragment StoreEntitySet="GeneratorRunningHrs">
+                <ScalarProperty Name="CumFuelVolumeSinceLastReading" ColumnName="CumFuelVolumeSinceLastReading" />
+                <ScalarProperty Name="RunningHours" ColumnName="RunningHours" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Generator" ColumnName="Generator" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Hours" ColumnName="Hours" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

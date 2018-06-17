@@ -17,6 +17,7 @@ namespace Panel
         public int Id { get; set; }
         public string Generator { get; set; }
         public System.DateTime Date { get; set; }
-        public double Hours { get; set; }
+        public double RunningHours { get; set; }
+        public double CumFuelVolumeSinceLastReading { get; set; }
     }
 }

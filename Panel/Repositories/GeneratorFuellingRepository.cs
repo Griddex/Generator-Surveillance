@@ -27,7 +27,7 @@ namespace Panel.Repositories
             (
                 new GeneratorFuelling
                 {
-                    Id = NoOfRecords,
+                    Id = NoOfRecords + 1,
                     Date = Fuellingdate,
                     Vendor = Vendor,
                     VolumeOfDiesel = Volumeofdiesel,
@@ -36,17 +36,19 @@ namespace Panel.Repositories
             );
         }
 
-        public void AddFuelConsumptionHours(string GeneratorName, DateTime RunningHoursDate, double RunningHours)
+        public void AddFuelConsumptionHours(string GeneratorName, DateTime RunningHoursDate, double RunningHours,
+                                        double CumFuelVolumeSinceLastReading)
         {
             int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorRunningHrs.Count();
             GeneratorSurveillanceDBContext.GeneratorRunningHrs.Add
             (
                 new GeneratorRunningHr
                 {
-                    Id = NoOfRecords,
+                    Id = NoOfRecords + 1,
                     Generator = GeneratorName,
                     Date = RunningHoursDate,
-                    Hours = RunningHours
+                    CumFuelVolumeSinceLastReading = CumFuelVolumeSinceLastReading,
+                    RunningHours = RunningHours
                 }
             );
         }

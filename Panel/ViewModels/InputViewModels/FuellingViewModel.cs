@@ -23,11 +23,22 @@ namespace Panel.ViewModels.InputViewModels
         {
             UnitOfWork = unitOfWork;
             UniqueGeneratorNames = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
+            _allGeneratorFuelConsumptionRecords = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
         }
 
-        public UnitOfWork UnitOfWork { get; set; } 
-
+        public UnitOfWork UnitOfWork { get; set; }
         public DateTime FuellingDate { get; set; } = DateTime.Now;
+
+        private ObservableCollection<GeneratorRunningHr> _allGeneratorFuelConsumptionRecords;
+        public ObservableCollection<GeneratorRunningHr> AllGeneratorFuelConsumptionRecords
+        {
+            get => _allGeneratorFuelConsumptionRecords;
+            set
+            {
+                _allGeneratorFuelConsumptionRecords = value;
+                OnPropertyChanged(nameof(AllGeneratorFuelConsumptionRecords));
+            }
+        }
 
         private string _vendor;
         public string Vendor
@@ -46,7 +57,7 @@ namespace Panel.ViewModels.InputViewModels
                             _errors[nameof(Vendor)] = t.Result;
                             OnErrorsChanged(nameof(Vendor));
                         }
-                    });
+                    });                
             }
         }
 
@@ -102,6 +113,7 @@ namespace Panel.ViewModels.InputViewModels
             {
                 _runningHours = value;
                 OnPropertyChanged(nameof(RunningHours));
+                OnPropertyChanged(nameof(AllGeneratorFuelConsumptionRecords));
                 ValidateRunningHoursRule.ValidateRunningHoursRuleAsync(RunningHours)
                     .ContinueWith(t =>
                     {
@@ -112,6 +124,40 @@ namespace Panel.ViewModels.InputViewModels
                             OnErrorsChanged(nameof(RunningHours));
                         }
                     });
+            }
+        }
+
+        private double _cumFuelVolumeSinceLastReading;
+        public double CumFuelVolumeSinceLastReading
+        {
+            get => _cumFuelVolumeSinceLastReading;
+            set
+            {
+                _cumFuelVolumeSinceLastReading = value;
+                OnPropertyChanged(nameof(CumFuelVolumeSinceLastReading));
+                OnPropertyChanged(nameof(AllGeneratorFuelConsumptionRecords));
+                ValidateFuelVolumeCostRule.ValidateFuelVolumeCostAsync(CumFuelVolumeSinceLastReading)
+                    .ContinueWith(t =>
+                    {
+                        lock (_errors)
+                        {
+                            _errors.Clear();
+                            _errors[nameof(CumFuelVolumeSinceLastReading)] = t.Result;
+                            OnErrorsChanged(nameof(CumFuelVolumeSinceLastReading));
+                        }
+                    });
+            }
+        }
+
+        private bool _RequestUpdate;
+        public bool RequestUpdate
+        {
+            get { return _RequestUpdate; }
+            set
+            {
+                _RequestUpdate = value;
+                OnPropertyChanged(nameof(RequestUpdate));
+                _RequestUpdate = false;
             }
         }
 
@@ -127,11 +173,14 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         x =>
                         {
-                            UnitOfWork.GeneratorFuelling.AddFuelPurchaseRecord(FuellingDate, Vendor, VolumeOfDiesel, CostOfDiesel);
+                            UnitOfWork.GeneratorFuelling.AddFuelPurchaseRecord(FuellingDate, Vendor, 
+                                                                        VolumeOfDiesel, CostOfDiesel);
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
+                            {                                
                                 MessageBox.Show("Fuel purchase added!", "Information", MessageBoxButton.OK,
                                     MessageBoxImage.Information);
+                            }                                
                             return;
                         },
                         y => !HasErrors
@@ -140,14 +189,14 @@ namespace Panel.ViewModels.InputViewModels
             }
         }
 
-        private ICommand _addHoursCmd;
-        public ICommand AddHoursCmd
+        private ICommand _addConsumptionCmd;
+        public ICommand AddConsumptionCmd
         {
             get
             {
-                return this._addHoursCmd ??
+                return this._addConsumptionCmd ??
                 (
-                    this._addHoursCmd = new DelegateCommand
+                    this._addConsumptionCmd = new DelegateCommand
                     (
                         x =>
                         {
@@ -158,11 +207,16 @@ namespace Panel.ViewModels.InputViewModels
                                     MessageBoxImage.Error);
                                 return;
                             }
-                            UnitOfWork.GeneratorFuelling.AddFuelConsumptionHours(cmbxSelectGenFuelling.Text, RunningHoursDate, RunningHours);
+                            UnitOfWork.GeneratorFuelling.AddFuelConsumptionHours(cmbxSelectGenFuelling.Text, RunningHoursDate, 
+                                                                RunningHours, CumFuelVolumeSinceLastReading);
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
+                            {
+                                _allGeneratorFuelConsumptionRecords = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
                                 MessageBox.Show($"Fuel Consumption for {cmbxSelectGenFuelling.Text} added!", "Information", MessageBoxButton.OK,
-                                    MessageBoxImage.Information);
+                                   MessageBoxImage.Information);
+                                RequestUpdate = true;
+                            }                               
                             return;
                         },
                         y => !HasErrors
@@ -170,6 +224,5 @@ namespace Panel.ViewModels.InputViewModels
                 );
             }
         }
-
     }
 }

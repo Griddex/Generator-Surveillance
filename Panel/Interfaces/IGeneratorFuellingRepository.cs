@@ -10,7 +10,7 @@ namespace Panel.Interfaces
     public interface IGeneratorFuellingRepository : IRepository<GeneratorFuelling>
     {
         void AddFuelPurchaseRecord(DateTime Fuellingdate, string Vendor, double Volumeofdiesel, double Costofdiesel);
-        void AddFuelConsumptionHours(string GeneratorName, DateTime RunningHoursDate, double RunningHours);
+        void AddFuelConsumptionHours(string GeneratorName, DateTime RunningHoursDate, double RunningHours, double CumFuelVolumeSinceLastReading);
         ObservableCollection<GeneratorFuelling> GetAllGeneratorFuellings();
     }
 }

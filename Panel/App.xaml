@@ -27,6 +27,39 @@
         <convtrs:PassCheckBoxBoolListBoxAsCommandParameters x:Key="PassCheckBoxBoolListBox"/>
         <convtrs:PassListBoxAsCommandParameter x:Key="PassListBox"/>
         <convtrs:PassGroupBoxAsCommandParameter x:Key="PassGroupBox"/>
+        <convtrs:ConvertTrueOrFalseToVisibility x:Key="TrueOrFalseToVisibility"/>
+
+        <Style TargetType="{x:Type Label}" x:Key="RoundLabelStyle">
+            <Style.Resources>
+                <Storyboard x:Key="strobingRedLight">
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0"
+                                     AutoReverse="True" Duration="0:0:0.5" RepeatBehavior="Forever"/>
+                </Storyboard>
+            </Style.Resources>
+            <Style.Triggers>
+                <Trigger Property="Background" Value="Red">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard Name="flash" Storyboard="{StaticResource strobingRedLight}"/>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <StopStoryboard BeginStoryboardName="flash" />
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Border x:Name="_brdMain" 
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                        Background="{TemplateBinding Background}"
+                                        CornerRadius="20,20,20,20">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <Style TargetType="{x:Type GroupItem}" x:Key="DataGridGroupItemStyle">
             <Setter Property="Margin" Value="0,0,0,5"/>

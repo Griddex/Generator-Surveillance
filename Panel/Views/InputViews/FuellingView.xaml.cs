@@ -2,6 +2,7 @@
 using Panel.ViewModels.InputViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,5 +29,30 @@ namespace Panel.Views.InputViews
             this.DataContext = fuellingViewModel;
         }
 
+        private void GroupbyGenerator_Click(object sender, RoutedEventArgs e)
+        {
+            ICollectionView cvsGeneratorConsumption = CollectionViewSource.GetDefaultView(this.dtgdGenFuelConsumptionTable.ItemsSource);
+            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption.CanGroup == true)
+            {
+                cvsGeneratorConsumption.GroupDescriptions.Clear();
+                cvsGeneratorConsumption.GroupDescriptions.Add(new PropertyGroupDescription("Generator"));
+            }            
+        }
+
+        private void ClearGeneratorGrouping_Click(object sender, RoutedEventArgs e)
+        {
+            ICollectionView cvsGeneratorConsumption = CollectionViewSource.GetDefaultView(this.dtgdGenFuelConsumptionTable.ItemsSource);
+            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption.CanGroup == true)
+            {
+                cvsGeneratorConsumption.GroupDescriptions.Clear();
+            }
+        }
+
+        private void expdrFuelConsumption_Expanded(object sender, RoutedEventArgs e)
+        {
+            this.dtgdGenFuelConsumptionTable.Items.Refresh();
+            ICollectionView cvsGeneratorConsumption = CollectionViewSource.GetDefaultView(this.dtgdGenFuelConsumptionTable.ItemsSource);
+            cvsGeneratorConsumption.Refresh();
+        }
     }
 }

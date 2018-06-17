@@ -61,7 +61,7 @@
 
                 <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Height="90" 
                             VerticalAlignment="Center" HorizontalAlignment="Right" Grid.RowSpan="2">
-                   <TextBlock Text="Load Last Generator Usage Record" Foreground="Black" VerticalAlignment="Center" 
+                   <TextBlock Text="Load Last Generator Record" Foreground="Black" VerticalAlignment="Center" 
                                Margin="10,0,0,0" Width="300"/>
                     <Button Width="60" Height="60" Command="{Binding Path=LoadLastGeneratorRecord}">
                         <Button.Content>
@@ -81,11 +81,12 @@
                             HorizontalAlignment="Right">
                     <Label x:Name="lblGenState" Content="{Binding Path=IsNull, Mode=OneWay, 
                         Converter={StaticResource ConvBoolToString}}" 
-                           Height="55" Width="55" HorizontalContentAlignment="Center"
-                           VerticalContentAlignment="Center"/>
+                           Height="50" Width="50" HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Center"
+                           />
                     <Label x:Name="lblGenIndicator" Background="{Binding Path=IsNull, Mode=OneWay, 
                         Converter={StaticResource ConvBoolToBrush}}" 
-                           Height="55" Width="55"/>
+                           Height="40" Width="40" Style="{StaticResource RoundLabelStyle}"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4">
                     <Label Content="Choose Record Date" Height="28" FontSize="14" VerticalAlignment="Bottom" 
