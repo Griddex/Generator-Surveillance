@@ -194,6 +194,7 @@
       <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IChartsLogic.cs" />
+    <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IGeneratorFuellingRepository.cs" />
     <Compile Include="Interfaces\IGeneratorInformationRepository.cs" />
     <Compile Include="Interfaces\IGeneratorMaintenanceRepository.cs" />
@@ -201,6 +202,7 @@
     <Compile Include="Interfaces\IGeneratorSchedulerRepository.cs" />
     <Compile Include="Interfaces\IGeneratorSurveillanceDBEntities.cs" />
     <Compile Include="Interfaces\IGeneratorUsageRepository.cs" />
+    <Compile Include="Interfaces\IMessageService.cs" />
     <Compile Include="Interfaces\INavigationService.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
@@ -230,6 +232,7 @@
     <Compile Include="Repositories\GeneratorUsageRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
+    <Compile Include="Services\MessagingServices\EmailService.cs" />
     <Compile Include="Services\NavigationServices\FrameNavigationService.cs" />
     <Compile Include="UserControls\ExportReportType.xaml.cs">
       <DependentUpon>ExportReportType.xaml</DependentUpon>

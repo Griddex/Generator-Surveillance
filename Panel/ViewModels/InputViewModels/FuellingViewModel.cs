@@ -207,12 +207,13 @@ namespace Panel.ViewModels.InputViewModels
                                     MessageBoxImage.Error);
                                 return;
                             }
+
                             UnitOfWork.GeneratorFuelling.AddFuelConsumptionHours(cmbxSelectGenFuelling.Text, RunningHoursDate, 
                                                                 RunningHours, CumFuelVolumeSinceLastReading);
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                _allGeneratorFuelConsumptionRecords = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
+                                AllGeneratorFuelConsumptionRecords = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
                                 MessageBox.Show($"Fuel Consumption for {cmbxSelectGenFuelling.Text} added!", "Information", MessageBoxButton.OK,
                                    MessageBoxImage.Information);
                                 RequestUpdate = true;
