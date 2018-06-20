@@ -63,13 +63,14 @@ namespace Panel.Repositories
             return AllGeneratorFuellings;
         }
 
-        public ObservableCollection<GeneratorFuelling> GetAnyPageGeneratorFuellings(int pageIndex = 0, int pageSize = 10)
+        public ObservableCollection<GeneratorFuelling> GetAnyPageGeneratorFuellings(int pageIndex = 1, int pageSize = 10)
         {
+            int SkipBy = (pageIndex == 1) ? (pageIndex - 1) * pageSize : ((pageIndex - 1) * pageSize) - 1;
             var FirstPageGeneratorFuellings = new ObservableCollection<GeneratorFuelling>
                                             (
                                                 GeneratorSurveillanceDBContext.GeneratorFuellings
                                                 .OrderBy(x => x.Id)
-                                                .Skip((pageIndex - 1) * pageSize)
+                                                .Skip(SkipBy)
                                                 .Take(pageSize)
                                                 .AsParallel<GeneratorFuelling>()
                                             );

@@ -70,62 +70,33 @@ namespace Panel.Repositories
         {
             int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorUsages.Count();
             var NextPageLastRowNumber = pageIndex * pageSize;
-            if((NoOfRecords - NextPageLastRowNumber) > pageSize)
+            int SkipBy = (pageIndex == 1) ? (pageIndex - 1) * pageSize : ((pageIndex - 1) * pageSize) - 1;
+            if ((NoOfRecords - NextPageLastRowNumber) > pageSize)
             {
-                var NextPageGeneratorUsages = new ObservableCollection<GeneratorUsage>
-                                                (
-                                                    GeneratorSurveillanceDBContext.GeneratorUsages
-                                                    .OrderBy(x => x.Id)
-                                                    .Skip((pageIndex - 1) * pageSize)
-                                                    .Take(pageSize)
-                                                    .AsParallel<GeneratorUsage>()
-                                                );
-                return NextPageGeneratorUsages;
+                return new ObservableCollection<GeneratorUsage>
+                        (
+                            GeneratorSurveillanceDBContext.GeneratorUsages
+                            .OrderBy(x => x.Id)
+                            .Skip(SkipBy)
+                            .Take(pageSize)
+                            .AsParallel<GeneratorUsage>()
+                        );
+
             }
             else
             {
-                var NextPageGeneratorUsages = new ObservableCollection<GeneratorUsage>
-                                    (
-                                        GeneratorSurveillanceDBContext.GeneratorUsages
-                                        .Skip((pageIndex - 1) * pageSize)
-                                        .Take(pageSize)
-                                        .AsParallel<GeneratorUsage>()
-                                    );
-                return NextPageGeneratorUsages;
+                return new ObservableCollection<GeneratorUsage>
+                        (
+                            GeneratorSurveillanceDBContext.GeneratorUsages
+                            .OrderBy(x => x.Id)
+                            .Skip(SkipBy)
+                            .Take(pageSize)
+                            .AsParallel<GeneratorUsage>()
+                        );
             }
         }
 
-        //To DO
-        public ObservableCollection<GeneratorUsage> GetPreviousPageGeneratorUsages(int pageIndex = 1, int pageSize = 10)
-        {
-            int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorUsages.Count();
-            var PreviousPageFirstRowNumber = GeneratorSurveillanceDBContext.GeneratorUsages
-                                            .Skip((pageIndex - 1) * pageSize)
-                                            .Count();
-            if ((NoOfRecords - PreviousPageFirstRowNumber) < pageSize)
-            {
-                var PreviousPageGeneratorUsages = new ObservableCollection<GeneratorUsage>
-                                                (
-                                                    GeneratorSurveillanceDBContext.GeneratorUsages
-                                                    .Skip((pageIndex - 1) * pageSize)
-                                                    .Take(NoOfRecords - PreviousPageFirstRowNumber)
-                                                    .AsParallel<GeneratorUsage>()
-                                                );
-                return PreviousPageGeneratorUsages;
-            }
-            else
-            {
-                var PreviousPageGeneratorUsages = new ObservableCollection<GeneratorUsage>
-                                    (
-                                        GeneratorSurveillanceDBContext.GeneratorUsages
-                                        .Skip((pageIndex - 1) * pageSize)
-                                        .Take(pageSize)
-                                        .AsParallel<GeneratorUsage>()
-                                    );
-                return PreviousPageGeneratorUsages;
-            }
-        }
-
+        
         public DateTime GetStartedDate(string GeneratorName)
         {
             var genFirstStartedDate = GeneratorSurveillanceDBContext

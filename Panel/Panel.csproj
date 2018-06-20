@@ -157,7 +157,7 @@
     <Compile Include="Converters\ConvObjsToDtpkrCmbx.cs" />
     <Compile Include="Converters\FloatConverter.cs" />
     <Compile Include="Converters\InputViewMultiConverter.cs" />
-    <Compile Include="Converters\PassTwoTextBoxesAsCommandParameters.cs" />
+    <Compile Include="Converters\PassTextBoxComboBoxItemAsCommandParameters.cs" />
     <Compile Include="Converters\PassCheckBoxBoolListBoxAsCommandParameters.cs" />
     <Compile Include="Converters\PassListBoxAsCommandParameter.cs" />
     <Compile Include="Converters\PassGroupBoxAsCommandParameter.cs" />

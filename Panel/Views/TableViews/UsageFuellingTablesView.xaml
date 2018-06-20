@@ -73,33 +73,40 @@
                                 <Label Content="Go to Page:"  FontSize="8"
                                         Width="55" HorizontalContentAlignment="Right"
                                        Background="#EEF5FD"/>
-                                <TextBox x:Name="txtbxPageIndex" Width="30" HorizontalContentAlignment="Center"
+                                <TextBox x:Name="txtbxPageIndexUsage" Width="30" HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center" FontSize="10" Height="20"
-                                         Text="{Binding PageIndex, Mode=OneWayToSource}"/>
+                                         Text="{Binding PageIndexUsage, Mode=TwoWay}"/>
                                 <Label Content="Show rows:" Background="#EEF5FD" FontSize="8"
                                        HorizontalContentAlignment="Right" Height=" 20"/>
-                                <ComboBox x:Name="cmbxNoOfRows" Width="40" FontSize="10" SelectedIndex="1" 
-                                          Height="20" SelectedItem="{Binding PageSize, Mode=OneWayToSource}">
+                                <ComboBox x:Name="cmbxNoOfRowsUsage" Width="45" FontSize="10" SelectedIndex="1" 
+                                          Height="20" SelectedValue="{Binding PageSizeUsage, Mode=TwoWay}"
+                                          SelectedItem="{Binding SelectedPageSizeUsage, Mode=TwoWay}">
                                     <ComboBoxItem FontSize="10">5</ComboBoxItem>
                                     <ComboBoxItem FontSize="10">10</ComboBoxItem>
                                     <ComboBoxItem FontSize="10">25</ComboBoxItem>
                                     <ComboBoxItem FontSize="10">50</ComboBoxItem>
                                     <ComboBoxItem FontSize="10">100</ComboBoxItem>
                                 </ComboBox>
-                                <TextBox x:Name="txtbxCurrPageOutTotal" Width="120" HorizontalContentAlignment="Center"
+                                <TextBox x:Name="txtbxCurrPageOutTotalUsage" Width="120" HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center" FontSize="8" Height="20"
-                                         Text="{Binding CurrentPageOutOfTotal}"/>
-                                <Button Height="20">
+                                         Text="{Binding CurrentPageOutOfTotalUsage}"/>
+                                <Button Command="{Binding PreviousPageUsageCmd}" Height="20">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource PassTextBoxComboBoxItem}">
+                                            <Binding ElementName="txtbxPageIndexUsage"/>
+                                            <Binding ElementName="cmbxNoOfRowsUsage" Path="SelectedValue"/>
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
                                     <Button.Content>
                                         <Image Source="/Images/Back.jpg" Width="18" Height="18"/>
                                     </Button.Content>
                                 </Button>
-                                
-                                <Button Command="{Binding NextPageCmd}" Height="20">
+
+                                <Button Command="{Binding NextPageUsageCmd}" Height="20">
                                     <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource PassTwoTextBoxes}">
-                                            <Binding ElementName="txtbxPageIndex"/>
-                                            <Binding ElementName="txtbxPageSize"/>
+                                        <MultiBinding Converter="{StaticResource PassTextBoxComboBoxItem}">
+                                            <Binding ElementName="txtbxPageIndexUsage"/>
+                                            <Binding ElementName="cmbxNoOfRowsUsage" Path="SelectedValue"/>
                                         </MultiBinding>
                                     </Button.CommandParameter>
                                     <Button.Content>
@@ -169,15 +176,15 @@
                             <DataGridTextColumn Header="S/N" Binding="{Binding Id}" FontSize="12"
                                                 Width="Auto"/>
                             <DataGridTextColumn Header="Date" Binding="{Binding Date, 
-                                Converter={StaticResource DateTimeToDate}}" 
+                                                                Converter={StaticResource DateTimeToDate}}" 
                                                 FontSize="12" Width="Auto"/>
                             <DataGridTextColumn Header="Generator" Binding="{Binding GeneratorName}" 
                                                 FontSize="12" Width="Auto"/>
                             <DataGridTextColumn Header="Generator Started" Binding="{Binding GeneratorStarted, 
-                                Converter={StaticResource DateTimeToTime}}" 
+                                                                 Converter={StaticResource DateTimeToTime}}" 
                                                 FontSize="12" Width="Auto"/>
                             <DataGridTextColumn Header="Generator Stopped" Binding="{Binding GeneratorStopped, 
-                                Converter={StaticResource DateTimeToTime}}" 
+                                                                  Converter={StaticResource DateTimeToTime}}" 
                                                 FontSize="12" Width="Auto"/>
                             <DataGridTextColumn Header="Is Archived" Binding="{Binding IsArchived}"
                                                 FontSize="12" Width="*"/>
@@ -214,31 +221,48 @@
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
-                            <StackPanel Orientation="Horizontal" Margin="390,0,0,0" Height="25">
-                                <Label Content="Go to Page:"  FontSize="10"
-                                        Width="70" HorizontalContentAlignment="Right"
+                            <StackPanel Orientation="Horizontal" Margin="355,0,0,0" Height="20">
+                                <Label Content="Go to Page:"  FontSize="8"
+                                        Width="55" HorizontalContentAlignment="Right"
                                        Background="#EEF5FD"/>
-                                <TextBox Width="30" Text="1" HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center" FontSize="10"/>
-                                <Label Content="No. Of Rows:" Background="#EEF5FD" FontSize="10"
-                                       HorizontalContentAlignment="Right"/>
-                                <ComboBox Width="40" FontSize="10">
+                                <TextBox x:Name="txtbxPageIndexFuelling" Width="30" HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center" FontSize="10" Height="20"
+                                         Text="{Binding PageIndexFuelling, Mode=TwoWay}"/>
+                                <Label Content="Show rows:" Background="#EEF5FD" FontSize="8"
+                                       HorizontalContentAlignment="Right" Height=" 20"/>
+                                <ComboBox x:Name="cmbxNoOfRowsFuelling" Width="45" FontSize="10" SelectedIndex="1" 
+                                          Height="20" SelectedValue="{Binding PageSizeFuelling, Mode=TwoWay}"
+                                          SelectedItem="{Binding SelectedPageSizeFuelling, Mode=TwoWay}">
                                     <ComboBoxItem FontSize="10">5</ComboBoxItem>
                                     <ComboBoxItem FontSize="10">10</ComboBoxItem>
                                     <ComboBoxItem FontSize="10">25</ComboBoxItem>
                                     <ComboBoxItem FontSize="10">50</ComboBoxItem>
                                     <ComboBoxItem FontSize="10">100</ComboBoxItem>
                                 </ComboBox>
-                                <Button>
+                                <TextBox x:Name="txtbxCurrPageOutTotalFuelling" Width="120" HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center" FontSize="8" Height="20"
+                                         Text="{Binding CurrentPageOutOfTotalFuelling}"/>
+                                <Button Command="{Binding PreviousPageFuellingCmd}" Height="20">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource PassTextBoxComboBoxItem}">
+                                            <Binding ElementName="txtbxPageIndexFuelling"/>
+                                            <Binding ElementName="cmbxNoOfRowsFuelling" Path="SelectedValue"/>
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
                                     <Button.Content>
-                                        <Image Source="/Images/Back.jpg" Width="25" Height="25"/>
+                                        <Image Source="/Images/Back.jpg" Width="18" Height="18"/>
                                     </Button.Content>
                                 </Button>
-                                <TextBox Width="52" Text="10" HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center" FontSize="10"/>
-                                <Button>
+
+                                <Button Command="{Binding NextPageFuellingCmd}" Height="20">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource PassTextBoxComboBoxItem}">
+                                            <Binding ElementName="txtbxPageIndexFuelling"/>
+                                            <Binding ElementName="cmbxNoOfRowsFuelling" Path="SelectedValue"/>
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
                                     <Button.Content>
-                                        <Image Source="/Images/Next.jpg" Width="25" Height="25"/>
+                                        <Image Source="/Images/Next.jpg" Width="18" Height="18"/>
                                     </Button.Content>
                                 </Button>
                             </StackPanel>
@@ -276,10 +300,10 @@
                                                             <StackPanel Orientation="Horizontal">
                                                                 <TextBlock FontWeight="Bold"
                                                                        Text="{Binding Name, 
-                                                                Converter={StaticResource CategoryToPhrase}}"/>
+                                                                                Converter={StaticResource CategoryToPhrase}}"/>
                                                                 <TextBlock FontWeight="Bold"
                                                                        Text="{Binding ItemCount, 
-                                                                Converter={StaticResource ItemCountToPhrase}}"/>
+                                                                                Converter={StaticResource ItemCountToPhrase}}"/>
                                                             </StackPanel>
                                                         </Expander.Header>
                                                         <Expander.Content>
@@ -339,31 +363,48 @@
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
-                            <StackPanel Orientation="Horizontal" Margin="390,0,0,0" Height="25">
-                                <Label Content="Go to Page:"  FontSize="10"
-                                        Width="70" HorizontalContentAlignment="Right"
+                            <StackPanel Orientation="Horizontal" Margin="355,0,0,0" Height="20">
+                                <Label Content="Go to Page:"  FontSize="8"
+                                        Width="55" HorizontalContentAlignment="Right"
                                        Background="#EEF5FD"/>
-                                <TextBox Width="30" Text="1" HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center" FontSize="10"/>
-                                <Label Content="No. Of Rows:" Background="#EEF5FD" FontSize="10"
-                                       HorizontalContentAlignment="Right"/>
-                                <ComboBox Width="40" FontSize="10">
+                                <TextBox x:Name="txtbxPageIndexMaintenance" Width="30" HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center" FontSize="10" Height="20"
+                                         Text="{Binding PageIndexMaintenance, Mode=TwoWay}"/>
+                                <Label Content="Show rows:" Background="#EEF5FD" FontSize="8"
+                                       HorizontalContentAlignment="Right" Height=" 20"/>
+                                <ComboBox x:Name="cmbxNoOfRowsMaintenance" Width="45" FontSize="10" SelectedIndex="1" 
+                                          Height="20" SelectedValue="{Binding PageSizeMaintenance, Mode=TwoWay}"
+                                          SelectedItem="{Binding SelectedPageSizeMaintenance, Mode=TwoWay}">
                                     <ComboBoxItem FontSize="10">5</ComboBoxItem>
                                     <ComboBoxItem FontSize="10">10</ComboBoxItem>
                                     <ComboBoxItem FontSize="10">25</ComboBoxItem>
                                     <ComboBoxItem FontSize="10">50</ComboBoxItem>
                                     <ComboBoxItem FontSize="10">100</ComboBoxItem>
                                 </ComboBox>
-                                <Button>
+                                <TextBox x:Name="txtbxCurrPageOutTotalMaintenance" Width="120" HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center" FontSize="8" Height="20"
+                                         Text="{Binding CurrentPageOutOfTotalMaintenance}"/>
+                                <Button Command="{Binding PreviousPageMaintenanceCmd}" Height="20">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource PassTextBoxComboBoxItem}">
+                                            <Binding ElementName="txtbxPageIndexMaintenance"/>
+                                            <Binding ElementName="cmbxNoOfRowsMaintenance" Path="SelectedValue"/>
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
                                     <Button.Content>
-                                        <Image Source="/Images/Back.jpg" Width="25" Height="25"/>
+                                        <Image Source="/Images/Back.jpg" Width="18" Height="18"/>
                                     </Button.Content>
                                 </Button>
-                                <TextBox Width="52" Text="10" HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center" FontSize="10"/>
-                                <Button>
+
+                                <Button Command="{Binding NextPageMaintenanceCmd}" Height="20">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource PassTextBoxComboBoxItem}">
+                                            <Binding ElementName="txtbxPageIndexMaintenance"/>
+                                            <Binding ElementName="cmbxNoOfRowsMaintenance" Path="SelectedValue"/>
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
                                     <Button.Content>
-                                        <Image Source="/Images/Next.jpg" Width="25" Height="25"/>
+                                        <Image Source="/Images/Next.jpg" Width="18" Height="18"/>
                                     </Button.Content>
                                 </Button>
                             </StackPanel>

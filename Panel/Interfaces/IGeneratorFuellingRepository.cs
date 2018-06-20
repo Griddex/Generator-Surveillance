@@ -12,5 +12,6 @@ namespace Panel.Interfaces
         void AddFuelPurchaseRecord(DateTime Fuellingdate, string Vendor, double Volumeofdiesel, double Costofdiesel);
         void AddFuelConsumptionHours(string GeneratorName, DateTime RunningHoursDate, double RunningHours, double CumFuelVolumeSinceLastReading);        
         ObservableCollection<GeneratorFuelling> GetAnyPageGeneratorFuellings(int pageIndex = 1, int pageSize = 10);
+        ObservableCollection<GeneratorFuelling> GetAllGeneratorFuellings();
     }
 }

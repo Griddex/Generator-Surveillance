@@ -9,11 +9,11 @@ using System.Windows.Data;
 
 namespace Panel.Converters
 {
-    class PassTwoTextBoxesAsCommandParameters : IMultiValueConverter
+    class PassTextBoxComboBoxItemAsCommandParameters : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return new Tuple<TextBox, TextBox>((TextBox)values[0], (TextBox)values[1]);
+            return new Tuple<TextBox, ComboBoxItem>((TextBox)values[0], (ComboBoxItem)values[1]);
         }
 
 
@@ -21,7 +21,6 @@ namespace Panel.Converters
         {
             throw new NotImplementedException();
         }
-
 
     }
 }

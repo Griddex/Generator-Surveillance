@@ -52,7 +52,7 @@ namespace Panel.Repositories
             );
         }
 
-        public ObservableCollection<GeneratorMaintenance> GetAllGeneratorFuellings()
+        public ObservableCollection<GeneratorMaintenance> GetAllGeneratorMaintenances()
         {
             var AllGeneratorMaintenance = new ObservableCollection<GeneratorMaintenance>
                                     (
@@ -62,7 +62,7 @@ namespace Panel.Repositories
             return AllGeneratorMaintenance;
         }
 
-        public ObservableCollection<GeneratorMaintenance> GetAnyPageGeneratorMaintenance(int pageIndex = 0, int pageSize = 10)
+        public ObservableCollection<GeneratorMaintenance> GetAnyPageGeneratorMaintenance(int pageIndex = 1, int pageSize = 10)
         {
             var FirstPageGeneratorMaintenance = new ObservableCollection<GeneratorMaintenance>
                                             (

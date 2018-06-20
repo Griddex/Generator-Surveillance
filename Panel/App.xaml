@@ -28,7 +28,7 @@
         <convtrs:PassListBoxAsCommandParameter x:Key="PassListBox"/>
         <convtrs:PassGroupBoxAsCommandParameter x:Key="PassGroupBox"/>
         <convtrs:ConvertTrueOrFalseToVisibility x:Key="TrueOrFalseToVisibility"/>
-        <convtrs:PassTwoTextBoxesAsCommandParameters x:Key="PassTwoTextBoxes"/>
+        <convtrs:PassTextBoxComboBoxItemAsCommandParameters x:Key="PassTextBoxComboBoxItem"/>
 
         <Style TargetType="{x:Type Label}" x:Key="RoundLabelStyle">
             <Style.Resources>
