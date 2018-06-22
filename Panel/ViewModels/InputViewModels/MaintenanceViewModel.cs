@@ -34,9 +34,10 @@ namespace Panel.ViewModels.InputViewModels
 
         public DateTime UnschMaintenanceDate { get; set; } = DateTime.Now;
         public DateTime SchMaintenanceDate { get; set; } = DateTime.Now;
-        public double SchMaintenanceReminder { get; set; }
-        public double SchMaintenanceNotification { get; set; }
-        public string SchMaintenanceAuthorizer { get; set; }
+        public DateTime SchMaintenanceReminderDate { get; set; } = DateTime.Now;
+        public double SchMaintenanceReminderHours { get; set; }
+        public double SchMaintenanceSelectedReminderLevel { get; set; }
+        public string SchMaintenanceSelectedAuthorizer { get; set; }
 
         private string _unschMaintenanceComments;
         public string UnschMaintenanceComments
@@ -131,14 +132,17 @@ namespace Panel.ViewModels.InputViewModels
                 _schMaintenanceSelectedGen = value;
                 OnPropertyChanged(nameof(SchMaintenanceSelectedGen));
 
-                SchMaintenanceReminder = UnitOfWork.GeneratorScheduler.GetReminderInHrs(SchMaintenanceSelectedGen, AllGeneratorSchedules);
-                OnPropertyChanged(nameof(SchMaintenanceReminder));
+                SchMaintenanceReminderDate = UnitOfWork.GeneratorScheduler.GetReminderDate(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                OnPropertyChanged(nameof(SchMaintenanceReminderDate));
 
-                SchMaintenanceNotification = UnitOfWork.GeneratorScheduler.GetNotificationTiming(SchMaintenanceSelectedGen, AllGeneratorSchedules);
-                OnPropertyChanged(nameof(SchMaintenanceNotification));
+                SchMaintenanceReminderHours = UnitOfWork.GeneratorScheduler.GetReminderInHrs(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                OnPropertyChanged(nameof(SchMaintenanceReminderHours));
 
-                SchMaintenanceAuthorizer = UnitOfWork.GeneratorScheduler.GetAuthorizer(SchMaintenanceSelectedGen, AllGeneratorSchedules);
-                OnPropertyChanged(nameof(SchMaintenanceAuthorizer));
+                SchMaintenanceSelectedReminderLevel = UnitOfWork.GeneratorScheduler.GetNotificationTiming(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                OnPropertyChanged(nameof(SchMaintenanceSelectedReminderLevel));
+
+                SchMaintenanceSelectedAuthorizer = UnitOfWork.GeneratorScheduler.GetAuthorizer(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                OnPropertyChanged(nameof(SchMaintenanceSelectedAuthorizer));
             }
         }
         
@@ -270,8 +274,11 @@ namespace Panel.ViewModels.InputViewModels
                                 Notification, Authorizer);
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
+                            {
                                 MessageBox.Show($"Scheduled maintenance reminder information for {SchMaintenanceSelectedGen} has been updated!",
                                     "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                                AllGeneratorSchedules = UnitOfWork.GeneratorScheduler.GetAllGeneratorSchedules();
+                            }                                
                             return;
                         },
                         y => !HasErrors

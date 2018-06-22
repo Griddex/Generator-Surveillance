@@ -2,6 +2,7 @@
 using Panel.ViewModels.InputViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,32 @@ namespace Panel.Views.InputViews
         {
             InitializeComponent();
             this.DataContext = maintenanceViewModel;
+        }
+
+        private void GroupbyGenerator_Click(object sender, RoutedEventArgs e)
+        {
+            ICollectionView cvsGeneratorConsumption = CollectionViewSource.GetDefaultView(this.dtgdGenScheduledRemindersTable.ItemsSource);
+            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption.CanGroup == true)
+            {
+                cvsGeneratorConsumption.GroupDescriptions.Clear();
+                cvsGeneratorConsumption.GroupDescriptions.Add(new PropertyGroupDescription("Generator"));
+            }
+        }
+
+        private void ClearGeneratorGrouping_Click(object sender, RoutedEventArgs e)
+        {
+            ICollectionView cvsGeneratorConsumption = CollectionViewSource.GetDefaultView(this.dtgdGenScheduledRemindersTable.ItemsSource);
+            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption.CanGroup == true)
+            {
+                cvsGeneratorConsumption.GroupDescriptions.Clear();
+            }
+        }
+
+        private void expdrScheduledReminders_Expanded(object sender, RoutedEventArgs e)
+        {
+            this.dtgdGenScheduledRemindersTable.Items.Refresh();
+            ICollectionView cvsGeneratorConsumption = CollectionViewSource.GetDefaultView(this.dtgdGenScheduledRemindersTable.ItemsSource);
+            cvsGeneratorConsumption.Refresh();
         }
     }
 }

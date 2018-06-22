@@ -436,16 +436,6 @@
     <Folder Include="Ardorners\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GeneratorSurveillanceDBEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
-      <LastGenOutput>GeneratorSurveillanceDBEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="GeneratorSurveillanceDBEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
-      <LastGenOutput>GeneratorSurveillanceDBEntities.cs</LastGenOutput>
-    </Content>
     <Resource Include="Images\OpenFolder.jpg" />
     <Resource Include="Images\Snipe.png" />
     <Resource Include="Images\Camera.png" />
@@ -456,6 +446,18 @@
     <Resource Include="Images\GroupBy_Green.png" />
     <Resource Include="Images\GroupBy_Red.jpg" />
     <Resource Include="Images\PowerGenerator.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GeneratorSurveillanceDBEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
+      <LastGenOutput>GeneratorSurveillanceDBEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="GeneratorSurveillanceDBEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
+      <LastGenOutput>GeneratorSurveillanceDBEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

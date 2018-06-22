@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="GeneratorSurveillanceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="GeneratorSurveillanceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="GeneratorFuelling">
           <Key>
             <PropertyRef Name="Id" />
@@ -41,9 +41,12 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="GeneratorName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="EveryHrs" Type="float" Nullable="false" />
-          <Property Name="HrsThreshold" Type="float" Nullable="false" />
+          <Property Name="Starts" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Every" Type="float" Nullable="false" />
+          <Property Name="ReminderLevel" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Authorizer" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ReminderHoursProfile" Type="float" Nullable="false" />
+          <Property Name="ReminderDateTimeProfile" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="GeneratorUsage">
           <Key>
@@ -63,7 +66,8 @@
           <EntitySet Name="GeneratorScheduler" EntityType="Self.GeneratorScheduler" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneratorUsage" EntityType="Self.GeneratorUsage" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GeneratorSurveillanceDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -72,10 +76,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Vendor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="VolumeOfDiesel" Type="Double" Nullable="false" />
           <Property Name="CostOfDiesel" Type="Double" Nullable="false" />
-          <Property Name="Vendor" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="GeneratorMaintenance">
           <Key>
@@ -103,9 +107,12 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="GeneratorName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EveryHrs" Type="Double" Nullable="false" />
-          <Property Name="HrsThreshold" Type="Double" Nullable="false" />
+          <Property Name="Starts" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Every" Type="Double" Nullable="false" />
+          <Property Name="ReminderLevel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Authorizer" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReminderHoursProfile" Type="Double" Nullable="false" />
+          <Property Name="ReminderDateTimeProfile" Type="DateTime" Nullable="false" Precision="7" />
         </EntityType>
         <EntityType Name="GeneratorUsage">
           <Key>
@@ -114,8 +121,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="GeneratorName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="GeneratorStarted" Type="DateTime" Precision="7" Nullable="false" />
-          <Property Name="GeneratorStopped" Type="DateTime" Precision="7" Nullable="false" />
+          <Property Name="GeneratorStarted" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="GeneratorStopped" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="IsArchived" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityContainer Name="GeneratorSurveillanceDBEntities" annotation:LazyLoadingEnabled="true">
@@ -134,8 +141,8 @@
           <EntitySetMapping Name="GeneratorFuellings">
             <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorFuelling">
               <MappingFragment StoreEntitySet="GeneratorFuelling">
-                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="VolumeOfDiesel" ColumnName="VolumeOfDiesel" />
                 <ScalarProperty Name="CostOfDiesel" ColumnName="CostOfDiesel" />
@@ -156,11 +163,11 @@
           <EntitySetMapping Name="GeneratorRunningHrs">
             <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorRunningHr">
               <MappingFragment StoreEntitySet="GeneratorRunningHrs">
-                <ScalarProperty Name="CumFuelVolumeSinceLastReading" ColumnName="CumFuelVolumeSinceLastReading" />
-                <ScalarProperty Name="RunningHours" ColumnName="RunningHours" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Generator" ColumnName="Generator" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="RunningHours" ColumnName="RunningHours" />
+                <ScalarProperty Name="CumFuelVolumeSinceLastReading" ColumnName="CumFuelVolumeSinceLastReading" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -169,9 +176,12 @@
               <MappingFragment StoreEntitySet="GeneratorScheduler">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="GeneratorName" ColumnName="GeneratorName" />
-                <ScalarProperty Name="EveryHrs" ColumnName="EveryHrs" />
-                <ScalarProperty Name="HrsThreshold" ColumnName="HrsThreshold" />
+                <ScalarProperty Name="Starts" ColumnName="Starts" />
+                <ScalarProperty Name="Every" ColumnName="Every" />
+                <ScalarProperty Name="ReminderLevel" ColumnName="ReminderLevel" />
                 <ScalarProperty Name="Authorizer" ColumnName="Authorizer" />
+                <ScalarProperty Name="ReminderHoursProfile" ColumnName="ReminderHoursProfile" />
+                <ScalarProperty Name="ReminderDateTimeProfile" ColumnName="ReminderDateTimeProfile" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

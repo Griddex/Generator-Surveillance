@@ -15,9 +15,9 @@ namespace Panel
     public partial class GeneratorFuelling
     {
         public int Id { get; set; }
+        public string Vendor { get; set; }
         public System.DateTime Date { get; set; }
         public double VolumeOfDiesel { get; set; }
         public double CostOfDiesel { get; set; }
-        public string Vendor { get; set; }
     }
 }

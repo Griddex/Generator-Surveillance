@@ -9,7 +9,7 @@ namespace Panel.Interfaces
 {
     public interface IMessageService
     {
-        string FromAddress { get; set; }
+        MailAddress FromAddress { get; set; }
         List<MailAddress> ToAddresses { get; set; }
         string MessageNotification { get; set; }
         void SendMessage();

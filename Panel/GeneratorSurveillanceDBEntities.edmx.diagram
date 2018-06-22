@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="dad1bb51eeea412e84522dd5037efd6c" Name="Diagram1">
+      <Diagram DiagramId="3aacfc6d452f43c6804bcdbdb6aec754" Name="Diagram1">
         <EntityTypeShape EntityType="GeneratorSurveillanceDBModel.GeneratorFuelling" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GeneratorSurveillanceDBModel.GeneratorMaintenance" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GeneratorSurveillanceDBModel.GeneratorRunningHr" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />

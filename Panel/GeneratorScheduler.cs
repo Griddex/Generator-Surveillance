@@ -16,8 +16,11 @@ namespace Panel
     {
         public int Id { get; set; }
         public string GeneratorName { get; set; }
-        public double EveryHrs { get; set; }
-        public double HrsThreshold { get; set; }
+        public System.DateTime Starts { get; set; }
+        public double Every { get; set; }
+        public string ReminderLevel { get; set; }
         public string Authorizer { get; set; }
+        public double ReminderHoursProfile { get; set; }
+        public System.DateTime ReminderDateTimeProfile { get; set; }
     }
 }

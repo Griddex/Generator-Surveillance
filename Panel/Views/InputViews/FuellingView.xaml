@@ -337,14 +337,15 @@
                                                                     Width="Auto"/>
                                                 <DataGridTextColumn Header="Date" Binding="{Binding Date, 
                                                                     Converter={StaticResource DateTimeToDate}}" 
-                                                                    FontSize="12" Width="Auto"/>
+                                                                    FontSize="12" Width="150"/>
                                                 <DataGridTextColumn Header="Generator" Binding="{Binding Generator}" 
-                                                                    FontSize="12" Width="Auto"/>
-                                                <DataGridTextColumn Header="Generator Started" Binding="{Binding RunningHours}" 
-                                                                    FontSize="12" Width="Auto"/>
-                                                <DataGridTextColumn Header="Generator Stopped" 
+                                                                    FontSize="12" Width="150"/>
+                                                <DataGridTextColumn Header="Cummulative Fuel Volume" 
                                                                     Binding="{Binding CumFuelVolumeSinceLastReading}" 
+                                                                    FontSize="12" Width="Auto"/>
+                                                <DataGridTextColumn Header="Running Hours" Binding="{Binding RunningHours}" 
                                                                     FontSize="12" Width="*"/>
+                                                
                                             </DataGrid.Columns>
                                         </DataGrid>
                                     </ScrollViewer>

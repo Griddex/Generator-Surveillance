@@ -12,6 +12,7 @@ namespace Panel.Interfaces
         ObservableCollection<GeneratorScheduler> GetAllGeneratorSchedules();
         double GetReminderInHrs(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules);
         double GetNotificationTiming(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules);
+        DateTime GetReminderDate(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules);
         void AddReminderNotification(string GeneratorName, double Reminder, double Notification, string Authorizer);
         string GetAuthorizer(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules);
         ObservableCollection<GeneratorScheduler> GetAllScheduledReminders();

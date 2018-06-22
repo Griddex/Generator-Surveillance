@@ -30,6 +30,14 @@ namespace Panel.Repositories
                  );
         }
 
+        public DateTime GetReminderDate(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
+        {
+            return AllGeneratorSchedules
+                    .Where(x => x.GeneratorName == GeneratorName)
+                    .Select(x => x.ReminderDateTimeProfile)
+                    .LastOrDefault();
+        }
+
         public double GetReminderInHrs(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
         {
             return AllGeneratorSchedules

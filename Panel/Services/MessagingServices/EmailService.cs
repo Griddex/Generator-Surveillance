@@ -10,9 +10,9 @@ namespace Panel.Services.MessagingServices
 {
     public class EmailService : IEmailService
     {
-        public List<MailAddress> CCAddresses { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string FromAddress { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public MailAddress FromAddress { get; set; } = new MailAddress("gideonyte@hotmail.com", "Generator Surveillance Notification");
         public List<MailAddress> ToAddresses { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public List<MailAddress> CCAddresses { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public string MessageNotification { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void SendMessage()
