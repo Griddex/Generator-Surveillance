@@ -1,4 +1,5 @@
-﻿using Panel.Interfaces;
+﻿using Panel.BusinessLogic.MaintenanceLogic;
+using Panel.Interfaces;
 using Panel.Models;
 using System;
 using System.Collections.Generic;
@@ -83,25 +84,40 @@ namespace Panel.Repositories
                     .Where(x => x.IsActive == "Yes")
                     .Select(x => x.Authorizer)
                     .LastOrDefault();
-
         }
 
         public void ActivateReminderNotification(string GeneratorName, DateTime StartDate, double EveryHrs, string ReminderLevel, string Authorizer)
         {
+            foreach (var row in GeneratorSurveillanceDBContext.GeneratorSchedulers)
+            {
+                if (row.GeneratorName == GeneratorName && row.IsActive == "Yes")
+                    row.IsActive = "No";
+            }
+
+            Tuple<List<double>, List<DateTime>> NotificationHoursDateTime = ScheduledMaintenanceNotificationLogic
+                                                                .GenerateNotificationHoursAndDates(StartDate, EveryHrs, ReminderLevel);
+
+            int i = 0;
             int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorSchedulers.Count();
-            GeneratorSurveillanceDBContext.GeneratorSchedulers.Add
-            (
-                new GeneratorScheduler
-                {
-                    Id = NoOfRecords,
-                    GeneratorName = GeneratorName,
-                    Starts = StartDate,
-                    Every = EveryHrs,
-                    ReminderLevel = ReminderLevel,
-                    Authorizer = Authorizer,
-                    IsActive = "Yes"
-                }
-            );
+            foreach (double Hours in NotificationHoursDateTime.Item1)
+            {
+                GeneratorSurveillanceDBContext.GeneratorSchedulers.Add
+                (
+                    new GeneratorScheduler
+                    {
+                        Id = NoOfRecords,
+                        GeneratorName = GeneratorName,
+                        Starts = StartDate,
+                        Every = EveryHrs,
+                        ReminderLevel = ReminderLevel,
+                        Authorizer = Authorizer,
+                        IsActive = "Yes",
+                        ReminderHoursProfile = Hours,
+                        ReminderDateTimeProfile = NotificationHoursDateTime.Item2.ElementAt(i)
+                    }
+                );
+                i++;
+            }           
         }
 
         public ObservableCollection<GeneratorScheduler> GetAllScheduledReminders()

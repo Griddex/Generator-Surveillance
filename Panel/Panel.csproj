@@ -132,6 +132,7 @@
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\GeneratorUsageLogic.cs" />
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\GetOrdinateData.cs" />
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\AssembleChart.cs" />
+    <Compile Include="BusinessLogic\MaintenanceLogic\ScheduledMaintenanceNotificationLogic.cs" />
     <Compile Include="BusinessLogic\PrintLogic\Print.cs" />
     <Compile Include="BusinessLogic\RaiseRadioButtonClick.cs" />
     <Compile Include="BusinessLogic\SnipingToolLogic\SnipingToolHelperMethods.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Converters\ConvObjsToDtpkrCmbx.cs" />
     <Compile Include="Converters\FloatConverter.cs" />
     <Compile Include="Converters\InputViewMultiConverter.cs" />
+    <Compile Include="Converters\PassTextBoxTwoComboxItemsAsCommandParameters.cs" />
     <Compile Include="Converters\PassTextBoxComboBoxItemAsCommandParameters.cs" />
     <Compile Include="Converters\PassCheckBoxBoolListBoxAsCommandParameters.cs" />
     <Compile Include="Converters\PassListBoxAsCommandParameter.cs" />

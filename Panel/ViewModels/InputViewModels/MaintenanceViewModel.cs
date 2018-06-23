@@ -30,7 +30,7 @@ namespace Panel.ViewModels.InputViewModels
             UniqueGeneratorNames = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
             AllGeneratorSchedules = unitOfWork.GeneratorScheduler.GetAllGeneratorSchedules();
             ActiveGeneratorSchedules = unitOfWork.GeneratorScheduler.GetActiveGeneratorSchedules();
-            UniqueAuthorizerNames = unitOfWork.GeneratorScheduler.GetAuthorizer(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+            UniqueAuthorizerNames = unitOfWork.GeneratorScheduler.GetAllAuthorizers(SchMaintenanceSelectedGen, AllGeneratorSchedules);
             UniqueAuthorizerNames.AddRange(new string[]{ "Monday", "Richard" });
         }
 
@@ -38,7 +38,15 @@ namespace Panel.ViewModels.InputViewModels
 
         public DateTime UnschMaintenanceDate { get; set; } = DateTime.Now;
         public DateTime SchMaintenanceDate { get; set; } = DateTime.Now;
-        public DateTime SchMaintenanceStartDate { get; set; } = DateTime.Now;
+        public DateTime SchMaintenanceStartDate
+        {
+            get
+            {
+                return DateTime.Now;
+            }
+            set { }
+        } 
+
         public double SchMaintenanceReminderHours { get; set; }
         public string SchMaintenanceSelectedReminderLevel { get; set; }
         public string SchMaintenanceSelectedAuthorizer { get; set; }
@@ -258,23 +266,8 @@ namespace Panel.ViewModels.InputViewModels
                             double Notification = 0;
                             string Authorizer = "";
 
-                            foreach (var item in (dynamic)x)
-                            {
-                                switch (item.Name)
-                                {
-                                    case "txtBxReminder":
-                                        Reminder = double.Parse(item.Text);
-                                        break;
-                                    case "txtBxNotification":
-                                        Notification = double.Parse(item.Text);
-                                        break;
-                                    case "txtBxAuthorizer":
-                                        Authorizer = item.Text;
-                                        break;
-                                    default:
-                                        break;
-                                }                                
-                            }                            
+                            Tuple<TextBox, ComboBoxItem, ComboBoxItem> txtBxTwoCmbx = (Tuple<TextBox, ComboBoxItem, ComboBoxItem>)x;
+                            
                             UnitOfWork.GeneratorScheduler.ActivateReminderNotification(SchMaintenanceSelectedGen, 
                                                                         SchMaintenanceStartDate, SchMaintenanceReminderHours, 
                                                                         SchMaintenanceSelectedReminderLevel, SchMaintenanceSelectedAuthorizer);

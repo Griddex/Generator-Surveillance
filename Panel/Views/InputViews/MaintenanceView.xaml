@@ -225,14 +225,14 @@
                                             Visibility="{Binding ElementName=expdrScheduledReminders, 
                                             Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}">
                                     <Label Content="Starts" Height="25" FontSize="14"
-                                       Visibility="{Binding ElementName=expdrScheduledReminders, 
+                                            Visibility="{Binding ElementName=expdrScheduledReminders, 
                                             Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"/>
-                                    <DatePicker x:Name="dtpkrStarts" HorizontalAlignment="Right"  VerticalAlignment="Bottom" 
-                                        Style="{DynamicResource DatePickerStyle}" Width="240" 
-                                        Height="55" Margin="0,0,0,0"
-                                        SelectedDate="{Binding Path=SchMaintenanceStartDate, Mode=TwoWay}"
-                                        DisplayDate="{x:Static sys:DateTime.Now}"/>
-                                    
+                                    <DatePicker x:Name="dtpkrStarts"  HorizontalAlignment="Right"  
+                                                VerticalAlignment="Bottom" 
+                                                Style="{DynamicResource DatePickerStyle}" Width="240" 
+                                                Height="55" Margin="0,0,0,0"
+                                                SelectedDate="{Binding Path=SchMaintenanceStartDate, Mode=TwoWay}"
+                                                DisplayDate="{x:Static sys:DateTime.Now}"/> 
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -323,7 +323,7 @@
                             Command="{Binding Path=EditReminderNotificationCmd}">
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource ControlToControl}">
-                                    <Binding ElementName="dtpkrStarts"/>
+                                    <!--<Binding ElementName="dtpkrStarts"/>-->
                                     <Binding ElementName="txtBxEvery"/>
                                     <Binding ElementName="cmbxReminderLevel"/>
                                     <Binding ElementName="cmbxAuthorizer"/>
@@ -336,15 +336,15 @@
                                 Content="Activate" ToolTip="Activate Scheduled Reminder" 
                             Style="{StaticResource AffirmativeButtonStyle}" 
                             HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                            HorizontalAlignment="Left" Margin="190,185,0,0"
+                            HorizontalAlignment="Left" Margin="188,185,0,0"
                             Visibility="{Binding ElementName=expdrScheduledReminders, 
                                             Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"
                             Command="{Binding Path=ActivateReminderNotificationCmd}">
                             <Button.CommandParameter>
-                                <MultiBinding Converter="{StaticResource ControlToControl}">
-                                    <Binding ElementName="txtBxReminder"/>
-                                    <Binding ElementName="txtBxNotification"/>
-                                    <Binding ElementName="txtBxAuthorizer"/>
+                                <MultiBinding Converter="{StaticResource PassTextBoxTwoComboxItems}">
+                                    <Binding ElementName="txtBxEvery"/>
+                                    <Binding ElementName="cmbxReminderLevel"/>
+                                    <Binding ElementName="cmbxAuthorizer"/>
                                 </MultiBinding>
                             </Button.CommandParameter>
                         </Button>
