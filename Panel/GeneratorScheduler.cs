@@ -22,5 +22,6 @@ namespace Panel
         public string Authorizer { get; set; }
         public double ReminderHoursProfile { get; set; }
         public System.DateTime ReminderDateTimeProfile { get; set; }
+        public string IsActive { get; set; }
     }
 }

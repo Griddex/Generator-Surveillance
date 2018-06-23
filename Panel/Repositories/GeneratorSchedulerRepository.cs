@@ -24,17 +24,28 @@ namespace Panel.Repositories
         public ObservableCollection<GeneratorScheduler> GetAllGeneratorSchedules()
         {
             return new ObservableCollection<GeneratorScheduler>
-                (
-                      GeneratorSurveillanceDBContext.GeneratorSchedulers
-                     .Where(x => x.Id >= 0)                     
-                 );
+                    (
+                          GeneratorSurveillanceDBContext.GeneratorSchedulers
+                         .Where(x => x.Id >= 0)                     
+                     );
         }
 
-        public DateTime GetReminderDate(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
+        public ObservableCollection<GeneratorScheduler> GetActiveGeneratorSchedules()
+        {
+            return new ObservableCollection<GeneratorScheduler>
+                    (
+                          GeneratorSurveillanceDBContext.GeneratorSchedulers
+                         .Where(x => x.Id >= 0 && x.IsActive == "Yes")
+                         .OrderBy(x => x.GeneratorName)                         
+                     );
+        }
+
+        public DateTime GetStartDate(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
         {
             return AllGeneratorSchedules
                     .Where(x => x.GeneratorName == GeneratorName)
-                    .Select(x => x.ReminderDateTimeProfile)
+                    .Where(x => x.IsActive == "Yes")
+                    .Select(x => x.Starts)
                     .LastOrDefault();
         }
 
@@ -42,27 +53,40 @@ namespace Panel.Repositories
         {
             return AllGeneratorSchedules
                     .Where(x => x.GeneratorName == GeneratorName)
-                    .Select(x => x.EveryHrs)
+                    .Where(x => x.IsActive == "Yes")
+                    .Select(x => x.Every)
                     .LastOrDefault();
         }
 
-        public double GetNotificationTiming(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
+        public string GetReminderLevel(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
         {
             return AllGeneratorSchedules
                     .Where(x => x.GeneratorName == GeneratorName)
-                    .Select(x => x.HrsThreshold)
+                    .Where(x => x.IsActive == "Yes")
+                    .Select(x => x.ReminderLevel)
                     .LastOrDefault();
+        }
+
+        public List<string> GetAllAuthorizers(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
+        {
+            return AllGeneratorSchedules
+                    .Where(x => x.GeneratorName == GeneratorName)
+                    .Where(x => x.IsActive == "Yes")
+                    .Select(x => x.Authorizer)
+                    .Distinct().ToList();
         }
 
         public string GetAuthorizer(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
         {
             return AllGeneratorSchedules
                     .Where(x => x.GeneratorName == GeneratorName)
+                    .Where(x => x.IsActive == "Yes")
                     .Select(x => x.Authorizer)
                     .LastOrDefault();
+
         }
 
-        public void AddReminderNotification(string GeneratorName, double Reminder, double Notification, string Authorizer)
+        public void ActivateReminderNotification(string GeneratorName, DateTime StartDate, double EveryHrs, string ReminderLevel, string Authorizer)
         {
             int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorSchedulers.Count();
             GeneratorSurveillanceDBContext.GeneratorSchedulers.Add
@@ -71,21 +95,22 @@ namespace Panel.Repositories
                 {
                     Id = NoOfRecords,
                     GeneratorName = GeneratorName,
-                    EveryHrs = Reminder,
-                    HrsThreshold = Notification,
-                    Authorizer = Authorizer
+                    Starts = StartDate,
+                    Every = EveryHrs,
+                    ReminderLevel = ReminderLevel,
+                    Authorizer = Authorizer,
+                    IsActive = "Yes"
                 }
             );
         }
 
         public ObservableCollection<GeneratorScheduler> GetAllScheduledReminders()
         {
-            var AllGeneratorScheduledReminders = new ObservableCollection<GeneratorScheduler>
-                                    (
-                                    GeneratorSurveillanceDBContext.GeneratorSchedulers
-                                    .AsParallel<GeneratorScheduler>()
-                                    );
-            return AllGeneratorScheduledReminders;
+            return new ObservableCollection<GeneratorScheduler>
+                    (
+                    GeneratorSurveillanceDBContext.GeneratorSchedulers
+                    .AsParallel<GeneratorScheduler>()
+                    );         
         }
     }
 }

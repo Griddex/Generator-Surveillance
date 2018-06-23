@@ -9,11 +9,12 @@
 
 namespace Panel
 {
+    using Panel.Interfaces;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GeneratorSurveillanceDBEntities : DbContext
+    public partial class GeneratorSurveillanceDBEntities : DbContext, IGeneratorSurveillanceDBEntities
     {
         public GeneratorSurveillanceDBEntities()
             : base("name=GeneratorSurveillanceDBEntities")
