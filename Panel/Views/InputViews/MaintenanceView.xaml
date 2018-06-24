@@ -60,7 +60,7 @@
                                 <Label x:Name="lblGenUnSchMainGenerator" Content="Select Generator" VerticalAlignment="Bottom"
                                                    HorizontalAlignment="Left" FontSize="14"/>
                                 <ComboBox x:Name="cmbxSelectUnSchMain" Width="500" Height="55" HorizontalAlignment="Left"
-                                            ItemsSource="{Binding UniqueGeneratorNames}" 
+                                            ItemsSource="{Binding UniqueGeneratorNames}" FontSize="16"
                                             Foreground="Black" DisplayMemberPath="GeneratorName"
                                             SelectedValuePath="GeneratorName" SelectedValue="GeneratorName"
                                             SelectedIndex="0" Style="{StaticResource alignmentFontSize}"
@@ -142,7 +142,7 @@
                                 <ComboBox x:Name="cmbxSelectSchMain" Width="500" Height="55" HorizontalAlignment="Left"
                                               ItemsSource="{Binding UniqueGeneratorNames}" 
                                               Foreground="Black" DisplayMemberPath="GeneratorName"
-                                              SelectedValuePath="GeneratorName" 
+                                              SelectedValuePath="GeneratorName" FontSize="16"
                                               SelectedValue="{Binding Path=SchMaintenanceSelectedGen, Mode=OneWayToSource}"
                                               SelectedIndex="0" Style="{StaticResource alignmentFontSize}"
                                               />
@@ -232,7 +232,7 @@
                                                 Style="{DynamicResource DatePickerStyle}" Width="240" 
                                                 Height="55" Margin="0,0,0,0"
                                                 SelectedDate="{Binding Path=SchMaintenanceStartDate, Mode=TwoWay}"
-                                                DisplayDate="{x:Static sys:DateTime.Now}"/> 
+                                                DisplayDate="{Binding Path=SchMaintenanceStartDate}"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -246,10 +246,10 @@
                                         Visibility="{Binding ElementName=expdrScheduledReminders, 
                                             Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}">
 
-                                    <Label Content="Every (hrs)" Height="25" FontSize="14" VerticalContentAlignment="Center"
+                                <Label Content="Every (hrs)" Height="25" FontSize="14" VerticalContentAlignment="Center"
                                            Visibility="{Binding ElementName=expdrScheduledReminders, 
                                             Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"/>
-                                    <TextBox x:Name="txtBxEvery" Background="#F2F2F2" Width="100" Height="55" 
+                                <TextBox x:Name="txtBxEvery" Background="#F2F2F2" Width="100" Height="55" 
                                              HorizontalAlignment="Left" VerticalContentAlignment="Center"
                                           Text="{Binding Path=SchMaintenanceReminderHours, Mode=TwoWay, 
                                                         ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged,
@@ -258,7 +258,7 @@
                                                         IsReadOnly="True"
                                              Visibility="{Binding ElementName=expdrScheduledReminders, 
                                             Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"/>
-                                </StackPanel>
+                            </StackPanel>
                         </Grid>
 
                         <Grid Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="5"  Grid.RowSpan="2"
@@ -271,22 +271,24 @@
                                             Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"
                                         Margin="100,0,0,0">
 
-                                    <Label Content="Reminder" Height="25" FontSize="14" VerticalContentAlignment="Center"
+                                <Label Content="Reminder" Height="25" FontSize="14" VerticalContentAlignment="Center"
                                        HorizontalContentAlignment="Right" Margin="10,0,0,0"
                                            Visibility="{Binding IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}, 
                                         ElementName=expdrScheduledReminders}" Width="80"/>
 
-                                    <ComboBox x:Name="cmbxReminderLevel" Width="100" Height="55" HorizontalAlignment="Left"                                              
-                                              Foreground="Black" FontSize="14" Margin="50,0,0,0"
-                                              SelectedValue="{Binding SchMaintenanceSelectedReminderLevel, Mode=TwoWay}"
+                                <ComboBox x:Name="cmbxReminderLevel" Width="100" Height="55" HorizontalAlignment="Left"                                              
+                                              Foreground="Black" FontSize="14" Margin="50,0,0,0" IsReadOnly="True"
+                                              ItemsSource="{Binding ReminderLevels}"
+                                              SelectedValue="{Binding SchMaintenanceSelectedReminderLevel, Mode=TwoWay,
+                                                            Converter={StaticResource ComboBoxItemToString}}"
                                               SelectedIndex="0" Style="{StaticResource alignmentFontSize}"
                                               Visibility="{Binding IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}, 
                                                         ElementName=expdrScheduledReminders}">
-                                        <ComboBoxItem>Normal</ComboBoxItem>
-                                        <ComboBoxItem>Elevated</ComboBoxItem>
-                                        <ComboBoxItem>Extreme</ComboBoxItem>
-                                    </ComboBox>
-                                </StackPanel>     
+                                    <!--<ComboBoxItem>Normal</ComboBoxItem>
+                                    <ComboBoxItem>Elevated</ComboBoxItem>
+                                    <ComboBoxItem>Extreme</ComboBoxItem>-->
+                                </ComboBox>
+                            </StackPanel>
                         </Grid>
 
                         <Grid Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="4"  Grid.RowSpan="2"
@@ -298,19 +300,23 @@
                                         Visibility="{Binding ElementName=expdrScheduledReminders, 
                                             Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"
                                         Margin="25,0,0,0" Width="350">
-                                    <Label Content="Authorizer" Height="25" FontSize="14" VerticalContentAlignment="Center"
+                                <Label Content="Authorizer" Height="25" FontSize="14" VerticalContentAlignment="Center"
                                        HorizontalContentAlignment="Left" Margin="0,0,50,0"
                                            Visibility="{Binding IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}, 
                                         ElementName=expdrScheduledReminders}" Width="80"/>
 
-                                    <ComboBox x:Name="cmbxAuthorizer" Width="130" Height="55" HorizontalAlignment="Left"
-                                              ItemsSource="{Binding UniqueAuthorizerNames}" 
-                                              Foreground="Black" Margin="110,0,0,0" FontSize="14"
-                                              SelectedValue="{Binding SchMaintenanceSelectedAuthorizer, Mode=TwoWay}"
+                                <ComboBox x:Name="cmbxAuthorizer" Width="130" Height="55" HorizontalAlignment="Right"
+                                              IsReadOnly="True" ItemsSource="{Binding UniqueAuthorizerNames}"
+                                              Foreground="Black" Margin="0,0,110,0" FontSize="14"
+                                              SelectedValue="{Binding SchMaintenanceSelectedAuthorizer, Mode=TwoWay,
+                                                            Converter={StaticResource ComboBoxItemToString}}"
                                               SelectedIndex="0" Style="{StaticResource alignmentFontSize}"
                                               Visibility="{Binding IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}, 
-                                                        ElementName=expdrScheduledReminders}" />
-                                </StackPanel>
+                                                        ElementName=expdrScheduledReminders}" >
+                                    <!--<ComboBoxItem>Monday</ComboBoxItem>
+                                    <ComboBoxItem>Richard</ComboBoxItem>-->
+                                </ComboBox>
+                            </StackPanel>
                         </Grid>
 
                         <Button x:Name="btnEditHours" Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="5"
@@ -323,10 +329,9 @@
                             Command="{Binding Path=EditReminderNotificationCmd}">
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource ControlToControl}">
-                                    <!--<Binding ElementName="dtpkrStarts"/>-->
                                     <Binding ElementName="txtBxEvery"/>
-                                    <Binding ElementName="cmbxReminderLevel"/>
-                                    <Binding ElementName="cmbxAuthorizer"/>
+                                    <Binding ElementName="cmbxReminderLevel" />
+                                    <Binding ElementName="cmbxAuthorizer" />
                                 </MultiBinding>
                             </Button.CommandParameter>
                         </Button>
@@ -343,8 +348,8 @@
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource PassTextBoxTwoComboxItems}">
                                     <Binding ElementName="txtBxEvery"/>
-                                    <Binding ElementName="cmbxReminderLevel"/>
-                                    <Binding ElementName="cmbxAuthorizer"/>
+                                    <Binding ElementName="cmbxReminderLevel" Path="SelectedItem"/>
+                                    <Binding ElementName="cmbxAuthorizer" Path="SelectedItem"/>
                                 </MultiBinding>
                             </Button.CommandParameter>
                         </Button>
@@ -412,17 +417,15 @@
                                             </Style>
                                         </DataGrid.RowStyle>
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="S/N" Binding="{Binding Id}" FontSize="12"
-                                                                    Width="Auto"/>
-                                            <DataGridTextColumn Header="Generator" Binding="{Binding GeneratorName}" 
+                                            <DataGridTextColumn Header="Generator Name" Binding="{Binding GeneratorName}" 
                                                                     FontSize="12" Width="150"/>
                                             <DataGridTextColumn Header="Start Date" Binding="{Binding Starts}" 
-                                                                    FontSize="12" Width="Auto"/>
-                                            <DataGridTextColumn Header="Frequency" Binding="{Binding Every}" 
+                                                                    FontSize="12" Width="220"/>
+                                            <DataGridTextColumn Header="Every (hours)" Binding="{Binding Every}" 
                                                                     FontSize="12" Width="100"/>
                                             <DataGridTextColumn Header="Authorizer" 
                                                                     Binding="{Binding Authorizer}" 
-                                                                    FontSize="12" Width="Auto"/>
+                                                                    FontSize="12" Width="150"/>
                                             <DataGridTextColumn Header="IsActive" 
                                                                     Binding="{Binding IsActive}" 
                                                                     FontSize="12" Width="*"/>

@@ -37,7 +37,7 @@ namespace Panel.Repositories
                     (
                           GeneratorSurveillanceDBContext.GeneratorSchedulers
                          .Where(x => x.Id >= 0 && x.IsActive == "Yes")
-                         .OrderBy(x => x.GeneratorName)                         
+                         .GroupBy(x => x.GeneratorName, (Key,g) => g.FirstOrDefault())                         
                      );
         }
 
@@ -105,7 +105,7 @@ namespace Panel.Repositories
                 (
                     new GeneratorScheduler
                     {
-                        Id = NoOfRecords,
+                        Id = NoOfRecords + i + 1,
                         GeneratorName = GeneratorName,
                         Starts = StartDate,
                         Every = EveryHrs,

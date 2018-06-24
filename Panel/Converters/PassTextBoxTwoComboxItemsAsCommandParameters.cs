@@ -13,7 +13,7 @@ namespace Panel.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return new Tuple<TextBox, ComboBoxItem, ComboBoxItem>((TextBox)values[0], (ComboBoxItem)values[1], (ComboBoxItem)values[2]);
+            return new Tuple<TextBox, string, string>((TextBox)values[0], (string)values[1], (string)values[2]);
         }
 
 

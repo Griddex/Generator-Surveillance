@@ -21,8 +21,10 @@ namespace Panel.ViewModels.InputViewModels
     {
 
         public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = new ObservableCollection<GeneratorNameModel>();
+        public ObservableCollection<string> ReminderLevels { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<GeneratorScheduler> AllGeneratorSchedules { get; set; } = new ObservableCollection<GeneratorScheduler>();
         public ObservableCollection<GeneratorScheduler> ActiveGeneratorSchedules { get; set; } = new ObservableCollection<GeneratorScheduler>();
+        public List<string> UniqueAuthorizerNames { get; set; } = new List<string>();
 
         public MaintenanceViewModel(UnitOfWork unitOfWork)
         {
@@ -30,12 +32,14 @@ namespace Panel.ViewModels.InputViewModels
             UniqueGeneratorNames = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
             AllGeneratorSchedules = unitOfWork.GeneratorScheduler.GetAllGeneratorSchedules();
             ActiveGeneratorSchedules = unitOfWork.GeneratorScheduler.GetActiveGeneratorSchedules();
-            UniqueAuthorizerNames = unitOfWork.GeneratorScheduler.GetAllAuthorizers(SchMaintenanceSelectedGen, AllGeneratorSchedules);
-            UniqueAuthorizerNames.AddRange(new string[]{ "Monday", "Richard" });
+            UniqueAuthorizerNames.Add("Monday");
+            UniqueAuthorizerNames.Add("Richard");
+            ReminderLevels.Add("Normal");
+            ReminderLevels.Add("Elevated");
+            ReminderLevels.Add("Extreme");
         }
 
         public UnitOfWork UnitOfWork { get; set; }
-
         public DateTime UnschMaintenanceDate { get; set; } = DateTime.Now;
         public DateTime SchMaintenanceDate { get; set; } = DateTime.Now;
         public DateTime SchMaintenanceStartDate
@@ -50,7 +54,7 @@ namespace Panel.ViewModels.InputViewModels
         public double SchMaintenanceReminderHours { get; set; }
         public string SchMaintenanceSelectedReminderLevel { get; set; }
         public string SchMaintenanceSelectedAuthorizer { get; set; }
-        public List<string> UniqueAuthorizerNames { get; set; }
+        
 
         private string _unschMaintenanceComments;
         public string UnschMaintenanceComments
@@ -151,11 +155,15 @@ namespace Panel.ViewModels.InputViewModels
                 SchMaintenanceReminderHours = UnitOfWork.GeneratorScheduler.GetReminderInHrs(SchMaintenanceSelectedGen, AllGeneratorSchedules);
                 OnPropertyChanged(nameof(SchMaintenanceReminderHours));
 
-                SchMaintenanceSelectedReminderLevel = UnitOfWork.GeneratorScheduler.GetReminderLevel(SchMaintenanceSelectedGen, AllGeneratorSchedules);
-                OnPropertyChanged(nameof(SchMaintenanceSelectedReminderLevel));
+                try
+                {
+                    SchMaintenanceSelectedReminderLevel = UnitOfWork.GeneratorScheduler.GetReminderLevel(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                    OnPropertyChanged(nameof(SchMaintenanceSelectedReminderLevel));
 
-                SchMaintenanceSelectedAuthorizer = UnitOfWork.GeneratorScheduler.GetAuthorizer(SchMaintenanceSelectedGen, AllGeneratorSchedules);
-                OnPropertyChanged(nameof(SchMaintenanceSelectedAuthorizer));
+                    SchMaintenanceSelectedAuthorizer = UnitOfWork.GeneratorScheduler.GetAuthorizer(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                    OnPropertyChanged(nameof(SchMaintenanceSelectedAuthorizer));
+                }
+                catch (Exception) { }                
             }
         }
         
@@ -262,15 +270,12 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         x =>
                         {
-                            double Reminder = 0;
-                            double Notification = 0;
-                            string Authorizer = "";
-
-                            Tuple<TextBox, ComboBoxItem, ComboBoxItem> txtBxTwoCmbx = (Tuple<TextBox, ComboBoxItem, ComboBoxItem>)x;
+                            string ReminderLevel = (string)SchMaintenanceSelectedReminderLevel;
+                            string Authorizer = (string)SchMaintenanceSelectedAuthorizer;
                             
                             UnitOfWork.GeneratorScheduler.ActivateReminderNotification(SchMaintenanceSelectedGen, 
-                                                                        SchMaintenanceStartDate, SchMaintenanceReminderHours, 
-                                                                        SchMaintenanceSelectedReminderLevel, SchMaintenanceSelectedAuthorizer);
+                                                                        SchMaintenanceStartDate, SchMaintenanceReminderHours,
+                                                                        ReminderLevel, Authorizer);
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {

@@ -48,10 +48,12 @@ namespace Panel.BusinessLogic.MaintenanceLogic
 
         static List<DateTime> GenerateNotificationDateTime(DateTime StartDate, List<double> NotificationHoursList)
         {
+            double hrs = 0;
             List<DateTime> NotificationDateTime = new List<DateTime>();
             foreach (double hours in NotificationHoursList)
             {
-                NotificationDateTime.Add(StartDate.AddHours(hours));
+                hrs += hours;
+                NotificationDateTime.Add(StartDate.AddHours(hrs));
             }
             return NotificationDateTime;
         }

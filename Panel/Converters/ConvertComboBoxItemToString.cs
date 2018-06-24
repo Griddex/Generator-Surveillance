@@ -14,14 +14,23 @@ namespace Panel.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();           
+            if(value != null)
+            {
+                return (string)value;
+            }
+            return null;         
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value != null)
             {
-                return ((GeneratorNameModel)value).GeneratorName;
+                if (value is GeneratorNameModel)
+                {
+                    GeneratorNameModel generatorNameModel = (GeneratorNameModel)value;
+                    return generatorNameModel.GeneratorName;
+                }                    
+                return (string)value;
             }
             return null;
         }
