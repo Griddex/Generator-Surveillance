@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Panel.Interfaces
 {
-    public interface IEmailService : IMessageService
+    public  interface IEmailService : IMessageService
     {
-        List<MailAddress> CCAddresses { get; set; }
+         List<MailAddress> CCAddresses { get; set; }
     }
 }

@@ -234,6 +234,7 @@
     <Compile Include="Repositories\GeneratorUsageRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
+    <Compile Include="Services\MessagingServices\EmailMessage.cs" />
     <Compile Include="Services\MessagingServices\EmailService.cs" />
     <Compile Include="Services\MessagingServices\Notifier.cs" />
     <Compile Include="Services\NavigationServices\FrameNavigationService.cs" />
