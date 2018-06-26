@@ -104,7 +104,7 @@ namespace Panel
             RunningHrsSchedulingTablesView runningHrsSchedulingTablesView = (RunningHrsSchedulingTablesView)container.Resolve<IView>("RunningHrsSchedulingTablesView");
             MainViewFrame.Navigate(runningHrsSchedulingTablesView);
         }
-        //RunningHrsSchedulerToUsageMaintView_Executed
+        
         private void RunningHrsSchedulerToUsageMaintView_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
         private void RunningHrsSchedulerToUsageMaintView_Executed(object sender, ExecutedRoutedEventArgs e)
         {

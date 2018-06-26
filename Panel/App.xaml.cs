@@ -35,14 +35,25 @@ namespace Panel
     {
         public App() { }
 
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private  void Application_Startup(object sender, StartupEventArgs e)
+        {
+            Task.Run(() => StartUpNotification());
+            InitialiseContainers();
+        }
+        
+        private void StartUpNotification()
+        {                       
+            Console.WriteLine($"Notification starts");           
+        }
+        
+        private void InitialiseContainers()
         {
             IUnityContainer container = new UnityContainer();
 
-            GeneratorSurveillanceDBEntities generatorSurveillanceDBEntities = new GeneratorSurveillanceDBEntities();            
+            GeneratorSurveillanceDBEntities generatorSurveillanceDBEntities = new GeneratorSurveillanceDBEntities();
             container.RegisterInstance(generatorSurveillanceDBEntities);
 
-            container.RegisterType<IUnitOfWork, UnitOfWork>("UnitOfWork", 
+            container.RegisterType<IUnitOfWork, UnitOfWork>("UnitOfWork",
                                                         new ContainerControlledLifetimeManager(),
                                                         new InjectionConstructor
                                                         (
@@ -63,14 +74,14 @@ namespace Panel
                                                             typeof(UnitOfWork)
                                                         ));
 
-            container.RegisterType<IView, InputView>("InputView", 
+            container.RegisterType<IView, InputView>("InputView",
                                                         new ContainerControlledLifetimeManager(),
                                                         new InjectionConstructor
                                                         (
-                                                            typeof(UnitOfWork), 
+                                                            typeof(UnitOfWork),
                                                             typeof(InputViewModel)
                                                         ));
-            
+
             container.RegisterType<IViewModel, UsageViewModel>("UsageViewModel",
                                                         new ContainerControlledLifetimeManager(),
                                                         new InjectionConstructor
@@ -146,8 +157,8 @@ namespace Panel
             IViewModel inputViewModel = container.Resolve<IViewModel>("InputViewModel");
             IView inputView = container.Resolve<IView>("InputView");
 
-            container.RegisterType<IView, MainView>("MainView", 
-                                                    new ContainerControlledLifetimeManager(), 
+            container.RegisterType<IView, MainView>("MainView",
+                                                    new ContainerControlledLifetimeManager(),
                                                     new InjectionConstructor
                                                     (
                                                         typeof(InputView)
@@ -156,6 +167,6 @@ namespace Panel
             Application.Current.Resources.Add("UnityIoC", container);
             IView mainView = container.Resolve<IView>("MainView");
             (mainView as MainView).Show();
-        }        
+        }
     }
 }
