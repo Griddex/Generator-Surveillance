@@ -124,6 +124,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BusinessLogic\AuxilliaryMethods\FindChildren.cs" />
+    <Compile Include="BusinessLogic\AuxilliaryMethods\ReminderCondition.cs" />
     <Compile Include="BusinessLogic\AuxilliaryMethods\ParseTimeFromDateTime.cs" />
     <Compile Include="BusinessLogic\ChartsLogic\ExtrudeInterveningDates.cs" />
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\CalculateUsageHours.cs" />

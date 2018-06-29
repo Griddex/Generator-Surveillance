@@ -17,7 +17,9 @@ namespace Panel.Services.MessagingServices
         public List<MailAddress> CCAddresses { get; set; }
         public string MessageNotification { get; set; }
 
-        public void SendMessage(string GeneratorName, string ReminderLevel, string NotificationTime)
+        public void SendMessage(string GeneratorName, string ReminderLevel, string NotificationTime, 
+                    TimeSpan NextNotificationDuration, DateTime FinalNotificationDate, int FirstID, 
+                    int LastID, int GeneratorID)
         {
             try
             {
@@ -26,8 +28,14 @@ namespace Panel.Services.MessagingServices
                 mailMessage.From = FromAddress;
                 mailMessage.To.Add(new MailAddress("gideonyte@yahoo.com"));
                 mailMessage.To.Add(new MailAddress("gideon.sanni@cyphercrescent.com"));
+                //mailMessage.Bcc
 
-
+                mailMessage.Subject = EmailMessage.EmailSubjectAndBody(GeneratorName,
+                                                    ReminderLevel, NotificationTime, NextNotificationDuration,
+                                                    FinalNotificationDate, FirstID, LastID, GeneratorID).Item1;
+                mailMessage.Body = EmailMessage.EmailSubjectAndBody(GeneratorName,
+                                                    ReminderLevel, NotificationTime, NextNotificationDuration,
+                                                    FinalNotificationDate, FirstID, LastID, GeneratorID).Item2;
 
                 smtpClient.Port = 587;
                 smtpClient.Host = "smtp.gmail.com";

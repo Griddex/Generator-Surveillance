@@ -28,7 +28,7 @@ namespace Panel.Repositories
                     (
                           GeneratorSurveillanceDBContext.GeneratorSchedulers
                          .Where(x => x.Id >= 0)                     
-                     );
+                    );
         }
 
         public ObservableCollection<GeneratorScheduler> GetActiveGeneratorSchedules()
@@ -38,7 +38,7 @@ namespace Panel.Repositories
                           GeneratorSurveillanceDBContext.GeneratorSchedulers
                          .Where(x => x.Id >= 0 && x.IsActive == "Yes")
                          .GroupBy(x => x.GeneratorName, (Key,g) => g.FirstOrDefault())                         
-                     );
+                    );
         }
 
         public DateTime GetStartDate(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)

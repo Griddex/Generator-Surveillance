@@ -12,6 +12,7 @@ namespace Panel.Interfaces
         MailAddress FromAddress { get; set; }
         List<MailAddress> ToAddresses { get; set; }
         string MessageNotification { get; set; }
-        void SendMessage(string GeneratorName, string ReminderLevel, string NotificationTime);
+        void SendMessage(string GeneratorName, string ReminderLevel, string NotificationTime, 
+            TimeSpan NextNotificationDuration, DateTime FinalNotificationDate, int FirstID, int LastID, int GeneratorID);
     }
 }
