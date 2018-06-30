@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Panel.Repositories;
+using System.Collections.ObjectModel;
 
 namespace Panel.Services.MessagingServices
 {
     public class Notifier
     {
         public GeneratorScheduler NextGeneratorForNotification { get; set; }
+        public ObservableCollection<GeneratorScheduler> AllGeneratorSchedules { get; set; }
         public Timer Timer { get; set; }
         public string GeneratorName { get; set; }
         public string ReminderLevel { get; set; }
@@ -32,35 +34,47 @@ namespace Panel.Services.MessagingServices
                                                 (
                                                     new GeneratorSurveillanceDBEntities()
                                                 );
+            AllGeneratorSchedules = gs.GetAllGeneratorSchedules();
             var CurrentActiveGenerators = gs.GetActiveGeneratorSchedules();
 
-            NextGeneratorForNotification = CurrentActiveGenerators
-                                           .OrderBy(x => x.Starts - DateTime.Now)
+            NextGeneratorForNotification = AllGeneratorSchedules
+                                           .Where(x => x.IsActive == "Yes")
+                                           .Where(x => x.ReminderDateTimeProfile > DateTime.Now)
+                                           .OrderBy(x => x.ReminderDateTimeProfile - DateTime.Now)
                                            .FirstOrDefault();
+
             GeneratorID = NextGeneratorForNotification.Id;
+            GeneratorName = NextGeneratorForNotification.GeneratorName;
+            ReminderLevel = NextGeneratorForNotification.ReminderLevel;
 
-            FinalNotificationDate = CurrentActiveGenerators
-                                    .OrderBy(x => x.Starts - DateTime.Now)
+            FinalNotificationDate = AllGeneratorSchedules
+                                    .Where(x => x.GeneratorName == NextGeneratorForNotification.GeneratorName)
+                                    .Where(x => x.IsActive == "Yes")
+                                    .Where(x => x.ReminderDateTimeProfile > DateTime.Now)
+                                    .OrderBy(x => DateTime.Now - x.ReminderDateTimeProfile)
                                     .LastOrDefault().ReminderDateTimeProfile;
-            NextNotificationDuration = NextGeneratorForNotification.Starts - DateTime.Now;
+            NextNotificationDuration = NextGeneratorForNotification.ReminderDateTimeProfile - DateTime.Now;
 
-            FirstID = CurrentActiveGenerators
+            FirstID = AllGeneratorSchedules
                         .Where(x => x.GeneratorName == NextGeneratorForNotification.GeneratorName)
                         .Where(x => x.IsActive == "Yes")
                         .OrderBy(x => x.Id)
                         .FirstOrDefault().Id;
-            LastID = CurrentActiveGenerators
+            LastID = AllGeneratorSchedules
                         .Where(x => x.GeneratorName == NextGeneratorForNotification.GeneratorName)
                         .Where(x => x.IsActive == "Yes")
                         .OrderBy(x => x.Id)
                         .LastOrDefault().Id;
 
             int SecondsFromNextNotification = (int)(NextNotificationDuration.TotalSeconds);
-            Timer Timer = new Timer(x => NotificationHandlers(), null,
-                                    SecondsFromNextNotification, Timeout.Infinite);
+            //Timer Timer = new Timer(x => NotificationHandlers(), null,
+            //                        SecondsFromNextNotification * 1000, Timeout.Infinite);
+
+            Timer Timer = new Timer(new TimerCallback(NotificationHandlers), null,
+                                    SecondsFromNextNotification * 1000, Timeout.Infinite);
         }
 
-        public void NotificationHandlers()
+        public void NotificationHandlers(Object state)
         {
             EmailService emailService = new EmailService();
             emailService.SendMessage(GeneratorName, ReminderLevel, NotificationTime,

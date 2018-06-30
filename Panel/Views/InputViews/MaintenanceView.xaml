@@ -231,8 +231,8 @@
                                                 VerticalAlignment="Bottom" 
                                                 Style="{DynamicResource DatePickerStyle}" Width="240" 
                                                 Height="55" Margin="0,0,0,0"
-                                                SelectedDate="{Binding Path=SchMaintenanceStartDate, Mode=TwoWay}"
-                                                DisplayDate="{Binding Path=SchMaintenanceStartDate}"/>
+                                                SelectedDate="{Binding SchMaintenanceStartDate, Mode=TwoWay}"
+                                                DisplayDate="{x:Static sys:DateTime.Now}"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

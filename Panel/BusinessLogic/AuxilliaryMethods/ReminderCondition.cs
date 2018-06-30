@@ -11,7 +11,7 @@ namespace Panel.BusinessLogic.AuxilliaryMethods
         public static string GetReminderCondition(string ReminderLevel, int FirstID,
                                         int LastID, int GeneratorID)
         {
-            double notificationposition = GeneratorID / (LastID - FirstID);
+            double notificationposition = (GeneratorID - FirstID) / (LastID - FirstID);
             switch (ReminderLevel)
             {
                 case "Normal":

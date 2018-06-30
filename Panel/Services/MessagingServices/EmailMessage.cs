@@ -24,22 +24,23 @@ namespace Panel.Services.MessagingServices
             switch (ReminderLevel)
             {
                 case "Normal":
-                    subject = $@"<b>Normal Reminder:</b> Scheduled Maintenance 
-                                for {GeneratorName} Generator";
+                case "Elevated":
+                case "Extreme":
+                    subject = $@"<b>{ReminderLevel} Reminder:</b> Scheduled Maintenance for <b>{GeneratorName}</b> Generator";
                     body = $@"Dear Team, 
                             {Environment.NewLine}
                             {Environment.NewLine}
                             {reminderCondition} reminder to execute {Environment.NewLine}
                             scheduled maintenance for {GeneratorName} Generator
                             {Environment.NewLine}
-                            Scheduled Maintenance Date: {FinalNotificationDate}
-                            Time Left: {NextNotificationDuration.Days} days,
+                            Scheduled Maintenance Date: <b>{FinalNotificationDate}</b>
+                            Time Left: <b>{NextNotificationDuration.Days} days,</b>
                                        {Environment.NewLine}
-                                       {NextNotificationDuration.Hours} hours,
+                                       <b>{NextNotificationDuration.Hours} hours,</b>
                                        {Environment.NewLine}
-                                       {NextNotificationDuration.Minutes} minutes,
+                                       <b>{NextNotificationDuration.Minutes} minutes,</b>
                                        {Environment.NewLine}
-                                       {NextNotificationDuration.Seconds} seconds.
+                                       <b>{NextNotificationDuration.Seconds} seconds.</b>
                             {Environment.NewLine}
                             {Environment.NewLine}
                             Notification Provided By:

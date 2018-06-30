@@ -42,15 +42,15 @@ namespace Panel.ViewModels.InputViewModels
         public UnitOfWork UnitOfWork { get; set; }
         public DateTime UnschMaintenanceDate { get; set; } = DateTime.Now;
         public DateTime SchMaintenanceDate { get; set; } = DateTime.Now;
-        public DateTime SchMaintenanceStartDate
-        {
-            get
-            {
-                return DateTime.Now;
-            }
-            set { }
-        } 
-
+        //public DateTime SchMaintenanceStartDate
+        //{
+        //    get
+        //    {
+        //        return DateTime.Now;
+        //    }
+        //    set { }
+        //}
+        public DateTime SchMaintenanceStartDate { get; set; } = DateTime.Now;
         public double SchMaintenanceReminderHours { get; set; }
         public string SchMaintenanceSelectedReminderLevel { get; set; }
         public string SchMaintenanceSelectedAuthorizer { get; set; }

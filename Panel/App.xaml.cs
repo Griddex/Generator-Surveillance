@@ -1,6 +1,7 @@
 ﻿using Panel.BusinessLogic;
 using Panel.Interfaces;
 using Panel.Repositories;
+using Panel.Services.MessagingServices;
 using Panel.Services.NavigationService;
 using Panel.ViewModels.ChartViewModels;
 using Panel.ViewModels.HelpViewModels;
@@ -42,12 +43,14 @@ namespace Panel
         }
         
         private void StartUpNotification()
-        {                       
-            Console.WriteLine($"Notification starts");           
+        {
+            Notifier notifier = new Notifier();            
         }
         
         private void InitialiseContainers()
         {
+            Notifier notifier = new Notifier();
+
             IUnityContainer container = new UnityContainer();
 
             GeneratorSurveillanceDBEntities generatorSurveillanceDBEntities = new GeneratorSurveillanceDBEntities();
