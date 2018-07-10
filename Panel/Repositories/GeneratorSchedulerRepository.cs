@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Panel.Repositories
 {
-    public class GeneratorSchedulerRepository : Repository<GeneratorScheduler>, IGeneratorSchedulerRepository
+    public class GeneratorSchedulerRepository : Repository<GeneratorScheduler>, IGeneratorSchedulerRepository, IDisposable
     {
         public GeneratorSchedulerRepository(GeneratorSurveillanceDBEntities context) : base(context)
         {
@@ -128,6 +128,11 @@ namespace Panel.Repositories
                     GeneratorSurveillanceDBContext.GeneratorSchedulers
                     .AsParallel<GeneratorScheduler>()
                     );         
+        }
+
+        public void Dispose()
+        {
+            this.Dispose();
         }
     }
 }

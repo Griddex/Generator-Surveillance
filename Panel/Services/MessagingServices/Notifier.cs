@@ -29,18 +29,17 @@ namespace Panel.Services.MessagingServices
 
         public static void Initialise()
         {
-            GeneratorSchedulerRepository gs = new GeneratorSchedulerRepository
-                                                (
-                                                    new GeneratorSurveillanceDBEntities()
-                                                );
-            AllGeneratorSchedules = gs.GetAllGeneratorSchedules();
-            var CurrentActiveGenerators = gs.GetActiveGeneratorSchedules();
+            var gse = new GeneratorSurveillanceDBEntities();
+            var gsr = new GeneratorSchedulerRepository(gse);
+                
+            AllGeneratorSchedules = gsr.GetAllGeneratorSchedules();
+            var CurrentActiveGenerators = gsr.GetActiveGeneratorSchedules();
 
             NextGeneratorForNotification = AllGeneratorSchedules
-                                           .Where(x => x.IsActive == "Yes")
-                                           .Where(x => x.ReminderDateTimeProfile > DateTime.Now)
-                                           .OrderBy(x => x.ReminderDateTimeProfile - DateTime.Now)
-                                           .FirstOrDefault();
+                                            .Where(x => x.IsActive == "Yes")
+                                            .Where(x => x.ReminderDateTimeProfile > DateTime.Now)
+                                            .OrderBy(x => x.ReminderDateTimeProfile - DateTime.Now)
+                                            .FirstOrDefault();
 
             GeneratorID = NextGeneratorForNotification.Id;
             GeneratorName = NextGeneratorForNotification.GeneratorName;
@@ -64,7 +63,7 @@ namespace Panel.Services.MessagingServices
                         .Where(x => x.IsActive == "Yes")
                         .OrderBy(x => x.Id)
                         .LastOrDefault().Id;
-
+            
             int SecondsFromNextNotification = (int)(NextNotificationDuration.TotalSeconds);
 
             TimerTimer timer = new TimerTimer();

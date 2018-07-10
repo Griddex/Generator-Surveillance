@@ -35,10 +35,14 @@ namespace Panel.Services.MessagingServices
                             <br/>
                             <table border='1' style='width: 100 %' bordercolor='#000000' cellspacing='0' cellpadding='10'>
                                 <tr align='center'>
-                                    <th bgcolor='#99e6ff'>Due Date & Time</th>
-                                    <th bgcolor='#99e6ff'>Time Left</th>
+                                    <th bgcolor='#99e6ff'>Generator Name</th>
+                                    <th bgcolor='#99e6ff'>Maintenance Date & Time</th>
+                                    <th bgcolor='#99e6ff'>Time Left to Maintenance</th>
                                 </tr>
                                 <tr align='center'>
+                                    <td>
+                                        <b>{GeneratorName}</b>
+                                    </td>
                                     <td>
                                         <b>{FinalNotificationDate: dddd, MMMM dd, yyyy}</b>
                                         <br/>

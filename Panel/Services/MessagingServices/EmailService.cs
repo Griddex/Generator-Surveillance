@@ -44,7 +44,7 @@ namespace Panel.Services.MessagingServices
                 smtpClient.Credentials = new NetworkCredential("gideonyte@hotmail.com", "KazakhSTan#1");
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpClient.Send(mailMessage);
-                MessageBox.Show("The mail was sent successfully!");
+                //MessageBox.Show("The mail was sent successfully!");
             }
             catch (Exception ex)
             {
