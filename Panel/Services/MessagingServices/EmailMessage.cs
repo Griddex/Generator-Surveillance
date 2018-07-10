@@ -26,25 +26,40 @@ namespace Panel.Services.MessagingServices
                 case "Normal":
                 case "Elevated":
                 case "Extreme":
-                    subject = $"<b>" + ReminderLevel + " Reminder:" + "</b>" + " Scheduled Maintenance for " 
-                            + "<b>" + GeneratorName + "</b>" + " Generator";
+                    subject = $"{ReminderLevel} Reminder: Scheduled Maintenance for {GeneratorName}  Generator";
                     body = $@"Dear Team, 
-                            {Environment.NewLine}
-                            {Environment.NewLine}
-                            {reminderCondition} reminder to execute scheduled maintenance for {GeneratorName} Generator.
-                            {Environment.NewLine}
-                            Scheduled Maintenance Date: <b>{FinalNotificationDate}</b>
-                            Time Left: <b>{NextNotificationDuration.Days} days,</b>
-                                       {Environment.NewLine}
-                                       <b>{NextNotificationDuration.Hours} hours,</b>
-                                       {Environment.NewLine}
-                                       <b>{NextNotificationDuration.Minutes} minutes,</b>
-                                       {Environment.NewLine}
-                                       <b>{NextNotificationDuration.Seconds} seconds.</b>
-                            {Environment.NewLine}
-                            {Environment.NewLine}
-                            Notification Provided By:
-                            {Environment.NewLine}
+                            <br/>
+                            <br/>
+                            <b>{reminderCondition} reminder</b> for scheduled maintenance of <b>{GeneratorName}</b> Generator.
+                            <br/>
+                            <br/>
+                            <table border='1' style='width: 100 %' bordercolor='#000000' cellspacing='0' cellpadding='10'>
+                                <tr align='center'>
+                                    <th bgcolor='#99e6ff'>Due Date & Time</th>
+                                    <th bgcolor='#99e6ff'>Time Left</th>
+                                </tr>
+                                <tr align='center'>
+                                    <td>
+                                        <b>{FinalNotificationDate: dddd, MMMM dd, yyyy}</b>
+                                        <br/>
+                                        <br/>
+                                        <b>{FinalNotificationDate: h:mm:ss tt}</b>
+                                    </td>
+                                    <td>
+                                        <b>{NextNotificationDuration.Days}</b> day(s),
+                                        <br/>
+                                        <b>{NextNotificationDuration.Hours}</b> hour(s),
+                                        <br/>
+                                        <b>{NextNotificationDuration.Minutes}</b> minute(s),
+                                        <br/>
+                                        <b>{NextNotificationDuration.Seconds}</b> second(s).
+                                    </td>
+                                </tr>                                
+                            </table>
+                            <br/>
+                            <br/>
+                            Notification By:
+                            <br/>
                             Generator Surveillance Software";
                     return new Tuple<string, string>(subject, body);
                 default:

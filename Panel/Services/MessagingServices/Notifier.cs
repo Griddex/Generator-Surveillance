@@ -67,17 +67,10 @@ namespace Panel.Services.MessagingServices
 
             int SecondsFromNextNotification = (int)(NextNotificationDuration.TotalSeconds);
 
-            //Timer Timer = new Timer(new TimerCallback(NotificationHandlers), null,
-            //                        SecondsFromNextNotification * 1000, Timeout.Infinite);
-
-            //Timer Timer = new Timer(s => NotificationHandlers(s), null,
-            //                        SecondsFromNextNotification * 1000, Timeout.Infinite);
-
             TimerTimer timer = new TimerTimer();
             timer.Elapsed += Timer_Elapsed;
             timer.Interval = SecondsFromNextNotification * 1000;
             timer.AutoReset = false;
-            //timer.Start();
             timer.Enabled = true;
         }
 
@@ -94,17 +87,5 @@ namespace Panel.Services.MessagingServices
             }                
             Initialise();
         }
-
-        public static void NotificationHandlers(Object state)
-        {
-            EmailService emailService = new EmailService();
-            emailService.SendMessage(GeneratorName, ReminderLevel, NotificationTime,
-                                        NextNotificationDuration, FinalNotificationDate,
-                                        FirstID, LastID, GeneratorID);
-
-            Timer.Change(Timeout.Infinite, Timeout.Infinite);
-            Timer.Dispose();
-            Initialise();
-        }    
     }
 }
