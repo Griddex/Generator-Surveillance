@@ -29,15 +29,16 @@ namespace Panel.Services.MessagingServices
                 mailMessage.From = FromAddress;
                 mailMessage.To.Add(new MailAddress("gideonyte@yahoo.com"));
                 mailMessage.To.Add(new MailAddress("gideon.sanni@cyphercrescent.com"));
-                //mailMessage.Bcc
+                
                 SubjectAndBody = EmailMessage.EmailSubjectAndBody(GeneratorName,
                                                     ReminderLevel, NotificationTime, NextNotificationDuration,
                                                     FinalNotificationDate, FirstID, LastID, GeneratorID);
                 mailMessage.Subject = SubjectAndBody.Item1;
                 mailMessage.Body = SubjectAndBody.Item2;
+                mailMessage.IsBodyHtml = true;
 
                 smtpClient.Port = 587;
-                smtpClient.Host = "smtp.gmail.com";
+                smtpClient.Host = "smtp.live.com";
                 smtpClient.EnableSsl = true;
                 smtpClient.UseDefaultCredentials = false;
                 smtpClient.Credentials = new NetworkCredential("gideonyte@hotmail.com", "KazakhSTan#1");

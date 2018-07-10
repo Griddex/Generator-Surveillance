@@ -4,31 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using TimerTimer = System.Timers.Timer;
 using Panel.Repositories;
 using System.Collections.ObjectModel;
 
 namespace Panel.Services.MessagingServices
 {
-    public class Notifier
+    public static class Notifier
     {
-        public GeneratorScheduler NextGeneratorForNotification { get; set; }
-        public ObservableCollection<GeneratorScheduler> AllGeneratorSchedules { get; set; }
-        public Timer Timer { get; set; }
-        public string GeneratorName { get; set; }
-        public string ReminderLevel { get; set; }
-        public TimeSpan NextNotificationDuration { get; set; }
-        public string NotificationTime { get; set; }
-        public DateTime FinalNotificationDate { get; set; }
-        public int FirstID { get; set; }
-        public int LastID { get; set; }
-        public int GeneratorID { get; set; }
+        public static GeneratorScheduler NextGeneratorForNotification { get; set; }
+        public static ObservableCollection<GeneratorScheduler> AllGeneratorSchedules { get; set; }
+        public static Timer Timer { get; set; }
+        public static TimerTimer timer { get; set; }
+        public static string GeneratorName { get; set; }
+        public static string ReminderLevel { get; set; }
+        public static TimeSpan NextNotificationDuration { get; set; }
+        public static string NotificationTime { get; set; }
+        public static DateTime FinalNotificationDate { get; set; }
+        public static int FirstID { get; set; }
+        public static int LastID { get; set; }
+        public static int GeneratorID { get; set; }
 
-        public Notifier()
-        {
-            Initialise();
-        }
+      
 
-        public void Initialise()
+        public static void Initialise()
         {
             GeneratorSchedulerRepository gs = new GeneratorSchedulerRepository
                                                 (
@@ -67,14 +66,36 @@ namespace Panel.Services.MessagingServices
                         .LastOrDefault().Id;
 
             int SecondsFromNextNotification = (int)(NextNotificationDuration.TotalSeconds);
-            //Timer Timer = new Timer(x => NotificationHandlers(), null,
+
+            //Timer Timer = new Timer(new TimerCallback(NotificationHandlers), null,
             //                        SecondsFromNextNotification * 1000, Timeout.Infinite);
 
-            Timer Timer = new Timer(new TimerCallback(NotificationHandlers), null,
-                                    SecondsFromNextNotification * 1000, Timeout.Infinite);
+            //Timer Timer = new Timer(s => NotificationHandlers(s), null,
+            //                        SecondsFromNextNotification * 1000, Timeout.Infinite);
+
+            TimerTimer timer = new TimerTimer();
+            timer.Elapsed += Timer_Elapsed;
+            timer.Interval = SecondsFromNextNotification * 1000;
+            timer.AutoReset = false;
+            //timer.Start();
+            timer.Enabled = true;
         }
 
-        public void NotificationHandlers(Object state)
+        private static void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            EmailService emailService = new EmailService();
+            emailService.SendMessage(GeneratorName, ReminderLevel, NotificationTime,
+                                        NextNotificationDuration, FinalNotificationDate,
+                                        FirstID, LastID, GeneratorID);
+            if(timer != null)
+            {
+                timer.Stop();
+                timer.Dispose();
+            }                
+            Initialise();
+        }
+
+        public static void NotificationHandlers(Object state)
         {
             EmailService emailService = new EmailService();
             emailService.SendMessage(GeneratorName, ReminderLevel, NotificationTime,
@@ -83,7 +104,6 @@ namespace Panel.Services.MessagingServices
 
             Timer.Change(Timeout.Infinite, Timeout.Infinite);
             Timer.Dispose();
-
             Initialise();
         }    
     }

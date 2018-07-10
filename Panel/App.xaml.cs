@@ -38,18 +38,12 @@ namespace Panel
 
         private  void Application_Startup(object sender, StartupEventArgs e)
         {
-            Task.Run(() => StartUpNotification());
             InitialiseContainers();
-        }
-        
-        private void StartUpNotification()
-        {
-            Notifier notifier = new Notifier();            
-        }
-        
+        }        
+       
         private void InitialiseContainers()
         {
-            Notifier notifier = new Notifier();
+            Notifier.Initialise();
 
             IUnityContainer container = new UnityContainer();
 
