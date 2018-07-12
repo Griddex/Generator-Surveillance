@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Panel.Repositories
 {
-    public class GeneratorSchedulerRepository : Repository<GeneratorScheduler>, IGeneratorSchedulerRepository, IDisposable
+    public class GeneratorSchedulerRepository : Repository<GeneratorScheduler>, IGeneratorSchedulerRepository
     {
         public GeneratorSchedulerRepository(GeneratorSurveillanceDBEntities context) : base(context)
         {
@@ -41,7 +41,17 @@ namespace Panel.Repositories
                     );
         }
 
-        public DateTime GetStartDate(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
+        public ObservableCollection<GeneratorScheduler> GetAllActiveGeneratorSchedules()
+        {
+            return new ObservableCollection<GeneratorScheduler>
+                    (
+                          GeneratorSurveillanceDBContext.GeneratorSchedulers
+                         .Where(x => x.Id >= 0 && x.IsActive == "Yes")                         
+                    );
+        }
+
+        public DateTime GetStartDate(string GeneratorName, 
+            ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
         {
             return AllGeneratorSchedules
                     .Where(x => x.GeneratorName == GeneratorName)
@@ -50,7 +60,8 @@ namespace Panel.Repositories
                     .LastOrDefault();
         }
 
-        public double GetReminderInHrs(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
+        public double GetReminderInHrs(string GeneratorName, 
+            ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
         {
             return AllGeneratorSchedules
                     .Where(x => x.GeneratorName == GeneratorName)
@@ -59,7 +70,8 @@ namespace Panel.Repositories
                     .LastOrDefault();
         }
 
-        public string GetReminderLevel(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
+        public string GetReminderLevel(string GeneratorName, 
+            ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
         {
             return AllGeneratorSchedules
                     .Where(x => x.GeneratorName == GeneratorName)
@@ -68,7 +80,8 @@ namespace Panel.Repositories
                     .LastOrDefault();
         }
 
-        public List<string> GetAllAuthorizers(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
+        public List<string> GetAllAuthorizers(string GeneratorName, 
+            ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
         {
             return AllGeneratorSchedules
                     .Where(x => x.GeneratorName == GeneratorName)
@@ -77,7 +90,8 @@ namespace Panel.Repositories
                     .Distinct().ToList();
         }
 
-        public string GetAuthorizer(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
+        public string GetAuthorizer(string GeneratorName, 
+            ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
         {
             return AllGeneratorSchedules
                     .Where(x => x.GeneratorName == GeneratorName)
@@ -87,7 +101,7 @@ namespace Panel.Repositories
         }
 
         public void ActivateReminderNotification(string GeneratorName, DateTime StartDate, double EveryHrs, 
-                                                                string ReminderLevel, string Authorizer)
+                                                 string ReminderLevel, string Authorizer)
         {
             foreach (var row in GeneratorSurveillanceDBContext.GeneratorSchedulers)
             {
@@ -128,11 +142,6 @@ namespace Panel.Repositories
                     GeneratorSurveillanceDBContext.GeneratorSchedulers
                     .AsParallel<GeneratorScheduler>()
                     );         
-        }
-
-        public void Dispose()
-        {
-            this.Dispose();
         }
     }
 }

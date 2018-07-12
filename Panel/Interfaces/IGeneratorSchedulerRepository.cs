@@ -11,6 +11,7 @@ namespace Panel.Interfaces
     {
         ObservableCollection<GeneratorScheduler> GetAllGeneratorSchedules();
         ObservableCollection<GeneratorScheduler> GetActiveGeneratorSchedules();
+        ObservableCollection<GeneratorScheduler> GetAllActiveGeneratorSchedules();
         double GetReminderInHrs(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules);
         DateTime GetStartDate(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules);
         string GetReminderLevel(string GeneratorName, ObservableCollection<GeneratorScheduler> AllGeneratorSchedules);

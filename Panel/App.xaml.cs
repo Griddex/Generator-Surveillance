@@ -38,10 +38,10 @@ namespace Panel
 
         private  void Application_Startup(object sender, StartupEventArgs e)
         {
-            InitialiseContainers();
+            InitialiseAllSystems();
         }        
        
-        private void InitialiseContainers()
+        private void InitialiseAllSystems()
         {
             Notifier.Initialise();
 

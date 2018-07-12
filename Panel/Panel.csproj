@@ -134,6 +134,7 @@
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\GetOrdinateData.cs" />
     <Compile Include="BusinessLogic\ChartsLogic\GeneratorChartLogic\AssembleChart.cs" />
     <Compile Include="BusinessLogic\MaintenanceLogic\ScheduledMaintenanceNotificationLogic.cs" />
+    <Compile Include="BusinessLogic\MaintenanceLogic\ScheduledRemindersMethods.cs" />
     <Compile Include="BusinessLogic\PrintLogic\Print.cs" />
     <Compile Include="BusinessLogic\RaiseRadioButtonClick.cs" />
     <Compile Include="BusinessLogic\SnipingToolLogic\SnipingToolHelperMethods.cs" />

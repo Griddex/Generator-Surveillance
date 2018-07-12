@@ -42,11 +42,10 @@ namespace Panel.ViewModels.InputViewModels
         public UnitOfWork UnitOfWork { get; set; }
         public DateTime UnschMaintenanceDate { get; set; } = DateTime.Now;
         public DateTime SchMaintenanceDate { get; set; } = DateTime.Now;        
-        public DateTime SchMaintenanceStartDate { get; set; } = DateTime.Now;
+        public DateTime SchMaintenanceStartDate { get { return DateTime.Now; } set { } } 
         public double SchMaintenanceReminderHours { get; set; }
         public string SchMaintenanceSelectedReminderLevel { get; set; }
-        public string SchMaintenanceSelectedAuthorizer { get; set; }
-        
+        public string SchMaintenanceSelectedAuthorizer { get; set; }        
 
         private string _unschMaintenanceComments;
         public string UnschMaintenanceComments
@@ -141,18 +140,22 @@ namespace Panel.ViewModels.InputViewModels
                 _schMaintenanceSelectedGen = value;
                 OnPropertyChanged(nameof(SchMaintenanceSelectedGen));
 
-                SchMaintenanceStartDate = UnitOfWork.GeneratorScheduler.GetStartDate(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                SchMaintenanceStartDate = UnitOfWork.GeneratorScheduler
+                                            .GetStartDate(SchMaintenanceSelectedGen, AllGeneratorSchedules);
                 OnPropertyChanged(nameof(SchMaintenanceStartDate));
 
-                SchMaintenanceReminderHours = UnitOfWork.GeneratorScheduler.GetReminderInHrs(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                SchMaintenanceReminderHours = UnitOfWork.GeneratorScheduler
+                                            .GetReminderInHrs(SchMaintenanceSelectedGen, AllGeneratorSchedules);
                 OnPropertyChanged(nameof(SchMaintenanceReminderHours));
 
                 try
                 {
-                    SchMaintenanceSelectedReminderLevel = UnitOfWork.GeneratorScheduler.GetReminderLevel(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                    SchMaintenanceSelectedReminderLevel = UnitOfWork.GeneratorScheduler
+                                                        .GetReminderLevel(SchMaintenanceSelectedGen, AllGeneratorSchedules);
                     OnPropertyChanged(nameof(SchMaintenanceSelectedReminderLevel));
 
-                    SchMaintenanceSelectedAuthorizer = UnitOfWork.GeneratorScheduler.GetAuthorizer(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                    SchMaintenanceSelectedAuthorizer = UnitOfWork.GeneratorScheduler
+                                                        .GetAuthorizer(SchMaintenanceSelectedGen, AllGeneratorSchedules);
                     OnPropertyChanged(nameof(SchMaintenanceSelectedAuthorizer));
                 }
                 catch (Exception) { }                
@@ -177,12 +180,12 @@ namespace Panel.ViewModels.InputViewModels
                                     MessageBoxImage.Error);
                                 return;
                             }
-                            UnitOfWork.GeneratorMaintenance.AddUnschMaintenance("Unscheduled", UnschMaintenanceDate,
-                                UnschMaintenanceComments, UnschMaintenanceTotalCost);
+                            UnitOfWork.GeneratorMaintenance.AddUnschMaintenance("Unscheduled", 
+                                UnschMaintenanceDate, UnschMaintenanceComments, UnschMaintenanceTotalCost);
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
-                                MessageBox.Show($"Unscheduled maintenance record for {cmbxUnschMaintenance.Text} added!", 
-                                    "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                                MessageBox.Show($"Unscheduled maintenance record for {cmbxUnschMaintenance.Text} " +
+                                    $"added!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                             return;
                         },
                         y => !HasErrors
@@ -213,7 +216,8 @@ namespace Panel.ViewModels.InputViewModels
                                 SchMaintenanceComments, SchMaintenanceTotalCost);
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
-                                MessageBox.Show($"Scheduled maintenance record for {cmbxSchMaintenance.Text} added!",
+                                MessageBox.Show($"Scheduled maintenance record for " +
+                                    $"{cmbxSchMaintenance.Text} added!",
                                     "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                             return;
                         },
@@ -242,8 +246,8 @@ namespace Panel.ViewModels.InputViewModels
                                     txtBxReminderNotification.IsReadOnly = false;
                                 }
                             }
-                            MessageBox.Show("Reminder & Notification are now editable", "Information", MessageBoxButton.OK,
-                                            MessageBoxImage.Information);
+                            MessageBox.Show("Reminder & Notification are now editable", "Information", 
+                                MessageBoxButton.OK, MessageBoxImage.Information);
                         },
                         y => !HasErrors
                     )
@@ -271,7 +275,8 @@ namespace Panel.ViewModels.InputViewModels
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                MessageBox.Show($"Scheduled maintenance reminder information for {SchMaintenanceSelectedGen} has been updated!",
+                                MessageBox.Show($"Scheduled maintenance reminder information " +
+                                    $"for {SchMaintenanceSelectedGen} has been updated!",
                                     "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                                 AllGeneratorSchedules = UnitOfWork.GeneratorScheduler.GetAllGeneratorSchedules();
                             }                                

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using System.Threading;
 using TimerTimer = System.Timers.Timer;
 using Panel.Repositories;
 using System.Collections.ObjectModel;
+using Unity;
 
 namespace Panel.Services.MessagingServices
 {
@@ -24,12 +26,11 @@ namespace Panel.Services.MessagingServices
         public static int FirstID { get; set; }
         public static int LastID { get; set; }
         public static int GeneratorID { get; set; }
-
-      
+        public static UnityContainer Container { get; private set; } = (UnityContainer)Application.Current.Resources["UnityIoC"];
 
         public static void Initialise()
         {
-            var gse = new GeneratorSurveillanceDBEntities();
+            var gse = Container.Resolve<GeneratorSurveillanceDBEntities>();
             var gsr = new GeneratorSchedulerRepository(gse);
                 
             AllGeneratorSchedules = gsr.GetAllGeneratorSchedules();
