@@ -20,12 +20,13 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-        <GroupBox Grid.Row="1" Style="{StaticResource GroupBoxStyle}" Header="Help Resources" Width="845" Height="750">
-            <TextBox>
-                
-            </TextBox>
-        </GroupBox>
+        <ScrollViewer Grid.Row="1">
+            <GroupBox Grid.Row="1" Style="{StaticResource GroupBoxStyle}" Header="Help Resources" Width="845" Height="750">
+                <TextBox>
 
+                </TextBox>
+            </GroupBox>
+        </ScrollViewer>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
             <Hyperlink Command="{x:Static cmds:NavigationCommands.InputToUsageView}">Usage</Hyperlink>

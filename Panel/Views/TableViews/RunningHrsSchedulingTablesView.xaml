@@ -46,258 +46,259 @@
                     <Image Source="/Images/Back.jpg" ToolTip="Go to Usage and Maintenance Tables"/>
                 </Button.Content>
             </Button>
-            
-            <GroupBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" 
-                      Style="{StaticResource GroupBoxStyle}" Header="Generator Running Hours" 
-                      Width="600" Height="750">
-                <DockPanel>
-                    <ToolBarTray DockPanel.Dock="Top" Height="30">
-                        <ToolBar Height="30">
-                            <Button Click="GroupbyGeneratorRunningHours_Click">
-                                <Button.Content>
-                                    <StackPanel Orientation="Vertical">
-                                        <Image Source="/Images/GroupBy_Red.jpg" Height="20" Width="20"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <Button Click="ClearRunningHoursGrouping_Click">
-                                <Button.Content>
-                                    <StackPanel Orientation="Vertical">
-                                        <Image Source="/Images/Clear.png" Height="20" Width="20"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <StackPanel Orientation="Horizontal" Margin="190,0,0,0" Height="25">
-                                <Label Content="Go to Page:"  FontSize="10"
-                                        Width="70" HorizontalContentAlignment="Right"
-                                       Background="#EEF5FD"/>
-                                <TextBox Width="30" Text="1" HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center" FontSize="10"/>
-                                <Label Content="No. Of Rows:" Background="#EEF5FD" FontSize="10"
-                                       HorizontalContentAlignment="Right"/>
-                                <ComboBox Width="40" FontSize="10">
-                                    <ComboBoxItem FontSize="10">5</ComboBoxItem>
-                                    <ComboBoxItem FontSize="10">10</ComboBoxItem>
-                                    <ComboBoxItem FontSize="10">25</ComboBoxItem>
-                                    <ComboBoxItem FontSize="10">50</ComboBoxItem>
-                                    <ComboBoxItem FontSize="10">100</ComboBoxItem>
-                                </ComboBox>
-                                <Button>
+            <ScrollViewer Grid.Row="0" Grid.Column="1">
+                <GroupBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" 
+                          Style="{StaticResource GroupBoxStyle}" Header="Generator Running Hours" 
+                          Width="600" Height="750">
+                    <DockPanel>
+                        <ToolBarTray DockPanel.Dock="Top" Height="30">
+                            <ToolBar Height="30">
+                                <Button Click="GroupbyGeneratorRunningHours_Click">
                                     <Button.Content>
-                                        <Image Source="/Images/Back.jpg" Width="25" Height="25"/>
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/GroupBy_Red.jpg" Height="20" Width="20"/>
+                                        </StackPanel>
                                     </Button.Content>
                                 </Button>
-                                <TextBox Width="52" Text="10" HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center" FontSize="10"/>
-                                <Button>
+                                <Button Click="ClearRunningHoursGrouping_Click">
                                     <Button.Content>
-                                        <Image Source="/Images/Next.jpg" Width="25" Height="25"/>
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/Clear.png" Height="20" Width="20"/>
+                                        </StackPanel>
                                     </Button.Content>
                                 </Button>
-                            </StackPanel>
-                        </ToolBar>
+                                <StackPanel Orientation="Horizontal" Margin="190,0,0,0" Height="25">
+                                    <Label Content="Go to Page:"  FontSize="10"
+                                            Width="70" HorizontalContentAlignment="Right"
+                                           Background="#EEF5FD"/>
+                                    <TextBox Width="30" Text="1" HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center" FontSize="10"/>
+                                    <Label Content="No. Of Rows:" Background="#EEF5FD" FontSize="10"
+                                           HorizontalContentAlignment="Right"/>
+                                    <ComboBox Width="40" FontSize="10">
+                                        <ComboBoxItem FontSize="10">5</ComboBoxItem>
+                                        <ComboBoxItem FontSize="10">10</ComboBoxItem>
+                                        <ComboBoxItem FontSize="10">25</ComboBoxItem>
+                                        <ComboBoxItem FontSize="10">50</ComboBoxItem>
+                                        <ComboBoxItem FontSize="10">100</ComboBoxItem>
+                                    </ComboBox>
+                                    <Button>
+                                        <Button.Content>
+                                            <Image Source="/Images/Back.jpg" Width="25" Height="25"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <TextBox Width="52" Text="10" HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center" FontSize="10"/>
+                                    <Button>
+                                        <Button.Content>
+                                            <Image Source="/Images/Next.jpg" Width="25" Height="25"/>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </ToolBar>
                         
-                    </ToolBarTray>
-                    <DataGrid x:Name="dtgdGenRunnungHrsTable" Style="{StaticResource DataGridStyle}"
-                              ItemsSource="{Binding Source={StaticResource cvsRunningHours}}" 
-                              ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
-                        <DataGrid.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Groupby Generator" Click="GroupbyGeneratorRunningHours_Click"/>
-                                <MenuItem Header="Clear Grouping" Click="ClearRunningHoursGrouping_Click"/>
-                            </ContextMenu>
-                        </DataGrid.ContextMenu>
-                        <DataGrid.GroupStyle>
-                            <GroupStyle>
-                                <GroupStyle.HeaderTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding Path=Name}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GroupStyle.HeaderTemplate>
-                                <GroupStyle.ContainerStyle>
-                                    <Style TargetType="{x:Type GroupItem}">
-                                        <Setter Property="Width" Value="Auto"/>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                    <Expander IsExpanded="True" Background="#eaf9fb" 
-                                                              BorderBrush="LightGray" Foreground="Black"
-                                                              FontSize="12"
-                                                              BorderThickness="1,1,1,1">
-                                                        <Expander.Header>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <TextBlock FontWeight="Bold"
-                                                                           Text="{Binding Name, 
-                                                                    Converter={StaticResource CategoryToPhrase}}"/>
-                                                                <TextBlock FontWeight="Bold"
-                                                                           Text="{Binding ItemCount, 
-                                                                    Converter={StaticResource ItemCountToPhrase}}"/>
-                                                            </StackPanel>
-                                                        </Expander.Header>
-                                                        <Expander.Content>
-                                                            <ItemsPresenter/>
-                                                        </Expander.Content>
-                                                    </Expander>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </GroupStyle.ContainerStyle>
-                            </GroupStyle>
-                        </DataGrid.GroupStyle>
-                        <DataGrid.RowStyle>
-                            <Style TargetType="DataGridRow">
-                                <Setter Property="Foreground" Value="Black"/>
-                                <Setter Property="Background" Value="White"/>
-                            </Style>
-                        </DataGrid.RowStyle>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="S/N" Binding="{Binding Id}" FontSize="12"
-                                                Width="Auto"/>
-                            <DataGridTextColumn Header="Generator" Binding="{Binding Generator}" 
-                                                FontSize="12" Width="Auto"/>
-                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" FontSize="12"/>
-                            <DataGridTextColumn Header="Hours" Binding="{Binding Hours}"
-                                                FontSize="12" Width="*"/>
-                        </DataGrid.Columns>
-                        <DataGrid.RowDetailsTemplate>
-                            <DataTemplate>
+                        </ToolBarTray>
+                        <DataGrid x:Name="dtgdGenRunnungHrsTable" Style="{StaticResource DataGridStyle}"
+                                  ItemsSource="{Binding Source={StaticResource cvsRunningHours}}" 
+                                  ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Groupby Generator" Click="GroupbyGeneratorRunningHours_Click"/>
+                                    <MenuItem Header="Clear Grouping" Click="ClearRunningHoursGrouping_Click"/>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                            <DataGrid.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Path=Name}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                    <GroupStyle.ContainerStyle>
+                                        <Style TargetType="{x:Type GroupItem}">
+                                            <Setter Property="Width" Value="Auto"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                        <Expander IsExpanded="True" Background="#eaf9fb" 
+                                                                  BorderBrush="LightGray" Foreground="Black"
+                                                                  FontSize="12"
+                                                                  BorderThickness="1,1,1,1">
+                                                            <Expander.Header>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock FontWeight="Bold"
+                                                                               Text="{Binding Name, 
+                                                                        Converter={StaticResource CategoryToPhrase}}"/>
+                                                                    <TextBlock FontWeight="Bold"
+                                                                               Text="{Binding ItemCount, 
+                                                                        Converter={StaticResource ItemCountToPhrase}}"/>
+                                                                </StackPanel>
+                                                            </Expander.Header>
+                                                            <Expander.Content>
+                                                                <ItemsPresenter/>
+                                                            </Expander.Content>
+                                                        </Expander>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GroupStyle.ContainerStyle>
+                                </GroupStyle>
+                            </DataGrid.GroupStyle>
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="Background" Value="White"/>
+                                </Style>
+                            </DataGrid.RowStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="S/N" Binding="{Binding Id}" FontSize="12"
+                                                    Width="Auto"/>
+                                <DataGridTextColumn Header="Generator" Binding="{Binding Generator}" 
+                                                    FontSize="12" Width="Auto"/>
+                                <DataGridTextColumn Header="Date" Binding="{Binding Date}" FontSize="12"/>
+                                <DataGridTextColumn Header="Hours" Binding="{Binding Hours}"
+                                                    FontSize="12" Width="*"/>
+                            </DataGrid.Columns>
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
 
-                            </DataTemplate>
-                        </DataGrid.RowDetailsTemplate>
-                    </DataGrid>
-                </DockPanel>
-            </GroupBox>
-            
-            <GroupBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" 
-                      Style="{StaticResource GroupBoxStyle}" 
-                      Header="Generator Scheduled Reminder" Width="600" 
-                      Height="750">
-                <DockPanel>
-                    <ToolBarTray DockPanel.Dock="Top" Height="30">
-                        <ToolBar Height="30">
-                            <Button Click="GroupbyGeneratorScheduler_Click">
-                                <Button.Content>
-                                    <StackPanel Orientation="Vertical">
-                                        <Image Source="/Images/GroupBy_Red.jpg" Height="20" Width="20"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <Button Click="ClearSchedulerReminderGrouping_Click">
-                                <Button.Content>
-                                    <StackPanel Orientation="Vertical">
-                                        <Image Source="/Images/Clear.png" Height="20" Width="20"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <StackPanel Orientation="Horizontal" Margin="190,0,0,0" Height="25">
-                                <Label Content="Go to Page:"  FontSize="10"
-                                        Width="70" HorizontalContentAlignment="Right"
-                                       Background="#EEF5FD"/>
-                                <TextBox Width="30" Text="1" HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center" FontSize="10"/>
-                                <Label Content="No. Of Rows:" Background="#EEF5FD" FontSize="10"
-                                       HorizontalContentAlignment="Right"/>
-                                <ComboBox Width="40" FontSize="10">
-                                    <ComboBoxItem FontSize="10">5</ComboBoxItem>
-                                    <ComboBoxItem FontSize="10">10</ComboBoxItem>
-                                    <ComboBoxItem FontSize="10">25</ComboBoxItem>
-                                    <ComboBoxItem FontSize="10">50</ComboBoxItem>
-                                    <ComboBoxItem FontSize="10">100</ComboBoxItem>
-                                </ComboBox>
-                                <Button>
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </DockPanel>
+                </GroupBox>
+            </ScrollViewer>
+            <ScrollViewer Grid.Row="0" Grid.Column="2">
+                <GroupBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" 
+                          Style="{StaticResource GroupBoxStyle}" 
+                          Header="Generator Scheduled Reminder" Width="600" 
+                          Height="750">
+                    <DockPanel>
+                        <ToolBarTray DockPanel.Dock="Top" Height="30">
+                            <ToolBar Height="30">
+                                <Button Click="GroupbyGeneratorScheduler_Click">
                                     <Button.Content>
-                                        <Image Source="/Images/Back.jpg" Width="25" Height="25"/>
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/GroupBy_Red.jpg" Height="20" Width="20"/>
+                                        </StackPanel>
                                     </Button.Content>
                                 </Button>
-                                <TextBox Width="52" Text="10" HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center" FontSize="10"/>
-                                <Button>
+                                <Button Click="ClearSchedulerReminderGrouping_Click">
                                     <Button.Content>
-                                        <Image Source="/Images/Next.jpg" Width="25" Height="25"/>
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/Clear.png" Height="20" Width="20"/>
+                                        </StackPanel>
                                     </Button.Content>
                                 </Button>
-                            </StackPanel>
-                        </ToolBar>
-                    </ToolBarTray>
-                    <DataGrid x:Name="dtgdGenSchdRemdrTable" Style="{StaticResource DataGridStyle}"
-                              ItemsSource="{Binding Source={StaticResource cvsScheduledReminders}}" 
-                              ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
-                        <DataGrid.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Groupby Generator" Click="GroupbyGeneratorScheduler_Click"/>
-                                <MenuItem Header="Clear Grouping" Click="ClearSchedulerReminderGrouping_Click"/>
-                            </ContextMenu>
-                        </DataGrid.ContextMenu>
-                        <DataGrid.GroupStyle>
-                            <GroupStyle>
-                                <GroupStyle.HeaderTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding Path=Name}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GroupStyle.HeaderTemplate>
-                                <GroupStyle.ContainerStyle>
-                                    <Style TargetType="{x:Type GroupItem}">
-                                        <Setter Property="Width" Value="Auto"/>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                    <Expander IsExpanded="True" Background="#eaf9fb" 
-                                                              BorderBrush="LightGray" Foreground="Black"
-                                                              FontSize="12"
-                                                              BorderThickness="1,1,1,1">
-                                                        <Expander.Header>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <TextBlock FontWeight="Bold"
-                                                                           Text="{Binding Name, 
-                                                                    Converter={StaticResource CategoryToPhrase}}"/>
-                                                                <TextBlock FontWeight="Bold"
-                                                                           Text="{Binding ItemCount, 
-                                                                    Converter={StaticResource ItemCountToPhrase}}"/>
-                                                            </StackPanel>
-                                                        </Expander.Header>
-                                                        <Expander.Content>
-                                                            <ItemsPresenter/>
-                                                        </Expander.Content>
-                                                    </Expander>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </GroupStyle.ContainerStyle>
-                            </GroupStyle>
-                        </DataGrid.GroupStyle>
-                        <DataGrid.RowStyle>
-                            <Style TargetType="DataGridRow">
-                                <Setter Property="Foreground" Value="Black"/>
-                                <Setter Property="Background" Value="White"/>
-                            </Style>
-                        </DataGrid.RowStyle>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="S/N" Binding="{Binding Id}" FontSize="12"
-                                                Width="Auto"/>
-                            <DataGridTextColumn Header="Generator" Binding="{Binding GeneratorName}" 
-                                                FontSize="12" Width="Auto"/>
-                            <DataGridTextColumn Header="Reminder Duration" Binding="{Binding EveryHrs}" 
-                                                FontSize="12" Width="Auto"/>
-                            <DataGridTextColumn Header="Reminder Threshold" Binding="{Binding HrsThreshold}"
-                                                FontSize="12" Width="Auto"/>
-                            <DataGridTextColumn Header="Authorizer" Binding="{Binding Authorizer}"
-                                                FontSize="12" Width="*"/>
-                        </DataGrid.Columns>
-                        <DataGrid.RowDetailsTemplate>
-                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="190,0,0,0" Height="25">
+                                    <Label Content="Go to Page:"  FontSize="10"
+                                            Width="70" HorizontalContentAlignment="Right"
+                                           Background="#EEF5FD"/>
+                                    <TextBox Width="30" Text="1" HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center" FontSize="10"/>
+                                    <Label Content="No. Of Rows:" Background="#EEF5FD" FontSize="10"
+                                           HorizontalContentAlignment="Right"/>
+                                    <ComboBox Width="40" FontSize="10">
+                                        <ComboBoxItem FontSize="10">5</ComboBoxItem>
+                                        <ComboBoxItem FontSize="10">10</ComboBoxItem>
+                                        <ComboBoxItem FontSize="10">25</ComboBoxItem>
+                                        <ComboBoxItem FontSize="10">50</ComboBoxItem>
+                                        <ComboBoxItem FontSize="10">100</ComboBoxItem>
+                                    </ComboBox>
+                                    <Button>
+                                        <Button.Content>
+                                            <Image Source="/Images/Back.jpg" Width="25" Height="25"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <TextBox Width="52" Text="10" HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center" FontSize="10"/>
+                                    <Button>
+                                        <Button.Content>
+                                            <Image Source="/Images/Next.jpg" Width="25" Height="25"/>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </ToolBar>
+                        </ToolBarTray>
+                        <DataGrid x:Name="dtgdGenSchdRemdrTable" Style="{StaticResource DataGridStyle}"
+                                  ItemsSource="{Binding Source={StaticResource cvsScheduledReminders}}" 
+                                  ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Groupby Generator" Click="GroupbyGeneratorScheduler_Click"/>
+                                    <MenuItem Header="Clear Grouping" Click="ClearSchedulerReminderGrouping_Click"/>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                            <DataGrid.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Path=Name}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                    <GroupStyle.ContainerStyle>
+                                        <Style TargetType="{x:Type GroupItem}">
+                                            <Setter Property="Width" Value="Auto"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                        <Expander IsExpanded="True" Background="#eaf9fb" 
+                                                                  BorderBrush="LightGray" Foreground="Black"
+                                                                  FontSize="12"
+                                                                  BorderThickness="1,1,1,1">
+                                                            <Expander.Header>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock FontWeight="Bold"
+                                                                               Text="{Binding Name, 
+                                                                        Converter={StaticResource CategoryToPhrase}}"/>
+                                                                    <TextBlock FontWeight="Bold"
+                                                                               Text="{Binding ItemCount, 
+                                                                        Converter={StaticResource ItemCountToPhrase}}"/>
+                                                                </StackPanel>
+                                                            </Expander.Header>
+                                                            <Expander.Content>
+                                                                <ItemsPresenter/>
+                                                            </Expander.Content>
+                                                        </Expander>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GroupStyle.ContainerStyle>
+                                </GroupStyle>
+                            </DataGrid.GroupStyle>
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="Background" Value="White"/>
+                                </Style>
+                            </DataGrid.RowStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="S/N" Binding="{Binding Id}" FontSize="12"
+                                                    Width="Auto"/>
+                                <DataGridTextColumn Header="Generator" Binding="{Binding GeneratorName}" 
+                                                    FontSize="12" Width="Auto"/>
+                                <DataGridTextColumn Header="Reminder Duration" Binding="{Binding EveryHrs}" 
+                                                    FontSize="12" Width="Auto"/>
+                                <DataGridTextColumn Header="Reminder Threshold" Binding="{Binding HrsThreshold}"
+                                                    FontSize="12" Width="Auto"/>
+                                <DataGridTextColumn Header="Authorizer" Binding="{Binding Authorizer}"
+                                                    FontSize="12" Width="*"/>
+                            </DataGrid.Columns>
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
 
-                            </DataTemplate>
-                        </DataGrid.RowDetailsTemplate>
-                    </DataGrid>
-                </DockPanel>
-            </GroupBox>
-            
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </DockPanel>
+                </GroupBox>
+            </ScrollViewer>
         </Grid>
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">

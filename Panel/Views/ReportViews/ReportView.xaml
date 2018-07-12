@@ -25,7 +25,8 @@
 
         </StackPanel>
 
-        <Grid Grid.Row="1">         
+        <Grid Grid.Row="1">
+            <ScrollViewer>
             <GroupBox  Margin="10" Style="{StaticResource GroupBoxStyle}" Header="Reports" Width="621" Height="750">
                 <StackPanel Margin="0,20,0,0">
                     <StackPanel Orientation="Horizontal">
@@ -93,7 +94,7 @@
 
                 </StackPanel>
             </GroupBox>
-            
+            </ScrollViewer>
 
         </Grid>
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
