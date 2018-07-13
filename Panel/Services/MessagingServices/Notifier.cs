@@ -26,21 +26,21 @@ namespace Panel.Services.MessagingServices
         public static int FirstID { get; set; }
         public static int LastID { get; set; }
         public static int GeneratorID { get; set; }
-        public static UnityContainer Container { get; private set; } = (UnityContainer)Application.Current.Resources["UnityIoC"];
+        public static UnityContainer container  = (UnityContainer)Application.Current.Resources["UnityIoC"];
 
         public static void Initialise()
         {
-            var gse = Container.Resolve<GeneratorSurveillanceDBEntities>();
+            var gse = container.Resolve<GeneratorSurveillanceDBEntities>();
             var gsr = new GeneratorSchedulerRepository(gse);
                 
             AllGeneratorSchedules = gsr.GetAllGeneratorSchedules();
             var CurrentActiveGenerators = gsr.GetActiveGeneratorSchedules();
 
             NextGeneratorForNotification = AllGeneratorSchedules
-                                            .Where(x => x.IsActive == "Yes")
-                                            .Where(x => x.ReminderDateTimeProfile > DateTime.Now)
-                                            .OrderBy(x => x.ReminderDateTimeProfile - DateTime.Now)
-                                            .FirstOrDefault();
+                                        .Where(x => x.IsActive == "Yes")
+                                        .Where(x => x.ReminderDateTimeProfile > DateTime.Now)
+                                        .OrderBy(x => x.ReminderDateTimeProfile - DateTime.Now)
+                                        .FirstOrDefault();
 
             GeneratorID = NextGeneratorForNotification.Id;
             GeneratorName = NextGeneratorForNotification.GeneratorName;

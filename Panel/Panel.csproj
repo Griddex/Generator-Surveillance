@@ -157,7 +157,7 @@
     <Compile Include="Converters\ConvertItemCountToPhrase.cs" />
     <Compile Include="Converters\ConvertTrueOrFalseToVisibility.cs" />
     <Compile Include="Converters\ConvertYesNoToBoolean.cs" />
-    <Compile Include="Converters\ConvObjsToDtpkrCmbx.cs" />
+    <Compile Include="Converters\PassDatePickerComboBoxAsCommandParameter.cs" />
     <Compile Include="Converters\FloatConverter.cs" />
     <Compile Include="Converters\InputViewMultiConverter.cs" />
     <Compile Include="Converters\PassTextBoxTwoComboxItemsAsCommandParameters.cs" />

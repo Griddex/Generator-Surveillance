@@ -10,19 +10,11 @@ using System.Windows.Data;
 
 namespace Panel.Converters
 {
-    public class ConvObjsToDtpkrCmbx : IMultiValueConverter
+    public class PassDatePickerComboBoxAsCommandParameter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            ArrayList arrayList = new ArrayList();
-            foreach (var o in values)
-            {
-                if (o is DatePicker)
-                    arrayList.Add(o as DatePicker);
-                else if (o is ComboBox)
-                    arrayList.Add(o as ComboBox);
-            }
-            return arrayList;
+            return new Tuple<DatePicker, ComboBox>((DatePicker)values[0], (ComboBox)values[1]);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

@@ -3,6 +3,7 @@ using Panel.Models.InputModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,25 +25,31 @@ namespace Panel.Repositories
             get { return Context as GeneratorSurveillanceDBEntities; }
         }
 
-        public (bool IsNull, string LastGenName, DateTime? LastGenStartedDate, DateTime? LastGenStartedTime) GeneratorStoppedIsNull()
+        public (bool IsNull, string LastGenName, DateTime? LastGenStartedDate,
+            DateTime? LastGenStartedTime) GeneratorStoppedIsNull()
         {
+            bool isNull;
+            string lastGenName = null;
+            DateTime? lastGenStartedDate = null;
+            DateTime? lastGenStartedTime = null;
+
             int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorUsages.Count();
-            bool isNull = GeneratorSurveillanceDBContext.GeneratorUsages
-                                                       .SingleOrDefault(x => x.Id == NoOfRecords)
-                                                       .GeneratorStopped.Year.ToString() == "1" ? true : false;
-
-            string lastGenName = GeneratorSurveillanceDBContext.GeneratorUsages
-                                                               .SingleOrDefault(x => x.Id == NoOfRecords - 1)
-                                                               .GeneratorName;
-
-            DateTime? lastGenStartedDate = GeneratorSurveillanceDBContext.GeneratorUsages
-                                                                        .SingleOrDefault(x => x.Id == NoOfRecords - 1)
-                                                                        .Date;
-
-            DateTime? lastGenStartedTime = GeneratorSurveillanceDBContext.GeneratorUsages
-                                                                       .SingleOrDefault(x => x.Id == NoOfRecords - 1)
-                                                                       .GeneratorStarted;
-
+            var ActiveGenerators = GeneratorSurveillanceDBContext.GeneratorUsages
+                                    .Where(x => x.GeneratorStopped == new DateTime(0001, 01, 01, 00, 00, 00));
+            if (ActiveGenerators == null)
+            {
+                isNull = false;
+            }
+            else
+            {
+                isNull = true;
+                var ActiveGeneratorsList = ActiveGenerators.ToList();
+                var LastActiveGenIndex = ActiveGenerators.ToList().Count - 1;
+                lastGenName = ActiveGeneratorsList[LastActiveGenIndex].GeneratorName;
+                lastGenStartedDate = ActiveGeneratorsList[LastActiveGenIndex].Date;
+                lastGenStartedTime = ActiveGeneratorsList[LastActiveGenIndex].GeneratorStarted;
+                return (isNull, lastGenName, lastGenStartedDate, lastGenStartedTime);
+            }
             return (isNull, lastGenName, lastGenStartedDate, lastGenStartedTime);
         }
         
@@ -62,7 +69,8 @@ namespace Panel.Repositories
                  );
         }
 
-        public void AddGeneratorName(string GeneratorName, ObservableCollection<GeneratorNameModel> uniqueGeneratorNames,
+        public void AddGeneratorName(string GeneratorName, 
+            ObservableCollection<GeneratorNameModel> uniqueGeneratorNames,
             ComboBox cmbxGenInfo)
         {
             if (!uniqueGeneratorNames.Where(x => x.GeneratorName == GeneratorName).Any())
@@ -81,7 +89,8 @@ namespace Panel.Repositories
             }                          
         }
 
-        public void ArchiveGeneratorName(string GeneratorName, ObservableCollection<GeneratorNameModel> uniqueGeneratorNames, 
+        public void ArchiveGeneratorName(string GeneratorName, 
+            ObservableCollection<GeneratorNameModel> uniqueGeneratorNames, 
             ComboBox cmbxGenInfo)
         {
             foreach (GeneratorUsage gu in GeneratorSurveillanceDBContext.GeneratorUsages)

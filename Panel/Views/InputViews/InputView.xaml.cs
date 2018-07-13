@@ -34,6 +34,17 @@ namespace Panel.Views.InputViews
             this._unitOfWork = unitOfWork;
             this.DataContext = inputViewModel;
             this.cmbxGenInfo.SelectedIndex = 0;
+            this.Loaded += InputView_Loaded;            
+        }
+
+        private void InputView_Loaded(object sender, RoutedEventArgs e)
+        {
+            var inputViewModel = this.DataContext as InputViewModel;
+            if (inputViewModel.IsNull)
+                inputViewModel.LoadLastGeneratorRecord
+                    .Execute(new Tuple<DatePicker, ComboBox>
+                    (this.dtepkrGenInfo,
+                    this.cmbxGenInfo));
         }
     }
 }

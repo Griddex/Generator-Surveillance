@@ -43,12 +43,10 @@ namespace Panel
        
         private void InitialiseAllSystems()
         {
-            Notifier.Initialise();
-
             IUnityContainer container = new UnityContainer();
 
             GeneratorSurveillanceDBEntities generatorSurveillanceDBEntities = new GeneratorSurveillanceDBEntities();
-            container.RegisterInstance(generatorSurveillanceDBEntities);
+            container.RegisterInstance<GeneratorSurveillanceDBEntities>(generatorSurveillanceDBEntities);            
 
             container.RegisterType<IUnitOfWork, UnitOfWork>("UnitOfWork",
                                                         new ContainerControlledLifetimeManager(),
@@ -162,6 +160,9 @@ namespace Panel
                                                     ));
 
             Application.Current.Resources.Add("UnityIoC", container);
+
+            Notifier.Initialise();
+
             IView mainView = container.Resolve<IView>("MainView");
             (mainView as MainView).Show();
         }
