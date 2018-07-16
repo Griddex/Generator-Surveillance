@@ -17,17 +17,23 @@
     </Window.Resources>
     
     <Window.CommandBindings>
-        <CommandBinding Command="{StaticResource InputViewCmd}"  Executed="InputViewCmd_Executed" 
+        <CommandBinding Command="{StaticResource InputViewCmd}"  
+                        Executed="InputViewCmd_Executed" 
                         CanExecute="InputViewCmd_CanExecute"/>
-        <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowTablesView}" Executed="TablesViewCmd_Executed" 
+        <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowTablesView}" 
+                        Executed="TablesViewCmd_Executed" 
                         CanExecute="TablesViewCmd_CanExecute"/>
-        <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowInputView}" Executed="InputViewCmd_Executed" 
+        <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowInputView}" 
+                        Executed="InputViewCmd_Executed" 
                         CanExecute="InputViewCmd_CanExecute"/>
-        <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowChartsView}" Executed="ChartsViewCmd_Executed" 
+        <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowChartsView}" 
+                        Executed="ChartsViewCmd_Executed" 
                         CanExecute="ChartsViewCmd_CanExecute"/>
-        <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowReportsView}" Executed="ReportsViewCmd_Executed" 
+        <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowReportsView}" 
+                        Executed="ReportsViewCmd_Executed" 
                         CanExecute="ReportsViewCmd_CanExecute"/>
-        <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowHelpView}" Executed="HelpViewCmd_Executed" 
+        <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowHelpView}" 
+                        Executed="HelpViewCmd_Executed" 
                         CanExecute="HelpViewCmd_CanExecute"/>
     </Window.CommandBindings>
 

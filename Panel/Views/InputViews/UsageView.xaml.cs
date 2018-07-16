@@ -34,6 +34,7 @@ namespace Panel.Views.InputViews
 
         public void UsageView_Loaded(object sender, RoutedEventArgs args)
         {
+            
             UnityContainer container = (UnityContainer)Application.Current.Resources["UnityIoC"];
             InputView _inputView = (InputView)container.Resolve<IView>("InputView");
             if (_inputView.lblGenIndicator.Background == (SolidColorBrush)new BrushConverter().ConvertFromString("Red"))
@@ -46,8 +47,9 @@ namespace Panel.Views.InputViews
                 this.cmbxHrGenStd.SelectedValue = timeParts[0];
                 this.cmbxMinGenStd.SelectedValue = timeParts[1];
                 this.cmbxSecsGenStd.SelectedValue = timeParts[2];
-                this.cmbxAMPMGenStd.SelectedValue = timeParts[3];
+                this.cmbxAMPMGenStd.SelectedValue = timeParts[3];                
             }
-        }
+            
+        }        
     }    
 }

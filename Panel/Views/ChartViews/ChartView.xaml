@@ -15,98 +15,149 @@
       d:DesignHeight="920" d:DesignWidth="1930"
       Title="ChartsView"
       Background="White">
+    <Viewbox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="10"/>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="1">            
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="655"/>
-                <ColumnDefinition Width="1270"/>
-            </Grid.ColumnDefinitions>
-            <ScrollViewer Grid.Column="0">
-                <GroupBox Grid.Column="0" Margin="10" Style="{StaticResource GroupBoxStyle}" 
-                      Header="Chart Panel" Width="621" Height="750">
-                    <StackPanel Margin="0,20,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                                <Label Content="Select Generator" Height="25" FontSize="14" HorizontalAlignment="Left"/>
-                                <ComboBox x:Name="cmbxSelectGenerator" Width="326" Height="55" HorizontalAlignment="Left"
-                                      ItemsSource="{Binding UniqueGeneratorNames}" 
-                                      Foreground="Black"  SelectedIndex="0" 
-                                      SelectedItem="{Binding SelectedGeneratorName, Mode=OneWayToSource,
-                                                    Converter={StaticResource ComboBoxItemToString}}"
-                                      SelectedValuePath="GeneratorName" SelectedValue="GeneratorName"
-                                      DisplayMemberPath="GeneratorName" 
-                                      Style="{StaticResource lowerAlignmentFontSize}">
-                                </ComboBox>
+            <Grid Grid.Row="1">            
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="655"/>
+                    <ColumnDefinition Width="1270"/>
+                </Grid.ColumnDefinitions>
+                <ScrollViewer Grid.Column="0">
+                    <GroupBox Grid.Column="0" Margin="10" Style="{StaticResource GroupBoxStyle}" 
+                          Header="Chart Panel" Width="620" Height="750">
+                        <StackPanel Margin="0,20,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Vertical" Margin="20,0,10,0">
+                                    <Label Content="Select Generator" Height="25" FontSize="14" HorizontalAlignment="Left"/>
+                                    <ComboBox x:Name="cmbxSelectGenerator" Width="326" Height="55" HorizontalAlignment="Left"
+                                          ItemsSource="{Binding UniqueGeneratorNames}" 
+                                          Foreground="Black"  SelectedIndex="0" 
+                                          SelectedItem="{Binding SelectedGeneratorName, Mode=OneWayToSource,
+                                                        Converter={StaticResource ComboBoxItemToString}}"
+                                          SelectedValuePath="GeneratorName" SelectedValue="GeneratorName"
+                                          DisplayMemberPath="GeneratorName" 
+                                          Style="{StaticResource lowerAlignmentFontSize}">
+                                    </ComboBox>
+                                </StackPanel>
                             </StackPanel>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                                <Label Content="Generator Data" Height="25" FontSize="14" HorizontalAlignment="Left"/>
-                                <ComboBox Width="326" Height="55" HorizontalAlignment="Left"
-                                      ItemsSource="{Binding GeneratorData}" 
-                                      Foreground="Black" SelectedIndex="0" 
-                                      SelectedItem="{Binding SelectedGeneratorData, Mode=OneWayToSource}" 
-                                      Style="{StaticResource lowerAlignmentFontSize}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Vertical" Margin="20,0,10,0">
+                                    <Label Content="Generator Data" Height="25" FontSize="14" HorizontalAlignment="Left"/>
+                                    <ComboBox Width="326" Height="55" HorizontalAlignment="Left"
+                                          ItemsSource="{Binding GeneratorData}" 
+                                          Foreground="Black" SelectedIndex="0" 
+                                          SelectedItem="{Binding SelectedGeneratorData, Mode=OneWayToSource}" 
+                                          Style="{StaticResource lowerAlignmentFontSize}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Margin="20,0,10,0" >
+                                    <Label Content="Chart Type" Height="25" FontSize="14" HorizontalAlignment="Left"/>
+                                    <ComboBox Width="229" Height="55" HorizontalAlignment="Left"
+                                          ItemsSource="{Binding ChartTypes}" 
+                                          Foreground="Black" SelectedIndex="0" 
+                                          SelectedItem="{Binding SelectedChartType, Mode=OneWayToSource}" 
+                                          Style="{StaticResource lowerAlignmentFontSize}"/>
+                                </StackPanel>
                             </StackPanel>
-                            <StackPanel Orientation="Vertical" Margin="20,0,10,0" >
-                                <Label Content="Chart Type" Height="25" FontSize="14" HorizontalAlignment="Left"/>
-                                <ComboBox Width="229" Height="55" HorizontalAlignment="Left"
-                                      ItemsSource="{Binding ChartTypes}" 
-                                      Foreground="Black" SelectedIndex="0" 
-                                      SelectedItem="{Binding SelectedChartType, Mode=OneWayToSource}" 
-                                      Style="{StaticResource lowerAlignmentFontSize}"/>
-                            </StackPanel>
-                        </StackPanel>
-                        <StackPanel>
-                            <StackPanel Margin="0,40,0,0">
-                                <TextBox Text="Date and Time Filter" Margin="20,0,5,0" FontSize="14"/>
-                                <StackPanel Orientation="Horizontal" >
+                            <StackPanel>
+                                <StackPanel Margin="0,40,0,0">
+                                    <TextBox Text="Date and Time Filter" Margin="20,0,5,0" FontSize="14"/>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <StackPanel Orientation="Vertical" Margin="20,0,10,0">
+                                            <Label Content="Start" Height="25" FontSize="14" HorizontalAlignment="Left"/>
+                                            <DatePicker HorizontalAlignment="Left"  VerticalAlignment="Bottom" 
+                                                    Style="{DynamicResource DatePickerStyle}" Width="230" Height="55"
+                                                    DisplayDate="{Binding SelectedStartDate}"
+                                                    DisplayDateStart="{Binding SelectedStartDate}"
+                                                    DisplayDateEnd="{Binding SelectedStopDate}"
+                                                    SelectedDate="{Binding SelectedStartDate}"
+                                                    Background="#BFECF3" FontSize="16"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="10,0,1,0">
+                                            <Label Content="Hour" Height="25" FontSize="14"/>
+                                            <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
+                                                  ItemsSource="{Binding HoursViewModelList, 
+                                                                Converter={StaticResource IntArrayToTwoCharStringArray}}" 
+                                                  Foreground="Black" SelectedIndex="0" 
+                                                  SelectedItem="{Binding SelectedStartHour, Mode=TwoWay, 
+                                                            Converter={StaticResource IntToTwoCharString}}" 
+                                                  Style="{StaticResource lowerAlignmentFontSize}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="10,0,1,0">
+                                            <Label Content="Minutes" Height="25" FontSize="14"/>
+                                            <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
+                                                  ItemsSource="{Binding MinutesViewModelList, 
+                                                            Converter={StaticResource IntArrayToTwoCharStringArray}}" 
+                                                  Foreground="Black" SelectedIndex="0" 
+                                                  SelectedItem="{Binding SelectedStartMinute, Mode=TwoWay,
+                                                            Converter={StaticResource IntToTwoCharString}}" 
+                                                  Style="{StaticResource lowerAlignmentFontSize}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="10,0,1,0">
+                                            <Label Content="Seconds" Height="25" FontSize="14"/>
+                                            <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
+                                                  ItemsSource="{Binding SecondsViewModelList, 
+                                                            Converter={StaticResource IntArrayToTwoCharStringArray}}" 
+                                                  Foreground="Black" SelectedIndex="0" 
+                                                  SelectedItem="{Binding SelectedStartSecond, Mode=TwoWay,
+                                                            Converter={StaticResource IntToTwoCharString}}" 
+                                                  Style="{StaticResource lowerAlignmentFontSize}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="10,0,10,0">
+                                            <Label Content="AM/PM" Height="25" FontSize="14"/>
+                                            <ComboBox Width="73" Height="55" HorizontalAlignment="Left"
+                                                  ItemsSource="{Binding AMPMViewModelList}" 
+                                                  Foreground="Black" SelectedIndex="0" 
+                                                  SelectedItem="{Binding SelectedStartAMPM, Mode=TwoWay}" 
+                                                  Style="{StaticResource lowerAlignmentFontSize}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,20,0,0" Height="100">
                                     <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                                        <Label Content="Start" Height="25" FontSize="14" HorizontalAlignment="Left"/>
+                                        <Label Content="Stop" Height="25" FontSize="14" HorizontalAlignment="Left"/>
                                         <DatePicker HorizontalAlignment="Left"  VerticalAlignment="Bottom" 
                                                 Style="{DynamicResource DatePickerStyle}" Width="230" Height="55"
-                                                DisplayDate="{Binding SelectedStartDate}"
+                                                DisplayDate="{Binding SelectedStopDate}"
                                                 DisplayDateStart="{Binding SelectedStartDate}"
                                                 DisplayDateEnd="{Binding SelectedStopDate}"
-                                                SelectedDate="{Binding SelectedStartDate}"
+                                                SelectedDate="{Binding SelectedStopDate}"
                                                 Background="#BFECF3" FontSize="16"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" Margin="10,0,1,0">
                                         <Label Content="Hour" Height="25" FontSize="14"/>
                                         <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
                                               ItemsSource="{Binding HoursViewModelList, 
-                                                            Converter={StaticResource IntArrayToTwoCharStringArray}}" 
+                                                                Converter={StaticResource IntArrayToTwoCharStringArray}}" 
                                               Foreground="Black" SelectedIndex="0" 
-                                              SelectedItem="{Binding SelectedStartHour, Mode=TwoWay, 
-                                                        Converter={StaticResource IntToTwoCharString}}" 
+                                              SelectedItem="{Binding SelectedStopHour, Mode=TwoWay,
+                                                            Converter={StaticResource IntToTwoCharString}}" 
                                               Style="{StaticResource lowerAlignmentFontSize}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" Margin="10,0,1,0">
                                         <Label Content="Minutes" Height="25" FontSize="14"/>
                                         <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
                                               ItemsSource="{Binding MinutesViewModelList, 
-                                                        Converter={StaticResource IntArrayToTwoCharStringArray}}" 
+                                                            Converter={StaticResource IntArrayToTwoCharStringArray}}" 
                                               Foreground="Black" SelectedIndex="0" 
-                                              SelectedItem="{Binding SelectedStartMinute, Mode=TwoWay,
-                                                        Converter={StaticResource IntToTwoCharString}}" 
+                                              SelectedItem="{Binding SelectedStopMinute, Mode=TwoWay,
+                                                            Converter={StaticResource IntToTwoCharString}}" 
                                               Style="{StaticResource lowerAlignmentFontSize}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" Margin="10,0,1,0">
                                         <Label Content="Seconds" Height="25" FontSize="14"/>
                                         <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
                                               ItemsSource="{Binding SecondsViewModelList, 
-                                                        Converter={StaticResource IntArrayToTwoCharStringArray}}" 
+                                                            Converter={StaticResource IntArrayToTwoCharStringArray}}" 
                                               Foreground="Black" SelectedIndex="0" 
-                                              SelectedItem="{Binding SelectedStartSecond, Mode=TwoWay,
-                                                        Converter={StaticResource IntToTwoCharString}}" 
+                                              SelectedItem="{Binding SelectedStopSecond, Mode=TwoWay,
+                                                            Converter={StaticResource IntToTwoCharString}}" 
                                               Style="{StaticResource lowerAlignmentFontSize}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" Margin="10,0,10,0">
@@ -114,249 +165,181 @@
                                         <ComboBox Width="73" Height="55" HorizontalAlignment="Left"
                                               ItemsSource="{Binding AMPMViewModelList}" 
                                               Foreground="Black" SelectedIndex="0" 
-                                              SelectedItem="{Binding SelectedStartAMPM, Mode=TwoWay}" 
+                                              SelectedItem="{Binding SelectedStopAMPM, Mode=TwoWay}" 
                                               Style="{StaticResource lowerAlignmentFontSize}"/>
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" Height="100">
-                                <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                                    <Label Content="Stop" Height="25" FontSize="14" HorizontalAlignment="Left"/>
-                                    <DatePicker HorizontalAlignment="Left"  VerticalAlignment="Bottom" 
-                                            Style="{DynamicResource DatePickerStyle}" Width="230" Height="55"
-                                            DisplayDate="{Binding SelectedStopDate}"
-                                            DisplayDateStart="{Binding SelectedStartDate}"
-                                            DisplayDateEnd="{Binding SelectedStopDate}"
-                                            SelectedDate="{Binding SelectedStopDate}"
-                                            Background="#BFECF3" FontSize="16"/>
+                            <StackPanel Orientation="Horizontal" Margin="20,10,0,0" >
+                                <StackPanel x:Name="stkPlDurationPerspective" Margin="0,0,0,0" VerticalAlignment="Center" Height="220"
+                                        Width="220">
+                                    <Label FontWeight="Bold" FontSize="14">Duration Perspective</Label>
+
+                                    <RadioButton x:Name="rdbtnYear" Margin="0,10,0,0"  GroupName="DateCategory"
+                                             IsChecked="{Binding SelectedRadioButtonYear}"
+                                             rbyr:RaiseRadioButtonClick.RaiseClick="{Binding DurationPerspectiveCmd}"
+                                             Command="{Binding DurationPerspectiveCmd}">
+                                        <RadioButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
+                                                <Binding ElementName="txtBxYear"/>
+                                                <Binding ElementName="lstBxDateDurationList"/>
+                                                <Binding ElementName="stkPlDurationPerspective"/>
+                                            </MultiBinding>
+                                        </RadioButton.CommandParameter>
+                                        <WrapPanel>
+                                            <Image Source="/Images/Year.png" Width="16" Height="16" Margin="0,0,5,0" />
+                                            <TextBlock x:Name="txtBxYear" Text="Year" Foreground="Black" FontSize="12"/>
+                                        </WrapPanel>
+                                    </RadioButton>
+                                    <Separator/>
+                                    <RadioButton Margin="0,10,0,0"  GroupName="DateCategory"
+                                             Command="{Binding DurationPerspectiveCmd}">
+                                        <RadioButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
+                                                <Binding ElementName="txtBxQuarter"/>
+                                                <Binding ElementName="lstBxDateDurationList"/>
+                                                <Binding ElementName="stkPlDurationPerspective"/>
+                                            </MultiBinding>
+                                        </RadioButton.CommandParameter>
+                                        <WrapPanel>
+                                            <Image Source="/Images/Quarter.png" Width="16" Height="16" Margin="0,0,5,0" />
+                                            <TextBlock x:Name="txtBxQuarter" Text="Quarter" Foreground="Black" FontSize="12"/>
+                                        </WrapPanel>
+                                    </RadioButton>
+                                    <Separator/>
+                                    <RadioButton Margin="0,10,0,0"  GroupName="DateCategory"
+                                             Command="{Binding DurationPerspectiveCmd}">
+                                        <RadioButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
+                                                <Binding ElementName="txtBxMonth"/>
+                                                <Binding ElementName="lstBxDateDurationList"/>
+                                                <Binding ElementName="stkPlDurationPerspective"/>
+                                            </MultiBinding>
+                                        </RadioButton.CommandParameter>
+                                        <WrapPanel>
+                                            <Image Source="/Images/Months2.jpg" Width="16" Height="16" Margin="0,0,5,0" />
+                                            <TextBlock x:Name="txtBxMonth" Text="Month" Foreground="Black" FontSize="12"/>
+                                        </WrapPanel>
+                                    </RadioButton>
+                                    <Separator/>
+                                    <RadioButton Margin="0,10,0,0"  GroupName="DateCategory"
+                                             Command="{Binding DurationPerspectiveCmd}">
+                                        <RadioButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
+                                                <Binding ElementName="txtBxWeek"/>
+                                                <Binding ElementName="lstBxDateDurationList"/>
+                                                <Binding ElementName="stkPlDurationPerspective"/>
+                                            </MultiBinding>
+                                        </RadioButton.CommandParameter>
+                                        <WrapPanel>
+                                            <Image Source="/Images/Week1.png" Width="16" Height="16" Margin="0,0,5,0" />
+                                            <TextBlock x:Name="txtBxWeek" Text="Week" Foreground="Black" FontSize="12"/>
+                                        </WrapPanel>
+                                    </RadioButton>
+                                    <Separator/>
+                                    <RadioButton  Margin="0,5,0,0" GroupName="DateCategory"
+                                              Command="{Binding DurationPerspectiveCmd}">
+                                        <RadioButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
+                                                <Binding ElementName="txtBxDay"/>
+                                                <Binding ElementName="lstBxDateDurationList"/>
+                                                <Binding ElementName="stkPlDurationPerspective"/>
+                                            </MultiBinding>
+                                        </RadioButton.CommandParameter>
+                                        <WrapPanel>
+                                            <Image Source="/Images/Day.jpg" Width="16" Height="16" Margin="0,0,5,0" />
+                                            <TextBlock x:Name="txtBxDay" Text="Day" Foreground="Black" FontSize="12"/>
+                                        </WrapPanel>
+                                    </RadioButton>
+
                                 </StackPanel>
-                                <StackPanel Orientation="Vertical" Margin="10,0,1,0">
-                                    <Label Content="Hour" Height="25" FontSize="14"/>
-                                    <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
-                                          ItemsSource="{Binding HoursViewModelList, 
-                                                            Converter={StaticResource IntArrayToTwoCharStringArray}}" 
-                                          Foreground="Black" SelectedIndex="0" 
-                                          SelectedItem="{Binding SelectedStopHour, Mode=TwoWay,
-                                                        Converter={StaticResource IntToTwoCharString}}" 
-                                          Style="{StaticResource lowerAlignmentFontSize}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Vertical" Margin="10,0,1,0">
-                                    <Label Content="Minutes" Height="25" FontSize="14"/>
-                                    <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
-                                          ItemsSource="{Binding MinutesViewModelList, 
-                                                        Converter={StaticResource IntArrayToTwoCharStringArray}}" 
-                                          Foreground="Black" SelectedIndex="0" 
-                                          SelectedItem="{Binding SelectedStopMinute, Mode=TwoWay,
-                                                        Converter={StaticResource IntToTwoCharString}}" 
-                                          Style="{StaticResource lowerAlignmentFontSize}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Vertical" Margin="10,0,1,0">
-                                    <Label Content="Seconds" Height="25" FontSize="14"/>
-                                    <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
-                                          ItemsSource="{Binding SecondsViewModelList, 
-                                                        Converter={StaticResource IntArrayToTwoCharStringArray}}" 
-                                          Foreground="Black" SelectedIndex="0" 
-                                          SelectedItem="{Binding SelectedStopSecond, Mode=TwoWay,
-                                                        Converter={StaticResource IntToTwoCharString}}" 
-                                          Style="{StaticResource lowerAlignmentFontSize}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Vertical" Margin="10,0,10,0">
-                                    <Label Content="AM/PM" Height="25" FontSize="14"/>
-                                    <ComboBox Width="73" Height="55" HorizontalAlignment="Left"
-                                          ItemsSource="{Binding AMPMViewModelList}" 
-                                          Foreground="Black" SelectedIndex="0" 
-                                          SelectedItem="{Binding SelectedStopAMPM, Mode=TwoWay}" 
-                                          Style="{StaticResource lowerAlignmentFontSize}"/>
+                                <StackPanel Height="220"  Width="360" VerticalAlignment="Center">
+                                    <CheckBox x:Name="chkBxDurationPerspective" 
+                                          Content="Select All" FontSize="14" Margin="30,0,0,0"
+                                          Command="{Binding CheckedStatusCmd}"
+                                          IsChecked="{Binding SelectedCheckButtonSelectAll}">
+                                        <CheckBox.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource PassCheckBoxBoolListBox}">
+                                                <Binding ElementName="chkBxDurationPerspective" Path="IsChecked"/>
+                                                <Binding ElementName="lstBxDateDurationList"/>
+                                            </MultiBinding>
+                                        </CheckBox.CommandParameter>
+                                    </CheckBox>
+                                    <ListBox x:Name="lstBxDateDurationList" Width="330" Height="190" 
+                                         Margin="30,0,0,0" Background="#F2F2F2" FontSize="12"
+                                         SelectionMode="Extended"
+                                         >
+                                    </ListBox>
                                 </StackPanel>
                             </StackPanel>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="20,10,0,0" >
-                            <StackPanel x:Name="stkPlDurationPerspective" Margin="0,0,0,0" VerticalAlignment="Center" Height="220"
-                                    Width="220">
-                                <Label FontWeight="Bold" FontSize="14">Duration Perspective</Label>
-
-                                <RadioButton x:Name="rdbtnYear" Margin="0,10,0,0"  GroupName="DateCategory"
-                                         IsChecked="{Binding SelectedRadioButtonYear}"
-                                         rbyr:RaiseRadioButtonClick.RaiseClick="{Binding DurationPerspectiveCmd}"
-                                         Command="{Binding DurationPerspectiveCmd}">
-                                    <RadioButton.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
-                                            <Binding ElementName="txtBxYear"/>
+                            <StackPanel>
+                                <Button Content="Plot" Height="40" Width="150" HorizontalAlignment="Right"
+                                        Margin="0,0,5,0" Style="{StaticResource AffirmativeButtonStyle}"
+                                        Command="{Binding PlotChartCmd}">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource PassListBox}">
                                             <Binding ElementName="lstBxDateDurationList"/>
-                                            <Binding ElementName="stkPlDurationPerspective"/>
+                                            <Binding ElementName="grpBxChart"/>
                                         </MultiBinding>
-                                    </RadioButton.CommandParameter>
-                                    <WrapPanel>
-                                        <Image Source="/Images/Year.png" Width="16" Height="16" Margin="0,0,5,0" />
-                                        <TextBlock x:Name="txtBxYear" Text="Year" Foreground="Black" FontSize="12"/>
-                                    </WrapPanel>
-                                </RadioButton>
-                                <Separator/>
-                                <RadioButton Margin="0,10,0,0"  GroupName="DateCategory"
-                                         Command="{Binding DurationPerspectiveCmd}">
-                                    <RadioButton.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
-                                            <Binding ElementName="txtBxQuarter"/>
-                                            <Binding ElementName="lstBxDateDurationList"/>
-                                            <Binding ElementName="stkPlDurationPerspective"/>
-                                        </MultiBinding>
-                                    </RadioButton.CommandParameter>
-                                    <WrapPanel>
-                                        <Image Source="/Images/Quarter.png" Width="16" Height="16" Margin="0,0,5,0" />
-                                        <TextBlock x:Name="txtBxQuarter" Text="Quarter" Foreground="Black" FontSize="12"/>
-                                    </WrapPanel>
-                                </RadioButton>
-                                <Separator/>
-                                <RadioButton Margin="0,10,0,0"  GroupName="DateCategory"
-                                         Command="{Binding DurationPerspectiveCmd}">
-                                    <RadioButton.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
-                                            <Binding ElementName="txtBxMonth"/>
-                                            <Binding ElementName="lstBxDateDurationList"/>
-                                            <Binding ElementName="stkPlDurationPerspective"/>
-                                        </MultiBinding>
-                                    </RadioButton.CommandParameter>
-                                    <WrapPanel>
-                                        <Image Source="/Images/Months2.jpg" Width="16" Height="16" Margin="0,0,5,0" />
-                                        <TextBlock x:Name="txtBxMonth" Text="Month" Foreground="Black" FontSize="12"/>
-                                    </WrapPanel>
-                                </RadioButton>
-                                <Separator/>
-                                <RadioButton Margin="0,10,0,0"  GroupName="DateCategory"
-                                         Command="{Binding DurationPerspectiveCmd}">
-                                    <RadioButton.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
-                                            <Binding ElementName="txtBxWeek"/>
-                                            <Binding ElementName="lstBxDateDurationList"/>
-                                            <Binding ElementName="stkPlDurationPerspective"/>
-                                        </MultiBinding>
-                                    </RadioButton.CommandParameter>
-                                    <WrapPanel>
-                                        <Image Source="/Images/Week1.png" Width="16" Height="16" Margin="0,0,5,0" />
-                                        <TextBlock x:Name="txtBxWeek" Text="Week" Foreground="Black" FontSize="12"/>
-                                    </WrapPanel>
-                                </RadioButton>
-                                <Separator/>
-                                <RadioButton  Margin="0,5,0,0" GroupName="DateCategory"
-                                          Command="{Binding DurationPerspectiveCmd}">
-                                    <RadioButton.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
-                                            <Binding ElementName="txtBxDay"/>
-                                            <Binding ElementName="lstBxDateDurationList"/>
-                                            <Binding ElementName="stkPlDurationPerspective"/>
-                                        </MultiBinding>
-                                    </RadioButton.CommandParameter>
-                                    <WrapPanel>
-                                        <Image Source="/Images/Day.jpg" Width="16" Height="16" Margin="0,0,5,0" />
-                                        <TextBlock x:Name="txtBxDay" Text="Day" Foreground="Black" FontSize="12"/>
-                                    </WrapPanel>
-                                </RadioButton>
-
-                            </StackPanel>
-                            <StackPanel Height="220"  Width="360" VerticalAlignment="Center">
-                                <CheckBox x:Name="chkBxDurationPerspective" 
-                                      Content="Select All" FontSize="14" Margin="30,0,0,0"
-                                      Command="{Binding CheckedStatusCmd}"
-                                      IsChecked="{Binding SelectedCheckButtonSelectAll}">
-                                    <CheckBox.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource PassCheckBoxBoolListBox}">
-                                            <Binding ElementName="chkBxDurationPerspective" Path="IsChecked"/>
-                                            <Binding ElementName="lstBxDateDurationList"/>
-                                        </MultiBinding>
-                                    </CheckBox.CommandParameter>
-                                </CheckBox>
-                                <ListBox x:Name="lstBxDateDurationList" Width="330" Height="190" 
-                                     Margin="30,0,0,0" Background="#F2F2F2" FontSize="12"
-                                     SelectionMode="Extended"
-                                     >
-                                </ListBox>
+                                    </Button.CommandParameter>
+                                </Button>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel>
-                            <Button Content="Plot" Height="40" Width="150" HorizontalAlignment="Right"
-                                    Margin="0,0,5,0" Style="{StaticResource AffirmativeButtonStyle}"
-                                    Command="{Binding PlotChartCmd}">
-                                <Button.CommandParameter>
-                                    <MultiBinding Converter="{StaticResource PassListBox}">
-                                        <Binding ElementName="lstBxDateDurationList"/>
-                                        <Binding ElementName="grpBxChart"/>
-                                    </MultiBinding>
-                                </Button.CommandParameter>
-                            </Button>
+                    </GroupBox>
+                </ScrollViewer>
+                <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                    <GroupBox x:Name="grpBxChart" Grid.Column="1" Style="{StaticResource GroupBoxStyle}" Header="Chart" 
+                          Width="1250" Height="750" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Vertical">
+                            <ToolBarTray Height="30">
+                                <ToolBar>
+                                    <Button x:Name="btnCamera" Width="30" Height="30" ToolTip="Take a snapshot"
+                                        Command="{Binding CopyChartCmd}">
+                                        <Button.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource PassGroupBox}">
+                                                <Binding ElementName="grpBxChart"/>
+                                            </MultiBinding>
+                                        </Button.CommandParameter>
+                                        <Button.Content>
+                                            <Image Source="/Images/Camera.png" />
+                                        </Button.Content>
+                                    </Button>
+                                    <Button x:Name="btnSnipe" Width="30" Height="30" ToolTip="Take a snipe"
+                                        Command="{Binding SnipeCmd}">
+                                        <Button.Content>
+                                            <Image Source="/Images/Snipe.png" />
+                                        </Button.Content>
+                                    </Button>
+                                    <Button x:Name="btnPrint" Width="30" Height="30" ToolTip="Print Chart"
+                                        Command="{Binding PrintCmd}">
+                                        <Button.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource PassGroupBox}">
+                                                <Binding ElementName="grpBxChart"/>
+                                            </MultiBinding>
+                                        </Button.CommandParameter>
+                                        <Button.Content>
+                                            <Image Source="/Images/Print.png"/>
+                                        </Button.Content>
+                                    </Button>
+                                </ToolBar>
+                            </ToolBarTray>
                         </StackPanel>
-                    </StackPanel>
-                </GroupBox>
-            </ScrollViewer>
-            <ScrollViewer Grid.Column="1">
-                <GroupBox x:Name="grpBxChart" Grid.Column="1" Style="{StaticResource GroupBoxStyle}" Header="Chart" 
-                      Width="1200" Height="750">
-                <StackPanel Orientation="Vertical">
-                    <ToolBarTray Height="30">
-                        <ToolBar>
-                            <Button x:Name="btnCamera" Width="30" Height="30" ToolTip="Take a snapshot"
-                                    Command="{Binding CopyChartCmd}">
-                                <Button.CommandParameter>
-                                    <MultiBinding Converter="{StaticResource PassGroupBox}">     
-                                        <Binding ElementName="grpBxChart"/>
-                                    </MultiBinding>
-                                </Button.CommandParameter>
-                                <Button.Content>
-                                    <Image Source="/Images/Camera.png" />
-                                </Button.Content>
-                            </Button>
-                            <Button x:Name="btnSnipe" Width="30" Height="30" ToolTip="Take a snipe"
-                                    Command="{Binding SnipeCmd}">
-                                <Button.Content>
-                                    <Image Source="/Images/Snipe.png" />
-                                </Button.Content>
-                            </Button>
-                            <Button x:Name="btnPrint" Width="30" Height="30" ToolTip="Print Chart"
-                                    Command="{Binding PrintCmd}">
-                                <Button.CommandParameter>
-                                    <MultiBinding Converter="{StaticResource PassGroupBox}">
-                                        <Binding ElementName="grpBxChart"/>
-                                    </MultiBinding>
-                                </Button.CommandParameter>
-                                <Button.Content>
-                                    <Image Source="/Images/Print.png"/>
-                                </Button.Content>
-                            </Button>
-                            <!--<Button x:Name="btnCopy" Width="30" Height="30" ToolTip="Copy Chart to Clipboard">
-                                <Button.Content>
-                                    <Image Source="/Images/Copy.png"/>
-                                </Button.Content>
-                            </Button>-->
-                        </ToolBar>
-                    </ToolBarTray>
-                    <!--<lvc:CartesianChart x:Name="chtGeneratorSurveillance" Height="650" Width="1200" 
-                                        Series="{Binding SeriesCollection}"
-                                        LegendLocation="Bottom" DataContext="{Binding}" >
-                        <lvc:CartesianChart.AxisX>
-                            <lvc:DateAxis Title="Date" LabelFormatter="{Binding XFormatter}" 
-                                          DataContext="{Binding}"></lvc:DateAxis>
-                        </lvc:CartesianChart.AxisX>
-                        <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Hours" LabelFormatter="{Binding YFormatter}" 
-                                      DataContext="{Binding}"></lvc:Axis>
-                        </lvc:CartesianChart.AxisY>
-                    </lvc:CartesianChart>-->
+                    </GroupBox>
+                </ScrollViewer>
+            </Grid>
 
-                    <!--<lvc:CartesianChart x:Name="chtGeneratorSurveillance" Height="650" Width="1200"/>-->                    
-                    
-                </StackPanel>
-            </GroupBox>
-        </ScrollViewer>
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
+                <Hyperlink Command="{x:Static cmds:NavigationCommands.InputToUsageView}">Usage</Hyperlink>
+                </TextBlock>
+                <TextBlock Width=" 80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
+                <Hyperlink Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}">Fuelling</Hyperlink>
+                </TextBlock>
+                <TextBlock Width="110" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
+                <Hyperlink Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}">Maintenance</Hyperlink>
+                </TextBlock>
+            </StackPanel>
         </Grid>
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
-            <Hyperlink Command="{x:Static cmds:NavigationCommands.InputToUsageView}">Usage</Hyperlink>
-            </TextBlock>
-            <TextBlock Width=" 80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
-            <Hyperlink Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}">Fuelling</Hyperlink>
-            </TextBlock>
-            <TextBlock Width="110" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
-            <Hyperlink Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}">Maintenance</Hyperlink>
-            </TextBlock>
-        </StackPanel>
-    </Grid>
+    </Viewbox>
 </Page>

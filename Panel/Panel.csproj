@@ -166,6 +166,7 @@
     <Compile Include="Converters\PassListBoxAsCommandParameter.cs" />
     <Compile Include="Converters\PassGroupBoxAsCommandParameter.cs" />
     <Compile Include="Converters\PassRadioButtonListBoxStackPanelAsCommandParameters.cs" />
+    <Compile Include="DependencyProperties\StopGenerator.cs" />
     <Compile Include="DependencyProperties\UpdateDataGrid.cs" />
     <Compile Include="GeneratorFuelling.cs">
       <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
