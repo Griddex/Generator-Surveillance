@@ -31,6 +31,7 @@
         <convtrs:PassTextBoxComboBoxItemAsCommandParameters x:Key="PassTextBoxComboBoxItem"/>
         <convtrs:PassTextBoxTwoComboxItemsAsCommandParameters x:Key="PassTextBoxTwoComboxItems"/>
         <convtrs:PassDatePickerComboBoxAsCommandParameter x:Key="PassDatePickerComboBox"/>
+        <convtrs:PassComboBoxesAndButtonAsCommandParameters x:Key="PassComboBoxesAndButton"/>
 
         <Style TargetType="{x:Type Label}" x:Key="RoundLabelStyle">
             <Style.Resources>
@@ -99,6 +100,7 @@
             <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
             <Setter Property="SelectionUnit" Value="FullRow" />
             <Setter Property="CanUserResizeRows" Value="True" />
+            <Setter Property="CanUserAddRows" Value="False"/>
             <Setter Property="AlternatingRowBackground" Value="White" />
             <Setter Property="AlternationCount" Value="2" />
             <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
@@ -204,7 +206,7 @@
         </Style>
 
         <Style x:Key="DatePickerStyle" TargetType="{x:Type DatePicker}">
-            <Setter Property="Foreground" Value="#FF333333"/>
+            <Setter Property="Foreground" Value="#434343"/>
             <Setter Property="IsTodayHighlighted" Value="True"/>
             <Setter Property="SelectedDateFormat" Value="Long"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -215,20 +217,23 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DatePicker}">
-                        <Border x:Name="DatePickerBorder" BorderBrush="Black" BorderThickness="1" Background="#F2F2F2" Padding="{TemplateBinding Padding}" Height="{TemplateBinding Height}">
+                        <Border x:Name="DatePickerBorder" BorderBrush="Black" BorderThickness="1" Background="#F2F2F2" 
+                                Padding="{TemplateBinding Padding}" Height="{TemplateBinding Height}">
                             
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal"/>
                                     <VisualState x:Name="Disabled">
                                         <Storyboard>
-                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_DisabledVisual"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" 
+                                                             Storyboard.TargetName="PART_DisabledVisual"/>
                                         </Storyboard>
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             
-                            <Grid x:Name="PART_Root" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Background="Blue" >
+                            <Grid x:Name="PART_Root" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Background="Blue" >
                                 <Grid.Resources>
                                     <SolidColorBrush x:Key="DisabledBrush" Color="#434343"/>
                                     <ControlTemplate x:Key="DropDownButtonTemplate" TargetType="{x:Type Button}">
@@ -243,14 +248,21 @@
                                                     <VisualState x:Name="Normal"/>
                                                     <VisualState x:Name="MouseOver">
                                                         <Storyboard>
-                                                            <ColorAnimation Duration="0" To="#434343" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Background"/>
-                                                            <ColorAnimationUsingKeyFrames BeginTime="0" Duration="00:00:00.001" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[3].(GradientStop.Color)" Storyboard.TargetName="BackgroundGradient">
+                                                            <ColorAnimation Duration="0" To="#434343" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                                                            Storyboard.TargetName="Background"/>
+                                                            <ColorAnimationUsingKeyFrames BeginTime="0" Duration="00:00:00.001" 
+                                                                                          Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[3].(GradientStop.Color)" 
+                                                                                          Storyboard.TargetName="BackgroundGradient">
                                                                 <SplineColorKeyFrame KeyTime="0" Value="#7FFFFFFF"/>
                                                             </ColorAnimationUsingKeyFrames>
-                                                            <ColorAnimationUsingKeyFrames BeginTime="0" Duration="00:00:00.001" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[2].(GradientStop.Color)" Storyboard.TargetName="BackgroundGradient">
+                                                            <ColorAnimationUsingKeyFrames BeginTime="0" Duration="00:00:00.001" 
+                                                                                          Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[2].(GradientStop.Color)" 
+                                                                                          Storyboard.TargetName="BackgroundGradient">
                                                                 <SplineColorKeyFrame KeyTime="0" Value="#CCFFFFFF"/>
                                                             </ColorAnimationUsingKeyFrames>
-                                                            <ColorAnimationUsingKeyFrames BeginTime="0" Duration="00:00:00.001" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="BackgroundGradient">
+                                                            <ColorAnimationUsingKeyFrames BeginTime="0" Duration="00:00:00.001" 
+                                                                                          Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" 
+                                                                                          Storyboard.TargetName="BackgroundGradient">
                                                                 <SplineColorKeyFrame KeyTime="0" Value="#F2FFFFFF"/>
                                                             </ColorAnimationUsingKeyFrames>
                                                         </Storyboard>
@@ -290,10 +302,13 @@
                                                     <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
 
-                                                <Border x:Name="Highlight" BorderBrush="Black" BorderThickness="0" Height="55" Width="55" CornerRadius="0" Margin="0" Opacity="0" Grid.Row="0"  Grid.Column="0"/>
-                                                <Border x:Name="Background" BorderBrush="#FFFFFFFF" BorderThickness="0" Height="55" Width="55" Background="#FF1F3B53"  CornerRadius="0" Margin="0" 
+                                                <Border x:Name="Highlight" BorderBrush="Black" BorderThickness="0" Height="55" Width="55" CornerRadius="0" 
+                                                        Margin="0" Opacity="0" Grid.Row="0"  Grid.Column="0"/>
+                                                <Border x:Name="Background" BorderBrush="#FFFFFFFF" BorderThickness="0" Height="55" Width="55" 
+                                                        Background="#FF1F3B53"  CornerRadius="0" Margin="0" 
                                                         Opacity="1" Grid.Row="0"  Grid.Column="0"/>
-                                                <Border x:Name="BackgroundGradient" BorderBrush="Black" BorderThickness="0" Height="55" Width="55" CornerRadius="0" Margin="0" Opacity="1" 
+                                                <Border x:Name="BackgroundGradient" BorderBrush="Black" BorderThickness="0" Height="55" Width="55" 
+                                                        CornerRadius="0" Margin="0" Opacity="1" 
                                                         Grid.Row="0" Grid.Column="0" >
                                                     <Border.Background>
                                                         <LinearGradientBrush EndPoint=".7,1" StartPoint=".7,0">
@@ -305,7 +320,7 @@
                                                     </Border.Background>
                                                 </Border>
 
-                                                <Viewbox Stretch="Fill"  Height="55" Width="55" >
+                                                <Viewbox Stretch="Fill">
                                                     <Grid>
                                                         <Path Fill="#FFFDFDFD" Data="M 0 32 V 0 H 32 64 V 32 64 H 32 0 Z"/>
                                                         <Path Fill="#FFF4F4F4" Data="M 0 32 V 0 H 32 64 V 32 64 H 32 0 Z m 61.5 0 V 2.5 H 32 2.5 L 2.2573405 31 c -0.1334627 15.675 -0.038512 29.053572 0.211002 29.73016 0.3475706 0.942482 7.3030351 1.176337 29.7426595 1 L 61.5 61.5 Z m -48 19.936737 C 11.3 51.577628 10.0625 51.219953 10.75 51.141905 11.4375 51.063857 12 49.95 12 48.666667 12 45.581906 12.440427 45.264258 15.994309 45.785857 18.522533 46.156921 19 46.676157 19 49.054482 c 0 3.464733 -0.458762 3.705145 -5.5 2.882255 z m 12 0.112651 C 23.11317 51.612289 22.5 50.989025 22.5 49 c 0 -1.480818 0.743789 -2.803849 1.824475 -3.245326 2.496036 -1.019669 5.763313 0.85298 4.992569 2.861505 -0.334663 0.872119 -0.05517 1.927631 0.621085 2.345582 C 31.76914 52.093389 29.190721 52.725267 25.5 52.049388 Z M 29.428571 43 c 0 -1.295238 0.338096 -1.633333 0.985715 -0.985714 0.647619 0.647619 0.647619 1.323809 0 1.971428 C 29.766667 44.633333 29.428571 44.295238 29.428571 43 Z M 33 43 c -0.591337 -1.104923 -0.65928 -2 -0.151815 -2 0.505204 0 1.153908 0.9 1.441564 2 0.287656 1.1 0.355973 2 0.151815 2 C 34.237406 45 33.588702 44.1 33 43 Z m 14 1 c 0 -0.55 0.45 -1 1 -1 0.55 0 1 0.45 1 1 0 0.55 -0.45 1 -1 1 -0.55 0 -1 -0.45 -1 -1 z m -5 -1 c -0.825 -0.533156 -1.05 -0.969374 -0.5 -0.969374 0.55 0 1.675 0.436218 2.5 0.969374 0.825 0.533156 1.05 0.969374 0.5 0.969374 -0.55 0 -1.675 -0.436218 -2.5 -0.969374 z m 10 0 c 0.825 -0.533156 1.95 -0.969374 2.5 -0.969374 0.55 0 0.325 0.436218 -0.5 0.969374 -0.825 0.533156 -1.95 0.969374 -2.5 0.969374 -0.55 0 -0.325 -0.436218 0.5 -0.969374 z M 34.44823 41.25 c -0.421161 -0.9625 -0.67745 -2.138066 -0.569532 -2.612369 0.107918 -0.474303 -0.563812 -1.418113 -1.492732 -2.097356 -2.211022 -1.616739 -0.534086 -2.698739 4.4865 -2.8948 3.635033 -0.141954 3.718809 -0.06455 

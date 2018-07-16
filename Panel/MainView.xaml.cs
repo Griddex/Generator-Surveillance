@@ -80,12 +80,13 @@ namespace Panel
         {
             UsageView usageView = (UsageView)container.Resolve<IView>("UsageView");
             usageView.lblCurrentGeneratorName.Content = this._inputView.cmbxGenInfo.Text;
-            usageView.lblGenRecordDate.Content = $"{this._inputView.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()} { this._inputView.lblGenTimeStarted.Content.ToString()}";
 
-            if ((e.OriginalSource as Label).Name == "lblGenIndicator")
-            {
+            if(this._inputView.lblGenTimeStarted.Content != null)
+                usageView.lblGenRecordDate.Content = $"{this._inputView.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()} " +
+                                        $"{ this._inputView.lblGenTimeStarted.Content.ToString()}";
+            else
+                usageView.lblGenRecordDate.Content = $"{this._inputView.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()}";
 
-            }
             MainViewFrame.Navigate(usageView);
         }
 

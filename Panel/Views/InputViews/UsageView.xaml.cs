@@ -49,7 +49,17 @@ namespace Panel.Views.InputViews
                 this.cmbxSecsGenStd.SelectedValue = timeParts[2];
                 this.cmbxAMPMGenStd.SelectedValue = timeParts[3];                
             }
-            
+
+            DateTime currGenTime = DateTime.Now;
+            string strCurrGenTime = currGenTime.ToString("hh:mm:ss tt");
+            char[] delimeters1 = new char[] { ':', ' ' };
+            string[] timeParts1 = strCurrGenTime.Split(delimeters1, StringSplitOptions.RemoveEmptyEntries);
+
+            this.cmbxHrGenSpd.SelectedValue = timeParts1[0];
+            this.cmbxMinGenSpd.SelectedValue = timeParts1[1];
+            this.cmbxSecsGenSpd.SelectedValue = timeParts1[2];
+            this.cmbxAMPMGenSpd.SelectedValue = timeParts1[3];
+
         }        
     }    
 }

@@ -18,12 +18,20 @@ namespace Panel.ViewModels.InputViewModels
     public class FuellingViewModel : ViewModelBase, IViewModel
     {
         public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = new ObservableCollection<GeneratorNameModel>();
+        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } = new ObservableCollection<GeneratorNameModel>();
+        public ObservableCollection<GeneratorRunningHr> _allGeneratorFuelConsumptionRecordsUnsorted { get; set; } = new ObservableCollection<GeneratorRunningHr>();
 
         public FuellingViewModel(UnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
-            UniqueGeneratorNames = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
-            _allGeneratorFuelConsumptionRecords = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
+
+            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
+            UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
+                (UniqueGeneratorNamesUnsorted.OrderBy(x => x.GeneratorName));
+
+            _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
+            _allGeneratorFuelConsumptionRecords = new ObservableCollection<GeneratorRunningHr>
+                (_allGeneratorFuelConsumptionRecordsUnsorted.OrderByDescending(x => x.Date));
         }
 
         public UnitOfWork UnitOfWork { get; set; }

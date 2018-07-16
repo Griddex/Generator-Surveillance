@@ -11,7 +11,8 @@ namespace Panel.Interfaces
 {
     public interface IGeneratorInformationRepository : IRepository<GeneratorUsage>
     {
-        (bool IsNull, string LastGenName, DateTime? LastGenStartedDate, DateTime? LastGenStartedTime) GeneratorStoppedIsNull();
+        (bool IsNull, string ActiveGenName, DateTime? ActiveGenStartedDate, 
+            DateTime? ActiveGenStartedTime, int ActiveGenID) GeneratorStoppedIsNull();
 
         ObservableCollection<GeneratorNameModel> GetUniqueGeneratorNames();
 

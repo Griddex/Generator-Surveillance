@@ -21,6 +21,7 @@ namespace Panel.ViewModels.InputViewModels
     {
 
         public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = new ObservableCollection<GeneratorNameModel>();
+        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } = new ObservableCollection<GeneratorNameModel>();
         public ObservableCollection<string> ReminderLevels { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<GeneratorScheduler> AllGeneratorSchedules { get; set; } = new ObservableCollection<GeneratorScheduler>();
         public ObservableCollection<GeneratorScheduler> ActiveGeneratorSchedules { get; set; } = new ObservableCollection<GeneratorScheduler>();
@@ -29,7 +30,9 @@ namespace Panel.ViewModels.InputViewModels
         public MaintenanceViewModel(UnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
-            UniqueGeneratorNames = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
+            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
+            UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
+                (UniqueGeneratorNamesUnsorted.OrderBy(x => x.GeneratorName));
             AllGeneratorSchedules = unitOfWork.GeneratorScheduler.GetAllGeneratorSchedules();
             ActiveGeneratorSchedules = unitOfWork.GeneratorScheduler.GetActiveGeneratorSchedules();
             UniqueAuthorizerNames.Add("Monday");

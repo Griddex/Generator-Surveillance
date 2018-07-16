@@ -69,7 +69,7 @@
                            <TextBox Text="Load Active Generator" Foreground="Black" VerticalAlignment="Center" 
                                        Margin="0,0,0,0" Width="200" 
                                       HorizontalContentAlignment="Center"/>
-                            <Button Width="65" Height="65" Command="{Binding Path=LoadLastGeneratorRecord}">
+                            <Button Width="65" Height="65" Command="{Binding Path=LoadActiveGeneratorRecord}">
                                 <Button.Content>
                                     <Image Source="/Images/Download.png" Width="60" Height="60" Margin="0,0,0,0" 
                                            VerticalAlignment="Center"
@@ -105,8 +105,8 @@
                                         Background="#BFECF3"/>
                         </StackPanel>
                         <Label x:Name="lblGenTimeStarted" Grid.Column="1" Grid.Row="2"
-                               Content="{Binding Path=LastGenStartedTime, Mode=OneWay, 
-                            Converter={StaticResource ConvDateTimeToTime}}" 
+                               Content="{Binding Path=ActiveGenStartedTime, Mode=OneWay, 
+                                            Converter={StaticResource ConvDateTimeToTime}}" 
                                Visibility="Collapsed"/>
                         <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4">
                             <Label Content="Select or Type-in Generator" Height="28" FontSize="14" 
@@ -116,7 +116,9 @@
                                       Style="{StaticResource ComboBoxStyle}" DisplayMemberPath="GeneratorName"
                                       SelectedValuePath="GeneratorName" SelectedValue="GeneratorName" 
                                       Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
-                                      SelectedIndex="0" Foreground="Black" ItemsSource="{Binding UniqueGeneratorNames}">
+                                      SelectedIndex="0" Foreground="Black" HorizontalContentAlignment="Center"
+                                      VerticalContentAlignment="Center"
+                                      ItemsSource="{Binding UniqueGeneratorNames}">
                                 <ComboBox.Text>
                                     <Binding Path="GeneratorName" Mode="TwoWay" ValidatesOnNotifyDataErrors="True"
                                              NotifyOnValidationError="True"  UpdateSourceTrigger="PropertyChanged"/>

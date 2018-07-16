@@ -93,7 +93,9 @@
                                                  HorizontalAlignment="Left" Text="{Binding Path=VolumeOfDiesel, Mode=TwoWay, 
                                             ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, 
                                             Converter={StaticResource FloatToString}, ValidatesOnExceptions=True}"
-                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+                                                 HorizontalContentAlignment="Center"
+                                                 VerticalContentAlignment="Center"/>
                                     </StackPanel>
                                 </Grid>
                                 <Grid Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="4">
@@ -105,7 +107,9 @@
                                                  HorizontalAlignment="Left" Text="{Binding Path=CostOfDiesel, Mode=TwoWay, 
                                             ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, 
                                             Converter={StaticResource FloatToString}, ValidatesOnExceptions=True}"
-                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+                                                 HorizontalContentAlignment="Center"
+                                                 VerticalContentAlignment="Center"/>
                                     </StackPanel>
                                 </Grid>
 
@@ -132,7 +136,8 @@
                                                           ItemsSource="{Binding UniqueGeneratorNames}" 
                                                           Foreground="Black" DisplayMemberPath="GeneratorName"
                                                           SelectedValuePath="GeneratorName" SelectedValue="GeneratorName"
-                                                          SelectedIndex="0" Style="{StaticResource alignmentFontSize}"/>
+                                                          SelectedIndex="0" Style="{StaticResource alignmentFontSize}"
+                                                           FontSize="16"/>
                                         </StackPanel>
                                         <Grid Grid.Column="1" Grid.Row="1">
                                             <StackPanel Orientation="Vertical" Margin="40,8,0,0">
@@ -167,7 +172,9 @@
                                                       Text="{Binding Path=CumFuelVolumeSinceLastReading, Mode=TwoWay, 
                                                     ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, 
                                                     Converter={StaticResource FloatToString}, ValidatesOnExceptions=True}"
-                                                     Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                     Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+                                                      HorizontalContentAlignment="Center"
+                                                      VerticalContentAlignment="Center"/>
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
@@ -178,7 +185,9 @@
                                                       Text="{Binding Path=RunningHours, Mode=TwoWay, 
                                                     ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, 
                                                     Converter={StaticResource FloatToString}, ValidatesOnExceptions=True}"
-                                                     Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                     Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+                                                      HorizontalContentAlignment="Center"
+                                                      VerticalContentAlignment="Center"/>
                                         </StackPanel>
                                     </Grid>                    
 

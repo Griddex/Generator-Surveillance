@@ -160,6 +160,7 @@
     <Compile Include="Converters\PassDatePickerComboBoxAsCommandParameter.cs" />
     <Compile Include="Converters\FloatConverter.cs" />
     <Compile Include="Converters\InputViewMultiConverter.cs" />
+    <Compile Include="Converters\PassComboBoxesAndButtonAsCommandParameters.cs" />
     <Compile Include="Converters\PassTextBoxTwoComboxItemsAsCommandParameters.cs" />
     <Compile Include="Converters\PassTextBoxComboBoxItemAsCommandParameters.cs" />
     <Compile Include="Converters\PassCheckBoxBoolListBoxAsCommandParameters.cs" />

@@ -106,7 +106,8 @@
                                               Text="{Binding Path=UnschMaintenanceTotalCost, Mode=TwoWay, 
                                                 ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged,
                                                 ValidatesOnExceptions=True}" VerticalContentAlignment="Center"
-                                             Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                  HorizontalContentAlignment="Center" 
+                                                    Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                     </StackPanel>
                                 </Grid>
 
@@ -200,7 +201,8 @@
                                                         ValidatesOnExceptions=True}" VerticalContentAlignment="Center"
                                          Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
                                               Visibility="{Binding ElementName=expdrScheduledReminders, 
-                                                Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"/>
+                                                Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"
+                                                  HorizontalContentAlignment="Center"/>
                                     </StackPanel>
                                 </Grid>
                                 <Button x:Name="btnAddSchMaintenance" Grid.Column="6" Grid.ColumnSpan="5" 
@@ -261,7 +263,8 @@
                                                             Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
                                                             IsReadOnly="True"
                                                  Visibility="{Binding ElementName=expdrScheduledReminders, 
-                                                Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"/>
+                                                Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"
+                                                 HorizontalContentAlignment="Center"/>
                                     </StackPanel>
                                 </Grid>
 

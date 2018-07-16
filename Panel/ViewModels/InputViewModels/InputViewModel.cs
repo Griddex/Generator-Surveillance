@@ -22,27 +22,30 @@ namespace Panel.ViewModels.InputViewModels
 {
     public class InputViewModel : ViewModelBase, IViewModel
     {
+        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } = new ObservableCollection<GeneratorNameModel>();
         public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = new ObservableCollection<GeneratorNameModel>();
         public UnitOfWork UnitOfWork { get; private set; }
 
-        private string _lastGenName;
-        private DateTime? _lastGenStartedDate;
+        private string _ActiveGenName;
+        private DateTime? _ActiveGenStartedDate;
 
         public InputViewModel(UnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
-            UniqueGeneratorNames = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
-            var (IsNull, LastGenName, LastGenStartedDate, LastGenStartedTime) = UnitOfWork
+            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
+            UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
+                                (UniqueGeneratorNamesUnsorted.OrderBy(x => x.GeneratorName));
+            var (IsNull, ActiveGenName, ActiveGenStartedDate, ActiveGenStartedTime, ActiveGenID) = UnitOfWork
                                                                             .GeneratorInformation
                                                                             .GeneratorStoppedIsNull();
             this.IsNull = IsNull;
-            this.LastGenStartedTime = LastGenStartedTime;
-            this._lastGenName = LastGenName;
-            this._lastGenStartedDate = LastGenStartedDate;
+            this.ActiveGenStartedTime = ActiveGenStartedTime;
+            this._ActiveGenName = ActiveGenName;
+            this._ActiveGenStartedDate = ActiveGenStartedDate;
         }
 
         public bool IsNull { get; }
-        public DateTime? LastGenStartedTime { get; }
+        public DateTime? ActiveGenStartedTime { get; }
 
         private string _generatorName;
         public string GeneratorName
@@ -64,30 +67,23 @@ namespace Panel.ViewModels.InputViewModels
             }
         }
         
-        private ICommand _loadLastGeneratorRecord;
-        public ICommand LoadLastGeneratorRecord
+        private ICommand _loadActiveGeneratorRecord;
+        public ICommand LoadActiveGeneratorRecord
         {
             get
             {
-                return this._loadLastGeneratorRecord ??
+                return this._loadActiveGeneratorRecord ??
                 (
-                    this._loadLastGeneratorRecord = new DelegateCommand
+                    this._loadActiveGeneratorRecord = new DelegateCommand
                     (
                         x =>
                         {
                             if (IsNull)
                             {
                                 Tuple<DatePicker, ComboBox> dtpkrcmbx = (Tuple<DatePicker, ComboBox>)x;
-                                dtpkrcmbx.Item1.SelectedDate = _lastGenStartedDate;
-                                dtpkrcmbx.Item2.SelectedValue = _lastGenName;                                
-                            }
-                            else
-                            {
-                                MessageBox.Show("Last Generator Usage Record was updated", "Information", 
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Information);
-                                return;
-                            }                            
+                                dtpkrcmbx.Item1.SelectedDate = _ActiveGenStartedDate;
+                                dtpkrcmbx.Item2.SelectedValue = _ActiveGenName;                                
+                            }                                                    
                         },
                         y =>
                         {

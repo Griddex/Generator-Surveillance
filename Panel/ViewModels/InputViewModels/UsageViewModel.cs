@@ -29,6 +29,7 @@ namespace Panel.ViewModels.InputViewModels
         
         public string SelectedGeneratorName { get; set; }
         public DateTime SelectedRecordDate { get; set; }
+        public DateTime GeneratorStoppedAnotherDay { get; set; } = DateTime.Now;
         public int SelectedStartHour { get; set; }
         public int SelectedStartMinute { get; set; }
         public int SelectedStartSecond { get; set; }
@@ -38,15 +39,12 @@ namespace Panel.ViewModels.InputViewModels
         public int SelectedStopSecond { get; set; }
         public string SelectedStopAMPM { get; set; }
 
+        public int ActiveGenID { get; set; }
+
         public UsageViewModel(UnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
-            InitialiseUsageViewModel();
-
-            //var (IsNull, LastGenName, LastGenStartedDate, LastGenStartedTime) = UnitOfWork.GeneratorInformation.GeneratorStoppedIsNull();
-            //this._lastGenStartedTime = LastGenStartedTime;
-            //if (IsNull)
-            //    LoadLastGenTime();
+            InitialiseUsageViewModel();            
         }
 
         private void InitialiseUsageViewModel()
@@ -78,15 +76,28 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         x =>
                         {
-                            string mergedStartTime = $"{SelectedStartHour.ToString("D2")}:{SelectedStartMinute.ToString("D2")}:{SelectedStartSecond.ToString("D2")} {SelectedStartAMPM}";
-                            if(DateTime.TryParseExact(mergedStartTime, "hh:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out _parsedStartTime))
+                            if(SelectedGeneratorName == null || SelectedGeneratorName == "")
+                            {
+                                MessageBox.Show($"Please select a generator in General Generator Information", 
+                                    "Error",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
+
+                            string mergedStartTime = $"{SelectedStartHour.ToString("D2")}:{SelectedStartMinute.ToString("D2")}:" +
+                                                    $"{SelectedStartSecond.ToString("D2")} {SelectedStartAMPM}";
+
+                            if(DateTime.TryParseExact(mergedStartTime, "hh:mm:ss tt", CultureInfo.InvariantCulture, 
+                                DateTimeStyles.None, out _parsedStartTime))
                                 GeneratorStartedModel = _parsedStartTime;
-                            DateTime GeneratorStartedModelTime = DateTime.MinValue + GeneratorStartedModel.TimeOfDay;
+                            DateTime GeneratorStartedModelTime = SelectedRecordDate.Date + GeneratorStartedModel.TimeOfDay;
 
                             UnitOfWork.GeneratorUsage.GeneratorStarted(SelectedRecordDate, SelectedGeneratorName, GeneratorStartedModelTime);
                             int success = UnitOfWork.Complete();
                             if (success > 0)
-                                MessageBox.Show($"Generator started on {GeneratorStartedModelTime.ToLongTimeString()}", "Success",
+                                MessageBox.Show($"Generator started on " +
+                                    $"{GeneratorStartedModelTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}", 
+                                    "Success",
                                     MessageBoxButton.OK, MessageBoxImage.Information);
                             else
                             {
@@ -113,19 +124,61 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         x =>
                         {
-                            string mergedStopTime = $"{SelectedStopHour.ToString("D2")}:{SelectedStopMinute.ToString("D2")}:{SelectedStopSecond.ToString("D2")} {SelectedStopAMPM}";
-                            if (DateTime.TryParseExact(mergedStopTime, "HH:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out _parsedStopTime))
-                                GeneratorStoppedModel = _parsedStopTime;
-                            DateTime GeneratorStoppedModelTime = DateTime.MinValue + GeneratorStoppedModel.TimeOfDay;
+                            if (SelectedGeneratorName == null || SelectedGeneratorName == "")
+                            {
+                                MessageBox.Show($"Please select a generator in General Generator Information",
+                                    "Error",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
 
-                            UnitOfWork.GeneratorUsage.GeneratorStopped(GeneratorStoppedModelTime);
+                            Tuple<ComboBox, ComboBox, ComboBox, ComboBox, Button> cmbx4Btn = 
+                                        (Tuple<ComboBox, ComboBox, ComboBox, ComboBox, Button>)x;
+
+                            cmbx4Btn.Item1.IsHitTestVisible = true;
+                            cmbx4Btn.Item1.Focusable = true;
+
+                            cmbx4Btn.Item2.IsHitTestVisible = true;
+                            cmbx4Btn.Item2.Focusable = true;
+
+                            cmbx4Btn.Item3.IsHitTestVisible = true;
+                            cmbx4Btn.Item3.Focusable = true;
+
+                            cmbx4Btn.Item4.IsHitTestVisible = true;
+                            cmbx4Btn.Item4.Focusable = true;
+
+                            cmbx4Btn.Item5.IsEnabled = true;
+
+                            string mergedStopTime = $"{SelectedStopHour.ToString("D2")}:{SelectedStopMinute.ToString("D2")}:" +
+                                                    $"{SelectedStopSecond.ToString("D2")} {SelectedStopAMPM}";
+                            if (DateTime.TryParseExact(mergedStopTime, "HH:mm:ss tt", CultureInfo.InvariantCulture, 
+                                DateTimeStyles.None, out _parsedStopTime))
+                                GeneratorStoppedModel = _parsedStopTime;
+                            DateTime GeneratorStoppedModelTime = GeneratorStoppedAnotherDay + GeneratorStoppedModel.TimeOfDay;
+
+                            if((GeneratorStoppedModelTime - DateTime.MinValue).TotalSeconds <=
+                            (SelectedRecordDate - DateTime.MinValue).TotalSeconds)
+                            {
+                                MessageBox.Show($"{GeneratorStoppedModel.ToLongTimeString()} was not stopped\n\n" +
+                                    $"Generator must be stopped at a later date", "Error",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
+
+                            var (IsNull, ActiveGenName, ActiveGenStartedDate, ActiveGenStartedTime, ActiveGenID) =
+                                        UnitOfWork.GeneratorInformation.GeneratorStoppedIsNull();
+                            UnitOfWork.GeneratorUsage.GeneratorStopped(GeneratorStoppedModelTime,
+                                ActiveGenID);
                             int success = UnitOfWork.Complete();
                             if (success > 0)
-                                MessageBox.Show($"Generator stopped on {GeneratorStoppedModel.ToLongTimeString()}", "Success",
+                                MessageBox.Show($"Generator stopped on " +
+                                    $"{GeneratorStoppedModelTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}", 
+                                    "Success",
                                     MessageBoxButton.OK, MessageBoxImage.Information);
                             else
                             {
-                                MessageBox.Show($"{GeneratorStoppedModel.ToLongTimeString()} was not saved", "Error",
+                                MessageBox.Show($"{GeneratorStoppedModel.ToLongTimeString()} was not saved", 
+                                    "Error",
                                     MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;
                             }

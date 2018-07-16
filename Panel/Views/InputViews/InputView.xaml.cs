@@ -41,10 +41,13 @@ namespace Panel.Views.InputViews
         {
             var inputViewModel = this.DataContext as InputViewModel;
             if (inputViewModel.IsNull)
-                inputViewModel.LoadLastGeneratorRecord
+            {
+                inputViewModel.LoadActiveGeneratorRecord
                     .Execute(new Tuple<DatePicker, ComboBox>
                     (this.dtepkrGenInfo,
                     this.cmbxGenInfo));
+            }
+                
         }
 
         private void lblGenIndicator_MouseDown(object sender, MouseButtonEventArgs e)
@@ -64,7 +67,7 @@ namespace Panel.Views.InputViews
 
 
             DateTime currGenTime = DateTime.Now;
-            string strCurrGenTime = lastGenTime.ToString("hh:mm:ss tt");
+            string strCurrGenTime = currGenTime.ToString("hh:mm:ss tt");
             char[] delimeters1 = new char[] { ':', ' ' };
             string[] timeParts1 = strCurrGenTime.Split(delimeters1, StringSplitOptions.RemoveEmptyEntries);
 

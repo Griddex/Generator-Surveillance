@@ -21,10 +21,20 @@ namespace Panel.Converters
             
             if (!string.IsNullOrEmpty(strDate))
             {
-                string sysDateFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
-                string genstrDateFormat = sysDateFormat + " hh:mm:ss tt";
-                DateTime genStartedDate = DateTime.ParseExact(strDate, genstrDateFormat, CultureInfo.InvariantCulture);
-                return genStartedDate;
+                try
+                {
+                    string sysDateFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
+                    string genstrDateFormat = sysDateFormat + " hh:mm:ss tt";
+                    DateTime genStartedDate = DateTime.ParseExact(strDate, genstrDateFormat, CultureInfo.InvariantCulture);
+                    return genStartedDate;
+                }
+                catch (Exception)
+                {
+                    string sysDateFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
+                    DateTime genStartedDate = DateTime.ParseExact(strDate, sysDateFormat, CultureInfo.InvariantCulture);
+                    return genStartedDate;
+                }
+                
             }
             return null;
         }

@@ -37,11 +37,10 @@ namespace Panel.Repositories
             );
         }
 
-        public void GeneratorStopped(DateTime GeneratorStoppedDate)
+        public void GeneratorStopped(DateTime GeneratorStoppedDate, int ActiveGenID)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorUsages.Count();
             var LastGeneratorUsageRecord = GeneratorSurveillanceDBContext.GeneratorUsages
-                                            .SingleOrDefault(x => x.Id == NoOfRecords - 1);
+                                            .SingleOrDefault(x => x.Id == ActiveGenID);
             LastGeneratorUsageRecord.GeneratorStopped = GeneratorStoppedDate;
         }
 
