@@ -122,7 +122,7 @@
                                                 <Setter Property="Template">
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                            <Expander IsExpanded="True" Background="#eaf9fb" 
+                                                            <Expander IsExpanded="True" Background="#EAF9FB" 
                                                                       BorderBrush="LightGray" Foreground="Black"
                                                                       FontSize="12"
                                                                       BorderThickness="1,1,1,1">
@@ -247,7 +247,7 @@
                                                 <Setter Property="Template">
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                            <Expander IsExpanded="True" Background="#eaf9fb" 
+                                                            <Expander IsExpanded="True" Background="#EAF9FB" 
                                                                       BorderBrush="LightGray" Foreground="Black"
                                                                       FontSize="12"
                                                                       BorderThickness="1,1,1,1">

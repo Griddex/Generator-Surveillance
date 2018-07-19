@@ -17,9 +17,12 @@ namespace Panel.ViewModels.InputViewModels
 {
     public class FuellingViewModel : ViewModelBase, IViewModel
     {
-        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = new ObservableCollection<GeneratorNameModel>();
-        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } = new ObservableCollection<GeneratorNameModel>();
-        public ObservableCollection<GeneratorRunningHr> _allGeneratorFuelConsumptionRecordsUnsorted { get; set; } = new ObservableCollection<GeneratorRunningHr>();
+        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = 
+            new ObservableCollection<GeneratorNameModel>();
+        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } = 
+            new ObservableCollection<GeneratorNameModel>();
+        public ObservableCollection<GeneratorRunningHr> _allGeneratorFuelConsumptionRecordsUnsorted { get; set; } = 
+            new ObservableCollection<GeneratorRunningHr>();
 
         public FuellingViewModel(UnitOfWork unitOfWork)
         {
@@ -27,11 +30,13 @@ namespace Panel.ViewModels.InputViewModels
 
             UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
-                (UniqueGeneratorNamesUnsorted.OrderBy(x => x.GeneratorName));
+                (UniqueGeneratorNamesUnsorted
+                    .OrderBy(x => x.GeneratorName));
 
             _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
             _allGeneratorFuelConsumptionRecords = new ObservableCollection<GeneratorRunningHr>
-                (_allGeneratorFuelConsumptionRecordsUnsorted.OrderByDescending(x => x.Date));
+                (_allGeneratorFuelConsumptionRecordsUnsorted
+                    .OrderByDescending(x => x.Date));
         }
 
         public UnitOfWork UnitOfWork { get; set; }
@@ -216,13 +221,15 @@ namespace Panel.ViewModels.InputViewModels
                                 return;
                             }
 
-                            UnitOfWork.GeneratorFuelling.AddFuelConsumptionHours(cmbxSelectGenFuelling.Text, RunningHoursDate, 
-                                                                RunningHours, CumFuelVolumeSinceLastReading);
+                            UnitOfWork.GeneratorFuelling.AddFuelConsumptionHours(cmbxSelectGenFuelling.Text, 
+                                           RunningHoursDate, RunningHours, CumFuelVolumeSinceLastReading);
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
                                 AllGeneratorFuelConsumptionRecords = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
-                                MessageBox.Show($"Fuel Consumption for {cmbxSelectGenFuelling.Text} added!", "Information", MessageBoxButton.OK,
+                                MessageBox.Show($"Fuel Consumption for {cmbxSelectGenFuelling.Text} added!", 
+                                    "Information", 
+                                    MessageBoxButton.OK,
                                    MessageBoxImage.Information);
                                 RequestUpdate = true;
                             }                               

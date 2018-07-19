@@ -20,7 +20,8 @@ namespace Panel.ViewModels.InputViewModels
     public class UsageViewModel : ViewModelBase, IViewModel
     {
         public UnitOfWork UnitOfWork { get; private set; }
-        public ObservableCollection<GeneratorNameModel> GeneratorNames { get; set; } = new ObservableCollection<GeneratorNameModel>();
+        public ObservableCollection<GeneratorNameModel> GeneratorNames { get; set; } = 
+            new ObservableCollection<GeneratorNameModel>();
         
         public List<int> HoursViewModelList { get; set; } = new List<int>();
         public List<int> MinutesViewModelList { get; set; } = new List<int>();
@@ -84,7 +85,8 @@ namespace Panel.ViewModels.InputViewModels
                                 return;
                             }
 
-                            string mergedStartTime = $"{SelectedStartHour.ToString("D2")}:{SelectedStartMinute.ToString("D2")}:" +
+                            string mergedStartTime = $"{SelectedStartHour.ToString("D2")}:" +
+                                                    $"{SelectedStartMinute.ToString("D2")}:" +
                                                     $"{SelectedStartSecond.ToString("D2")} {SelectedStartAMPM}";
 
                             if(DateTime.TryParseExact(mergedStartTime, "hh:mm:ss tt", CultureInfo.InvariantCulture, 
@@ -92,7 +94,8 @@ namespace Panel.ViewModels.InputViewModels
                                 GeneratorStartedModel = _parsedStartTime;
                             DateTime GeneratorStartedModelTime = SelectedRecordDate.Date + GeneratorStartedModel.TimeOfDay;
 
-                            UnitOfWork.GeneratorUsage.GeneratorStarted(SelectedRecordDate, SelectedGeneratorName, GeneratorStartedModelTime);
+                            UnitOfWork.GeneratorUsage.GeneratorStarted(SelectedRecordDate, 
+                                SelectedGeneratorName, GeneratorStartedModelTime);
                             int success = UnitOfWork.Complete();
                             if (success > 0)
                                 MessageBox.Show($"Generator started on " +
@@ -101,7 +104,8 @@ namespace Panel.ViewModels.InputViewModels
                                     MessageBoxButton.OK, MessageBoxImage.Information);
                             else
                             {
-                                MessageBox.Show($"{GeneratorStartedModelTime.ToLongTimeString()} was not saved", "Error",
+                                MessageBox.Show($"{GeneratorStartedModelTime.ToLongTimeString()} was not saved", 
+                                    "Error",
                                     MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;
                             }

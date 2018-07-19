@@ -117,5 +117,24 @@ namespace Panel
             UsageFuellingTablesView usageFuellingTablesView = (UsageFuellingTablesView)container.Resolve<IView>("UsageFuellingTablesView");
             MainViewFrame.Navigate(usageFuellingTablesView);
         }
+
+        private void SettingsView_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void SettingsView_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            UsageFuellingTablesView usageFuellingTablesView = (UsageFuellingTablesView)container.Resolve<IView>("UsageFuellingTablesView");
+            MainViewFrame.Navigate(usageFuellingTablesView);
+        }
+
+        private void Exit_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            UsageFuellingTablesView usageFuellingTablesView = (UsageFuellingTablesView)container.Resolve<IView>("UsageFuellingTablesView");
+            MainViewFrame.Navigate(usageFuellingTablesView);
+        }
+
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
     }
 }

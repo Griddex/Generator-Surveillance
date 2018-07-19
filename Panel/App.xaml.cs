@@ -7,11 +7,13 @@ using Panel.ViewModels.ChartViewModels;
 using Panel.ViewModels.HelpViewModels;
 using Panel.ViewModels.InputViewModels;
 using Panel.ViewModels.ReportViewModels;
+using Panel.ViewModels.SettingsViewModel;
 using Panel.ViewModels.TableViewModels;
 using Panel.Views.ChartViews;
 using Panel.Views.HelpViews;
 using Panel.Views.InputViews;
 using Panel.Views.ReportViews;
+using Panel.Views.SettingsView;
 using Panel.Views.TableViews;
 using System;
 using System.Collections.Generic;
@@ -146,6 +148,13 @@ namespace Panel
                                                        new InjectionConstructor
                                                        (
                                                            typeof(HelpViewModel)
+                                                       ));
+
+            container.RegisterType<IView, SettingsView>("SettingsView",
+                                                       new ContainerControlledLifetimeManager(),
+                                                       new InjectionConstructor
+                                                       (
+                                                           typeof(SettingsViewModel)
                                                        ));
 
             IUnitOfWork unitOfWork = container.Resolve<IUnitOfWork>("UnitOfWork");

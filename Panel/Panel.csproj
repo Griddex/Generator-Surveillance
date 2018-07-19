@@ -268,6 +268,7 @@
     <Compile Include="ViewModels\InputViewModels\MaintenanceViewModel.cs" />
     <Compile Include="ViewModels\InputViewModels\UsageViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModels\ReportViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TableViewModels\RunningHrsSchedulingTablesViewModel.cs" />
     <Compile Include="ViewModels\TableViewModels\UsageFuellingTablesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -288,6 +289,9 @@
     </Compile>
     <Compile Include="Views\ReportViews\ReportView.xaml.cs">
       <DependentUpon>ReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TableViews\RunningHrsSchedulingTablesView.xaml.cs">
       <DependentUpon>RunningHrsSchedulingTablesView.xaml</DependentUpon>
@@ -350,6 +354,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ReportViews\ReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsView\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -466,6 +474,7 @@
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
       <LastGenOutput>GeneratorSurveillanceDBEntities.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Home2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

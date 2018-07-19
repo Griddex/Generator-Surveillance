@@ -17,7 +17,7 @@ namespace Panel.Commands
                                                                     typeof(Frame),
                                                                     new InputGestureCollection()
                                                                     {
-                                                                        new KeyGesture(Key.H,ModifierKeys.Alt)
+                                                                        new KeyGesture(Key.U, ModifierKeys.Alt)
                                                                     });
         public static RoutedUICommand InputToUsageView
         {
@@ -32,7 +32,7 @@ namespace Panel.Commands
                                                                     typeof(Frame),
                                                                     new InputGestureCollection()
                                                                     {
-                                                                        new KeyGesture(Key.H,ModifierKeys.Alt)
+                                                                        new KeyGesture(Key.I, ModifierKeys.Alt)
                                                                     });
         public static RoutedUICommand UsageToInputView
         {
@@ -47,7 +47,7 @@ namespace Panel.Commands
                                                                     typeof(Frame),
                                                                     new InputGestureCollection()
                                                                     {
-                                                                        new KeyGesture(Key.H,ModifierKeys.Alt)
+                                                                        new KeyGesture(Key.F, ModifierKeys.Alt)
                                                                     });
         public static RoutedUICommand UsageToFuellingView
         {
@@ -62,7 +62,7 @@ namespace Panel.Commands
                                                                     typeof(Frame),
                                                                     new InputGestureCollection()
                                                                     {
-                                                                        new KeyGesture(Key.H,ModifierKeys.Alt)
+                                                                        new KeyGesture(Key.U, ModifierKeys.Alt)
                                                                     });
         public static RoutedUICommand FuellingToUsageView
         {
@@ -77,7 +77,7 @@ namespace Panel.Commands
                                                                     typeof(Frame),
                                                                     new InputGestureCollection()
                                                                     {
-                                                                        new KeyGesture(Key.H,ModifierKeys.Alt)
+                                                                        new KeyGesture(Key.M, ModifierKeys.Alt)
                                                                     });
         public static RoutedUICommand FuellingToMaintenanceView
         {
@@ -92,7 +92,7 @@ namespace Panel.Commands
                                                                     typeof(Frame),
                                                                     new InputGestureCollection()
                                                                     {
-                                                                        new KeyGesture(Key.H,ModifierKeys.Alt)
+                                                                        new KeyGesture(Key.F, ModifierKeys.Alt)
                                                                     });
         public static RoutedUICommand MaintenanceToFuellingView
         {
@@ -106,7 +106,7 @@ namespace Panel.Commands
                                                                     typeof(Frame),
                                                                     new InputGestureCollection()
                                                                     {
-                                                                        new KeyGesture(Key.H,ModifierKeys.Alt)
+                                                                        new KeyGesture(Key.R, ModifierKeys.Alt)
                                                                     });
         public static RoutedUICommand UsageMaintToRunningHrsSchedulerView
         {
@@ -120,7 +120,7 @@ namespace Panel.Commands
                                                                     typeof(Frame),
                                                                     new InputGestureCollection()
                                                                     {
-                                                                        new KeyGesture(Key.H,ModifierKeys.Alt)
+                                                                        new KeyGesture(Key.S, ModifierKeys.Alt)
                                                                     });
         public static RoutedUICommand RunningHrsSchedulerToUsageMaintView
         {

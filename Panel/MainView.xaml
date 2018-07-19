@@ -11,11 +11,11 @@
         MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"
         Width="1030"
         Height="900">
-    
+
     <Window.Resources>
         <RoutedUICommand x:Key="InputViewCmd" Text="Input View"/>
     </Window.Resources>
-    
+
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource InputViewCmd}"  
                         Executed="InputViewCmd_Executed" 
@@ -35,6 +35,34 @@
         <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowHelpView}" 
                         Executed="HelpViewCmd_Executed" 
                         CanExecute="HelpViewCmd_CanExecute"/>
+
+        <CommandBinding Command="{x:Static cmds:NavigationCommands.InputToUsageView}" 
+                        Executed="InputToUsageView_Executed"
+                        CanExecute="CommandBinding_CanExecute"/>
+        <CommandBinding Command="{x:Static cmds:NavigationCommands.UsageToInputView}" 
+                        Executed="InputViewCmd_Executed"
+                        CanExecute="CommandBinding_CanExecute"/>
+        <CommandBinding Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}" 
+                        Executed="UsageToFuellingView_Executed"
+                        CanExecute="CommandBinding_CanExecute"/>
+        <CommandBinding Command="{x:Static cmds:NavigationCommands.FuellingToUsageView}" 
+                        Executed="InputToUsageView_Executed"
+                        CanExecute="CommandBinding_CanExecute"/>
+        <CommandBinding Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}" 
+                        Executed="FuellingToMaintenanceView_Executed"
+                        CanExecute="CommandBinding_CanExecute"/>
+        <CommandBinding Command="{x:Static cmds:NavigationCommands.MaintenanceToFuellingView}" 
+                        Executed="UsageToFuellingView_Executed"
+                        CanExecute="CommandBinding_CanExecute"/>
+        <CommandBinding Command="{x:Static cmds:NavigationCommands.UsageMaintToRunningHrsSchedulerView}"
+                        Executed="UsageMaintToRunningHrsSchedulerView_Executed"
+                        CanExecute="CommandBinding_CanExecute"/>
+        <CommandBinding Command="{x:Static cmds:NavigationCommands.RunningHrsSchedulerToUsageMaintView}"
+                        Executed="RunningHrsSchedulerToUsageMaintView_Executed"
+                        CanExecute="CommandBinding_CanExecute"/>
+        <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowSettingsView}"
+                        Executed="SettingsView_Executed"
+                        CanExecute="SettingsView_CanExecute"/>
     </Window.CommandBindings>
 
     <Grid>
@@ -46,40 +74,82 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0">
-            <ToolBar>
-                <Button x:Name="btnInput" Command="{StaticResource InputViewCmd}"  Content="Input" ToolTip="Input Panel" 
-                        Style="{StaticResource ToolBarTrayButtonStyle}"/>
-                <Button x:Name="btnTables" Command="{x:Static cmds:MainMenuCommands.ShowTablesView}"  Content="Tables" ToolTip="View Data Tables" 
-                        Style="{StaticResource ToolBarTrayButtonStyle}"/>
-                <Button x:Name="btnCharts" Command="{x:Static cmds:MainMenuCommands.ShowChartsView}" Content="Charts" ToolTip="View Charts" 
-                        Style="{StaticResource ToolBarTrayButtonStyle}"/>
-                <Button x:Name="btnReports" Command="{x:Static cmds:MainMenuCommands.ShowReportsView}"  Content="Reports" ToolTip="Create Reports" 
-                        Style="{StaticResource ToolBarTrayButtonStyle}"/>
-                <Button x:Name="btnHelp" Command="{x:Static cmds:MainMenuCommands.ShowHelpView}" Content="Help" ToolTip="Help" 
-                        Style="{StaticResource ToolBarTrayButtonStyle}"/>
-            </ToolBar>
+            <Menu>
+                <MenuItem x:Name="mnitmHome"  ToolTip="Home" Height="50" Width="50">
+                    <MenuItem.Icon>
+                        <Image Source="Images/Home2.png" Margin="0,-10,-24,-9"/>
+                    </MenuItem.Icon>
+                    <MenuItem x:Name="mnitmSettings" 
+                          Command="{x:Static cmds:MainMenuCommands.ShowSettingsView}"                          
+                          Header="Settings" ToolTip="Settings"/>
+                    <MenuItem x:Name="mnitmExit" 
+                          Command="{x:Static cmds:MainMenuCommands.Exit}"                          
+                          Header="Exit" ToolTip="Exit"/>                    
+                    </MenuItem>
+                <Separator Width="2"/>
+                <MenuItem x:Name="mnitmInput" 
+                          Command="{x:Static cmds:NavigationCommands.InputToUsageView}"                          
+                          Header="Input" ToolTip="Input Panel">
+                <MenuItem x:Name="mnitmUsage" 
+                          Command="{x:Static cmds:NavigationCommands.InputToUsageView}"
+                          Header="Usage"/>
+                <MenuItem x:Name="mnitmFuelling" 
+                          Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}"
+                          Header="Fuelling"/>
+                <MenuItem x:Name="mnitmMaintnce" 
+                          Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}"
+                          Header="Maintenance"/>
+                </MenuItem>
+                <MenuItem x:Name="mnitmTables" 
+                          Command="{x:Static cmds:MainMenuCommands.ShowTablesView}" 
+                          Header="Tables" ToolTip="View Data Tables">
+                    <MenuItem x:Name="mnitmTables1" 
+                                  Command="{x:Static cmds:MainMenuCommands.ShowTablesView}"
+                                  Header="Data"/>
+                    <MenuItem x:Name="mnitmTables2" 
+                                  Command="{x:Static cmds:NavigationCommands.UsageMaintToRunningHrsSchedulerView}"
+                                  Header="Reminders"/>
+                </MenuItem>
+                <MenuItem x:Name="mnitmCharts" 
+                          Command="{x:Static cmds:MainMenuCommands.ShowChartsView}"
+                          Header="Charts" ToolTip="View Charts"/>
+                <MenuItem x:Name="mnitmReports" 
+                          Command="{x:Static cmds:MainMenuCommands.ShowReportsView}"  
+                          Header="Reports" ToolTip="Create Reports"/>
+                <MenuItem x:Name="mnitmHelp" 
+                          Command="{x:Static cmds:MainMenuCommands.ShowHelpView}" 
+                          Header="Help" ToolTip="Help"/>
+            </Menu>
         </DockPanel>
 
         <Frame x:Name="MainViewFrame"  Grid.Row="1"  NavigationUIVisibility="Hidden">
             <Frame.CommandBindings>
                 <CommandBinding Command="{x:Static cmds:NavigationCommands.InputToUsageView}" 
-                                Executed="InputToUsageView_Executed"/>
+                                Executed="InputToUsageView_Executed"
+                                CanExecute="CommandBinding_CanExecute"/>
                 <CommandBinding Command="{x:Static cmds:NavigationCommands.UsageToInputView}" 
-                                Executed="InputViewCmd_Executed"/>
+                                Executed="InputViewCmd_Executed"
+                                CanExecute="CommandBinding_CanExecute"/>
                 <CommandBinding Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}" 
-                                Executed="UsageToFuellingView_Executed"/>
+                                Executed="UsageToFuellingView_Executed"
+                                CanExecute="CommandBinding_CanExecute"/>
                 <CommandBinding Command="{x:Static cmds:NavigationCommands.FuellingToUsageView}" 
-                                Executed="InputToUsageView_Executed"/>
+                                Executed="InputToUsageView_Executed"
+                                CanExecute="CommandBinding_CanExecute"/>
                 <CommandBinding Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}" 
-                                Executed="FuellingToMaintenanceView_Executed"/>
+                                Executed="FuellingToMaintenanceView_Executed"
+                                CanExecute="CommandBinding_CanExecute"/>
                 <CommandBinding Command="{x:Static cmds:NavigationCommands.MaintenanceToFuellingView}" 
-                                Executed="UsageToFuellingView_Executed"/>
+                                Executed="UsageToFuellingView_Executed"
+                                CanExecute="CommandBinding_CanExecute"/>
                 <CommandBinding Command="{x:Static cmds:NavigationCommands.UsageMaintToRunningHrsSchedulerView}"
-                                Executed="UsageMaintToRunningHrsSchedulerView_Executed"/>
+                                Executed="UsageMaintToRunningHrsSchedulerView_Executed"
+                                CanExecute="CommandBinding_CanExecute"/>
                 <CommandBinding Command="{x:Static cmds:NavigationCommands.RunningHrsSchedulerToUsageMaintView}"
-                                Executed="RunningHrsSchedulerToUsageMaintView_Executed"/>
+                                Executed="RunningHrsSchedulerToUsageMaintView_Executed"
+                                CanExecute="CommandBinding_CanExecute"/>
             </Frame.CommandBindings>
-        </Frame>     
+        </Frame>
 
     </Grid>
 </Window>

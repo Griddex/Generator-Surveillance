@@ -83,6 +83,7 @@
                                 </Button.CommandParameter>
                             </Button>
                         </WrapPanel>
+                        
                         <StackPanel Orientation="Vertical" Grid.Column="4" Height="100" Width="60" 
                                     VerticalAlignment="Bottom"
                                     HorizontalAlignment="Right">
@@ -91,7 +92,7 @@
                                    Height="50" Width="50" HorizontalContentAlignment="Center"
                                    VerticalContentAlignment="Center"/>
                             <Label x:Name="lblGenIndicator" Background="{Binding Path=IsNull, Mode=OneWay, 
-                                Converter={StaticResource ConvBoolToBrush}}" 
+                                    Converter={StaticResource ConvBoolToBrush}}" 
                                    Height="40" Width="40" Style="{StaticResource RoundLabelStyle}"
                                    MouseDown="lblGenIndicator_MouseDown">                                
                             </Label>

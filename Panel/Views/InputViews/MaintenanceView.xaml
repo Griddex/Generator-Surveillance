@@ -94,7 +94,7 @@
                                         <TextBox  Background="#F2F2F2" Width="500" Height="122" HorizontalAlignment="Left"
                                               Text="{Binding Path=UnschMaintenanceComments, Mode=TwoWay, 
                                                 ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged,
-                                                ValidatesOnExceptions=True}"
+                                                ValidatesOnExceptions=True}" AcceptsReturn="True"
                                              Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                     </StackPanel>
                                 </Grid>
@@ -177,10 +177,10 @@
                                         <TextBox  Background="#F2F2F2" Width="500" Height="122" HorizontalAlignment="Left"
                                               Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                 Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"
-                                          Text="{Binding Path=SchMaintenanceComments, Mode=TwoWay, 
+                                                Text="{Binding Path=SchMaintenanceComments, Mode=TwoWay, 
                                                     ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged,
-                                                    ValidatesOnExceptions=True}"
-                                         Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                    ValidatesOnExceptions=True}" AcceptsReturn="True"
+                                                    Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                     </StackPanel>
                                 </Grid>
 
@@ -389,7 +389,7 @@
                                                                 <Setter Property="Template">
                                                                     <Setter.Value>
                                                                         <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                                            <Expander IsExpanded="True" Background="#eaf9fb" 
+                                                                            <Expander IsExpanded="True" Background="#EAF9FB" 
                                                                                 BorderBrush="LightGray" Foreground="Black"
                                                                                 FontSize="12" BorderThickness="1,1,1,1">
                                                                                 <Expander.Header>

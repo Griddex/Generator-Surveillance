@@ -16,7 +16,7 @@ namespace Panel.Commands
                                                                     typeof(MainView),
                                                                     new InputGestureCollection()
                                                                     {
-                                                                        new KeyGesture(Key.I,ModifierKeys.Alt)
+                                                                        new KeyGesture(Key.I, ModifierKeys.Alt)
                                                                     });
         public static RoutedUICommand ShowInputView
         {
@@ -31,7 +31,7 @@ namespace Panel.Commands
                                                                     typeof(MainView),
                                                                     new InputGestureCollection()
                                                                     {
-                                                                        new KeyGesture(Key.T,ModifierKeys.Alt)
+                                                                        new KeyGesture(Key.T, ModifierKeys.Alt)
                                                                     });
         public static RoutedUICommand ShowTablesView
         {
@@ -46,7 +46,7 @@ namespace Panel.Commands
                                                                     typeof(MainView),
                                                                     new InputGestureCollection()
                                                                     {
-                                                                        new KeyGesture(Key.W,ModifierKeys.Alt)
+                                                                        new KeyGesture(Key.C, ModifierKeys.Alt)
                                                                     });
         public static RoutedUICommand ShowChartsView
         {
@@ -61,7 +61,7 @@ namespace Panel.Commands
                                                                     typeof(MainView),
                                                                     new InputGestureCollection()
                                                                     {
-                                                                        new KeyGesture(Key.R,ModifierKeys.Alt)
+                                                                        new KeyGesture(Key.R, ModifierKeys.Alt)
                                                                     });
         public static RoutedUICommand ShowReportsView
         {
@@ -75,12 +75,40 @@ namespace Panel.Commands
                                                                     typeof(MainView),
                                                                     new InputGestureCollection()
                                                                     {
-                                                                        new KeyGesture(Key.H,ModifierKeys.Alt)
+                                                                        new KeyGesture(Key.H, ModifierKeys.Alt)
                                                                     });
         public static RoutedUICommand ShowHelpView
         {
             get { return showHelpView; }
         }
 
+        public static readonly RoutedUICommand showSettingsView = new RoutedUICommand
+                                                                    (
+                                                                    "ShowSettingsView",
+                                                                    "ShowSettingsView",
+                                                                    typeof(MainView),
+                                                                    new InputGestureCollection()
+                                                                    {
+                                                                        new KeyGesture(Key.S, ModifierKeys.Alt)
+                                                                    });
+        public static RoutedUICommand ShowSettingsView
+        {
+            get { return showSettingsView; }
+        }
+
+
+        public static readonly RoutedUICommand exit = new RoutedUICommand
+                                                                    (
+                                                                    "Exit",
+                                                                    "Exit",
+                                                                    typeof(MainView),
+                                                                    new InputGestureCollection()
+                                                                    {
+                                                                        new KeyGesture(Key.E, ModifierKeys.Alt)
+                                                                    });
+        public static RoutedUICommand Exit
+        {
+            get { return exit; }
+        }
     }
 }
