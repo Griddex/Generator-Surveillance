@@ -20,5 +20,7 @@ namespace Panel.Interfaces
         void ActivateReminderNotification(string GeneratorName, DateTime StartDate,  double EveryHrs, string ReminderLevel, string Authorizer);
         
         ObservableCollection<GeneratorScheduler> GetAllScheduledReminders();
+        ObservableCollection<GeneratorScheduler> GetAnyPageGeneratorScheduledRmdrs(
+            int pageIndex = 1, int pageSize = 10);
     }
 }

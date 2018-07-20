@@ -27,7 +27,7 @@ namespace Panel.Repositories
             (
                 new GeneratorFuelling
                 {
-                    Id = NoOfRecords + 1,
+                    Id = NoOfRecords == 0 ? 0 : NoOfRecords + 1,
                     Date = Fuellingdate,
                     Vendor = Vendor,
                     VolumeOfDiesel = Volumeofdiesel,
@@ -45,7 +45,7 @@ namespace Panel.Repositories
             (
                 new GeneratorRunningHr
                 {
-                    Id = NoOfRecords + 1,
+                    Id = NoOfRecords == 0 ? 0 : NoOfRecords + 1,
                     Generator = GeneratorName,
                     Date = RunningHoursDate,
                     CumFuelVolumeSinceLastReading = CumFuelVolumeSinceLastReading,

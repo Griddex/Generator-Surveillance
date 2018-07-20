@@ -14,10 +14,7 @@ namespace Panel.Repositories
         IGeneratorSchedulerRepository
     {
         public GeneratorSchedulerRepository(GeneratorSurveillanceDBEntities context) 
-            : base(context)
-        {
-
-        }
+            : base(context) { }
 
         public GeneratorSurveillanceDBEntities GeneratorSurveillanceDBContext
         {
@@ -102,8 +99,8 @@ namespace Panel.Repositories
                     .LastOrDefault();
         }
 
-        public void ActivateReminderNotification(string GeneratorName, DateTime StartDate, double EveryHrs, 
-                                                 string ReminderLevel, string Authorizer)
+        public void ActivateReminderNotification(string GeneratorName, DateTime StartDate, 
+            double EveryHrs, string ReminderLevel, string Authorizer)
         {
             foreach (var row in GeneratorSurveillanceDBContext.GeneratorSchedulers)
             {
@@ -111,8 +108,9 @@ namespace Panel.Repositories
                     row.IsActive = "No";
             }
 
-            Tuple<List<double>, List<DateTime>> NotificationHoursDateTime = ScheduledMaintenanceNotificationLogic
-                                                                .GenerateNotificationHoursAndDates(StartDate, EveryHrs, ReminderLevel);
+            Tuple<List<double>, List<DateTime>> NotificationHoursDateTime = 
+                ScheduledMaintenanceNotificationLogic
+                .GenerateNotificationHoursAndDates(StartDate, EveryHrs, ReminderLevel);
 
             int i = 0;
             int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorSchedulers.Count();
@@ -122,7 +120,7 @@ namespace Panel.Repositories
                 (
                     new GeneratorScheduler
                     {
-                        Id = NoOfRecords + i + 1,
+                        Id = NoOfRecords == 0 ? 0 : NoOfRecords + i + 1,
                         GeneratorName = GeneratorName,
                         Starts = StartDate,
                         Every = EveryHrs,
@@ -144,6 +142,38 @@ namespace Panel.Repositories
                     GeneratorSurveillanceDBContext.GeneratorSchedulers
                     .AsParallel<GeneratorScheduler>()
                     );         
+        }
+
+        public ObservableCollection<GeneratorScheduler> GetAnyPageGeneratorScheduledRmdrs(
+            int pageIndex = 1, int pageSize = 10)
+        {
+            int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorSchedulers.Count();
+            var NextPageLastRowNumber = pageIndex * pageSize;
+            int SkipBy = (pageIndex == 1) ? (pageIndex - 1) * pageSize
+                                          : ((pageIndex - 1) * pageSize) - 1;
+            if ((NoOfRecords - NextPageLastRowNumber) > pageSize)
+            {
+                return new ObservableCollection<GeneratorScheduler>
+                        (
+                            GeneratorSurveillanceDBContext.GeneratorSchedulers
+                            .OrderBy(x => x.Id)
+                            .Skip(SkipBy)
+                            .Take(pageSize)
+                            .AsParallel<GeneratorScheduler>()
+                        );
+
+            }
+            else
+            {
+                return new ObservableCollection<GeneratorScheduler>
+                        (
+                            GeneratorSurveillanceDBContext.GeneratorSchedulers
+                            .OrderBy(x => x.Id)
+                            .Skip(SkipBy)
+                            .Take(pageSize)
+                            .AsParallel<GeneratorScheduler>()
+                        );
+            }
         }
     }
 }

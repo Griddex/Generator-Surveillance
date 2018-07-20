@@ -35,7 +35,7 @@
                         <StackPanel Margin="0,20,0,0">
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                                    <Label Content="Select Generator" Height="25" FontSize="14" HorizontalAlignment="Left"/>
+                                    <Label Content="Select Generator" Height="25" HorizontalAlignment="Left"/>
                                     <ComboBox x:Name="cmbxSelectGenerator" Width="326" Height="55" HorizontalAlignment="Left"
                                           ItemsSource="{Binding UniqueGeneratorNames}" 
                                           Foreground="Black"  SelectedIndex="0" 
@@ -49,7 +49,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                                    <Label Content="Generator Data" Height="25" FontSize="14" HorizontalAlignment="Left"/>
+                                    <Label Content="Generator Data" Height="25" HorizontalAlignment="Left"/>
                                     <ComboBox Width="326" Height="55" HorizontalAlignment="Left"
                                           ItemsSource="{Binding GeneratorData}" 
                                           Foreground="Black" SelectedIndex="0" 
@@ -57,7 +57,7 @@
                                           Style="{StaticResource lowerAlignmentFontSize}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" Margin="20,0,10,0" >
-                                    <Label Content="Chart Type" Height="25" FontSize="14" HorizontalAlignment="Left"/>
+                                    <Label Content="Chart Type" Height="25" HorizontalAlignment="Left"/>
                                     <ComboBox Width="229" Height="55" HorizontalAlignment="Left"
                                           ItemsSource="{Binding ChartTypes}" 
                                           Foreground="Black" SelectedIndex="0" 
@@ -67,10 +67,10 @@
                             </StackPanel>
                             <StackPanel>
                                 <StackPanel Margin="0,40,0,0">
-                                    <TextBox Text="Date and Time Filter" Margin="20,0,5,0" FontSize="14"/>
+                                    <TextBox Text="Date and Time Filter" Margin="20,0,5,0"/>
                                     <StackPanel Orientation="Horizontal" >
                                         <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                                            <Label Content="Start" Height="25" FontSize="14" HorizontalAlignment="Left"/>
+                                            <Label Content="Start" Height="25" HorizontalAlignment="Left"/>
                                             <DatePicker HorizontalAlignment="Left"  VerticalAlignment="Bottom" 
                                                     Style="{DynamicResource DatePickerStyle}" Width="230" Height="55"
                                                     DisplayDate="{Binding SelectedStartDate}"
@@ -80,7 +80,7 @@
                                                     Background="#BFECF3" FontSize="16"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" Margin="10,0,1,0">
-                                            <Label Content="Hour" Height="25" FontSize="14"/>
+                                            <Label Content="Hour" Height="25"/>
                                             <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
                                                   ItemsSource="{Binding HoursViewModelList, 
                                                                 Converter={StaticResource IntArrayToTwoCharStringArray}}" 
@@ -90,7 +90,7 @@
                                                   Style="{StaticResource lowerAlignmentFontSize}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" Margin="10,0,1,0">
-                                            <Label Content="Minutes" Height="25" FontSize="14"/>
+                                            <Label Content="Minutes" Height="25"/>
                                             <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
                                                   ItemsSource="{Binding MinutesViewModelList, 
                                                             Converter={StaticResource IntArrayToTwoCharStringArray}}" 
@@ -100,7 +100,7 @@
                                                   Style="{StaticResource lowerAlignmentFontSize}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" Margin="10,0,1,0">
-                                            <Label Content="Seconds" Height="25" FontSize="14"/>
+                                            <Label Content="Seconds" Height="25"/>
                                             <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
                                                   ItemsSource="{Binding SecondsViewModelList, 
                                                             Converter={StaticResource IntArrayToTwoCharStringArray}}" 
@@ -110,7 +110,7 @@
                                                   Style="{StaticResource lowerAlignmentFontSize}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" Margin="10,0,10,0">
-                                            <Label Content="AM/PM" Height="25" FontSize="14"/>
+                                            <Label Content="AM/PM" Height="25"/>
                                             <ComboBox Width="73" Height="55" HorizontalAlignment="Left"
                                                   ItemsSource="{Binding AMPMViewModelList}" 
                                                   Foreground="Black" SelectedIndex="0" 
@@ -121,7 +121,7 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0" Height="100">
                                     <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                                        <Label Content="Stop" Height="25" FontSize="14" HorizontalAlignment="Left"/>
+                                        <Label Content="Stop" Height="25" HorizontalAlignment="Left"/>
                                         <DatePicker HorizontalAlignment="Left"  VerticalAlignment="Bottom" 
                                                 Style="{DynamicResource DatePickerStyle}" Width="230" Height="55"
                                                 DisplayDate="{Binding SelectedStopDate}"
@@ -131,7 +131,7 @@
                                                 Background="#BFECF3" FontSize="16"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" Margin="10,0,1,0">
-                                        <Label Content="Hour" Height="25" FontSize="14"/>
+                                        <Label Content="Hour" Height="25"/>
                                         <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
                                               ItemsSource="{Binding HoursViewModelList, 
                                                                 Converter={StaticResource IntArrayToTwoCharStringArray}}" 
@@ -141,7 +141,7 @@
                                               Style="{StaticResource lowerAlignmentFontSize}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" Margin="10,0,1,0">
-                                        <Label Content="Minutes" Height="25" FontSize="14"/>
+                                        <Label Content="Minutes" Height="25"/>
                                         <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
                                               ItemsSource="{Binding MinutesViewModelList, 
                                                             Converter={StaticResource IntArrayToTwoCharStringArray}}" 
@@ -151,7 +151,7 @@
                                               Style="{StaticResource lowerAlignmentFontSize}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" Margin="10,0,1,0">
-                                        <Label Content="Seconds" Height="25" FontSize="14"/>
+                                        <Label Content="Seconds" Height="25"/>
                                         <ComboBox Width="76" Height="55" HorizontalAlignment="Left"
                                               ItemsSource="{Binding SecondsViewModelList, 
                                                             Converter={StaticResource IntArrayToTwoCharStringArray}}" 
@@ -161,7 +161,7 @@
                                               Style="{StaticResource lowerAlignmentFontSize}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" Margin="10,0,10,0">
-                                        <Label Content="AM/PM" Height="25" FontSize="14"/>
+                                        <Label Content="AM/PM" Height="25"/>
                                         <ComboBox Width="73" Height="55" HorizontalAlignment="Left"
                                               ItemsSource="{Binding AMPMViewModelList}" 
                                               Foreground="Black" SelectedIndex="0" 
@@ -173,7 +173,7 @@
                             <StackPanel Orientation="Horizontal" Margin="20,10,0,0" >
                                 <StackPanel x:Name="stkPlDurationPerspective" Margin="0,0,0,0" VerticalAlignment="Center" Height="220"
                                         Width="220">
-                                    <Label FontWeight="Bold" FontSize="14">Duration Perspective</Label>
+                                    <Label FontWeight="Bold">Duration Perspective</Label>
 
                                     <RadioButton x:Name="rdbtnYear" Margin="0,10,0,0"  GroupName="DateCategory"
                                              IsChecked="{Binding SelectedRadioButtonYear}"
@@ -255,7 +255,7 @@
                                 </StackPanel>
                                 <StackPanel Height="220"  Width="360" VerticalAlignment="Center">
                                     <CheckBox x:Name="chkBxDurationPerspective" 
-                                          Content="Select All" FontSize="14" Margin="30,0,0,0"
+                                          Content="Select All" Margin="30,0,0,0"
                                           Command="{Binding CheckedStatusCmd}"
                                           IsChecked="{Binding SelectedCheckButtonSelectAll}">
                                         <CheckBox.CommandParameter>

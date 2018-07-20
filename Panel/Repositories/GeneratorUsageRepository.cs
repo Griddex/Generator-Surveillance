@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace Panel.Repositories
 {
-    public class GeneratorUsageRepository : Repository<GeneratorUsage>, IGeneratorUsageRepository
+    public class GeneratorUsageRepository : Repository<GeneratorUsage>, 
+        IGeneratorUsageRepository
     {
-        public GeneratorUsageRepository(GeneratorSurveillanceDBEntities context) : base(context)
+        public GeneratorUsageRepository(GeneratorSurveillanceDBEntities context) 
+            : base(context)
         {
             
         }
@@ -21,14 +23,15 @@ namespace Panel.Repositories
         }
 
         
-        public void GeneratorStarted(DateTime RecordDate, string GeneratorName, DateTime GeneratorStarted)
+        public void GeneratorStarted(DateTime RecordDate, string GeneratorName, 
+            DateTime GeneratorStarted)
         {
             int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorUsages.Count();
             GeneratorSurveillanceDBContext.GeneratorUsages.Add
             (
                 new GeneratorUsage
                 {
-                    Id = NoOfRecords + 1,
+                    Id = NoOfRecords == 0 ? 0 : NoOfRecords + 1,
                     Date = RecordDate,
                     GeneratorName = GeneratorName,
                     GeneratorStarted = GeneratorStarted,
@@ -65,11 +68,13 @@ namespace Panel.Repositories
             return FirstPageGeneratorUsages;
         }
 
-        public ObservableCollection<GeneratorUsage> GetAnyPageGeneratorUsages(int pageIndex = 1, int pageSize = 10)
+        public ObservableCollection<GeneratorUsage> GetAnyPageGeneratorUsages(
+            int pageIndex = 1, int pageSize = 10)
         {
             int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorUsages.Count();
             var NextPageLastRowNumber = pageIndex * pageSize;
-            int SkipBy = (pageIndex == 1) ? (pageIndex - 1) * pageSize : ((pageIndex - 1) * pageSize) - 1;
+            int SkipBy = (pageIndex == 1) ? (pageIndex - 1) * pageSize 
+                                          : ((pageIndex - 1) * pageSize) - 1;
             if ((NoOfRecords - NextPageLastRowNumber) > pageSize)
             {
                 return new ObservableCollection<GeneratorUsage>

@@ -8,41 +8,59 @@ using System.Threading.Tasks;
 
 namespace Panel.Repositories
 {
-    public class GeneratorRunningHrsRepository : Repository<GeneratorRunningHr>, IGeneratorRunningHrsRepository
+    public class GeneratorRunningHrsRepository : Repository<GeneratorRunningHr>, 
+        IGeneratorRunningHrsRepository
     {
-        public GeneratorRunningHrsRepository(GeneratorSurveillanceDBEntities context) : base(context)
-        {
-
-        }
+        public GeneratorRunningHrsRepository(GeneratorSurveillanceDBEntities context) 
+            : base(context) { }
 
         public GeneratorSurveillanceDBEntities GeneratorSurveillanceDBContext
         {
             get { return Context as GeneratorSurveillanceDBEntities; }
         }
 
-        //public void AddReminderNotification(string GeneratorName, double Reminder, double Notification)
-        //{
-        //    int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorRunningHrs.Count();
-        //    GeneratorSurveillanceDBContext.GeneratorRunningHrs.Add
-        //    (
-        //        new GeneratorRunningHr
-        //        {
-        //            Id = NoOfRecords,
-        //            Generator = GeneratorName,
-        //            Date = RunningHoursDate,
-        //            Hours = RunningHours
-        //        }
-        //    );
-        //}
-
+        
         public ObservableCollection<GeneratorRunningHr> GetAllRunningHours()
         {
-            var AllGeneratorRunningHours = new ObservableCollection<GeneratorRunningHr>
-                                    (
-                                    GeneratorSurveillanceDBContext.GeneratorRunningHrs
-                                    .AsParallel<GeneratorRunningHr>()
-                                    );
-            return AllGeneratorRunningHours;
+            var AllGeneratorRunningHrs = new ObservableCollection<GeneratorRunningHr>
+                                            (
+                                                GeneratorSurveillanceDBContext
+                                                .GeneratorRunningHrs
+                                                .AsParallel<GeneratorRunningHr>()
+                                            );
+            return AllGeneratorRunningHrs;
+        }
+
+        public ObservableCollection<GeneratorRunningHr> GetAnyPageGeneratorRunningHrs(
+            int pageIndex = 1, int pageSize = 10)
+        {
+            int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorRunningHrs.Count();
+            var NextPageLastRowNumber = pageIndex * pageSize;
+            int SkipBy = (pageIndex == 1) ? (pageIndex - 1) * pageSize
+                                          : ((pageIndex - 1) * pageSize) - 1;
+            if ((NoOfRecords - NextPageLastRowNumber) > pageSize)
+            {
+                return new ObservableCollection<GeneratorRunningHr>
+                        (
+                            GeneratorSurveillanceDBContext.GeneratorRunningHrs
+                            .OrderBy(x => x.Id)
+                            .Skip(SkipBy)
+                            .Take(pageSize)
+                            .AsParallel<GeneratorRunningHr>()
+                        );
+
+            }
+            else
+            {
+                return new ObservableCollection<GeneratorRunningHr>
+                        (
+                            GeneratorSurveillanceDBContext.GeneratorRunningHrs
+                            .OrderBy(x => x.Id)
+                            .Skip(SkipBy)
+                            .Take(pageSize)
+                            .AsParallel<GeneratorRunningHr>()
+                        );
+            }
         }
     }
 }

@@ -17,6 +17,10 @@ namespace Panel.ViewModels.SettingsViewModel
 {
     public class AuthoriserSettingsViewModel
     {
+
+        public ObservableCollection<AuthoriserSetting> AnyAuthorisersPage { get; set; } =
+            new ObservableCollection<AuthoriserSetting>();
+
         public UnitOfWork UnitOfWork { get; set; }
         public DateTime ReminderDate { get; set; } = DateTime.Now;
         public string FirstName { get; set; }
@@ -28,6 +32,8 @@ namespace Panel.ViewModels.SettingsViewModel
         public AuthoriserSettingsViewModel(UnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
+
+            AnyAuthorisersPage = UnitOfWork.AuthoriserSetting.GetAllAuthorisers();
         }
 
         private ICommand _setAuthoriserCmd;
@@ -59,7 +65,7 @@ namespace Panel.ViewModels.SettingsViewModel
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                dtgrd.ItemsSource = UnitOfWork.ConsumptionSetting.GetAnyConsumptionPage();
+                                dtgrd.ItemsSource = UnitOfWork.AuthoriserSetting.GetAllAuthorisers();
                                 dtgrd.Items.Refresh();
                                 ICollectionView cvsFuelConsumption = CollectionViewSource
                                                                     .GetDefaultView(dtgrd.ItemsSource);

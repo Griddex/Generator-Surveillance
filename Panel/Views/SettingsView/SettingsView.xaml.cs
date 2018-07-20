@@ -44,7 +44,7 @@ namespace Panel.Views.SettingsView
             {
                 cvsGeneratorConsumption.GroupDescriptions.Clear();
                 cvsGeneratorConsumption.GroupDescriptions
-                                       .Add(new PropertyGroupDescription("Generator"));
+                                       .Add(new PropertyGroupDescription("GeneratorName"));
             }
         }
 
@@ -68,7 +68,7 @@ namespace Panel.Views.SettingsView
             {
                 cvsRemindersAuthorisers.GroupDescriptions.Clear();
                 cvsRemindersAuthorisers.GroupDescriptions
-                                       .Add(new PropertyGroupDescription("Generator"));
+                                       .Add(new PropertyGroupDescription("GeneratorName"));
             }
         }
 

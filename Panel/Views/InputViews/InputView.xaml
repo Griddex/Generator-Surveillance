@@ -98,7 +98,7 @@
                             </Label>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4">
-                            <Label Content="Choose Record Date" Height="28" FontSize="14" VerticalAlignment="Bottom" 
+                            <Label Content="Choose Record Date" Height="28" VerticalAlignment="Bottom" 
                                    HorizontalAlignment="Left" Margin="0,0,0,2"/>
                             <DatePicker x:Name="dtepkrGenInfo" HorizontalAlignment="Center"  VerticalAlignment="Bottom" 
                                         Style="{DynamicResource DatePickerStyle}" Width="740" Height="55"
@@ -110,7 +110,7 @@
                                             Converter={StaticResource ConvDateTimeToTime}}" 
                                Visibility="Collapsed"/>
                         <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4">
-                            <Label Content="Select or Type-in Generator" Height="28" FontSize="14" 
+                            <Label Content="Select or Type-in Generator" Height="28" 
                                    VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,2"
                                    VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
                             <ComboBox x:Name="cmbxGenInfo" Background="#F2F2F2" Width="740" Height="55"  IsEditable="True"

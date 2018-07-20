@@ -15,12 +15,7 @@
       d:DesignHeight="920" d:DesignWidth="1930"
       Title="Settings Panel" KeepAlive="True"      
       Background="White">
-    <Page.Resources>
-        <CollectionViewSource x:Key="cvsFuelConsumption"
-                              Source="{Binding AnyConsumptionPage}"/>
-        <CollectionViewSource x:Key="cvsRemindersAuthorisers"
-                              Source="{Binding AnyAuthorisersPage}"/>
-    </Page.Resources>
+    
     <Grid>
         <Viewbox Stretch="Uniform" Width="1850">
             <StackPanel Orientation="Horizontal">
@@ -34,9 +29,9 @@
                             <StackPanel Orientation="Horizontal" Height="150">
                                 <StackPanel Orientation="Vertical"  VerticalAlignment="Center"
                                             Margin="20,0,0,0">
-                                    <Label Content="Date" FontSize="14" VerticalAlignment="Bottom"
+                                    <Label Content="Date" VerticalAlignment="Bottom"
                                            Margin="0,0,0,0"/>
-                                    <DatePicker HorizontalAlignment="right"  VerticalAlignment="Top"
+                                    <DatePicker HorizontalAlignment="Right"  VerticalAlignment="Top"
                                                 Margin="0,0,0,0"
                                                 Style="{DynamicResource DatePickerStyle}" Width="300"
                                                 Height="55"
@@ -48,7 +43,7 @@
                                             Margin="50,0,0,0">
                                     <Label Content="Select Generator" 
                                            VerticalAlignment="Bottom"
-                                           HorizontalAlignment="Left" FontSize="14"/>
+                                           HorizontalAlignment="Left"/>
                                     <ComboBox Width="400" Height="55" 
                                               HorizontalAlignment="Left"
                                               ItemsSource="{Binding UniqueGeneratorNames}" FontSize="16"
@@ -62,13 +57,14 @@
                                 <StackPanel Orientation="Vertical" 
                                             VerticalAlignment="Top"
                                             Height="200" Margin="20,0,0,0">
-                                    <Label Content="Current Fuel Consumption" Height="28" FontSize="14"/>
+                                    <Label Content="Current Fuel Consumption" Height="30"/>
                                     <TextBox  Background="#F2F2F2" Width="230" Height="55" 
                                               Text="{Binding Path=CurrentFuelConsumption, 
                                                              Mode=TwoWay, 
                                                              ValidatesOnNotifyDataErrors=True, 
                                                              UpdateSourceTrigger=PropertyChanged,
-                                                             ValidatesOnExceptions=True}"
+                                                             ValidatesOnExceptions=True,
+                                                             Converter={StaticResource FloatToString}}"
                                               HorizontalContentAlignment="Center"
                                               VerticalContentAlignment="Center"
                                               AcceptsReturn="True"
@@ -76,14 +72,15 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical"  
                                             VerticalAlignment="Top"
-                                            Height="200" Margin="30,0,0,0">
-                                    <Label Content="Test Fuel Consumption" Height="28" FontSize="14"/>
+                                            Height="200" Margin="25,0,0,0">
+                                    <Label Content="Test Fuel Consumption" Height="30"/>
                                     <TextBox  Background="#F2F2F2" Width="230" Height="55" 
                                               Text="{Binding Path=TestFuelConsumption, 
                                                              Mode=TwoWay,
                                                              ValidatesOnNotifyDataErrors=True, 
                                                              UpdateSourceTrigger=PropertyChanged,
-                                                             ValidatesOnExceptions=True}"
+                                                             ValidatesOnExceptions=True,
+                                                             Converter={StaticResource FloatToString}}"
                                               HorizontalContentAlignment="Center"
                                               VerticalContentAlignment="Center"
                                               AcceptsReturn="True"
@@ -91,20 +88,21 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical"
                                             VerticalAlignment="Top"
-                                            Height="200" Margin="30,0,0,0">
-                                    <Label Content="Standard Fuel Consumption" Height="28" FontSize="14"/>
+                                            Height="200" Margin="25,0,0,0">
+                                    <Label Content="Standard Fuel Consumption" Height="30"/>
                                     <TextBox  Background="#F2F2F2" Width="230" Height="55" 
                                               Text="{Binding Path=StandardFuelConsumption, 
                                                              Mode=TwoWay,
                                                              ValidatesOnNotifyDataErrors=True, 
                                                              UpdateSourceTrigger=PropertyChanged,
-                                                             ValidatesOnExceptions=True}"
+                                                             ValidatesOnExceptions=True,
+                                                             Converter={StaticResource FloatToString}}"
                                               HorizontalContentAlignment="Center"
                                               VerticalContentAlignment="Center"
                                               AcceptsReturn="True"
                                               Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                     <Button x:Name="btnSetConsumption" Height="55" Width="230"
-                                            Margin="0,30,0,0"
+                                            Margin="0,30,5,0"
                                             Content="Set Consumption" 
                                             ToolTip="Add unscheduled maintenance" 
                                             Style="{StaticResource AffirmativeButtonStyle}" 
@@ -116,13 +114,13 @@
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel>
-                                <Label Content="Fuel Consumption Table" Height="28" FontSize="14"
-                                       Margin="20,0,0,0"/>
-                                <ScrollViewer Height="400" Width="760">
-
+                                <Label Content="Fuel Consumption Table" Height="30"
+                                       Margin="10,0,0,0"/>
+                                <ScrollViewer Height="400" Width="760"
+                                              HorizontalScrollBarVisibility="Auto">
                                     <DataGrid x:Name="dtgdGenFuelConsumptionTable"
-                                                  Style="{StaticResource DataGridStyle}"
-                                                  ItemsSource="{Binding Source={StaticResource cvsFuelConsumption}}"
+                                                  Style="{StaticResource DataGridStyle}"                                                  
+                                                  ItemsSource="{Binding AnyConsumptionPage}"
                                                   ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
                                         <DataGrid.ContextMenu>
                                             <ContextMenu x:Name="ctxMnuSchedRemdrs">
@@ -183,16 +181,16 @@
                                                                 FontSize="12"/>
                                             <DataGridTextColumn Header="Date" 
                                                                 Binding="{Binding Date}" 
-                                                                FontSize="12" Width="100"/>
+                                                                FontSize="12" Width="150"/>
                                             <DataGridTextColumn Header="Generator Name" 
                                                                 Binding="{Binding GeneratorName}" 
                                                                 FontSize="12" Width="Auto"/>
                                             <DataGridTextColumn Header="Current Fuel Consumption" 
                                                                 Binding="{Binding CurrentConsumption}" 
-                                                                FontSize="12" Width="150"/>
+                                                                FontSize="12" Width="Auto"/>
                                             <DataGridTextColumn Header="Test Fuel Consumption" 
                                                                 Binding="{Binding TestConsumption}"
-                                                                FontSize="12" Width="150"/>
+                                                                FontSize="12" Width="Auto"/>
                                             <DataGridTextColumn Header="Standard Fuel Consumption"
                                                                 Binding="{Binding StandardConsumption}"
                                                                 FontSize="12" Width="*"/>
@@ -317,10 +315,11 @@
                             <StackPanel>
                                 <Label Content="Authorisers Details" Height="30" 
                                        Margin="20,0,0,0"/>
-                                <ScrollViewer Height="400" Width="760">
+                                <ScrollViewer Height="400" Width="745"
+                                              HorizontalScrollBarVisibility="Auto">
                                     <DataGrid x:Name="dtgdAuthoriserTable" 
                                               Style="{StaticResource DataGridStyle}"
-                                              ItemsSource="{Binding Source={StaticResource cvsRemindersAuthorisers}}" 
+                                              ItemsSource="{Binding AnyAuthorisersPage}" 
                                               ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
                                         <DataGrid.ContextMenu>
                                             <ContextMenu x:Name="ctxMnuSchedRemdrs1">
@@ -382,9 +381,6 @@
                                             <DataGridTextColumn Header="Date" 
                                                                 Binding="{Binding Date}"
                                                                 FontSize="12" />
-                                            <DataGridTextColumn Header="Generator Name" 
-                                                                Binding="{Binding GeneratorName}"
-                                                                FontSize="12" Width="150"/>
                                             <DataGridTextColumn Header="First Name" 
                                                                 Binding="{Binding FirstName}"
                                                                 FontSize="12" Width="Auto"/>

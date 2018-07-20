@@ -69,7 +69,7 @@
 
                                 <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                                     <StackPanel Orientation="Vertical" >
-                                        <Label Content="On" Height="25" FontSize="14"/>
+                                        <Label Content="On" Height="25"/>
                                         <DatePicker HorizontalAlignment="Left"  VerticalAlignment="Bottom" 
                                                     Style="{DynamicResource DatePickerStyle}" Width="240" Height="50"
                                                     SelectedDate="{Binding Path=FuellingDate, Mode=TwoWay}"
@@ -78,7 +78,7 @@
                                 </Grid>
                                 <Grid Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="3">
                                     <StackPanel Orientation="Vertical" >
-                                        <Label Content="Vendor" Height="25" FontSize="14"/>
+                                        <Label Content="Vendor" Height="25"/>
                                         <TextBox x:Name="txtBoxVendor" Background="#F2F2F2" Width="516" Height="50" 
                                                  HorizontalAlignment="Left" Text="{Binding Path=Vendor, Mode=TwoWay, 
                                             ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged,
@@ -88,11 +88,15 @@
                                 </Grid>
                                 <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
                                     <StackPanel Orientation="Vertical" >
-                                        <Label Content="Volume (litres)" Height="25" FontSize="14"/>
-                                        <TextBox x:Name="txtBoxFuelVolume" Background="#F2F2F2" Width="240" Height="50" 
-                                                 HorizontalAlignment="Left" Text="{Binding Path=VolumeOfDiesel, Mode=TwoWay, 
-                                            ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged, 
-                                            Converter={StaticResource FloatToString}, ValidatesOnExceptions=True}"
+                                        <Label Content="Volume (litres)" Height="25"/>
+                                        <TextBox x:Name="txtBoxFuelVolume" Background="#F2F2F2" 
+                                                 Width="240" Height="50" 
+                                                 HorizontalAlignment="Left" 
+                                                 Text="{Binding Path=VolumeOfDiesel, 
+                                                                Mode=TwoWay, 
+                                                                ValidatesOnNotifyDataErrors=True, 
+                                                                UpdateSourceTrigger=PropertyChanged, 
+                                                                Converter={StaticResource FloatToString}, ValidatesOnExceptions=True}"
                                                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
                                                  HorizontalContentAlignment="Center"
                                                  VerticalContentAlignment="Center"/>
@@ -100,7 +104,7 @@
                                 </Grid>
                                 <Grid Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="4">
                                     <StackPanel Orientation="Vertical" >
-                                        <Label Content="Cost (N)" Height="25" FontSize="14"
+                                        <Label Content="Cost (N)" Height="25"
                                                Margin="10,0,0,0"/>
                                         <TextBox x:Name="txtBoxFuelCost" Background="#F2F2F2" Width="310" Height="50" 
                                                  Margin="10,0,0,0"
@@ -131,7 +135,7 @@
                                         <StackPanel Orientation="Vertical">
                                             <Label x:Name="lblGenFuellingGenerator" Content="Select Generator" 
                                                    VerticalAlignment="Top" HorizontalAlignment="Left"
-                                                   FontSize="14"/>
+                                                  />
                                             <ComboBox x:Name="cmbxSelectGenFuelling" Width="500" Height="55" HorizontalAlignment="Left"
                                                           ItemsSource="{Binding UniqueGeneratorNames}" 
                                                           Foreground="Black" DisplayMemberPath="GeneratorName"
@@ -141,7 +145,7 @@
                                         </StackPanel>
                                         <Grid Grid.Column="1" Grid.Row="1">
                                             <StackPanel Orientation="Vertical" Margin="40,8,0,0">
-                                                <Label Content="Running Hours Retrieval Date" Height="27" FontSize="14"/>
+                                                <Label Content="Running Hours Retrieval Date" Height="27"/>
                                                 <DatePicker HorizontalAlignment="Left"  VerticalAlignment="Bottom" 
                                                             Style="{DynamicResource DatePickerStyle}" Width="240" Height="50"
                                                             SelectedDate="{Binding Path=RunningHoursDate, Mode=TwoWay}"
@@ -165,7 +169,7 @@
 
                                     <Grid Grid.Column="0" Grid.Row="1">
                                         <StackPanel Orientation="Vertical" >
-                                            <Label Content="Cumulative Fuel Volume" Height="27" FontSize="14"
+                                            <Label Content="Cumulative Fuel Volume" Height="27"
                                                    ToolTip="Cumulative Fuel Volume Since Last Running Hours Reading"/>
                                             <TextBox  Background="#F2F2F2" Width="225" Height="50" HorizontalAlignment="Left"
                                                       Margin="0,0,0,0"
@@ -179,7 +183,7 @@
                                     </Grid>
                                     <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
                                         <StackPanel Orientation="Vertical" >
-                                            <Label Content="Generator Running Hours (read-off)" Height="27" FontSize="14" Margin="10,0,0,0"/>
+                                            <Label Content="Generator Running Hours (read-off)" Height="27" Margin="10,0,0,0"/>
                                             <TextBox  Background="#F2F2F2" Width="295" Height="50" HorizontalAlignment="Left"
                                                       Margin="10,0,0,0"
                                                       Text="{Binding Path=RunningHours, Mode=TwoWay, 
@@ -214,7 +218,7 @@
                                         <StackPanel Orientation="Vertical" Margin="0,30,0,0"
                                                     Visibility="{Binding ElementName=expdrFuelConsumption, 
                                                         Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}">
-                                            <Label Content="Current Consumption (ltrs/hr)" Height="27" FontSize="14" 
+                                            <Label Content="Current Consumption (ltrs/hr)" Height="27" 
                                                    HorizontalContentAlignment="Center"
                                                    Visibility="{Binding ElementName=expdrFuelConsumption, 
                                                         Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"/>
@@ -237,7 +241,7 @@
                                         <StackPanel Orientation="Vertical" Margin="0,30,0,0"
                                                     Visibility="{Binding ElementName=expdrFuelConsumption, 
                                                         Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}">
-                                            <Label Content="Test Consumption (ltrs/hr)" Height="27" FontSize="14" 
+                                            <Label Content="Test Consumption (ltrs/hr)" Height="27" 
                                                    HorizontalContentAlignment="Center"
                                                    Visibility="{Binding ElementName=expdrFuelConsumption, 
                                                         Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"/>
@@ -259,7 +263,7 @@
                                         <StackPanel Orientation="Vertical" Margin="0,30,0,0"
                                                     Visibility="{Binding ElementName=expdrFuelConsumption, 
                                                         Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}">
-                                            <Label Content="Standard Consumption (ltrs/hr)" Height="27" FontSize="14" 
+                                            <Label Content="Standard Consumption (ltrs/hr)" Height="27" 
                                                    HorizontalContentAlignment="Center"
                                                    Visibility="{Binding ElementName=expdrFuelConsumption, 
                                                         Path=IsExpanded, Converter={StaticResource TrueOrFalseToVisibility}}"/>
@@ -282,7 +286,7 @@
                                               Background="#F2F2F2" ExpandDirection="Up" 
                                               Header="Fuel Consumption Table" VerticalAlignment="Bottom"
                                               Width="785" Margin="0,0,0,0" Expanded="expdrFuelConsumption_Expanded"
-                                              FontSize="14" IsExpanded="False">
+                                              IsExpanded="False">
                                         <Expander.Content>
                                             <ScrollViewer Height="250">
                                                 <DataGrid x:Name="dtgdGenFuelConsumptionTable" 

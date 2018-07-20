@@ -31,55 +31,55 @@
                 <StackPanel Margin="0,20,0,0">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                            <Label Content="Select Report Type" Height="30" FontSize="14" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
+                            <Label Content="Select Report Type" Height="30" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
                             <ComboBox Width="584" Height="60" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </StackPanel>                    
                     
                     <StackPanel Margin="0,80,0,0">
-                        <TextBox Text="Date and Time Filter" BorderBrush="White" FontSize="14" Margin="20,0,0,0"/>
+                        <TextBox Text="Date and Time Filter" BorderBrush="White" Margin="20,0,0,0"/>
                         <StackPanel Orientation="Horizontal" >
                             <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                                <Label Content="Start" Height="25" FontSize="14" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
+                                <Label Content="Start" Height="25" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
                                 <DatePicker HorizontalAlignment="Left"  VerticalAlignment="Bottom" Style="{DynamicResource DatePickerStyle}" Width="220" Height="60"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical" Margin="20,0,1,0">
-                                <Label Content="Hour" Height="25" FontSize="14"/>
+                                <Label Content="Hour" Height="25"/>
                                 <ComboBox Width="76" Height="60" HorizontalAlignment="Left"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical" Margin="10,0,1,0">
-                                <Label Content="Minutes" Height="25" FontSize="14"/>
+                                <Label Content="Minutes" Height="25"/>
                                 <ComboBox Width="76" Height="60" HorizontalAlignment="Left"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical" Margin="10,0,1,0">
-                                <Label Content="Seconds" Height="25" FontSize="14"/>
+                                <Label Content="Seconds" Height="25"/>
                                 <ComboBox Width="76" Height="60" HorizontalAlignment="Left"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical" Margin="10,0,10,0">
-                                <Label Content="AM/PM" Height="25" FontSize="14"/>
+                                <Label Content="AM/PM" Height="25"/>
                                 <ComboBox Width="73" Height="60" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                         <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                            <Label Content="Stop" Height="25" FontSize="14" HorizontalAlignment="Left"/>
+                            <Label Content="Stop" Height="25" HorizontalAlignment="Left"/>
                             <DatePicker HorizontalAlignment="Left"  VerticalAlignment="Bottom" Style="{DynamicResource DatePickerStyle}" Width="220" Height="60"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Margin="20,0,1,0">
-                            <Label Content="Hour" Height="25" FontSize="14"/>
+                            <Label Content="Hour" Height="25"/>
                             <ComboBox Width="76" Height="60" HorizontalAlignment="Left"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Margin="10,0,1,0">
-                            <Label Content="Minutes" Height="25" FontSize="14"/>
+                            <Label Content="Minutes" Height="25"/>
                             <ComboBox Width="76" Height="60" HorizontalAlignment="Left"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Margin="10,0,1,0">
-                            <Label Content="Seconds" Height="25" FontSize="14"/>
+                            <Label Content="Seconds" Height="25"/>
                             <ComboBox Width="76" Height="60" HorizontalAlignment="Left"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Margin="10,0,10,0">
-                            <Label Content="AM/PM" Height="25" FontSize="14"/>
+                            <Label Content="AM/PM" Height="25"/>
                             <ComboBox Width="73" Height="60" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </StackPanel>

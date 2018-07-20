@@ -155,21 +155,25 @@ namespace Panel.ViewModels.InputViewModels
                 OnPropertyChanged(nameof(SchMaintenanceSelectedGen));
 
                 SchMaintenanceStartDate = UnitOfWork.GeneratorScheduler
-                                            .GetStartDate(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                                            .GetStartDate(SchMaintenanceSelectedGen, 
+                                            AllGeneratorSchedules);
                 OnPropertyChanged(nameof(SchMaintenanceStartDate));
 
                 SchMaintenanceReminderHours = UnitOfWork.GeneratorScheduler
-                                            .GetReminderInHrs(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                                            .GetReminderInHrs(SchMaintenanceSelectedGen, 
+                                            AllGeneratorSchedules);
                 OnPropertyChanged(nameof(SchMaintenanceReminderHours));
 
                 try
                 {
                     SchMaintenanceSelectedReminderLevel = UnitOfWork.GeneratorScheduler
-                                                        .GetReminderLevel(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                                                        .GetReminderLevel(SchMaintenanceSelectedGen, 
+                                                        AllGeneratorSchedules);
                     OnPropertyChanged(nameof(SchMaintenanceSelectedReminderLevel));
 
                     SchMaintenanceSelectedAuthorizer = UnitOfWork.GeneratorScheduler
-                                                        .GetAuthorizer(SchMaintenanceSelectedGen, AllGeneratorSchedules);
+                                                        .GetAuthorizer(SchMaintenanceSelectedGen, 
+                                                        AllGeneratorSchedules);
                     OnPropertyChanged(nameof(SchMaintenanceSelectedAuthorizer));
                 }
                 catch (Exception) { }                

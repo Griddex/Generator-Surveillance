@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Panel.Repositories
 {
-    public class ConsumptionSettingRepository : Repository<GeneratorFuelling>,
+    public class ConsumptionSettingRepository : Repository<ConsumptionSetting>,
         IConsumptionSettingsRepository
     {
         public ConsumptionSettingRepository(GeneratorSurveillanceDBEntities context)
@@ -28,7 +28,7 @@ namespace Panel.Repositories
             (
                 new ConsumptionSetting
                 {
-                    Id = NoOfRecords + 1,
+                    Id = NoOfRecords == 0 ? 0 : NoOfRecords + 1,
                     Date = ConsumptionDate,
                     GeneratorName = GeneratorName,
                     CurrentConsumption = CurrentFuelConsumption,
@@ -49,8 +49,7 @@ namespace Panel.Repositories
                                                 .ConsumptionSettings
                                                 .OrderBy(x => x.Id)
                                                 .Skip(SkipBy)
-                                                .Take(pageSize)
-                                                .AsParallel<ConsumptionSetting>()
+                                                .Take(pageSize)                                                
                                             );
             return AnyConsumptionPage;
         }

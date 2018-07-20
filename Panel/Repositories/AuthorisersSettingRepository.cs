@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Panel.Repositories
 {
-    public class AuthorisersSettingRepository : Repository<GeneratorFuelling>,
+    public class AuthorisersSettingRepository : Repository<AuthoriserSetting>,
         IAuthorisersSettingsRepository
     {
         public AuthorisersSettingRepository(GeneratorSurveillanceDBEntities context)
@@ -23,12 +23,15 @@ namespace Panel.Repositories
             string LastName, string Email, string PhoneNumber,
             string JobTitle)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext.AuthoriserSettings.Count();
+            int NoOfRecords = GeneratorSurveillanceDBContext
+                                            .AuthoriserSettings
+                                            .Count();
+
             GeneratorSurveillanceDBContext.AuthoriserSettings.Add
             (
                 new AuthoriserSetting
                 {
-                    Id = NoOfRecords + 1,
+                    Id = NoOfRecords == 0 ? 0 : NoOfRecords + 1,
                     Date = ReminderDate,
                     FirstName = FirstName,
                     LastName = LastName,

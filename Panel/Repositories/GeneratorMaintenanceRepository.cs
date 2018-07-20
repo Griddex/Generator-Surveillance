@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace Panel.Repositories
 {
-    public class GeneratorMaintenanceRepository : Repository<GeneratorMaintenance>, IGeneratorMaintenanceRepository
+    public class GeneratorMaintenanceRepository : Repository<GeneratorMaintenance>, 
+        IGeneratorMaintenanceRepository
     {
-        public GeneratorMaintenanceRepository(GeneratorSurveillanceDBEntities context) : base(context)
+        public GeneratorMaintenanceRepository(GeneratorSurveillanceDBEntities context) 
+            : base(context)
         {
 
         }
@@ -20,14 +22,15 @@ namespace Panel.Repositories
             get { return Context as GeneratorSurveillanceDBEntities; }
         }
 
-        public void AddUnschMaintenance(string MaintenanceType, DateTime UnschMaintenancedate, string UnschComments, double UnschTotalCost)
+        public void AddUnschMaintenance(string MaintenanceType, DateTime UnschMaintenancedate, 
+            string UnschComments, double UnschTotalCost)
         {
             int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorMaintenances.Count();
             GeneratorSurveillanceDBContext.GeneratorMaintenances.Add
             (
                 new GeneratorMaintenance
                 {
-                    Id = NoOfRecords,
+                    Id = NoOfRecords == 0 ? 0 : NoOfRecords,
                     Date = UnschMaintenancedate,
                     MaintenanceType = MaintenanceType,
                     Comments = UnschComments,
@@ -36,14 +39,15 @@ namespace Panel.Repositories
             );
         }
 
-        public void AddSchMaintenance(string MaintenanceType, DateTime SchMaintenancedate, string SchComments, double SchTotalCost)
+        public void AddSchMaintenance(string MaintenanceType, DateTime SchMaintenancedate, 
+            string SchComments, double SchTotalCost)
         {
             int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorMaintenances.Count();
             GeneratorSurveillanceDBContext.GeneratorMaintenances.Add
             (
                 new GeneratorMaintenance
                 {
-                    Id = NoOfRecords,
+                    Id = NoOfRecords == 0 ? 0 : NoOfRecords,
                     Date = SchMaintenancedate,
                     MaintenanceType = MaintenanceType,
                     Comments = SchComments,
@@ -62,7 +66,8 @@ namespace Panel.Repositories
             return AllGeneratorMaintenance;
         }
 
-        public ObservableCollection<GeneratorMaintenance> GetAnyPageGeneratorMaintenance(int pageIndex = 1, int pageSize = 10)
+        public ObservableCollection<GeneratorMaintenance> GetAnyPageGeneratorMaintenance(
+            int pageIndex = 1, int pageSize = 10)
         {
             var FirstPageGeneratorMaintenance = new ObservableCollection<GeneratorMaintenance>
                                             (

@@ -35,8 +35,10 @@ namespace Panel.ViewModels.SettingsViewModel
         public ConsumptionSettingsViewModel(UnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
+
             UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation
                                                      .GetUniqueGeneratorNames();
+
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
                 (UniqueGeneratorNamesUnsorted.OrderBy(x => x.GeneratorName));
 

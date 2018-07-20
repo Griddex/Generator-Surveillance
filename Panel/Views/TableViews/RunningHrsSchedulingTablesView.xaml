@@ -39,16 +39,18 @@
                 </Grid.ColumnDefinitions>
             
                 <Button x:Name="btnToUsageMaintenanceView" 
-                    Grid.Row="0" Grid.Column="0" Height="60" Width="60" BorderBrush="Transparent"
+                        Grid.Row="0" Grid.Column="0" Height="60" 
+                        Width="60" BorderBrush="Transparent"
                         Grid.RowSpan="2"
-                    Command="{x:Static cmds:NavigationCommands.RunningHrsSchedulerToUsageMaintView}">
+                        Command="{x:Static cmds:NavigationCommands.RunningHrsSchedulerToUsageMaintView}">
                     <Button.Content>
                         <Image Source="/Images/Back.jpg" ToolTip="Go to Usage and Maintenance Tables"/>
                     </Button.Content>
                 </Button>
                 <ScrollViewer Grid.Row="0" Grid.Column="1">
                     <GroupBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" 
-                              Style="{StaticResource GroupBoxStyle}" Header="Generator Running Hours" 
+                              Style="{StaticResource GroupBoxStyle}" 
+                              Header="Generator Running Hours" 
                               Width="600" Height="750">
                         <DockPanel>
                             <ToolBarTray DockPanel.Dock="Top" Height="30">
@@ -56,55 +58,86 @@
                                     <Button Click="GroupbyGeneratorRunningHours_Click">
                                         <Button.Content>
                                             <StackPanel Orientation="Vertical">
-                                                <Image Source="/Images/GroupBy_Red.jpg" Height="20" Width="20"/>
+                                                <Image Source="/Images/GroupBy_Red.jpg" Height="20" 
+                                                       Width="20"/>
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
                                     <Button Click="ClearRunningHoursGrouping_Click">
                                         <Button.Content>
                                             <StackPanel Orientation="Vertical">
-                                                <Image Source="/Images/Clear.png" Height="20" Width="20"/>
+                                                <Image Source="/Images/Clear.png" Height="20" 
+                                                       Width="20"/>
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
-                                    <StackPanel Orientation="Horizontal" Margin="190,0,0,0" Height="25">
-                                        <Label Content="Go to Page:"  FontSize="10"
-                                                Width="70" HorizontalContentAlignment="Right"
+                                    <StackPanel Orientation="Horizontal" Margin="160,0,0,0" 
+                                                Height="25">
+                                        <Label Content="Go to Page:"  FontSize="8"
+                                               Width="55" HorizontalContentAlignment="Right"
                                                Background="#EEF5FD"/>
-                                        <TextBox Width="30" Text="1" HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center" FontSize="10"/>
-                                        <Label Content="No. Of Rows:" Background="#EEF5FD" FontSize="10"
-                                               HorizontalContentAlignment="Right"/>
-                                        <ComboBox Width="40" FontSize="10">
+                                        <TextBox x:Name="txtbxPageIndexRnHrs" Width="30" 
+                                                 HorizontalContentAlignment="Center"
+                                                 VerticalContentAlignment="Center" FontSize="10" 
+                                                 Height="20"
+                                                 Text="{Binding PageIndexRnHrs, 
+                                                                Mode=TwoWay}"/>
+                                        <Label Content="Show rows:" Background="#EEF5FD" FontSize="8"
+                                               HorizontalContentAlignment="Right" Height=" 20"/>
+                                        <ComboBox x:Name="cmbxNoOfRowsRnHrs" Width="45" FontSize="10" 
+                                                  SelectedIndex="1" Height="20" 
+                                                  SelectedValue="{Binding PageSizeRnHrs, 
+                                                                          Mode=TwoWay}"
+                                                  SelectedItem="{Binding SelectedPageSizeRnHrs, 
+                                                                         Mode=TwoWay}">
                                             <ComboBoxItem FontSize="10">5</ComboBoxItem>
                                             <ComboBoxItem FontSize="10">10</ComboBoxItem>
                                             <ComboBoxItem FontSize="10">25</ComboBoxItem>
                                             <ComboBoxItem FontSize="10">50</ComboBoxItem>
                                             <ComboBoxItem FontSize="10">100</ComboBoxItem>
                                         </ComboBox>
-                                        <Button>
+                                        <TextBox x:Name="txtbxCurrPageOutTotalRnHrs" Width="120" 
+                                                 HorizontalContentAlignment="Center"
+                                                 VerticalContentAlignment="Center" FontSize="8" 
+                                                 Height="20"
+                                                 Text="{Binding CurrentPageOutOfTotalRnHrs}"/>
+                                        <Button Command="{Binding PreviousPageRnHrsCmd}" Height="20">
+                                            <Button.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource PassTextBoxComboBoxItem}">
+                                                    <Binding ElementName="txtbxPageIndexRnHrs"/>
+                                                    <Binding ElementName="cmbxNoOfRowsRnHrs" Path="SelectedValue"/>
+                                                </MultiBinding>
+                                            </Button.CommandParameter>
                                             <Button.Content>
-                                                <Image Source="/Images/Back.jpg" Width="25" Height="25"/>
+                                                <Image Source="/Images/Back.jpg" Width="18" Height="18"/>
                                             </Button.Content>
                                         </Button>
-                                        <TextBox Width="52" Text="10" HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center" FontSize="10"/>
-                                        <Button>
+
+                                        <Button Command="{Binding NextPageRnHrsCmd}" Height="20">
+                                            <Button.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource PassTextBoxComboBoxItem}">
+                                                    <Binding ElementName="txtbxPageIndexRnHrs"/>
+                                                    <Binding ElementName="cmbxNoOfRowsRnHrs" Path="SelectedValue"/>
+                                                </MultiBinding>
+                                            </Button.CommandParameter>
                                             <Button.Content>
-                                                <Image Source="/Images/Next.jpg" Width="25" Height="25"/>
+                                                <Image Source="/Images/Next.jpg" Width="18" Height="18"/>
                                             </Button.Content>
                                         </Button>
                                     </StackPanel>
                                 </ToolBar>
                         
                             </ToolBarTray>
-                            <DataGrid x:Name="dtgdGenRunnungHrsTable" Style="{StaticResource DataGridStyle}"
-                                      ItemsSource="{Binding Source={StaticResource cvsRunningHours}}" 
+                            <DataGrid x:Name="dtgdGenRunnungHrsTable" 
+                                      Style="{StaticResource DataGridStyle}"
+                                      ItemsSource="{Binding AnyPageRnHrsRecords}" 
                                       ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
                                 <DataGrid.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem Header="Groupby Generator" Click="GroupbyGeneratorRunningHours_Click"/>
-                                        <MenuItem Header="Clear Grouping" Click="ClearRunningHoursGrouping_Click"/>
+                                        <MenuItem Header="Groupby Generator" 
+                                                  Click="GroupbyGeneratorRunningHours_Click"/>
+                                        <MenuItem Header="Clear Grouping" 
+                                                  Click="ClearRunningHoursGrouping_Click"/>
                                     </ContextMenu>
                                 </DataGrid.ContextMenu>
                                 <DataGrid.GroupStyle>
@@ -130,10 +163,10 @@
                                                                     <StackPanel Orientation="Horizontal">
                                                                         <TextBlock FontWeight="Bold"
                                                                                    Text="{Binding Name, 
-                                                                            Converter={StaticResource CategoryToPhrase}}"/>
+                                                                                                  Converter={StaticResource CategoryToPhrase}}"/>
                                                                         <TextBlock FontWeight="Bold"
                                                                                    Text="{Binding ItemCount, 
-                                                                            Converter={StaticResource ItemCountToPhrase}}"/>
+                                                                                                  Converter={StaticResource ItemCountToPhrase}}"/>
                                                                     </StackPanel>
                                                                 </Expander.Header>
                                                                 <Expander.Content>
@@ -154,13 +187,21 @@
                                     </Style>
                                 </DataGrid.RowStyle>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="S/N" Binding="{Binding Id}" FontSize="12"
+                                    <DataGridTextColumn Header="S/N" 
+                                                        Binding="{Binding Id}" 
+                                                        FontSize="12"
                                                         Width="Auto"/>
-                                    <DataGridTextColumn Header="Generator" Binding="{Binding Generator}" 
+                                    <DataGridTextColumn Header="Generator" 
+                                                        Binding="{Binding Generator}" 
                                                         FontSize="12" Width="Auto"/>
-                                    <DataGridTextColumn Header="Date" Binding="{Binding Date}" FontSize="12"/>
-                                    <DataGridTextColumn Header="Hours" Binding="{Binding Hours}"
-                                                        FontSize="12" Width="*"/>
+                                    <DataGridTextColumn Header="Date" 
+                                                        Binding="{Binding Date}" 
+                                                        FontSize="12"
+                                                        Width="Auto"/>
+                                    <DataGridTextColumn Header="Hours" 
+                                                        Binding="{Binding Hours}"
+                                                        FontSize="12" 
+                                                        Width="*"/>
                                 </DataGrid.Columns>
                                 <DataGrid.RowDetailsTemplate>
                                     <DataTemplate>
@@ -182,54 +223,85 @@
                                     <Button Click="GroupbyGeneratorScheduler_Click">
                                         <Button.Content>
                                             <StackPanel Orientation="Vertical">
-                                                <Image Source="/Images/GroupBy_Red.jpg" Height="20" Width="20"/>
+                                                <Image Source="/Images/GroupBy_Red.jpg" 
+                                                       Height="20" Width="20"/>
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
                                     <Button Click="ClearSchedulerReminderGrouping_Click">
                                         <Button.Content>
                                             <StackPanel Orientation="Vertical">
-                                                <Image Source="/Images/Clear.png" Height="20" Width="20"/>
+                                                <Image Source="/Images/Clear.png" 
+                                                       Height="20" Width="20"/>
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
-                                    <StackPanel Orientation="Horizontal" Margin="190,0,0,0" Height="25">
-                                        <Label Content="Go to Page:"  FontSize="10"
-                                                Width="70" HorizontalContentAlignment="Right"
+                                    <StackPanel Orientation="Horizontal" Margin="150,0,0,0" 
+                                                Height="25">
+                                        <Label Content="Go to Page:"  FontSize="8"
+                                               Width="55" HorizontalContentAlignment="Right"
                                                Background="#EEF5FD"/>
-                                        <TextBox Width="30" Text="1" HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center" FontSize="10"/>
-                                        <Label Content="No. Of Rows:" Background="#EEF5FD" FontSize="10"
-                                               HorizontalContentAlignment="Right"/>
-                                        <ComboBox Width="40" FontSize="10">
+                                        <TextBox x:Name="txtbxPageIndexSchRem" Width="30" 
+                                                 HorizontalContentAlignment="Center"
+                                                 VerticalContentAlignment="Center" FontSize="10" 
+                                                 Height="20"
+                                                 Text="{Binding PageIndexSchRem, 
+                                                                Mode=TwoWay}"/>
+                                        <Label Content="Show rows:" Background="#EEF5FD" FontSize="8"
+                                               HorizontalContentAlignment="Right" Height=" 20"/>
+                                        <ComboBox x:Name="cmbxNoOfRowsSchRem" Width="45" FontSize="10" 
+                                                  SelectedIndex="1" Height="20" 
+                                                  SelectedValue="{Binding PageSizeSchRem, 
+                                                                          Mode=TwoWay}"
+                                                  SelectedItem="{Binding SelectedPageSizeSchRem, 
+                                                                         Mode=TwoWay}">
                                             <ComboBoxItem FontSize="10">5</ComboBoxItem>
                                             <ComboBoxItem FontSize="10">10</ComboBoxItem>
                                             <ComboBoxItem FontSize="10">25</ComboBoxItem>
                                             <ComboBoxItem FontSize="10">50</ComboBoxItem>
                                             <ComboBoxItem FontSize="10">100</ComboBoxItem>
                                         </ComboBox>
-                                        <Button>
+                                        <TextBox x:Name="txtbxCurrPageOutTotalSchRem" Width="120" 
+                                                 HorizontalContentAlignment="Center"
+                                                 VerticalContentAlignment="Center" FontSize="8" 
+                                                 Height="20"
+                                                 Text="{Binding CurrentPageOutOfTotalSchRem}"/>
+                                        <Button Command="{Binding PreviousPageSchRemCmd}" Height="20">
+                                            <Button.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource PassTextBoxComboBoxItem}">
+                                                    <Binding ElementName="txtbxPageIndexSchRem"/>
+                                                    <Binding ElementName="cmbxNoOfRowsSchRem" Path="SelectedValue"/>
+                                                </MultiBinding>
+                                            </Button.CommandParameter>
                                             <Button.Content>
-                                                <Image Source="/Images/Back.jpg" Width="25" Height="25"/>
+                                                <Image Source="/Images/Back.jpg" Width="18" Height="18"/>
                                             </Button.Content>
                                         </Button>
-                                        <TextBox Width="52" Text="10" HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center" FontSize="10"/>
-                                        <Button>
+
+                                        <Button Command="{Binding NextPageSchRemCmd}" Height="20">
+                                            <Button.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource PassTextBoxComboBoxItem}">
+                                                    <Binding ElementName="txtbxPageIndexSchRem"/>
+                                                    <Binding ElementName="cmbxNoOfRowsSchRem" Path="SelectedValue"/>
+                                                </MultiBinding>
+                                            </Button.CommandParameter>
                                             <Button.Content>
-                                                <Image Source="/Images/Next.jpg" Width="25" Height="25"/>
+                                                <Image Source="/Images/Next.jpg" Width="18" Height="18"/>
                                             </Button.Content>
                                         </Button>
                                     </StackPanel>
                                 </ToolBar>
                             </ToolBarTray>
-                            <DataGrid x:Name="dtgdGenSchdRemdrTable" Style="{StaticResource DataGridStyle}"
-                                      ItemsSource="{Binding Source={StaticResource cvsScheduledReminders}}" 
+                            <DataGrid x:Name="dtgdGenSchdRemdrTable" 
+                                      Style="{StaticResource DataGridStyle}"
+                                      ItemsSource="{Binding AnyPageSchRemRecords}" 
                                       ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
                                 <DataGrid.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem Header="Groupby Generator" Click="GroupbyGeneratorScheduler_Click"/>
-                                        <MenuItem Header="Clear Grouping" Click="ClearSchedulerReminderGrouping_Click"/>
+                                        <MenuItem Header="Groupby Generator" 
+                                                  Click="GroupbyGeneratorScheduler_Click"/>
+                                        <MenuItem Header="Clear Grouping" 
+                                                  Click="ClearSchedulerReminderGrouping_Click"/>
                                     </ContextMenu>
                                 </DataGrid.ContextMenu>
                                 <DataGrid.GroupStyle>
@@ -255,10 +327,10 @@
                                                                     <StackPanel Orientation="Horizontal">
                                                                         <TextBlock FontWeight="Bold"
                                                                                    Text="{Binding Name, 
-                                                                            Converter={StaticResource CategoryToPhrase}}"/>
+                                                                                                  Converter={StaticResource CategoryToPhrase}}"/>
                                                                         <TextBlock FontWeight="Bold"
                                                                                    Text="{Binding ItemCount, 
-                                                                            Converter={StaticResource ItemCountToPhrase}}"/>
+                                                                                                  Converter={StaticResource ItemCountToPhrase}}"/>
                                                                     </StackPanel>
                                                                 </Expander.Header>
                                                                 <Expander.Content>
@@ -279,16 +351,26 @@
                                     </Style>
                                 </DataGrid.RowStyle>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="S/N" Binding="{Binding Id}" FontSize="12"
+                                    <DataGridTextColumn Header="S/N" 
+                                                        Binding="{Binding Id}" 
+                                                        FontSize="12"
                                                         Width="Auto"/>
-                                    <DataGridTextColumn Header="Generator" Binding="{Binding GeneratorName}" 
-                                                        FontSize="12" Width="Auto"/>
-                                    <DataGridTextColumn Header="Reminder Duration" Binding="{Binding EveryHrs}" 
-                                                        FontSize="12" Width="Auto"/>
-                                    <DataGridTextColumn Header="Reminder Threshold" Binding="{Binding HrsThreshold}"
-                                                        FontSize="12" Width="Auto"/>
-                                    <DataGridTextColumn Header="Authorizer" Binding="{Binding Authorizer}"
-                                                        FontSize="12" Width="*"/>
+                                    <DataGridTextColumn Header="Generator" 
+                                                        Binding="{Binding GeneratorName}" 
+                                                        FontSize="12" 
+                                                        Width="Auto"/>
+                                    <DataGridTextColumn Header="Reminder Duration" 
+                                                        Binding="{Binding EveryHrs}" 
+                                                        FontSize="12" 
+                                                        Width="Auto"/>
+                                    <DataGridTextColumn Header="Reminder Threshold" 
+                                                        Binding="{Binding HrsThreshold}"
+                                                        FontSize="12" 
+                                                        Width="Auto"/>
+                                    <DataGridTextColumn Header="Authorizer" 
+                                                        Binding="{Binding Authorizer}"
+                                                        FontSize="12" 
+                                                        Width="*"/>
                                 </DataGrid.Columns>
                                 <DataGrid.RowDetailsTemplate>
                                     <DataTemplate>
@@ -300,15 +382,22 @@
                     </GroupBox>
                 </ScrollViewer>
             </Grid>
-            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
-                <Hyperlink Command="{x:Static cmds:NavigationCommands.InputToUsageView}">Usage</Hyperlink>
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" 
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Width="80" VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" FontSize="18">
+                <Hyperlink Command="{x:Static cmds:NavigationCommands.InputToUsageView}">
+                    Usage</Hyperlink>
                 </TextBlock>
-                <TextBlock Width=" 80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
-                <Hyperlink Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}">Fuelling</Hyperlink>
+                <TextBlock Width=" 80" VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" FontSize="18">
+                <Hyperlink Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}">
+                    Fuelling</Hyperlink>
                 </TextBlock>
-                <TextBlock Width="110" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
-                <Hyperlink Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}">Maintenance</Hyperlink>
+                <TextBlock Width="110" VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" FontSize="18">
+                <Hyperlink Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}">
+                    Maintenance</Hyperlink>
                 </TextBlock>
             </StackPanel>
         </Grid>
