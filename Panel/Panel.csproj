@@ -123,6 +123,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AuthoriserSetting.cs">
+      <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="BusinessLogic\AuxilliaryMethods\FindChildren.cs" />
     <Compile Include="BusinessLogic\AuxilliaryMethods\ReminderCondition.cs" />
     <Compile Include="BusinessLogic\AuxilliaryMethods\ParseTimeFromDateTime.cs" />
@@ -144,6 +147,9 @@
     <Compile Include="Commands\NavigationCommands.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Commands\TableCommands.cs" />
+    <Compile Include="ConsumptionSetting.cs">
+      <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ConvertIntToTwoCharString.cs" />
     <Compile Include="Converters\ConvertIntArrayToTwoCharStringArray.cs" />
     <Compile Include="Converters\ConvertBooleanToBrush.cs" />
@@ -200,6 +206,7 @@
       <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IChartsLogic.cs" />
+    <Compile Include="Interfaces\IAuthorisersSettingsRepository.cs" />
     <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IGeneratorFuellingRepository.cs" />
     <Compile Include="Interfaces\IGeneratorInformationRepository.cs" />
@@ -211,6 +218,7 @@
     <Compile Include="Interfaces\IMessageService.cs" />
     <Compile Include="Interfaces\INavigationService.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IConsumptionSettingsRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IView.cs" />
     <Compile Include="Interfaces\IViewModel.cs" />
@@ -230,6 +238,8 @@
     <Compile Include="Models\TableModels\GeneratorMaintenancetableModel.cs" />
     <Compile Include="Models\TableModels\GeneratorUsageTableModel.cs" />
     <Compile Include="Models\ValidateNotifyModelBase.cs" />
+    <Compile Include="Repositories\AuthorisersSettingRepository.cs" />
+    <Compile Include="Repositories\ConsumptionSettingRepository.cs" />
     <Compile Include="Repositories\GeneratorFuellingRepository.cs" />
     <Compile Include="Repositories\GeneratorInformationRepository.cs" />
     <Compile Include="Repositories\GeneratorMaintenanceRepository.cs" />
@@ -268,7 +278,8 @@
     <Compile Include="ViewModels\InputViewModels\MaintenanceViewModel.cs" />
     <Compile Include="ViewModels\InputViewModels\UsageViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModels\ReportViewModel.cs" />
-    <Compile Include="ViewModels\SettingsViewModel\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\AuthoriserSettingsViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\ConsumptionSettingsViewModel.cs" />
     <Compile Include="ViewModels\TableViewModels\RunningHrsSchedulingTablesViewModel.cs" />
     <Compile Include="ViewModels\TableViewModels\UsageFuellingTablesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

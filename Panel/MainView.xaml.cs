@@ -21,6 +21,7 @@ using Panel.Views.ChartViews;
 using Panel.Views.HelpViews;
 using Panel.Views.InputViews;
 using Panel.Views.ReportViews;
+using Panel.Views.SettingsView;
 using Panel.Views.TableViews;
 using Unity;
 
@@ -121,15 +122,14 @@ namespace Panel
         private void SettingsView_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
         private void SettingsView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            UsageFuellingTablesView usageFuellingTablesView = (UsageFuellingTablesView)container.Resolve<IView>("UsageFuellingTablesView");
-            MainViewFrame.Navigate(usageFuellingTablesView);
+            SettingsView settingsView = (SettingsView)container.Resolve<IView>("SettingsView");
+            MainViewFrame.Navigate(settingsView);
         }
 
         private void Exit_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
         private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            UsageFuellingTablesView usageFuellingTablesView = (UsageFuellingTablesView)container.Resolve<IView>("UsageFuellingTablesView");
-            MainViewFrame.Navigate(usageFuellingTablesView);
+            Application.Current.Shutdown();
         }
 
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)

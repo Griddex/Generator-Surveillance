@@ -19,22 +19,29 @@ namespace Panel.ViewModels.InputViewModels
 {
     public class MaintenanceViewModel : ViewModelBase, IViewModel
     {
-
-        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = new ObservableCollection<GeneratorNameModel>();
-        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } = new ObservableCollection<GeneratorNameModel>();
-        public ObservableCollection<string> ReminderLevels { get; set; } = new ObservableCollection<string>();
-        public ObservableCollection<GeneratorScheduler> AllGeneratorSchedules { get; set; } = new ObservableCollection<GeneratorScheduler>();
-        public ObservableCollection<GeneratorScheduler> ActiveGeneratorSchedules { get; set; } = new ObservableCollection<GeneratorScheduler>();
+        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = 
+            new ObservableCollection<GeneratorNameModel>();
+        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } = 
+            new ObservableCollection<GeneratorNameModel>();
+        public ObservableCollection<string> ReminderLevels { get; set; } = 
+            new ObservableCollection<string>();
+        public ObservableCollection<GeneratorScheduler> AllGeneratorSchedules { get; set; } = 
+            new ObservableCollection<GeneratorScheduler>();
+        public ObservableCollection<GeneratorScheduler> ActiveGeneratorSchedules { get; set; } = 
+            new ObservableCollection<GeneratorScheduler>();
         public List<string> UniqueAuthorizerNames { get; set; } = new List<string>();
 
         public MaintenanceViewModel(UnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
-            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
+            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation
+                                                     .GetUniqueGeneratorNames();
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
                 (UniqueGeneratorNamesUnsorted.OrderBy(x => x.GeneratorName));
-            AllGeneratorSchedules = unitOfWork.GeneratorScheduler.GetAllGeneratorSchedules();
-            ActiveGeneratorSchedules = unitOfWork.GeneratorScheduler.GetActiveGeneratorSchedules();
+            AllGeneratorSchedules = unitOfWork.GeneratorScheduler
+                                              .GetAllGeneratorSchedules();
+            ActiveGeneratorSchedules = unitOfWork.GeneratorScheduler
+                                                 .GetActiveGeneratorSchedules();
             UniqueAuthorizerNames.Add("Monday");
             UniqueAuthorizerNames.Add("Richard");
             ReminderLevels.Add("Normal");
@@ -58,7 +65,8 @@ namespace Panel.ViewModels.InputViewModels
             {
                 _unschMaintenanceComments = value;
                 OnPropertyChanged(nameof(UnschMaintenanceComments));
-                ValidateMaintenanceCommentsRule.ValidateMaintenanceCommentsAsync(UnschMaintenanceComments)
+                ValidateMaintenanceCommentsRule
+                    .ValidateMaintenanceCommentsAsync(UnschMaintenanceComments)
                     .ContinueWith(t =>
                     {
                         lock (_errors)
@@ -79,7 +87,8 @@ namespace Panel.ViewModels.InputViewModels
             {
                 _unschMaintenanceTotalCost = value;
                 OnPropertyChanged(nameof(UnschMaintenanceTotalCost));
-                ValidateMaintenanceTotalCostRule.ValidateMaintenanceTotalCostAsync(UnschMaintenanceTotalCost)
+                ValidateMaintenanceTotalCostRule
+                    .ValidateMaintenanceTotalCostAsync(UnschMaintenanceTotalCost)
                     .ContinueWith(t =>
                     {
                         lock (_errors)
@@ -100,7 +109,8 @@ namespace Panel.ViewModels.InputViewModels
             {
                 _schMaintenanceComments = value;
                 OnPropertyChanged(nameof(SchMaintenanceComments));
-                ValidateMaintenanceCommentsRule.ValidateMaintenanceCommentsAsync(SchMaintenanceComments)
+                ValidateMaintenanceCommentsRule
+                    .ValidateMaintenanceCommentsAsync(SchMaintenanceComments)
                     .ContinueWith(t =>
                     {
                         lock (_errors)
@@ -121,7 +131,8 @@ namespace Panel.ViewModels.InputViewModels
             {
                 _schMaintenanceTotalCost = value;
                 OnPropertyChanged(nameof(SchMaintenanceTotalCost));
-                ValidateMaintenanceTotalCostRule.ValidateMaintenanceTotalCostAsync(SchMaintenanceTotalCost)
+                ValidateMaintenanceTotalCostRule
+                    .ValidateMaintenanceTotalCostAsync(SchMaintenanceTotalCost)
                     .ContinueWith(t =>
                     {
                         lock (_errors)

@@ -45,7 +45,8 @@ namespace Panel.Views.InputViews
         private void ClearGeneratorGrouping_Click(object sender, RoutedEventArgs e)
         {
             ICollectionView cvsGeneratorConsumption = CollectionViewSource
-                                                    .GetDefaultView(this.dtgdGenScheduledRemindersTable.ItemsSource);
+                                                    .GetDefaultView(this.dtgdGenScheduledRemindersTable
+                                                                        .ItemsSource);
             if (cvsGeneratorConsumption != null && cvsGeneratorConsumption.CanGroup == true)
             {
                 cvsGeneratorConsumption.GroupDescriptions.Clear();
@@ -56,7 +57,8 @@ namespace Panel.Views.InputViews
         {
             this.dtgdGenScheduledRemindersTable.Items.Refresh();
             ICollectionView cvsGeneratorConsumption = CollectionViewSource
-                                                    .GetDefaultView(this.dtgdGenScheduledRemindersTable.ItemsSource);
+                                                    .GetDefaultView(this.dtgdGenScheduledRemindersTable
+                                                                        .ItemsSource);
             cvsGeneratorConsumption.Refresh();
         }
 

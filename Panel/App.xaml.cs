@@ -154,7 +154,8 @@ namespace Panel
                                                        new ContainerControlledLifetimeManager(),
                                                        new InjectionConstructor
                                                        (
-                                                           typeof(SettingsViewModel)
+                                                           typeof(AuthoriserSettingsViewModel),
+                                                           typeof(ConsumptionSettingsViewModel)
                                                        ));
 
             IUnitOfWork unitOfWork = container.Resolve<IUnitOfWork>("UnitOfWork");

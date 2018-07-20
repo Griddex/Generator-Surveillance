@@ -13,9 +13,11 @@ using System.Windows.Controls;
 
 namespace Panel.Repositories
 {
-    public class GeneratorInformationRepository : Repository<GeneratorUsage>, IGeneratorInformationRepository
+    public class GeneratorInformationRepository : Repository<GeneratorUsage>, 
+        IGeneratorInformationRepository
     {
-        public GeneratorInformationRepository(GeneratorSurveillanceDBEntities context) : base(context)
+        public GeneratorInformationRepository(GeneratorSurveillanceDBEntities context) 
+            : base(context)
         {
             
         }

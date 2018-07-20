@@ -9,12 +9,11 @@
 
 namespace Panel
 {
-    using Panel.Interfaces;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GeneratorSurveillanceDBEntities : DbContext, IGeneratorSurveillanceDBEntities
+    public partial class GeneratorSurveillanceDBEntities : DbContext
     {
         public GeneratorSurveillanceDBEntities()
             : base("name=GeneratorSurveillanceDBEntities")
@@ -31,5 +30,7 @@ namespace Panel
         public virtual DbSet<GeneratorRunningHr> GeneratorRunningHrs { get; set; }
         public virtual DbSet<GeneratorScheduler> GeneratorSchedulers { get; set; }
         public virtual DbSet<GeneratorUsage> GeneratorUsages { get; set; }
+        public virtual DbSet<AuthoriserSetting> AuthoriserSettings { get; set; }
+        public virtual DbSet<ConsumptionSetting> ConsumptionSettings { get; set; }
     }
 }

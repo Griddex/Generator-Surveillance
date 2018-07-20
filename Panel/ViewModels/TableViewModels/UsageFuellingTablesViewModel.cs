@@ -54,8 +54,10 @@ namespace Panel.ViewModels.TableViewModels
             {
                 int pageIndexUsage = Convert.ToInt32(PageIndexUsage);
                 int pageSizeUsage = Convert.ToInt32(PageSizeUsage.Content);
-                int Toprecord = ((pageIndexUsage * pageSizeUsage) - 1 < AllUsageRecords.Count)? (pageIndexUsage * pageSizeUsage) - 1 : AllUsageRecords.Count;
-                _currentPageOutOfTotalUsage = $"{(pageIndexUsage - 1) * pageSizeUsage} - {Toprecord} out of {AllUsageRecords.Count}";
+                int Toprecord = ((pageIndexUsage * pageSizeUsage) - 1 < AllUsageRecords.Count)? 
+                    (pageIndexUsage * pageSizeUsage) - 1 : AllUsageRecords.Count;
+                _currentPageOutOfTotalUsage = $"{(pageIndexUsage - 1) * pageSizeUsage} - " +
+                    $"{Toprecord} out of {AllUsageRecords.Count}";
                 return _currentPageOutOfTotalUsage;
             }
             set { _currentPageOutOfTotalUsage = value; }
@@ -92,10 +94,13 @@ namespace Panel.ViewModels.TableViewModels
                             OnPropertyChanged(nameof(PageIndexUsage));
 
                             pageSizeUsage = Convert.ToInt32(Convert.ToString(PageSizeUsage.Content));
-                            CurrentPageOutOfTotalUsage = $"{(pageIndexUsage - 1) * pageSizeUsage} - {(pageIndexUsage * pageSizeUsage) - 1} out of {AllUsageRecords.Count}";
+                            CurrentPageOutOfTotalUsage = $"{(pageIndexUsage - 1) * pageSizeUsage} - " +
+                            $"{(pageIndexUsage * pageSizeUsage) - 1} out of {AllUsageRecords.Count}";
                             OnPropertyChanged(nameof(CurrentPageOutOfTotalUsage));
 
-                            AnyPageUsageRecords = UnitOfWork.GeneratorUsage.GetAnyPageGeneratorUsages(pageIndexUsage, pageSizeUsage);
+                            AnyPageUsageRecords = UnitOfWork.GeneratorUsage
+                                                            .GetAnyPageGeneratorUsages(pageIndexUsage, 
+                                                            pageSizeUsage);
                         },
                         y => !HasErrors
                     )
@@ -125,10 +130,13 @@ namespace Panel.ViewModels.TableViewModels
                             OnPropertyChanged(nameof(PageIndexUsage));
 
                             pageSizeUsage = Convert.ToInt32(Convert.ToString(PageSizeUsage.Content));
-                            CurrentPageOutOfTotalUsage = $"{(pageIndexUsage - 1) * pageSizeUsage} - {(pageIndexUsage * pageSizeUsage) - 1} out of {AllUsageRecords.Count}";
+                            CurrentPageOutOfTotalUsage = $"{(pageIndexUsage - 1) * pageSizeUsage} - " +
+                            $"{(pageIndexUsage * pageSizeUsage) - 1} out of {AllUsageRecords.Count}";
                             OnPropertyChanged(nameof(CurrentPageOutOfTotalUsage));
 
-                            AnyPageUsageRecords = UnitOfWork.GeneratorUsage.GetAnyPageGeneratorUsages(pageIndexUsage, pageSizeUsage);
+                            AnyPageUsageRecords = UnitOfWork.GeneratorUsage
+                                                            .GetAnyPageGeneratorUsages(pageIndexUsage, 
+                                                            pageSizeUsage);
                         },
                         y => !HasErrors
                     )
@@ -159,8 +167,10 @@ namespace Panel.ViewModels.TableViewModels
             {
                 int pageIndexFuelling = Convert.ToInt32(PageIndexFuelling);
                 int pageSizeFuelling = Convert.ToInt32(PageSizeFuelling.Content);
-                int TopRecord = ((pageIndexFuelling * pageSizeFuelling) - 1 < AllFuellingRecords.Count) ? (pageIndexFuelling * pageSizeFuelling) - 1 : AllFuellingRecords.Count;
-                _currentPageOutOfTotalFuelling = $"{(pageIndexFuelling - 1) * pageSizeFuelling} - {TopRecord} out of {AllFuellingRecords.Count}";
+                int TopRecord = ((pageIndexFuelling * pageSizeFuelling) - 1 < AllFuellingRecords.Count) ? 
+                    (pageIndexFuelling * pageSizeFuelling) - 1 : AllFuellingRecords.Count;
+                _currentPageOutOfTotalFuelling = $"{(pageIndexFuelling - 1) * pageSizeFuelling} - " +
+                    $"{TopRecord} out of {AllFuellingRecords.Count}";
                 return _currentPageOutOfTotalFuelling;
             }
             set { _currentPageOutOfTotalFuelling = value; }
@@ -197,10 +207,13 @@ namespace Panel.ViewModels.TableViewModels
                             OnPropertyChanged(nameof(PageIndexFuelling));
 
                             pageSizeFuelling = Convert.ToInt32(Convert.ToString(PageSizeFuelling.Content));
-                            CurrentPageOutOfTotalFuelling = $"{(pageIndexFuelling - 1) * pageSizeFuelling} - {(pageIndexFuelling * pageSizeFuelling) - 1} out of {AllFuellingRecords.Count}";
+                            CurrentPageOutOfTotalFuelling = $"{(pageIndexFuelling - 1) * pageSizeFuelling} - " +
+                            $"{(pageIndexFuelling * pageSizeFuelling) - 1} out of {AllFuellingRecords.Count}";
                             OnPropertyChanged(nameof(CurrentPageOutOfTotalFuelling));
 
-                            AnyPageFuellingRecords = UnitOfWork.GeneratorFuelling.GetAnyPageGeneratorFuellings(pageIndexFuelling, pageSizeFuelling);
+                            AnyPageFuellingRecords = UnitOfWork.GeneratorFuelling
+                                                               .GetAnyPageGeneratorFuellings(pageIndexFuelling, 
+                                                               pageSizeFuelling);
                         },
                         y => !HasErrors
                     )
@@ -230,10 +243,13 @@ namespace Panel.ViewModels.TableViewModels
                             OnPropertyChanged(nameof(PageIndexFuelling));
 
                             pageSizeFuelling = Convert.ToInt32(Convert.ToString(PageSizeFuelling.Content));
-                            CurrentPageOutOfTotalFuelling = $"{(pageIndexFuelling - 1) * pageSizeFuelling} - {(pageIndexFuelling * pageSizeFuelling) - 1} out of {AllFuellingRecords.Count}";
+                            CurrentPageOutOfTotalFuelling = $"{(pageIndexFuelling - 1) * pageSizeFuelling} - " +
+                            $"{(pageIndexFuelling * pageSizeFuelling) - 1} out of {AllFuellingRecords.Count}";
                             OnPropertyChanged(nameof(CurrentPageOutOfTotalFuelling));
 
-                            AnyPageFuellingRecords = UnitOfWork.GeneratorFuelling.GetAnyPageGeneratorFuellings(pageIndexFuelling, pageSizeFuelling);
+                            AnyPageFuellingRecords = UnitOfWork.GeneratorFuelling
+                                                               .GetAnyPageGeneratorFuellings(pageIndexFuelling, 
+                                                               pageSizeFuelling);
                         },
                         y => !HasErrors
                     )
@@ -264,8 +280,10 @@ namespace Panel.ViewModels.TableViewModels
             {
                 int pageIndexMaintenance = Convert.ToInt32(PageIndexMaintenance);
                 int pageSizeMaintenance = Convert.ToInt32(PageSizeMaintenance.Content);
-                int Toprecord = ((pageIndexMaintenance * pageSizeMaintenance) - 1 < AllMaintenanceRecords.Count) ? (pageIndexMaintenance * pageSizeMaintenance) - 1 : AllMaintenanceRecords.Count;
-                _currentPageOutOfTotalMaintenance = $"{(pageIndexMaintenance - 1) * pageSizeMaintenance} - {Toprecord} out of {AllMaintenanceRecords.Count}";
+                int Toprecord = ((pageIndexMaintenance * pageSizeMaintenance) - 1 < AllMaintenanceRecords.Count) ? 
+                    (pageIndexMaintenance * pageSizeMaintenance) - 1 : AllMaintenanceRecords.Count;
+                _currentPageOutOfTotalMaintenance = $"{(pageIndexMaintenance - 1) * pageSizeMaintenance} - " +
+                    $"{Toprecord} out of {AllMaintenanceRecords.Count}";
                 return _currentPageOutOfTotalMaintenance;
             }
             set { _currentPageOutOfTotalMaintenance = value; }
@@ -302,10 +320,13 @@ namespace Panel.ViewModels.TableViewModels
                             OnPropertyChanged(nameof(PageIndexMaintenance));
 
                             pageSizeMaintenance = Convert.ToInt32(Convert.ToString(PageSizeMaintenance.Content));
-                            CurrentPageOutOfTotalMaintenance = $"{(pageIndexMaintenance - 1) * pageSizeMaintenance} - {(pageIndexMaintenance * pageSizeMaintenance) - 1} out of {AllMaintenanceRecords.Count}";
+                            CurrentPageOutOfTotalMaintenance = $"{(pageIndexMaintenance - 1) * pageSizeMaintenance} - " +
+                            $"{(pageIndexMaintenance * pageSizeMaintenance) - 1} out of {AllMaintenanceRecords.Count}";
                             OnPropertyChanged(nameof(CurrentPageOutOfTotalMaintenance));
 
-                            AnyPageMaintenanceRecords = UnitOfWork.GeneratorMaintenance.GetAnyPageGeneratorMaintenance(pageIndexMaintenance, pageSizeMaintenance);
+                            AnyPageMaintenanceRecords = UnitOfWork.GeneratorMaintenance
+                                                                  .GetAnyPageGeneratorMaintenance(pageIndexMaintenance, 
+                                                                  pageSizeMaintenance);
                         },
                         y => !HasErrors
                     )
@@ -335,10 +356,13 @@ namespace Panel.ViewModels.TableViewModels
                             OnPropertyChanged(nameof(PageIndexMaintenance));
 
                             pageSizeMaintenance = Convert.ToInt32(Convert.ToString(PageSizeMaintenance.Content));
-                            CurrentPageOutOfTotalMaintenance = $"{(pageIndexMaintenance - 1) * pageSizeMaintenance} - {(pageIndexMaintenance * pageSizeMaintenance) - 1} out of {AllMaintenanceRecords.Count}";
+                            CurrentPageOutOfTotalMaintenance = $"{(pageIndexMaintenance - 1) * pageSizeMaintenance} - " +
+                            $"{(pageIndexMaintenance * pageSizeMaintenance) - 1} out of {AllMaintenanceRecords.Count}";
                             OnPropertyChanged(nameof(CurrentPageOutOfTotalMaintenance));
 
-                            AnyPageMaintenanceRecords = UnitOfWork.GeneratorMaintenance.GetAnyPageGeneratorMaintenance(pageIndexMaintenance, pageSizeMaintenance);
+                            AnyPageMaintenanceRecords = UnitOfWork.GeneratorMaintenance
+                                                                  .GetAnyPageGeneratorMaintenance(pageIndexMaintenance,
+                                                                  pageSizeMaintenance);
                         },
                         y => !HasErrors
                     )

@@ -5,6 +5,29 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="GeneratorSurveillanceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AuthoriserSettings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="JobTitle" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConsumptionSettings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="GeneratorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CurrentConsumption" Type="float" Nullable="false" />
+          <Property Name="TestConsumption" Type="float" Nullable="false" />
+          <Property Name="StandardConsumption" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="GeneratorFuelling">
           <Key>
             <PropertyRef Name="Id" />
@@ -61,6 +84,8 @@
           <Property Name="IsArchived" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityContainer Name="GeneratorSurveillanceDBModelStoreContainer">
+          <EntitySet Name="AuthoriserSettings" EntityType="Self.AuthoriserSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConsumptionSettings" EntityType="Self.ConsumptionSettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneratorFuelling" EntityType="Self.GeneratorFuelling" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneratorMaintenance" EntityType="Self.GeneratorMaintenance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneratorRunningHrs" EntityType="Self.GeneratorRunningHrs" Schema="dbo" store:Type="Tables" />
@@ -132,7 +157,32 @@
           <EntitySet Name="GeneratorRunningHrs" EntityType="Self.GeneratorRunningHr" />
           <EntitySet Name="GeneratorSchedulers" EntityType="Self.GeneratorScheduler" />
           <EntitySet Name="GeneratorUsages" EntityType="Self.GeneratorUsage" />
+          <EntitySet Name="AuthoriserSettings" EntityType="GeneratorSurveillanceDBModel.AuthoriserSetting" />
+          <EntitySet Name="ConsumptionSettings" EntityType="GeneratorSurveillanceDBModel.ConsumptionSetting" />
         </EntityContainer>
+        <EntityType Name="AuthoriserSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ConsumptionSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="GeneratorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentConsumption" Type="Double" Nullable="false" />
+          <Property Name="TestConsumption" Type="Double" Nullable="false" />
+          <Property Name="StandardConsumption" Type="Double" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -196,6 +246,31 @@
                 <ScalarProperty Name="GeneratorStarted" ColumnName="GeneratorStarted" />
                 <ScalarProperty Name="GeneratorStopped" ColumnName="GeneratorStopped" />
                 <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuthoriserSettings">
+            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.AuthoriserSetting">
+              <MappingFragment StoreEntitySet="AuthoriserSettings">
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConsumptionSettings">
+            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.ConsumptionSetting">
+              <MappingFragment StoreEntitySet="ConsumptionSettings">
+                <ScalarProperty Name="StandardConsumption" ColumnName="StandardConsumption" />
+                <ScalarProperty Name="TestConsumption" ColumnName="TestConsumption" />
+                <ScalarProperty Name="CurrentConsumption" ColumnName="CurrentConsumption" />
+                <ScalarProperty Name="GeneratorName" ColumnName="GeneratorName" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

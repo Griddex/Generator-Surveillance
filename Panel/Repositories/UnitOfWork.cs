@@ -23,6 +23,8 @@ namespace Panel.Repositories
             GeneratorRunningHr = new GeneratorRunningHrsRepository(_context);
             GeneratorMaintenance = new GeneratorMaintenanceRepository(_context);
             GeneratorFuelling = new GeneratorFuellingRepository(_context);
+            ConsumptionSetting = new ConsumptionSettingRepository(_context);
+            AuthoriserSetting = new AuthorisersSettingRepository(_context);
         }
 
         public IGeneratorUsageRepository GeneratorUsage { get; private set; }
@@ -31,6 +33,8 @@ namespace Panel.Repositories
         public IGeneratorRunningHrsRepository GeneratorRunningHr { get; private set; }
         public IGeneratorMaintenanceRepository GeneratorMaintenance { get; private set; }
         public IGeneratorFuellingRepository GeneratorFuelling { get; private set; }
+        public IConsumptionSettingsRepository ConsumptionSetting { get; private set; }
+        public IAuthorisersSettingsRepository AuthoriserSetting { get; private set; }
 
         public int Complete()
         {

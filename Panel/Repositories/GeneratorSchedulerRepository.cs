@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 
 namespace Panel.Repositories
 {
-    public class GeneratorSchedulerRepository : Repository<GeneratorScheduler>, IGeneratorSchedulerRepository
+    public class GeneratorSchedulerRepository : Repository<GeneratorScheduler>, 
+        IGeneratorSchedulerRepository
     {
-        public GeneratorSchedulerRepository(GeneratorSurveillanceDBEntities context) : base(context)
+        public GeneratorSchedulerRepository(GeneratorSurveillanceDBEntities context) 
+            : base(context)
         {
 
         }
