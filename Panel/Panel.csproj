@@ -280,6 +280,7 @@
     <Compile Include="ViewModels\ReportViewModels\ReportViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel\AuthoriserSettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel\ConsumptionSettingsViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\RemindersConfigViewModel.cs" />
     <Compile Include="ViewModels\TableViewModels\RunningHrsSchedulingTablesViewModel.cs" />
     <Compile Include="ViewModels\TableViewModels\UsageFuellingTablesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -485,6 +486,7 @@
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
       <LastGenOutput>GeneratorSurveillanceDBEntities.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Charts4.png" />
     <Resource Include="Images\Home2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -19,9 +19,10 @@ namespace Panel
         public System.DateTime Starts { get; set; }
         public double Every { get; set; }
         public string ReminderLevel { get; set; }
-        public string Authorizer { get; set; }
+        public string Authoriser { get; set; }
         public double ReminderHoursProfile { get; set; }
         public System.DateTime ReminderDateTimeProfile { get; set; }
         public string IsActive { get; set; }
+        public string IsRepetitive { get; set; }
     }
 }

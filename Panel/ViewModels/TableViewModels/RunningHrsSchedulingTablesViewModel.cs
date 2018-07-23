@@ -21,10 +21,15 @@ namespace Panel.ViewModels.TableViewModels
                                             .GetAnyPageGeneratorRunningHrs();
 
             AnyPageSchRemRecords = UnitOfWork.GeneratorScheduler
-                                            .GetAnyPageGeneratorScheduledRmdrs();
+                                             .GetAnyPageGeneratorScheduledRmdrs();
+
+            AllRnHrsRecords = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
+
+            AllSchRemRecords = UnitOfWork.GeneratorScheduler.GetAllGeneratorSchedules();
         }
 
         public UnitOfWork UnitOfWork { get; set; }
+
         public string PageIndexRnHrs { get; set; } = "1";
         public ComboBoxItem PageSizeRnHrs { get; set; }
 

@@ -84,12 +84,13 @@
                                                                 Mode=TwoWay}"/>
                                         <Label Content="Show rows:" Background="#EEF5FD" FontSize="8"
                                                HorizontalContentAlignment="Right" Height=" 20"/>
-                                        <ComboBox x:Name="cmbxNoOfRowsRnHrs" Width="45" FontSize="10" 
-                                                  SelectedIndex="1" Height="20" 
+                                        <ComboBox x:Name="cmbxNoOfRowsRnHrs" Width="45"  
+                                                  Height="20" FontSize="10"
                                                   SelectedValue="{Binding PageSizeRnHrs, 
                                                                           Mode=TwoWay}"
                                                   SelectedItem="{Binding SelectedPageSizeRnHrs, 
-                                                                         Mode=TwoWay}">
+                                                                         Mode=TwoWay}"
+                                                  SelectedIndex="1">
                                             <ComboBoxItem FontSize="10">5</ComboBoxItem>
                                             <ComboBoxItem FontSize="10">10</ComboBoxItem>
                                             <ComboBoxItem FontSize="10">25</ComboBoxItem>
@@ -105,7 +106,8 @@
                                             <Button.CommandParameter>
                                                 <MultiBinding Converter="{StaticResource PassTextBoxComboBoxItem}">
                                                     <Binding ElementName="txtbxPageIndexRnHrs"/>
-                                                    <Binding ElementName="cmbxNoOfRowsRnHrs" Path="SelectedValue"/>
+                                                    <Binding ElementName="cmbxNoOfRowsRnHrs" 
+                                                             Path="SelectedValue"/>
                                                 </MultiBinding>
                                             </Button.CommandParameter>
                                             <Button.Content>
@@ -157,7 +159,6 @@
                                                         <ControlTemplate TargetType="{x:Type GroupItem}">
                                                             <Expander IsExpanded="True" Background="#EAF9FB" 
                                                                       BorderBrush="LightGray" Foreground="Black"
-                                                                      FontSize="12"
                                                                       BorderThickness="1,1,1,1">
                                                                 <Expander.Header>
                                                                     <StackPanel Orientation="Horizontal">
@@ -193,13 +194,17 @@
                                                         Width="Auto"/>
                                     <DataGridTextColumn Header="Generator" 
                                                         Binding="{Binding Generator}" 
-                                                        FontSize="12" Width="Auto"/>
+                                                        FontSize="12" Width="200"/>
                                     <DataGridTextColumn Header="Date" 
                                                         Binding="{Binding Date}" 
                                                         FontSize="12"
-                                                        Width="Auto"/>
+                                                        Width="150"/>
                                     <DataGridTextColumn Header="Hours" 
-                                                        Binding="{Binding Hours}"
+                                                        Binding="{Binding RunningHours}"
+                                                        FontSize="12" 
+                                                        Width="Auto"/>
+                                    <DataGridTextColumn Header="Cumulative Volume"
+                                                        Binding="{Binding CumFuelVolumeSinceLastReading}"
                                                         FontSize="12" 
                                                         Width="*"/>
                                 </DataGrid.Columns>
@@ -321,7 +326,6 @@
                                                         <ControlTemplate TargetType="{x:Type GroupItem}">
                                                             <Expander IsExpanded="True" Background="#EAF9FB" 
                                                                       BorderBrush="LightGray" Foreground="Black"
-                                                                      FontSize="12"
                                                                       BorderThickness="1,1,1,1">
                                                                 <Expander.Header>
                                                                     <StackPanel Orientation="Horizontal">
@@ -359,16 +363,32 @@
                                                         Binding="{Binding GeneratorName}" 
                                                         FontSize="12" 
                                                         Width="Auto"/>
-                                    <DataGridTextColumn Header="Reminder Duration" 
-                                                        Binding="{Binding EveryHrs}" 
+                                    <DataGridTextColumn Header="Reminder Starts" 
+                                                        Binding="{Binding Starts}" 
                                                         FontSize="12" 
                                                         Width="Auto"/>
-                                    <DataGridTextColumn Header="Reminder Threshold" 
-                                                        Binding="{Binding HrsThreshold}"
+                                    <DataGridTextColumn Header="Every (hours)" 
+                                                        Binding="{Binding Every}" 
+                                                        FontSize="12" 
+                                                        Width="Auto"/>                                    
+                                    <DataGridTextColumn Header="Authoriser" 
+                                                        Binding="{Binding Authoriser}"
                                                         FontSize="12" 
                                                         Width="Auto"/>
-                                    <DataGridTextColumn Header="Authorizer" 
-                                                        Binding="{Binding Authorizer}"
+                                    <DataGridTextColumn Header="Reminder Level" 
+                                                        Binding="{Binding ReminderLevel}"
+                                                        FontSize="12" 
+                                                        Width="Auto"/>
+                                    <DataGridTextColumn Header="Hours Profile" 
+                                                        Binding="{Binding ReminderHoursProfile }"
+                                                        FontSize="12" 
+                                                        Width="Auto"/>
+                                    <DataGridTextColumn Header="Date Profile" 
+                                                        Binding="{Binding ReminderDateTimeProfile }"
+                                                        FontSize="12" 
+                                                        Width="Auto"/>
+                                    <DataGridTextColumn Header="Is Active" 
+                                                        Binding="{Binding IsActive }"
                                                         FontSize="12" 
                                                         Width="*"/>
                                 </DataGrid.Columns>

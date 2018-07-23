@@ -49,5 +49,15 @@ namespace Panel.Repositories
                     .AsParallel()
                 );
         }
+
+        public List<string> GetAuthorisersFullNames()
+        {
+            var FullNameList = new List<string>();
+            foreach (var authoriser in GeneratorSurveillanceDBContext.AuthoriserSettings)
+            {
+                FullNameList.Add($"{authoriser.FirstName} {authoriser.LastName}");
+            }
+            return FullNameList;
+        }
     }
 }

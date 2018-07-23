@@ -60,9 +60,13 @@
         <CommandBinding Command="{x:Static cmds:NavigationCommands.RunningHrsSchedulerToUsageMaintView}"
                         Executed="RunningHrsSchedulerToUsageMaintView_Executed"
                         CanExecute="CommandBinding_CanExecute"/>
+        
         <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowSettingsView}"
                         Executed="SettingsView_Executed"
                         CanExecute="SettingsView_CanExecute"/>
+        <CommandBinding Command="{x:Static cmds:MainMenuCommands.Exit}"
+                        Executed="Exit_Executed"
+                        CanExecute="Exit_CanExecute"/>
     </Window.CommandBindings>
 
     <Grid>

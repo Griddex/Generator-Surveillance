@@ -67,10 +67,11 @@
           <Property Name="Starts" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Every" Type="float" Nullable="false" />
           <Property Name="ReminderLevel" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Authorizer" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Authoriser" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ReminderHoursProfile" Type="float" Nullable="false" />
           <Property Name="ReminderDateTimeProfile" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="IsActive" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="IsRepetitive" Type="varchar" MaxLength="4" Nullable="false" />
         </EntityType>
         <EntityType Name="GeneratorUsage">
           <Key>
@@ -135,10 +136,11 @@
           <Property Name="Starts" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Every" Type="Double" Nullable="false" />
           <Property Name="ReminderLevel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Authorizer" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Authoriser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ReminderHoursProfile" Type="Double" Nullable="false" />
           <Property Name="ReminderDateTimeProfile" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="IsActive" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="IsRepetitive" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="GeneratorUsage">
           <Key>
@@ -225,13 +227,14 @@
           <EntitySetMapping Name="GeneratorSchedulers">
             <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorScheduler">
               <MappingFragment StoreEntitySet="GeneratorScheduler">
+                <ScalarProperty Name="IsRepetitive" ColumnName="IsRepetitive" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="GeneratorName" ColumnName="GeneratorName" />
                 <ScalarProperty Name="Starts" ColumnName="Starts" />
                 <ScalarProperty Name="Every" ColumnName="Every" />
                 <ScalarProperty Name="ReminderLevel" ColumnName="ReminderLevel" />
-                <ScalarProperty Name="Authorizer" ColumnName="Authorizer" />
+                <ScalarProperty Name="Authoriser" ColumnName="Authoriser" />
                 <ScalarProperty Name="ReminderHoursProfile" ColumnName="ReminderHoursProfile" />
                 <ScalarProperty Name="ReminderDateTimeProfile" ColumnName="ReminderDateTimeProfile" />
               </MappingFragment>

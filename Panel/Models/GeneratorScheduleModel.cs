@@ -57,19 +57,19 @@ namespace Panel.Models
             }
         }
 
-        private string _authorizer;
+        private string _Authoriser;
 
         [Required]
         [StringLength(50)]
         [CustomValidation(typeof(GeneratorScheduleModel), "ContainsNoSpecialCharactersValidation")]
-        public string Authorizer
+        public string Authoriser
         {
-            get { return _authorizer; }
+            get { return _Authoriser; }
             set
             {
-                _authorizer = value;
-                OnPropertyChanged(nameof(Authorizer));
-                OnErrorChanged(nameof(Authorizer));
+                _Authoriser = value;
+                OnPropertyChanged(nameof(Authoriser));
+                OnErrorChanged(nameof(Authoriser));
             }
         }
     }

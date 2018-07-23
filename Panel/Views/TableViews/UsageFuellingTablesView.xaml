@@ -78,25 +78,34 @@
                                     <TextBox x:Name="txtbxPageIndexUsage" Width="30" HorizontalContentAlignment="Center"
                                             VerticalContentAlignment="Center" FontSize="10" Height="20"
                                              Text="{Binding PageIndexUsage, Mode=TwoWay}"/>
-                                    <Label Content="Show rows:" Background="#EEF5FD" FontSize="8"
-                                           HorizontalContentAlignment="Right" Height=" 20"/>
-                                    <ComboBox x:Name="cmbxNoOfRowsUsage" Width="45" FontSize="10" SelectedIndex="1" 
-                                              Height="20" SelectedValue="{Binding PageSizeUsage, Mode=TwoWay}"
-                                              SelectedItem="{Binding SelectedPageSizeUsage, Mode=TwoWay}">
+                                    <Label Content="Show rows:" Background="#EEF5FD" 
+                                           FontSize="8"
+                                           HorizontalContentAlignment="Right" Height="20"/>
+                                    <ComboBox x:Name="cmbxNoOfRowsUsage" Width="45" 
+                                              FontSize="10" SelectedIndex="1" 
+                                              Height="20" 
+                                              SelectedValue="{Binding PageSizeUsage, 
+                                                                      Mode=TwoWay}"
+                                              SelectedItem="{Binding SelectedPageSizeUsage, 
+                                                                     Mode=TwoWay}" 
+                                              VerticalAlignment="Top">
                                         <ComboBoxItem FontSize="10">5</ComboBoxItem>
                                         <ComboBoxItem FontSize="10">10</ComboBoxItem>
                                         <ComboBoxItem FontSize="10">25</ComboBoxItem>
                                         <ComboBoxItem FontSize="10">50</ComboBoxItem>
                                         <ComboBoxItem FontSize="10">100</ComboBoxItem>
                                     </ComboBox>
-                                    <TextBox x:Name="txtbxCurrPageOutTotalUsage" Width="120" HorizontalContentAlignment="Center"
-                                            VerticalContentAlignment="Center" FontSize="8" Height="20"
+                                    <TextBox x:Name="txtbxCurrPageOutTotalUsage" 
+                                             Width="120" HorizontalContentAlignment="Center"
+                                             VerticalContentAlignment="Center" FontSize="8" 
+                                             Height="20"
                                              Text="{Binding CurrentPageOutOfTotalUsage}"/>
                                     <Button Command="{Binding PreviousPageUsageCmd}" Height="20">
                                         <Button.CommandParameter>
                                             <MultiBinding Converter="{StaticResource PassTextBoxComboBoxItem}">
                                                 <Binding ElementName="txtbxPageIndexUsage"/>
-                                                <Binding ElementName="cmbxNoOfRowsUsage" Path="SelectedValue"/>
+                                                <Binding ElementName="cmbxNoOfRowsUsage" 
+                                                         Path="SelectedValue"/>
                                             </MultiBinding>
                                         </Button.CommandParameter>
                                         <Button.Content>

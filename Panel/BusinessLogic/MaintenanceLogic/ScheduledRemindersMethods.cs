@@ -15,14 +15,16 @@ namespace Panel.BusinessLogic.MaintenanceLogic
     {
         public static ObservableCollection<GeneratorScheduler> AllGeneratorSchedules { get; private set; }
         public static GeneratorScheduler NextGeneratorForNotification { get; private set; }        
-        public static UnityContainer container { get; private set; } = (UnityContainer)Application.Current.Resources["UnityIoC"];
+        public static UnityContainer container { get; private set; } = 
+            (UnityContainer)Application.Current.Resources["UnityIoC"];
         public static IUnitOfWork UnitOfWork = container.Resolve<IUnitOfWork>("UnitOfWork");
 
         public static void DeactivateGenerator(string GeneratorName)
         {
             var gse = container.Resolve<GeneratorSurveillanceDBEntities>();       
 
-            foreach (var item in gse.GeneratorSchedulers.Where(x => x.IsActive == "Yes"))
+            foreach (var item in gse.GeneratorSchedulers
+                                    .Where(x => x.IsActive == "Yes"))
             {
                 if (item.GeneratorName == GeneratorName)
                 {

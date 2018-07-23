@@ -155,9 +155,12 @@ namespace Panel.ViewModels.ChartViewModels
             {
                 DateTime GeneratorStartedModelTime;
                 DateTime _parsedStartTime;
-                string mergedStartTime = $"{SelectedStartHour.ToString("D2")}:{SelectedStartMinute.ToString("D2")}:{SelectedStartSecond.ToString("D2")} {SelectedStartAMPM}";
+                string mergedStartTime = $"{SelectedStartHour.ToString("D2")}:" +
+                    $"{SelectedStartMinute.ToString("D2")}:{SelectedStartSecond.ToString("D2")} " +
+                    $"{SelectedStartAMPM}";
                 
-                if (DateTime.TryParseExact(mergedStartTime, "hh:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out _parsedStartTime))
+                if (DateTime.TryParseExact(mergedStartTime, "hh:mm:ss tt", 
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out _parsedStartTime))
                 {
                     GeneratorStartedModelTime = DateTime.MinValue + _parsedStartTime.TimeOfDay;
                     return GeneratorStartedModelTime.ToString();                     
@@ -173,8 +176,11 @@ namespace Panel.ViewModels.ChartViewModels
             {
                 DateTime GeneratorStoppedModelTime;
                 DateTime _parsedStopTime;
-                string mergedStopTime = $"{SelectedStopHour.ToString("D2")}:{SelectedStopMinute.ToString("D2")}:{SelectedStopSecond.ToString("D2")} {SelectedStopAMPM}";
-                if (DateTime.TryParseExact(mergedStopTime, "hh:mm:ss tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out _parsedStopTime))
+                string mergedStopTime = $"{SelectedStopHour.ToString("D2")}:" +
+                    $"{SelectedStopMinute.ToString("D2")}:{SelectedStopSecond.ToString("D2")} " +
+                    $"{SelectedStopAMPM}";
+                if (DateTime.TryParseExact(mergedStopTime, "hh:mm:ss tt", 
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out _parsedStopTime))
                 {
                     GeneratorStoppedModelTime = DateTime.MinValue + _parsedStopTime.TimeOfDay;
                     return GeneratorStoppedModelTime.ToString();
@@ -207,10 +213,12 @@ namespace Panel.ViewModels.ChartViewModels
                                     return;
                                 }
 
-                                IEnumerable<TextBlock> xtxblkDurationPerspective = FindChildren.FindVisualChildren<TextBlock>(rdbtnDurationPerspective);
+                                IEnumerable<TextBlock> xtxblkDurationPerspective = FindChildren
+                                                        .FindVisualChildren<TextBlock>(rdbtnDurationPerspective);
                                 foreach (var control in xtxblkDurationPerspective)
                                 {
-                                    SelectedDurationPerspective = control.Name.Split(new string[] { "txtBlk" }, StringSplitOptions.RemoveEmptyEntries)[0];
+                                    SelectedDurationPerspective = control.Name.Split(new string[] { "txtBlk" }, 
+                                        StringSplitOptions.RemoveEmptyEntries)[0];
                                 }                                              
                             }
                         },
@@ -268,8 +276,10 @@ namespace Panel.ViewModels.ChartViewModels
                                 }
                             }
                             string sysDateFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
-                            DateTime StartDateTime = Convert.ToDateTime($"{SelectedStartDate.ToString(sysDateFormat)} {StartTime.TimeOfDay.ToString()}");
-                            DateTime StopDateTime = Convert.ToDateTime($"{SelectedStopDate.ToString(sysDateFormat)} {StopTime.TimeOfDay.ToString()}");
+                            DateTime StartDateTime = Convert.ToDateTime($"{SelectedStartDate.ToString(sysDateFormat)} " +
+                                $"{StartTime.TimeOfDay.ToString()}");
+                            DateTime StopDateTime = Convert.ToDateTime($"{SelectedStopDate.ToString(sysDateFormat)} " +
+                                $"{StopTime.TimeOfDay.ToString()}");
 
                             Tuple<TextBlock, ListBox, StackPanel> txtBlkLstBxStkPnlTuple = (Tuple<TextBlock, ListBox, StackPanel>)x;
                             string DateDurationPerspective = txtBlkLstBxStkPnlTuple.Item1.Text;

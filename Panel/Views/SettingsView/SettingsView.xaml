@@ -19,22 +19,30 @@
     <Grid>
         <Viewbox Stretch="Uniform" Width="1850">
             <StackPanel Orientation="Horizontal">
-                <Expander ExpandDirection="Right" Height="850"
-                          Header="Fuel Consumption Statistics">
+                <Expander ExpandDirection="Right" Height="850">
+                    <Expander.Header>
+                        <StackPanel>
+                            <Image Source="/Images/Charts4.png" Width="150" Height="150"/>
+                            <TextBox TextWrapping="Wrap" FontSize="20"
+                                     Text="Fuel Consumption Statistics"
+                                     FontWeight="Bold" Width="150"
+                                     HorizontalContentAlignment="Center"/>
+                        </StackPanel>
+                    </Expander.Header>
                     <GroupBox x:Name="grpbxFuelConsumption"
                               Header="Fuel Consumption Statistics"
                               Style="{StaticResource GroupBoxStyle}"
                               Width="800" Height="850">
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal" Height="150">
-                                <StackPanel Orientation="Vertical"  VerticalAlignment="Center"
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center"
                                             Margin="20,0,0,0">
                                     <Label Content="Date" VerticalAlignment="Bottom"
                                            Margin="0,0,0,0"/>
-                                    <DatePicker HorizontalAlignment="Right"  VerticalAlignment="Top"
+                                    <DatePicker HorizontalAlignment="Right" VerticalAlignment="Top"
                                                 Margin="0,0,0,0"
-                                                Style="{DynamicResource DatePickerStyle}" Width="300"
-                                                Height="55"
+                                                Style="{DynamicResource DatePickerStyle}" 
+                                                Width="300" Height="55"
                                                 SelectedDate="{Binding Path=ConsumptionDate, 
                                                                        Mode=TwoWay}"
                                                 DisplayDate="{x:Static sys:DateTime.Now}"/>
@@ -127,7 +135,7 @@
                                                 <MenuItem Header="Group by Generator" 
                                                           Click="GroupbyGeneratorConsumption_Click"/>
                                                 <MenuItem Header="Ungroup" 
-                                                          Click="ClearUsageGroupingConsumption_Click"/>
+                                                          Click="ClearGeneratorGroupingConsumption_Click"/>
                                             </ContextMenu>
                                         </DataGrid.ContextMenu>
                                         <DataGrid.GroupStyle>
@@ -203,9 +211,10 @@
                 </Expander>
 
                 <Expander ExpandDirection="Right" Height="850"
-                          Header="Generator Reminders">
+                          Header="Reminders Authorisers"
+                          Expanded="expdrAuthorisers_Expanded">
                     <GroupBox x:Name="grpbxAuthorisers"
-                              Header="Generator Reminders - Authorisers"  
+                              Header="Reminders Authorisers"  
                               Style="{StaticResource GroupBoxStyle}"
                               Width="800" Height="850">
                         <StackPanel Orientation="Vertical">
@@ -400,6 +409,242 @@
                                     </DataGrid>
                                 </ScrollViewer>
                             </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </Expander>
+
+                <Expander ExpandDirection="Right" Height="850"
+                          Header="Reminders Configuration">
+                    <GroupBox x:Name="grpbxRemConfig"
+                              Header="Reminders Configuration"  
+                              Style="{StaticResource GroupBoxStyle}"
+                              Width="800" Height="830">
+                        <StackPanel>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
+                                            Margin="0,20,0,0">
+                                    <StackPanel Orientation="Vertical" Margin="20,0,0,0">
+                                        <Label Content="Starts" Height="30" FontSize="14"
+                                               VerticalAlignment="Top"/>
+                                        <DatePicker x:Name="dtpkrStarts"  HorizontalAlignment="Left"  
+					                            VerticalAlignment="Bottom" 
+					                            Style="{DynamicResource DatePickerStyle}" 
+					                            Width="240" Height="55" Margin="0,0,0,0"
+					                            SelectedDate="{Binding SchMaintenanceStartDate, 
+										                                Mode=TwoWay}"
+					                            DisplayDate="{x:Static sys:DateTime.Now}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical" Margin="20,0,0,0">
+                                        <Label x:Name="lblGenSchMainGenerator" Content="Select Generator" 
+                                               VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                               FontSize="14" Height="30"/>
+                                        <ComboBox x:Name="cmbxSelectSchMain" Width="350" Height="55" 
+                                                  HorizontalAlignment="Left"
+                                                  ItemsSource="{Binding UniqueGeneratorNames}" 
+                                                  Foreground="Black" DisplayMemberPath="GeneratorName"
+                                                  SelectedValuePath="GeneratorName" FontSize="16"
+                                                  SelectedValue="{Binding Path=SchMaintenanceSelectedGen, 
+                                                                          Mode=OneWayToSource}"
+                                                  SelectedIndex="0" Style="{StaticResource alignmentFontSize}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical"  VerticalAlignment="Bottom"
+                                                HorizontalAlignment="Left" Margin="20,0,0,0">
+                                        <Label Content="Every (hrs)" Height="30" FontSize="14" 
+		                                       VerticalContentAlignment="Center"/>
+                                        <TextBox x:Name="txtBxEvery" Background="#F2F2F2" 
+                                                 Width="120" Height="55" 
+                                                 HorizontalAlignment="Left" 
+			                                     VerticalContentAlignment="Center"
+			                                     Text="{Binding Path=SchMaintenanceReminderHours, 
+							                                    Mode=TwoWay, 
+							                                    ValidatesOnNotifyDataErrors=True, 
+							                                    UpdateSourceTrigger=PropertyChanged,
+							                                    ValidatesOnExceptions=True}"
+			                             Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+			                             HorizontalContentAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Width="780"
+                                            HorizontalAlignment="Left" Margin="20,20,0,0">
+                                    <StackPanel Orientation="Vertical"  VerticalAlignment="Top" 
+			                                    HorizontalAlignment="Left" Width="200"
+			                                    >
+                                        <Label Content="Reminder" Height="30" FontSize="14" 
+		                                       VerticalContentAlignment="Center"
+		                                       HorizontalContentAlignment="Left" Margin="0,0,0,0"
+		                                       Width="{Binding Path=Width, 
+                                                               RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                                              AncestorLevel=1,
+                                                                                              AncestorType={x:Type StackPanel}}}"/>
+                                        <ComboBox x:Name="cmbxReminderLevel" Height="55" 
+			                                      HorizontalAlignment="Left"                                              
+			                                      Foreground="Black" FontSize="14" Margin="0,0,0,0" 
+                                                  Width="{Binding Path=Width, 
+                                                                  RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                                                 AncestorLevel=1,
+                                                                                                 AncestorType={x:Type StackPanel}}}"
+			                                      ItemsSource="{Binding ReminderLevels}"
+			                                      SelectedValue="{Binding SchMaintenanceSelectedReminderLevel, 
+									                                      Mode=TwoWay,
+									                                      Converter={StaticResource ComboBoxItemToString}}"
+			                                      SelectedIndex="0" 
+			                                      Style="{StaticResource alignmentFontSize}"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Vertical"  
+			                                    VerticalAlignment="Top" HorizontalAlignment="Left"
+			                                    Margin="25,0,0,0" Width="250">
+                                        <Label Content="Authoriser" Height="30" FontSize="14" 
+		                                       VerticalContentAlignment="Center"
+		                                       HorizontalContentAlignment="Left" Margin="0,0,0,0"
+		                                       Width="{Binding Path=Width, 
+                                                               RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                                              AncestorLevel=1,
+                                                                                              AncestorType={x:Type StackPanel}}}"/>
+                                        <ComboBox x:Name="cmbxAuthoriser" Height="55" 
+			                                      HorizontalAlignment="Right"
+			                                      ItemsSource="{Binding UniqueAuthoriserFullNames}"
+			                                      Foreground="Black" Margin="0,0,0,0" FontSize="14"
+                                                  Width="{Binding Path=Width, 
+                                                                  RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                                                 AncestorLevel=1,
+                                                                                                 AncestorType={x:Type StackPanel}}}"
+			                                      SelectedValue="{Binding SchMaintenanceSelectedAuthoriser, 
+									                                      Mode=TwoWay,
+									                                      Converter={StaticResource ComboBoxItemToString}}"
+			                                      SelectedIndex="0" 
+			                                      Style="{StaticResource alignmentFontSize}"/>
+                                    </StackPanel>
+
+                                    <CheckBox x:Name="chkbxIsRepetitive" VerticalAlignment="Center"
+                                              Width="80" Height="30" Content="Repeat"
+                                              Margin="20,30,0,0" FontSize="12"
+                                              VerticalContentAlignment="Center"
+                                              IsChecked="{Binding RepeatReminder}"/>
+
+                                    <Button x:Name="btnActivateReminder" Grid.Column="6" 
+		                                    Grid.ColumnSpan="3" Grid.Row="5"
+		                                    Grid.RowSpan="2" VerticalAlignment="Top"  
+		                                    Height="55" Width="150" Content="Add" 
+		                                    ToolTip="Add Scheduled Reminder" 
+		                                    Style="{StaticResource AffirmativeButtonStyle}" 
+		                                    HorizontalContentAlignment="Center" 
+		                                    VerticalContentAlignment="Center" 
+		                                    HorizontalAlignment="Left" Margin="25,25,0,0"
+		                                    Command="{Binding Path=AddReminderNotificationCmd}">
+                                        <Button.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource PassTextBoxTwoComboxItems}">
+                                                <Binding ElementName="txtBxEvery"/>
+                                                <Binding ElementName="cmbxReminderLevel" Path="SelectedItem"/>
+                                                <Binding ElementName="cmbxAuthoriser" Path="SelectedItem"/>
+                                            </MultiBinding>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>                    
+                            
+                            
+                            <Expander x:Name="expdrScheduledReminders"
+		                              Background="#F2F2F2" 
+		                              Header="Generator Scheduled Reminders" 
+		                              VerticalAlignment="Bottom" Width="750" 
+		                              FontSize="14" IsExpanded="True"
+                                      Margin="0,50,0,0">
+                                <Expander.Content>
+                                    <ScrollViewer Height="500"
+                                                  HorizontalScrollBarVisibility="Auto"
+                                                  VerticalScrollBarVisibility="Auto">
+                                        <DataGrid x:Name="dtgdGenRemindersConfigTable" 
+					                              Style="{StaticResource DataGridStyle}"
+					                              ItemsSource="{Binding ActiveGeneratorSchedules}" 
+					                              ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
+                                            <DataGrid.ContextMenu>
+                                                <ContextMenu x:Name="ctxMnuRemCongig">
+                                                    <MenuItem Header="Group by Generator" 
+								                              Click="GroupbyGeneratorRemConfig_Click"/>
+                                                    <MenuItem Header="Ungroup" 
+								                              Click="ClearGeneratorGroupingRemConfig_Click"/>
+                                                    <MenuItem Header="Deactivate Generator" 
+								                              Click="DeactivateGeneratorRemConfig_Click"/>
+                                                </ContextMenu>
+                                            </DataGrid.ContextMenu>
+                                            <DataGrid.GroupStyle>
+                                                <GroupStyle>
+                                                    <GroupStyle.HeaderTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel>
+                                                                <TextBlock Text="{Binding Path=Name}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </GroupStyle.HeaderTemplate>
+                                                    <GroupStyle.ContainerStyle>
+                                                        <Style TargetType="{x:Type GroupItem}">
+                                                            <Setter Property="Width" Value="Auto"/>
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                                        <Expander IsExpanded="True" Background="#EAF9FB" 
+													                              BorderBrush="LightGray" 
+													                              Foreground="Black"
+													                              FontSize="12" BorderThickness="1,1,1,1">
+                                                                            <Expander.Header>
+                                                                                <StackPanel Orientation="Horizontal">
+                                                                                    <TextBlock FontWeight="Bold"
+																                               Text="{Binding Name, 
+																				                              Converter={StaticResource CategoryToPhrase}}"/>
+                                                                                    <TextBlock FontWeight="Bold"
+																                               Text="{Binding ItemCount, 
+																				                              Converter={StaticResource ItemCountToPhrase}}"/>
+                                                                                </StackPanel>
+                                                                            </Expander.Header>
+                                                                            <Expander.Content>
+                                                                                <ItemsPresenter/>
+                                                                            </Expander.Content>
+                                                                        </Expander>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Style>
+                                                    </GroupStyle.ContainerStyle>
+                                                </GroupStyle>
+                                            </DataGrid.GroupStyle>
+                                            <DataGrid.RowStyle>
+                                                <Style TargetType="DataGridRow">
+                                                    <Setter Property="Foreground" Value="Black"/>
+                                                    <Setter Property="Background" Value="White"/>
+                                                </Style>
+                                            </DataGrid.RowStyle>
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Generator Name" 
+										                            Binding="{Binding GeneratorName}" 
+										                            FontSize="12" 
+										                            Width="150"/>
+                                                <DataGridTextColumn Header="Start Date" 
+										                            Binding="{Binding Starts}" 
+										                            FontSize="12" 
+										                            Width="220"/>
+                                                <DataGridTextColumn Header="Every (hours)" 
+										                            Binding="{Binding Every}" 
+										                            FontSize="12" 
+										                            Width="100"/>
+                                                <DataGridTextColumn Header="Authoriser" 
+										                            Binding="{Binding Authoriser}" 
+										                            FontSize="12" 
+										                            Width="Auto"/>
+                                                <DataGridTextColumn Header="IsActive" 
+										                            Binding="{Binding IsActive}" 
+										                            FontSize="12" 
+										                            Width="Auto"/>
+                                                <DataGridTextColumn Header="IsRepetitive" 
+										                            Binding="{Binding IsRepetitive}" 
+										                            FontSize="12" 
+										                            Width="*"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </ScrollViewer>
+                                </Expander.Content>
+                            </Expander>
                         </StackPanel>
                     </GroupBox>
                 </Expander>

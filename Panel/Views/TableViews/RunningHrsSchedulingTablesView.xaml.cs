@@ -23,25 +23,31 @@ namespace Panel.Views.TableViews
     /// </summary>
     public partial class RunningHrsSchedulingTablesView : Page, IView
     {
-        public RunningHrsSchedulingTablesView(RunningHrsSchedulingTablesViewModel runningHrsSchedulingTablesViewModel)
+        public RunningHrsSchedulingTablesView(RunningHrsSchedulingTablesViewModel 
+            runningHrsSchedulingTablesViewModel)
         {
-            InitializeComponent();
             this.DataContext = runningHrsSchedulingTablesViewModel;
+            InitializeComponent();
         }
 
         private void GroupbyGeneratorRunningHours_Click(object sender, RoutedEventArgs e)
         {
-            ICollectionView cvsGeneratorRunningHours = CollectionViewSource.GetDefaultView(this.dtgdGenRunnungHrsTable.ItemsSource);
+            ICollectionView cvsGeneratorRunningHours = CollectionViewSource
+                                                       .GetDefaultView(this.dtgdGenRunnungHrsTable
+                                                                           .ItemsSource);
             if (cvsGeneratorRunningHours != null && cvsGeneratorRunningHours.CanGroup == true)
             {
                 cvsGeneratorRunningHours.GroupDescriptions.Clear();
-                cvsGeneratorRunningHours.GroupDescriptions.Add(new PropertyGroupDescription("Generator"));
+                cvsGeneratorRunningHours.GroupDescriptions
+                    .Add(new PropertyGroupDescription("Generator"));
             }
         }
 
         private void ClearRunningHoursGrouping_Click(object sender, RoutedEventArgs e)
         {
-            ICollectionView cvsGeneratorRunningHours = CollectionViewSource.GetDefaultView(this.dtgdGenRunnungHrsTable.ItemsSource);
+            ICollectionView cvsGeneratorRunningHours = CollectionViewSource
+                                                       .GetDefaultView(this.dtgdGenRunnungHrsTable
+                                                       .ItemsSource);
             if (cvsGeneratorRunningHours != null && cvsGeneratorRunningHours.CanGroup == true)
             {
                 cvsGeneratorRunningHours.GroupDescriptions.Clear();
@@ -50,17 +56,22 @@ namespace Panel.Views.TableViews
 
         private void GroupbyGeneratorScheduler_Click(object sender, RoutedEventArgs e)
         {
-            ICollectionView cvsGeneratorRunningHours = CollectionViewSource.GetDefaultView(this.dtgdGenSchdRemdrTable.ItemsSource);
+            ICollectionView cvsGeneratorRunningHours = CollectionViewSource
+                                                       .GetDefaultView(this.dtgdGenSchdRemdrTable
+                                                       .ItemsSource);
             if (cvsGeneratorRunningHours != null && cvsGeneratorRunningHours.CanGroup == true)
             {
                 cvsGeneratorRunningHours.GroupDescriptions.Clear();
-                cvsGeneratorRunningHours.GroupDescriptions.Add(new PropertyGroupDescription("GeneratorName"));
+                cvsGeneratorRunningHours.GroupDescriptions
+                                        .Add(new PropertyGroupDescription("GeneratorName"));
             }
         }
 
         private void ClearSchedulerReminderGrouping_Click(object sender, RoutedEventArgs e)
         {
-            ICollectionView cvsGeneratorRunningHours = CollectionViewSource.GetDefaultView(this.dtgdGenSchdRemdrTable.ItemsSource);
+            ICollectionView cvsGeneratorRunningHours = CollectionViewSource
+                                                       .GetDefaultView(this.dtgdGenSchdRemdrTable
+                                                       .ItemsSource);
             if (cvsGeneratorRunningHours != null && cvsGeneratorRunningHours.CanGroup == true)
             {
                 cvsGeneratorRunningHours.GroupDescriptions.Clear();

@@ -155,7 +155,8 @@ namespace Panel
                                                        new InjectionConstructor
                                                        (
                                                            typeof(AuthoriserSettingsViewModel),
-                                                           typeof(ConsumptionSettingsViewModel)
+                                                           typeof(ConsumptionSettingsViewModel),
+                                                           typeof(RemindersConfigViewModel)
                                                        ));
 
             IUnitOfWork unitOfWork = container.Resolve<IUnitOfWork>("UnitOfWork");

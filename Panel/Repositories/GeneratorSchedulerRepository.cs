@@ -79,28 +79,28 @@ namespace Panel.Repositories
                     .LastOrDefault();
         }
 
-        public List<string> GetAllAuthorizers(string GeneratorName, 
+        public List<string> GetAllAuthorisers(string GeneratorName, 
             ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
         {
             return AllGeneratorSchedules
                     .Where(x => x.GeneratorName == GeneratorName)
                     .Where(x => x.IsActive == "Yes")
-                    .Select(x => x.Authorizer)
+                    .Select(x => x.Authoriser)
                     .Distinct().ToList();
         }
 
-        public string GetAuthorizer(string GeneratorName, 
+        public string GetAuthoriser(string GeneratorName, 
             ObservableCollection<GeneratorScheduler> AllGeneratorSchedules)
         {
             return AllGeneratorSchedules
                     .Where(x => x.GeneratorName == GeneratorName)
                     .Where(x => x.IsActive == "Yes")
-                    .Select(x => x.Authorizer)
+                    .Select(x => x.Authoriser)
                     .LastOrDefault();
         }
 
         public void ActivateReminderNotification(string GeneratorName, DateTime StartDate, 
-            double EveryHrs, string ReminderLevel, string Authorizer)
+            double EveryHrs, string ReminderLevel, string RepeatReminderYesNo, string Authoriser)
         {
             foreach (var row in GeneratorSurveillanceDBContext.GeneratorSchedulers)
             {
@@ -125,8 +125,9 @@ namespace Panel.Repositories
                         Starts = StartDate,
                         Every = EveryHrs,
                         ReminderLevel = ReminderLevel,
-                        Authorizer = Authorizer,
+                        Authoriser = Authoriser,
                         IsActive = "Yes",
+                        IsRepetitive = RepeatReminderYesNo,
                         ReminderHoursProfile = Hours,
                         ReminderDateTimeProfile = NotificationHoursDateTime.Item2.ElementAt(i)
                     }

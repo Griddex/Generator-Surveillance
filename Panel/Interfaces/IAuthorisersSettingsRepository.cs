@@ -14,5 +14,7 @@ namespace Panel.Interfaces
             string JobTitle);
 
         ObservableCollection<AuthoriserSetting> GetAllAuthorisers();
+
+        List<string> GetAuthorisersFullNames();
     }
 }

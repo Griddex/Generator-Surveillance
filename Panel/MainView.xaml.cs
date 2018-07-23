@@ -42,41 +42,48 @@ namespace Panel
             MainViewFrame.Navigate(this._inputView);
         }
 
-        private void InputViewCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void InputViewCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e) => 
+            e.CanExecute = true;
         private void InputViewCmd_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             MainViewFrame.Navigate(this._inputView);
         }
 
-        private void TablesViewCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void TablesViewCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e) => 
+            e.CanExecute = true;
         private void TablesViewCmd_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            UsageFuellingTablesView usageFuellingTablesView = (UsageFuellingTablesView)container.Resolve<IView>("UsageFuellingTablesView");
+            UsageFuellingTablesView usageFuellingTablesView = 
+                (UsageFuellingTablesView)container.Resolve<IView>("UsageFuellingTablesView");
             MainViewFrame.Navigate(usageFuellingTablesView);
         }
 
-        private void ChartsViewCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void ChartsViewCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e) => 
+            e.CanExecute = true;
         private void ChartsViewCmd_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             ChartView chartView = (ChartView)container.Resolve<IView>("ChartView");
             MainViewFrame.Navigate(chartView);
         }
 
-        private void ReportsViewCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void ReportsViewCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e) => 
+            e.CanExecute = true;
         private void ReportsViewCmd_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             ReportView reportView = (ReportView)container.Resolve<IView>("ReportView");
             MainViewFrame.Navigate(reportView);
         }
 
-        private void HelpViewCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void HelpViewCmd_CanExecute(object sender, 
+            CanExecuteRoutedEventArgs e) => e.CanExecute = true;
         private void HelpViewCmd_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             HelpView helpView = (HelpView)container.Resolve<IView>("HelpView");
             MainViewFrame.Navigate(helpView);
         }
         
-        private void InputToUsageView_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void InputToUsageView_CanExecute(object sender, 
+            CanExecuteRoutedEventArgs e) => e.CanExecute = true;
         private void InputToUsageView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             UsageView usageView = (UsageView)container.Resolve<IView>("UsageView");
@@ -91,45 +98,80 @@ namespace Panel
             MainViewFrame.Navigate(usageView);
         }
 
-        private void UsageToFuellingView_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void UsageToFuellingView_CanExecute(object sender, 
+            CanExecuteRoutedEventArgs e) => e.CanExecute = true;
         private void UsageToFuellingView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             FuellingView fuellingView = (FuellingView)container.Resolve<IView>("FuellingView");
             MainViewFrame.Navigate(fuellingView);
         }
 
-        private void FuellingToMaintenanceView_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void FuellingToMaintenanceView_CanExecute(object sender, 
+            CanExecuteRoutedEventArgs e) => e.CanExecute = true;
         private void FuellingToMaintenanceView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            MaintenanceView maintenanceView = (MaintenanceView)container.Resolve<IView>("MaintenanceView");
+            MaintenanceView maintenanceView = 
+                (MaintenanceView)container.Resolve<IView>("MaintenanceView");
             MainViewFrame.Navigate(maintenanceView);
         }
 
-        private void UsageMaintToRunningHrsSchedulerView_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
-        private void UsageMaintToRunningHrsSchedulerView_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void UsageMaintToRunningHrsSchedulerView_CanExecute(object sender, 
+            CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void UsageMaintToRunningHrsSchedulerView_Executed(object sender, 
+            ExecutedRoutedEventArgs e)
         {
-            RunningHrsSchedulingTablesView runningHrsSchedulingTablesView = (RunningHrsSchedulingTablesView)container.Resolve<IView>("RunningHrsSchedulingTablesView");
+            RunningHrsSchedulingTablesView runningHrsSchedulingTablesView = 
+                (RunningHrsSchedulingTablesView)container
+                .Resolve<IView>("RunningHrsSchedulingTablesView");
             MainViewFrame.Navigate(runningHrsSchedulingTablesView);
         }
         
-        private void RunningHrsSchedulerToUsageMaintView_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
-        private void RunningHrsSchedulerToUsageMaintView_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void RunningHrsSchedulerToUsageMaintView_CanExecute(object sender, 
+            CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void RunningHrsSchedulerToUsageMaintView_Executed(object sender, 
+            ExecutedRoutedEventArgs e)
         {
-            UsageFuellingTablesView usageFuellingTablesView = (UsageFuellingTablesView)container.Resolve<IView>("UsageFuellingTablesView");
+            UsageFuellingTablesView usageFuellingTablesView = 
+                (UsageFuellingTablesView)container.Resolve<IView>("UsageFuellingTablesView");
             MainViewFrame.Navigate(usageFuellingTablesView);
         }
 
-        private void SettingsView_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void SettingsView_CanExecute(object sender, CanExecuteRoutedEventArgs e) => 
+            e.CanExecute = true;
         private void SettingsView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             SettingsView settingsView = (SettingsView)container.Resolve<IView>("SettingsView");
             MainViewFrame.Navigate(settingsView);
         }
 
-        private void Exit_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+        private void Exit_CanExecute(object sender, CanExecuteRoutedEventArgs e) => 
+            e.CanExecute = true;
         private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            MessageBoxResult result =
+                MessageBox.Show("Do you want to exit the application?", 
+                "Confirmation", 
+                MessageBoxButton.YesNoCancel, 
+                MessageBoxImage.Question);
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    try
+                    {
+                        Application.Current.Shutdown();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"There was an error exiting the " +
+                            $"application\n\n{ex.Message}");
+                        return;
+                    }                    
+                    break;
+                case MessageBoxResult.No:                    
+                case MessageBoxResult.Cancel:                    
+                    return;
+            }
+            
         }
 
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
