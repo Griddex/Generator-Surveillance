@@ -1,4 +1,5 @@
 ﻿using Panel.Commands;
+using Panel.Interfaces;
 using Panel.Models.InputModels;
 using Panel.Repositories;
 using System;
@@ -15,7 +16,7 @@ using System.Windows.Input;
 
 namespace Panel.ViewModels.SettingsViewModel
 {
-    public class AuthoriserSettingsViewModel
+    public class AuthoriserSettingsViewModel : ViewModelBase, IViewModel
     {
 
         public ObservableCollection<AuthoriserSetting> AnyAuthorisersPage { get; set; } =
@@ -65,11 +66,8 @@ namespace Panel.ViewModels.SettingsViewModel
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                dtgrd.ItemsSource = UnitOfWork.AuthoriserSetting.GetAllAuthorisers();
-                                dtgrd.Items.Refresh();
-                                ICollectionView cvsFuelConsumption = CollectionViewSource
-                                                                    .GetDefaultView(dtgrd.ItemsSource);
-                                cvsFuelConsumption.Refresh();
+                                AnyAuthorisersPage = UnitOfWork.AuthoriserSetting.GetAllAuthorisers();
+                                OnPropertyChanged(nameof(AnyAuthorisersPage));
                             }
                         },
                         y => true

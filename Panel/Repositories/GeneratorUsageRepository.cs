@@ -31,7 +31,7 @@ namespace Panel.Repositories
             (
                 new GeneratorUsage
                 {
-                    Id = NoOfRecords == 0 ? 0 : NoOfRecords + 1,
+                    Id = NoOfRecords,
                     Date = RecordDate,
                     GeneratorName = GeneratorName,
                     GeneratorStarted = GeneratorStarted,
@@ -42,7 +42,8 @@ namespace Panel.Repositories
 
         public void GeneratorStopped(DateTime GeneratorStoppedDate, int ActiveGenID)
         {
-            var LastGeneratorUsageRecord = GeneratorSurveillanceDBContext.GeneratorUsages
+            var LastGeneratorUsageRecord = GeneratorSurveillanceDBContext
+                                            .GeneratorUsages
                                             .SingleOrDefault(x => x.Id == ActiveGenID);
             LastGeneratorUsageRecord.GeneratorStopped = GeneratorStoppedDate;
         }
@@ -51,7 +52,8 @@ namespace Panel.Repositories
         {
             var AllGeneratorUsages = new ObservableCollection<GeneratorUsage>
                                     (
-                                        GeneratorSurveillanceDBContext.GeneratorUsages
+                                        GeneratorSurveillanceDBContext
+                                        .GeneratorUsages
                                         .AsParallel<GeneratorUsage>() 
                                     );
             return AllGeneratorUsages;
@@ -61,7 +63,8 @@ namespace Panel.Repositories
         {
             var FirstPageGeneratorUsages = new ObservableCollection<GeneratorUsage>
                                             (
-                                                GeneratorSurveillanceDBContext.GeneratorUsages
+                                                GeneratorSurveillanceDBContext
+                                                .GeneratorUsages
                                                 .Take(10)
                                                 .AsParallel<GeneratorUsage>()
                                             );

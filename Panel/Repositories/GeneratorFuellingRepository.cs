@@ -22,12 +22,14 @@ namespace Panel.Repositories
         public void AddFuelPurchaseRecord(DateTime Fuellingdate, string Vendor, 
             double Volumeofdiesel, double Costofdiesel)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorFuellings.Count();
+            int NoOfRecords = GeneratorSurveillanceDBContext
+                                    .GeneratorFuellings
+                                    .Count();
             GeneratorSurveillanceDBContext.GeneratorFuellings.Add
             (
                 new GeneratorFuelling
                 {
-                    Id = NoOfRecords == 0 ? 0 : NoOfRecords + 1,
+                    Id = NoOfRecords,
                     Date = Fuellingdate,
                     Vendor = Vendor,
                     VolumeOfDiesel = Volumeofdiesel,
@@ -45,7 +47,7 @@ namespace Panel.Repositories
             (
                 new GeneratorRunningHr
                 {
-                    Id = NoOfRecords == 0 ? 0 : NoOfRecords + 1,
+                    Id = NoOfRecords,
                     Generator = GeneratorName,
                     Date = RunningHoursDate,
                     CumFuelVolumeSinceLastReading = CumFuelVolumeSinceLastReading,

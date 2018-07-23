@@ -1,4 +1,5 @@
 ﻿using Panel.Commands;
+using Panel.Interfaces;
 using Panel.Models.InputModels;
 using Panel.Repositories;
 using System;
@@ -15,7 +16,7 @@ using System.Windows.Input;
 
 namespace Panel.ViewModels.SettingsViewModel
 {
-    public class ConsumptionSettingsViewModel
+    public class ConsumptionSettingsViewModel : ViewModelBase, IViewModel
     {
         //AnyAuthorisersPage
         public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } =
@@ -75,13 +76,10 @@ namespace Panel.ViewModels.SettingsViewModel
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                DataGrid dtgrd = (DataGrid)x;
-                                dtgrd.ItemsSource = UnitOfWork.ConsumptionSetting
+                                AnyConsumptionPage = UnitOfWork.ConsumptionSetting
                                                               .GetAnyConsumptionPage();
-                                dtgrd.Items.Refresh();
-                                ICollectionView cvsFuelConsumption = CollectionViewSource
-                                                                    .GetDefaultView(dtgrd.ItemsSource);
-                                cvsFuelConsumption.Refresh();
+                                OnPropertyChanged(nameof(AnyConsumptionPage));
+
                                 MessageBox.Show($"Successfully saved!",
                                     "Information",
                                     MessageBoxButton.OK,

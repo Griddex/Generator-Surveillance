@@ -15,7 +15,7 @@
       d:DesignHeight="920" d:DesignWidth="1930"
       Title="ChartsView"
       Background="White">
-    <Viewbox>
+    <Viewbox Stretch="Uniform">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>

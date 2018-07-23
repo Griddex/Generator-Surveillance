@@ -23,12 +23,14 @@ namespace Panel.Repositories
             double CurrentFuelConsumption,
             double TestFuelConsumption, double StandardFuelConsumption)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext.ConsumptionSettings.Count();
+            int NoOfRecords = GeneratorSurveillanceDBContext
+                                .ConsumptionSettings
+                                .Count();
             GeneratorSurveillanceDBContext.ConsumptionSettings.Add
             (
                 new ConsumptionSetting
                 {
-                    Id = NoOfRecords == 0 ? 0 : NoOfRecords + 1,
+                    Id = NoOfRecords,
                     Date = ConsumptionDate,
                     GeneratorName = GeneratorName,
                     CurrentConsumption = CurrentFuelConsumption,

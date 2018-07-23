@@ -88,7 +88,8 @@ namespace Panel.Repositories
             }
             else
             {
-                MessageBox.Show($"{GeneratorName} already exists", "Error", MessageBoxButton.OKCancel, 
+                MessageBox.Show($"{GeneratorName} already exists", "Error", 
+                    MessageBoxButton.OKCancel, 
                     MessageBoxImage.Error);
                 return;
             }                          
@@ -98,7 +99,8 @@ namespace Panel.Repositories
             ObservableCollection<GeneratorNameModel> uniqueGeneratorNames, 
             ComboBox cmbxGenInfo)
         {
-            foreach (GeneratorUsage gu in GeneratorSurveillanceDBContext.GeneratorUsages)
+            foreach (GeneratorUsage gu in GeneratorSurveillanceDBContext
+                                                .GeneratorUsages)
             {
                 if (gu.GeneratorName == GeneratorName)
                     gu.IsArchived = "Yes";

@@ -60,7 +60,7 @@
         <CommandBinding Command="{x:Static cmds:NavigationCommands.RunningHrsSchedulerToUsageMaintView}"
                         Executed="RunningHrsSchedulerToUsageMaintView_Executed"
                         CanExecute="CommandBinding_CanExecute"/>
-        
+
         <CommandBinding Command="{x:Static cmds:MainMenuCommands.ShowSettingsView}"
                         Executed="SettingsView_Executed"
                         CanExecute="SettingsView_CanExecute"/>
@@ -79,50 +79,123 @@
 
         <DockPanel Grid.Row="0">
             <Menu>
-                <MenuItem x:Name="mnitmHome"  ToolTip="Home" Height="50" Width="50">
+                <MenuItem x:Name="mnitmHome"  ToolTip="Home" 
+                          Height="45" Width="45">
                     <MenuItem.Icon>
-                        <Image Source="Images/Home2.png" Margin="0,-10,-24,-9"/>
+                        <Image Source="Images/Home.png" Margin="0,-15, -20,-13"/>
                     </MenuItem.Icon>
-                    <MenuItem x:Name="mnitmSettings" 
-                          Command="{x:Static cmds:MainMenuCommands.ShowSettingsView}"                          
-                          Header="Settings" ToolTip="Settings"/>
-                    <MenuItem x:Name="mnitmExit" 
-                          Command="{x:Static cmds:MainMenuCommands.Exit}"                          
-                          Header="Exit" ToolTip="Exit"/>                    
+                    <MenuItem x:Name="mnitmSettings"
+                              Command="{x:Static cmds:MainMenuCommands.ShowSettingsView}"
+                              Header="Settings" ToolTip="Settings">
+                        <MenuItem.Icon>
+                            <Image Source="Images/Settings2.jpg"/>
+                        </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem x:Name="mnitmExit"
+                              Command="{x:Static cmds:MainMenuCommands.Exit}"
+                              Header="Exit" ToolTip="Exit">
+                        <MenuItem.Icon>
+                            <Image Source="Images/Exit3.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
                 <Separator Width="2"/>
-                <MenuItem x:Name="mnitmInput" 
-                          Command="{x:Static cmds:NavigationCommands.InputToUsageView}"                          
-                          Header="Input" ToolTip="Input Panel">
-                <MenuItem x:Name="mnitmUsage" 
-                          Command="{x:Static cmds:NavigationCommands.InputToUsageView}"
-                          Header="Usage"/>
-                <MenuItem x:Name="mnitmFuelling" 
-                          Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}"
-                          Header="Fuelling"/>
-                <MenuItem x:Name="mnitmMaintnce" 
-                          Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}"
-                          Header="Maintenance"/>
+                <MenuItem x:Name="mnitmPanel" Width="50" Height="50"
+                          ToolTip="Input Panel">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/Panelf.png" Margin="0,-13, -20,-13"
+                               VerticalAlignment="Top"/>
+                    </MenuItem.Icon>
+                    <MenuItem x:Name="mnitmInput"
+                              Command="{x:Static cmds:NavigationCommands.UsageToInputView}"
+                              Header="General" ToolTip="Input Panel">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/General.png"
+                               VerticalAlignment="Top"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="mnitmUsage" 
+                              Command="{x:Static cmds:NavigationCommands.InputToUsageView}"
+                              Header="Usage">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/Usage.png"
+                               VerticalAlignment="Top"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="mnitmFuelling" 
+                              Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}"
+                              Header="Fuelling">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/Fuelling.png"
+                               VerticalAlignment="Top"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="mnitmMaintnce" 
+                              Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}"
+                              Header="Maintenance">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/Maintenance.png"
+                               VerticalAlignment="Top"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
-                <MenuItem x:Name="mnitmTables" 
-                          Command="{x:Static cmds:MainMenuCommands.ShowTablesView}" 
-                          Header="Tables" ToolTip="View Data Tables">
-                    <MenuItem x:Name="mnitmTables1" 
-                                  Command="{x:Static cmds:MainMenuCommands.ShowTablesView}"
-                                  Header="Data"/>
-                    <MenuItem x:Name="mnitmTables2" 
-                                  Command="{x:Static cmds:NavigationCommands.UsageMaintToRunningHrsSchedulerView}"
-                                  Header="Reminders"/>
+                <Separator Width="2"/>
+                <MenuItem x:Name="mnitmTables" Width="50" Height="50"
+                          ToolTip="View Data Tables">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/Tables.png" Margin="0,-13, -20,-13"
+                               VerticalAlignment="Top"/>
+                    </MenuItem.Icon>
+                    <MenuItem x:Name="mnitmTables1"
+                              Command="{x:Static cmds:MainMenuCommands.ShowTablesView}"
+                              Header="Data">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/Tablef.png"
+                               VerticalAlignment="Top"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="mnitmTables2"
+                              Command="{x:Static cmds:NavigationCommands.UsageMaintToRunningHrsSchedulerView}"
+                              Header="Reminders">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/Tableff.png"
+                               VerticalAlignment="Top"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
-                <MenuItem x:Name="mnitmCharts" 
+                
+                <Separator Width="2"/>
+
+                <MenuItem x:Name="mnitmCharts" Width="50" Height="50"
                           Command="{x:Static cmds:MainMenuCommands.ShowChartsView}"
-                          Header="Charts" ToolTip="View Charts"/>
-                <MenuItem x:Name="mnitmReports" 
+                          ToolTip="View Charts" Header="">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/Chartsff.png" Margin="0,-13, -20,-13"
+                               VerticalAlignment="Top"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <Separator Width="2"/>
+
+                <MenuItem x:Name="mnitmReports" Width="50" Height="50"
                           Command="{x:Static cmds:MainMenuCommands.ShowReportsView}"  
-                          Header="Reports" ToolTip="Create Reports"/>
-                <MenuItem x:Name="mnitmHelp" 
+                          Header="" ToolTip="Create Reports">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/Reportsff.png" Margin="0,-13, -20,-13"
+                               VerticalAlignment="Top"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <Separator Width="2"/>
+
+                <MenuItem x:Name="mnitmHelp" Width="50" Height="50"
                           Command="{x:Static cmds:MainMenuCommands.ShowHelpView}" 
-                          Header="Help" ToolTip="Help"/>
+                          Header="" ToolTip="Help">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/Help1.png" Margin="0,-8, -20,-13"
+                               VerticalAlignment="Top"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </Menu>
         </DockPanel>
 

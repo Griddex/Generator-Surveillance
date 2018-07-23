@@ -99,8 +99,9 @@ namespace Panel.Repositories
                     .LastOrDefault();
         }
 
-        public void ActivateReminderNotification(string GeneratorName, DateTime StartDate, 
-            double EveryHrs, string ReminderLevel, string RepeatReminderYesNo, string Authoriser)
+        public void ActivateReminderNotification(string GeneratorName, 
+            DateTime StartDate, double EveryHrs, string ReminderLevel, 
+            string RepeatReminderYesNo, string Authoriser)
         {
             foreach (var row in GeneratorSurveillanceDBContext.GeneratorSchedulers)
             {

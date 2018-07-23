@@ -211,8 +211,16 @@
                 </Expander>
 
                 <Expander ExpandDirection="Right" Height="850"
-                          Header="Reminders Authorisers"
                           Expanded="expdrAuthorisers_Expanded">
+                    <Expander.Header>
+                        <StackPanel>
+                            <Image Source="/Images/Authoriser3.png" Width="150" Height="150"/>
+                            <TextBox TextWrapping="Wrap" FontSize="20"
+                                     Text="Reminders Authorisers"
+                                     FontWeight="Bold" Width="150"
+                                     HorizontalContentAlignment="Center"/>
+                        </StackPanel>
+                    </Expander.Header>
                     <GroupBox x:Name="grpbxAuthorisers"
                               Header="Reminders Authorisers"  
                               Style="{StaticResource GroupBoxStyle}"
@@ -413,8 +421,16 @@
                     </GroupBox>
                 </Expander>
 
-                <Expander ExpandDirection="Right" Height="850"
-                          Header="Reminders Configuration">
+                <Expander ExpandDirection="Right" Height="850">
+                    <Expander.Header>
+                        <StackPanel>
+                            <Image Source="/Images/Settings3.jpg" Width="150" Height="150"/>
+                            <TextBox TextWrapping="Wrap" FontSize="20"
+                                     Text="Reminders Configuration"
+                                     FontWeight="Bold" Width="150"
+                                     HorizontalContentAlignment="Center"/>
+                        </StackPanel>
+                    </Expander.Header>
                     <GroupBox x:Name="grpbxRemConfig"
                               Header="Reminders Configuration"  
                               Style="{StaticResource GroupBoxStyle}"

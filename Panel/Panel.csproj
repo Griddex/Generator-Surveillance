@@ -486,8 +486,24 @@
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
       <LastGenOutput>GeneratorSurveillanceDBEntities.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Tablef.png" />
+    <Resource Include="Images\Tableff.png" />
+    <Resource Include="Images\Fuelling.png" />
+    <Resource Include="Images\General.png" />
+    <Resource Include="Images\Maintenance.png" />
+    <Resource Include="Images\Usage.png" />
+    <Resource Include="Images\Exit3.png" />
+    <Resource Include="Images\Settings2.jpg" />
+    <Resource Include="Images\Help1.png" />
+    <Resource Include="Images\Help.png" />
+    <Resource Include="Images\Chartsff.png" />
+    <Resource Include="Images\Reportsff.png" />
+    <Resource Include="Images\Tables.png" />
+    <Resource Include="Images\Panelf.png" />
+    <Resource Include="Images\Home.png" />
+    <Resource Include="Images\Settings3.jpg" />
+    <Resource Include="Images\Authoriser3.png" />
     <Resource Include="Images\Charts4.png" />
-    <Resource Include="Images\Home2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

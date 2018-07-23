@@ -31,10 +31,11 @@ namespace Panel.Repositories
             (
                 new AuthoriserSetting
                 {
-                    Id = NoOfRecords == 0 ? 0 : NoOfRecords + 1,
+                    Id = NoOfRecords,
                     Date = ReminderDate,
                     FirstName = FirstName,
                     LastName = LastName,
+                    Email = Email,
                     PhoneNumber = PhoneNumber,
                     JobTitle = JobTitle
                 }
@@ -53,7 +54,8 @@ namespace Panel.Repositories
         public List<string> GetAuthorisersFullNames()
         {
             var FullNameList = new List<string>();
-            foreach (var authoriser in GeneratorSurveillanceDBContext.AuthoriserSettings)
+            foreach (var authoriser in GeneratorSurveillanceDBContext
+                                        .AuthoriserSettings)
             {
                 FullNameList.Add($"{authoriser.FirstName} {authoriser.LastName}");
             }

@@ -30,7 +30,7 @@ namespace Panel.Repositories
             (
                 new GeneratorMaintenance
                 {
-                    Id = NoOfRecords == 0 ? 0 : NoOfRecords,
+                    Id = NoOfRecords,
                     Date = UnschMaintenancedate,
                     MaintenanceType = MaintenanceType,
                     Comments = UnschComments,
@@ -47,7 +47,7 @@ namespace Panel.Repositories
             (
                 new GeneratorMaintenance
                 {
-                    Id = NoOfRecords == 0 ? 0 : NoOfRecords,
+                    Id = NoOfRecords,
                     Date = SchMaintenancedate,
                     MaintenanceType = MaintenanceType,
                     Comments = SchComments,
