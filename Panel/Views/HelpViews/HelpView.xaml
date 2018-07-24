@@ -21,22 +21,31 @@
                 <RowDefinition Height="10"/>
             </Grid.RowDefinitions>
             <ScrollViewer Grid.Row="1">
-                <GroupBox Grid.Row="1" Style="{StaticResource GroupBoxStyle}" 
-                          Header="Help Resources" Width="738" Height="256">
+                <GroupBox Grid.Row="1" 
+                          Style="{StaticResource GroupBoxStyle}" 
+                          Header="Help Resources" Width="738" 
+                          Height="256">
                     <TextBox>
 
                     </TextBox>
                 </GroupBox>
             </ScrollViewer>
-            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
-            <Hyperlink Command="{x:Static cmds:NavigationCommands.InputToUsageView}">Usage</Hyperlink>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" 
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Width="80" VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" FontSize="18">
+            <Hyperlink Command="{x:Static cmds:NavigationCommands.InputToUsageView}">
+                Usage</Hyperlink>
                 </TextBlock>
-                <TextBlock Width=" 80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
-            <Hyperlink Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}">Fuelling</Hyperlink>
+                <TextBlock Width=" 80" VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" FontSize="18">
+            <Hyperlink Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}">
+                Fuelling</Hyperlink>
                 </TextBlock>
-                <TextBlock Width="110" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
-            <Hyperlink Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}">Maintenance</Hyperlink>
+                <TextBlock Width="110" VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" FontSize="18">
+            <Hyperlink Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}">
+                Maintenance</Hyperlink>
                 </TextBlock>
             </StackPanel>
 

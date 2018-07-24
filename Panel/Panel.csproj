@@ -167,6 +167,8 @@
     <Compile Include="Converters\FloatConverter.cs" />
     <Compile Include="Converters\InputViewMultiConverter.cs" />
     <Compile Include="Converters\PassComboBoxesAndButtonAsCommandParameters.cs" />
+    <Compile Include="Converters\PassDtPkrTxBxTwoCmboxsAsCommandParameters.cs" />
+    <Compile Include="Converters\PassStackpanelExpanderAsCommandParameters.cs" />
     <Compile Include="Converters\PassTextBoxTwoComboxItemsAsCommandParameters.cs" />
     <Compile Include="Converters\PassTextBoxComboBoxItemAsCommandParameters.cs" />
     <Compile Include="Converters\PassCheckBoxBoolListBoxAsCommandParameters.cs" />
@@ -261,6 +263,9 @@
     <Compile Include="UserControls\Pagination.xaml.cs">
       <DependentUpon>Pagination.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PasswordControl.xaml.cs">
+      <DependentUpon>PasswordControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SnipingTool.xaml.cs">
       <DependentUpon>SnipingTool.xaml</DependentUpon>
     </Compile>
@@ -338,6 +343,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Pagination.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PasswordControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

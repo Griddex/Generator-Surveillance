@@ -32,6 +32,23 @@
         <convtrs:PassTextBoxTwoComboxItemsAsCommandParameters x:Key="PassTextBoxTwoComboxItems"/>
         <convtrs:PassDatePickerComboBoxAsCommandParameter x:Key="PassDatePickerComboBox"/>
         <convtrs:PassComboBoxesAndButtonAsCommandParameters x:Key="PassComboBoxesAndButton"/>
+        <convtrs:PassDtPkrTxBxTwoCmboxsAsCommandParameters x:Key="PassDtPkrTxBxTwoCmboxs"/>
+        <convtrs:PassStackpanelExpanderAsCommandParameters x:Key="PassStackpanelExpander"/>
+
+
+        <Window x:Key="windwPassword"
+                Title="Generator Reminders Password" 
+                Height="250" 
+                Width="500">
+            <StackPanel Margin="10">
+                <Label>Enter Password:</Label>
+                <PasswordBox x:Name="psswrdReminder" 
+                     MaxLength="20" 
+                     />
+            </StackPanel>
+        </Window>
+
+        <PasswordBox x:Key="psswrd"/>
 
         <Style TargetType="{x:Type Label}" x:Key="RoundLabelStyle">
             <Style.Resources>

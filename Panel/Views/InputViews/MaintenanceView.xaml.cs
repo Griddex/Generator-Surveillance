@@ -1,22 +1,11 @@
 ﻿using Panel.BusinessLogic.MaintenanceLogic;
 using Panel.Interfaces;
-using Panel.Repositories;
+using Panel.UserControls;
 using Panel.ViewModels.InputViewModels;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Panel.Views.InputViews
 {
@@ -25,30 +14,40 @@ namespace Panel.Views.InputViews
     /// </summary>
     public partial class MaintenanceView : Page, IView
     {
+        public PasswordControl PasswordControl { get; set; }
         public MaintenanceView(MaintenanceViewModel maintenanceViewModel)
         {
-            InitializeComponent();
+            
             this.DataContext = maintenanceViewModel;
+            PasswordControl passwordControl = new PasswordControl();
+            passwordControl.DataContext = maintenanceViewModel;
+            PasswordControl = passwordControl;
+            InitializeComponent();
         }
 
         private void GroupbyGenerator_Click(object sender, RoutedEventArgs e)
         {
-            ICollectionView cvsGeneratorConsumption = CollectionViewSource
-                                                      .GetDefaultView(this.dtgdGenScheduledRemindersTable
-                                                                          .ItemsSource);
-            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption.CanGroup == true)
+            ICollectionView cvsGeneratorConsumption = 
+                                    CollectionViewSource
+                                    .GetDefaultView(this.dtgdGenScheduledRemindersTable
+                                                        .ItemsSource);
+            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption
+                                                            .CanGroup == true)
             {
                 cvsGeneratorConsumption.GroupDescriptions.Clear();
-                cvsGeneratorConsumption.GroupDescriptions.Add(new PropertyGroupDescription("Generator"));
+                cvsGeneratorConsumption.GroupDescriptions
+                                .Add(new PropertyGroupDescription("Generator"));
             }
         }
 
         private void ClearGeneratorGrouping_Click(object sender, RoutedEventArgs e)
         {
-            ICollectionView cvsGeneratorConsumption = CollectionViewSource
-                                                      .GetDefaultView(this.dtgdGenScheduledRemindersTable
-                                                                          .ItemsSource);
-            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption.CanGroup == true)
+            ICollectionView cvsGeneratorConsumption = 
+                                    CollectionViewSource
+                                    .GetDefaultView(this.dtgdGenScheduledRemindersTable
+                                                        .ItemsSource);
+            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption
+                                                            .CanGroup == true)
             {
                 cvsGeneratorConsumption.GroupDescriptions.Clear();
             }
@@ -57,19 +56,23 @@ namespace Panel.Views.InputViews
         private void expdrScheduledReminders_Expanded(object sender, RoutedEventArgs e)
         {
             this.dtgdGenScheduledRemindersTable.Items.Refresh();
-            ICollectionView cvsGeneratorConsumption = CollectionViewSource
-                                                    .GetDefaultView(this.dtgdGenScheduledRemindersTable
-                                                                        .ItemsSource);
+            ICollectionView cvsGeneratorConsumption = 
+                            CollectionViewSource
+                            .GetDefaultView(this.dtgdGenScheduledRemindersTable
+                                            .ItemsSource);
             cvsGeneratorConsumption.Refresh();
         }
 
         private void DeactivateGenerator_Click(object sender, RoutedEventArgs e)
         {
-            var dataGridRowSelected = (dynamic)dtgdGenScheduledRemindersTable.SelectedItem;
+            var dataGridRowSelected = (dynamic)dtgdGenScheduledRemindersTable
+                                               .SelectedItem;
             string GeneratorName = dataGridRowSelected.GeneratorName;
 
-            MessageBoxResult result = MessageBox.Show($"Do you want to deactivate {GeneratorName}?",
-                                                    "Confirmation", MessageBoxButton.YesNoCancel);
+            MessageBoxResult result = MessageBox.Show($"Do you want to " +
+                                                    $"deactivate {GeneratorName}?",
+                                                    "Confirmation", 
+                                                    MessageBoxButton.YesNoCancel);
             switch (result)
             {
                 case MessageBoxResult.No:
@@ -84,13 +87,16 @@ namespace Panel.Views.InputViews
                     break;
             }
 
-            this.dtgdGenScheduledRemindersTable.ItemsSource = (this.DataContext as MaintenanceViewModel).UnitOfWork
-                                                            .GeneratorScheduler.GetActiveGeneratorSchedules();
+            this.dtgdGenScheduledRemindersTable.ItemsSource = 
+                                        (this.DataContext as MaintenanceViewModel)
+                                        .UnitOfWork
+                                        .GeneratorScheduler.GetActiveGeneratorSchedules();
             this.dtgdGenScheduledRemindersTable.Items.Refresh();
-            ICollectionView cvsGeneratorReminders = CollectionViewSource
-                                                    .GetDefaultView(this.dtgdGenScheduledRemindersTable
-                                                                        .ItemsSource);
+            ICollectionView cvsGeneratorReminders = 
+                            CollectionViewSource
+                            .GetDefaultView(this.dtgdGenScheduledRemindersTable
+                                                .ItemsSource);
             cvsGeneratorReminders.Refresh();
-        }
+        }       
     }
 }

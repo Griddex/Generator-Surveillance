@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace Panel.Converters
 {
-    class PassTextBoxTwoComboxItemsAsCommandParameters : IMultiValueConverter
+    class PassStackpanelExpanderAsCommandParameters : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, 
             object parameter, CultureInfo culture)
         {
-            return new Tuple<TextBox, string, string>(
-                (TextBox)values[0], 
-                (string)values[1], 
-                (string)values[2]);
+            return new Tuple<StackPanel, Expander>(
+                (StackPanel)values[0], 
+                (Expander)values[1]);
         }
 
 
@@ -26,7 +21,6 @@ namespace Panel.Converters
         {
             throw new NotImplementedException();
         }
-
 
     }
 }

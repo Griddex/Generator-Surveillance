@@ -2,7 +2,7 @@
 using Panel.Interfaces;
 using Panel.Repositories;
 using Panel.Services.MessagingServices;
-using Panel.Services.NavigationService;
+using Panel.UserControls;
 using Panel.ViewModels.ChartViewModels;
 using Panel.ViewModels.HelpViewModels;
 using Panel.ViewModels.InputViewModels;
@@ -15,19 +15,10 @@ using Panel.Views.InputViews;
 using Panel.Views.ReportViews;
 using Panel.Views.SettingsView;
 using Panel.Views.TableViews;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
-using System.Windows.Navigation;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
-using Unity.Resolution;
 
 namespace Panel
 {
@@ -105,6 +96,7 @@ namespace Panel
                                                         new InjectionConstructor
                                                         (
                                                             typeof(MaintenanceViewModel)
+                                                            
                                                         ));
 
             container.RegisterType<IView, UsageFuellingTablesView>("UsageFuellingTablesView",

@@ -1,13 +1,10 @@
 ﻿<Page x:Class="Panel.Views.ReportViews.ReportView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Panel.Views.ReportViews"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:cmds="clr-namespace:Panel.Commands"
       xmlns:usercontrol="clr-namespace:Panel.UserControls"
-      xmlns:vml="clr-namespace:Panel.ViewModels"
-      
       mc:Ignorable="d" 
       d:DesignHeight="920" d:DesignWidth="1930"
       Title="Reports"
@@ -28,69 +25,117 @@
 
             <Grid Grid.Row="1">
                 <ScrollViewer>
-                    <GroupBox  Margin="10" Style="{StaticResource GroupBoxStyle}" Header="Reports" Width="621" Height="750">
+                    <GroupBox  Margin="10" 
+                               Style="{StaticResource GroupBoxStyle}" 
+                               Header="Reports" Width="621" 
+                               Height="750">
                         <StackPanel Margin="0,20,0,0">
                             <StackPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                                    <Label Content="Select Report Type" Height="30" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
-                                    <ComboBox Width="584" Height="60" HorizontalAlignment="Left"/>
+                                <StackPanel Orientation="Vertical" 
+                                            Margin="20,0,10,0">
+                                    <Label Content="Select Report Type" Height="30" 
+                                           HorizontalAlignment="Left" 
+                                           VerticalContentAlignment="Center"/>
+                                    <ComboBox Width="584" Height="60" 
+                                              HorizontalAlignment="Left"/>
                                 </StackPanel>
                             </StackPanel>
 
                             <StackPanel Margin="0,80,0,0">
-                                <TextBox Text="Date and Time Filter" BorderBrush="White" Margin="20,0,0,0"/>
+                                <TextBox Text="Date and Time Filter" 
+                                         BorderBrush="White" Margin="20,0,0,0"/>
                                 <StackPanel Orientation="Horizontal" >
                                     <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                                        <Label Content="Start" Height="25" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
-                                        <DatePicker HorizontalAlignment="Left"  VerticalAlignment="Bottom" Style="{DynamicResource DatePickerStyle}" Width="220" Height="60"/>
+                                        <Label Content="Start" Height="25" 
+                                               HorizontalAlignment="Left" 
+                                               HorizontalContentAlignment="Left"/>
+                                        <DatePicker HorizontalAlignment="Left"  
+                                                    VerticalAlignment="Bottom" 
+                                                    Style="{DynamicResource DatePickerStyle}" 
+                                                    Width="220" Height="60"/>
                                     </StackPanel>
-                                    <StackPanel Orientation="Vertical" Margin="20,0,1,0">
+                                    <StackPanel Orientation="Vertical" 
+                                                Margin="20,0,1,0">
                                         <Label Content="Hour" Height="25"/>
-                                        <ComboBox Width="76" Height="60" HorizontalAlignment="Left"/>
+                                        <ComboBox Width="76" Height="60" 
+                                                  HorizontalAlignment="Left"/>
                                     </StackPanel>
-                                    <StackPanel Orientation="Vertical" Margin="10,0,1,0">
+                                    <StackPanel Orientation="Vertical" 
+                                                Margin="10,0,1,0">
                                         <Label Content="Minutes" Height="25"/>
-                                        <ComboBox Width="76" Height="60" HorizontalAlignment="Left"/>
+                                        <ComboBox Width="76" Height="60" 
+                                                  HorizontalAlignment="Left"/>
                                     </StackPanel>
-                                    <StackPanel Orientation="Vertical" Margin="10,0,1,0">
+                                    <StackPanel Orientation="Vertical" 
+                                                Margin="10,0,1,0">
                                         <Label Content="Seconds" Height="25"/>
-                                        <ComboBox Width="76" Height="60" HorizontalAlignment="Left"/>
+                                        <ComboBox Width="76" Height="60" 
+                                                  HorizontalAlignment="Left"/>
                                     </StackPanel>
-                                    <StackPanel Orientation="Vertical" Margin="10,0,10,0">
+                                    <StackPanel Orientation="Vertical" 
+                                                Margin="10,0,10,0">
                                         <Label Content="AM/PM" Height="25"/>
-                                        <ComboBox Width="73" Height="60" HorizontalAlignment="Left"/>
+                                        <ComboBox Width="73" Height="60" 
+                                                  HorizontalAlignment="Left"/>
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                                <StackPanel Orientation="Vertical" Margin="20,0,10,0">
-                                    <Label Content="Stop" Height="25" HorizontalAlignment="Left"/>
-                                    <DatePicker HorizontalAlignment="Left"  VerticalAlignment="Bottom" Style="{DynamicResource DatePickerStyle}" Width="220" Height="60"/>
+                            <StackPanel Orientation="Horizontal" 
+                                        Margin="0,20,0,0">
+                                <StackPanel Orientation="Vertical" 
+                                            Margin="20,0,10,0">
+                                    <Label Content="Stop" Height="25" 
+                                           HorizontalAlignment="Left"/>
+                                    <DatePicker HorizontalAlignment="Left"  
+                                                VerticalAlignment="Bottom" 
+                                                Style="{DynamicResource DatePickerStyle}" 
+                                                Width="220" Height="60"/>
                                 </StackPanel>
-                                <StackPanel Orientation="Vertical" Margin="20,0,1,0">
+                                <StackPanel Orientation="Vertical" 
+                                            Margin="20,0,1,0">
                                     <Label Content="Hour" Height="25"/>
-                                    <ComboBox Width="76" Height="60" HorizontalAlignment="Left"/>
+                                    <ComboBox Width="76" Height="60" 
+                                              HorizontalAlignment="Left"/>
                                 </StackPanel>
-                                <StackPanel Orientation="Vertical" Margin="10,0,1,0">
+                                <StackPanel Orientation="Vertical" 
+                                            Margin="10,0,1,0">
                                     <Label Content="Minutes" Height="25"/>
-                                    <ComboBox Width="76" Height="60" HorizontalAlignment="Left"/>
+                                    <ComboBox Width="76" Height="60" 
+                                              HorizontalAlignment="Left"/>
                                 </StackPanel>
-                                <StackPanel Orientation="Vertical" Margin="10,0,1,0">
+                                <StackPanel Orientation="Vertical" 
+                                            Margin="10,0,1,0">
                                     <Label Content="Seconds" Height="25"/>
-                                    <ComboBox Width="76" Height="60" HorizontalAlignment="Left"/>
+                                    <ComboBox Width="76" Height="60" 
+                                              HorizontalAlignment="Left"/>
                                 </StackPanel>
-                                <StackPanel Orientation="Vertical" Margin="10,0,10,0">
+                                <StackPanel Orientation="Vertical" 
+                                            Margin="10,0,10,0">
                                     <Label Content="AM/PM" Height="25"/>
-                                    <ComboBox Width="73" Height="60" HorizontalAlignment="Left"/>
+                                    <ComboBox Width="73" Height="60" 
+                                              HorizontalAlignment="Left"/>
                                 </StackPanel>
                             </StackPanel>
-                            <StackPanel Orientation="Vertical" Margin="20,50,0,0" HorizontalAlignment="Center">
-                                <TextBlock Text="Export Report" Foreground="Black" HorizontalAlignment="Center"/>
-                                <Image Source="/Images/Download.png" Width="50" Height="50" Margin="0,0,5,0" />
-                                <usercontrol:ExportReportType VerticalAlignment="Center" Margin="0,10,0,0"/>
-                                <Button x:Name="btnGenReport"  Height="61" Width="235" Content="Generate Report" ToolTip="Generate Report" 
-                                    Style="{StaticResource AffirmativeButtonStyle}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                    HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,60,0,0"/>
+                            <StackPanel Orientation="Vertical" 
+                                        Margin="20,50,0,0" 
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text="Export Report" 
+                                           Foreground="Black" 
+                                           HorizontalAlignment="Center"/>
+                                <Image Source="/Images/Download.png" 
+                                       Width="50" Height="50" Margin="0,0,5,0" />
+                                <usercontrol:ExportReportType 
+                                    VerticalAlignment="Center" 
+                                    Margin="0,10,0,0"/>
+                                <Button x:Name="btnGenReport"  Height="61" 
+                                        Width="235" Content="Generate Report" 
+                                        ToolTip="Generate Report" 
+                                        Style="{StaticResource AffirmativeButtonStyle}" 
+                                        HorizontalContentAlignment="Center" 
+                                        VerticalContentAlignment="Center" 
+                                        HorizontalAlignment="Right" 
+                                        VerticalAlignment="Bottom" 
+                                        Margin="0,60,0,0"/>
                             </StackPanel>
 
                         </StackPanel>
@@ -98,15 +143,22 @@
                 </ScrollViewer>
 
             </Grid>
-            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
-            <Hyperlink Command="{x:Static cmds:NavigationCommands.InputToUsageView}">Usage</Hyperlink>
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" 
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Width="80" VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" FontSize="18">
+            <Hyperlink Command="{x:Static cmds:NavigationCommands.InputToUsageView}">
+                Usage</Hyperlink>
                 </TextBlock>
-                <TextBlock Width=" 80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
-            <Hyperlink Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}">Fuelling</Hyperlink>
+                <TextBlock Width=" 80" VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" FontSize="18">
+            <Hyperlink Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}">
+                Fuelling</Hyperlink>
                 </TextBlock>
-                <TextBlock Width="110" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
-            <Hyperlink Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}">Maintenance</Hyperlink>
+                <TextBlock Width="110" VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" FontSize="18">
+            <Hyperlink Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}">
+                Maintenance</Hyperlink>
                 </TextBlock>
             </StackPanel>
         </Grid>

@@ -22,11 +22,16 @@ namespace Panel.Repositories
             get { return Context as GeneratorSurveillanceDBEntities; }
         }
 
-        public void AddUnschMaintenance(string MaintenanceType, DateTime UnschMaintenancedate, 
-            string UnschComments, double UnschTotalCost)
+        public void AddUnschMaintenance(string MaintenanceType, 
+                                        DateTime UnschMaintenancedate, 
+                                        string UnschComments, 
+                                        double UnschTotalCost)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorMaintenances.Count();
-            GeneratorSurveillanceDBContext.GeneratorMaintenances.Add
+            int NoOfRecords = GeneratorSurveillanceDBContext
+                                        .GeneratorMaintenances
+                                        .Count();
+            GeneratorSurveillanceDBContext.GeneratorMaintenances
+                                          .Add
             (
                 new GeneratorMaintenance
                 {
@@ -39,11 +44,16 @@ namespace Panel.Repositories
             );
         }
 
-        public void AddSchMaintenance(string MaintenanceType, DateTime SchMaintenancedate, 
-            string SchComments, double SchTotalCost)
+        public void AddSchMaintenance(string MaintenanceType, 
+                                      DateTime SchMaintenancedate, 
+                                      string SchComments, 
+                                      double SchTotalCost)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorMaintenances.Count();
-            GeneratorSurveillanceDBContext.GeneratorMaintenances.Add
+            int NoOfRecords = GeneratorSurveillanceDBContext
+                                        .GeneratorMaintenances
+                                        .Count();
+            GeneratorSurveillanceDBContext.GeneratorMaintenances
+                                          .Add
             (
                 new GeneratorMaintenance
                 {
@@ -56,27 +66,31 @@ namespace Panel.Repositories
             );
         }
 
-        public ObservableCollection<GeneratorMaintenance> GetAllGeneratorMaintenances()
+        public ObservableCollection<GeneratorMaintenance> 
+            GetAllGeneratorMaintenances()
         {
-            var AllGeneratorMaintenance = new ObservableCollection<GeneratorMaintenance>
-                                    (
-                                    GeneratorSurveillanceDBContext.GeneratorMaintenances
-                                    .AsParallel<GeneratorMaintenance>()
-                                    );
+            var AllGeneratorMaintenance = 
+                    new ObservableCollection<GeneratorMaintenance>
+                    (
+                    GeneratorSurveillanceDBContext.GeneratorMaintenances
+                    .AsParallel<GeneratorMaintenance>()
+                    );
             return AllGeneratorMaintenance;
         }
 
-        public ObservableCollection<GeneratorMaintenance> GetAnyPageGeneratorMaintenance(
-            int pageIndex = 1, int pageSize = 10)
+        public ObservableCollection<GeneratorMaintenance> 
+            GetAnyPageGeneratorMaintenance(int pageIndex = 1, 
+                                           int pageSize = 10)
         {
-            var FirstPageGeneratorMaintenance = new ObservableCollection<GeneratorMaintenance>
-                                            (
-                                                GeneratorSurveillanceDBContext.GeneratorMaintenances
-                                                .OrderBy(x => x.Id)
-                                                .Skip((pageIndex - 1) * pageSize)
-                                                .Take(10)
-                                                .AsParallel<GeneratorMaintenance>()
-                                            );
+            var FirstPageGeneratorMaintenance = 
+                    new ObservableCollection<GeneratorMaintenance>
+                    (
+                        GeneratorSurveillanceDBContext.GeneratorMaintenances
+                        .OrderBy(x => x.Id)
+                        .Skip((pageIndex - 1) * pageSize)
+                        .Take(10)
+                        .AsParallel<GeneratorMaintenance>()
+                    );
             return FirstPageGeneratorMaintenance;
         }
 

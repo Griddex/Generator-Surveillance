@@ -1,14 +1,15 @@
 ﻿<Window x:Class="Panel.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Panel"
-        xmlns:cmds="clr-namespace:Panel.Commands"        
+        xmlns:cmds="clr-namespace:Panel.Commands"
         mc:Ignorable="d"
         Title="Generator Surveillance"
-        MaxWidth="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}"
-        MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"
+        MaxWidth="{Binding Source={x:Static SystemParameters.WorkArea}, 
+                           Path=Width}"
+        MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, 
+                            Path=Height}"
         Width="1030"
         Height="900">
 

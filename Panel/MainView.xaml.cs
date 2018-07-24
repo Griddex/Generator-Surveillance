@@ -1,28 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Panel.Interfaces;
-using Panel.Models.InputModels;
-using Panel.Services;
-using Panel.Services.NavigationService;
+﻿using Panel.Interfaces;
 using Panel.Views.ChartViews;
 using Panel.Views.HelpViews;
 using Panel.Views.InputViews;
 using Panel.Views.ReportViews;
 using Panel.Views.SettingsView;
 using Panel.Views.TableViews;
+using System;
+using System.Windows;
+using System.Windows.Input;
 using Unity;
 
 namespace Panel
@@ -90,25 +75,30 @@ namespace Panel
             usageView.lblCurrentGeneratorName.Content = this._inputView.cmbxGenInfo.Text;
 
             if(this._inputView.lblGenTimeStarted.Content != null)
-                usageView.lblGenRecordDate.Content = $"{this._inputView.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()} " +
+                usageView.lblGenRecordDate
+                    .Content = $"{this._inputView.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()} " +
                                         $"{ this._inputView.lblGenTimeStarted.Content.ToString()}";
             else
-                usageView.lblGenRecordDate.Content = $"{this._inputView.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()}";
+                usageView.lblGenRecordDate
+                    .Content = $"{this._inputView.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()}";
 
             MainViewFrame.Navigate(usageView);
         }
 
         private void UsageToFuellingView_CanExecute(object sender, 
             CanExecuteRoutedEventArgs e) => e.CanExecute = true;
-        private void UsageToFuellingView_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void UsageToFuellingView_Executed(object sender, 
+            ExecutedRoutedEventArgs e)
         {
-            FuellingView fuellingView = (FuellingView)container.Resolve<IView>("FuellingView");
+            FuellingView fuellingView = (FuellingView)container
+                                                      .Resolve<IView>("FuellingView");
             MainViewFrame.Navigate(fuellingView);
         }
 
         private void FuellingToMaintenanceView_CanExecute(object sender, 
             CanExecuteRoutedEventArgs e) => e.CanExecute = true;
-        private void FuellingToMaintenanceView_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void FuellingToMaintenanceView_Executed(object sender, 
+            ExecutedRoutedEventArgs e)
         {
             MaintenanceView maintenanceView = 
                 (MaintenanceView)container.Resolve<IView>("MaintenanceView");
@@ -170,11 +160,11 @@ namespace Panel
                 case MessageBoxResult.No:                    
                 case MessageBoxResult.Cancel:                    
                     return;
-            }
-            
+            }            
         }
 
-        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void CommandBinding_CanExecute(object sender, 
+            CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }        
