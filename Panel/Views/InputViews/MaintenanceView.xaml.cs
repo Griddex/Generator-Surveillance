@@ -14,14 +14,9 @@ namespace Panel.Views.InputViews
     /// </summary>
     public partial class MaintenanceView : Page, IView
     {
-        public PasswordControl PasswordControl { get; set; }
         public MaintenanceView(MaintenanceViewModel maintenanceViewModel)
         {
-            
             this.DataContext = maintenanceViewModel;
-            PasswordControl passwordControl = new PasswordControl();
-            passwordControl.DataContext = maintenanceViewModel;
-            PasswordControl = passwordControl;
             InitializeComponent();
         }
 

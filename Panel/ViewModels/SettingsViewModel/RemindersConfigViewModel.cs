@@ -6,10 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Panel.ViewModels.SettingsViewModel
@@ -101,11 +100,88 @@ namespace Panel.ViewModels.SettingsViewModel
                                     "Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
                                 ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
-                                                                  .GetActiveGeneratorSchedules();
+                                                                     .GetActiveGeneratorSchedules();
 
                                 OnPropertyChanged(nameof(ActiveGeneratorSchedules));
                             }
                             return;
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _okCmd;
+        public ICommand OKCmd
+        {
+            get
+            {
+                return this._okCmd ??
+                (
+                    this._okCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                                Tuple<PasswordBox, 
+                                Expander, 
+                                Expander,
+                                StackPanel,
+                                Viewbox>  expdrexpdr = (Tuple<PasswordBox, 
+                                                                Expander,
+                                                                Expander,
+                                                                StackPanel,
+                                                                Viewbox>)x;
+
+                            if (expdrexpdr.Item1.Password == "reminder")
+                            {
+                                expdrexpdr.Item5.Visibility = Visibility.Visible;
+
+                                MessageBoxResult result = MessageBox.Show("Reminder & Notification " +
+                                                            "settings are unlocked", "Information",
+                                                            MessageBoxButton.OK,
+                                                            MessageBoxImage.Information);
+                                switch (result)
+                                {
+                                    case MessageBoxResult.None:
+                                    case MessageBoxResult.OK:
+                                    case MessageBoxResult.Cancel:
+                                    case MessageBoxResult.Yes:
+                                    case MessageBoxResult.No:
+                                        expdrexpdr.Item4.Visibility = Visibility.Collapsed;
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Wrong password", "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+
+                                return;
+                            }
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _closeCmd;
+        public ICommand CloseCmd
+        {
+            get
+            {
+                return this._closeCmd ??
+                (
+                    this._closeCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            Tuple<StackPanel> stcPnlExpnder =
+                                            (Tuple<StackPanel>)x;
+
+                            stcPnlExpnder.Item1.Visibility = Visibility.Collapsed;
                         },
                         y => !HasErrors
                     )

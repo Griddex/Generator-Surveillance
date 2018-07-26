@@ -1,19 +1,16 @@
 ﻿<Application x:Class="Panel.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:convtrs="clr-namespace:Panel.Converters"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:local="clr-namespace:Panel"
-             xmlns:vmlctr="clr-namespace:Panel.ViewModels"
-             xmlns:inpv="clr-namespace:Panel.Views.InputViews"
              xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+             xmlns:convtrs="clr-namespace:Panel.Converters"
              Startup="Application_Startup"> 
     
     <Application.Resources>
         
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
         <convtrs:FloatConverter x:Key="FloatToString"/>
-        <convtrs:ConvertIntArrayToTwoCharStringArray x:Key="IntArrayToTwoCharStringArray"/>
+        <convtrs:ConvertIntArrayToTwoCharStringArray 
+            x:Key="IntArrayToTwoCharStringArray"/>
         <convtrs:ConvertControlToControl x:Key="ControlToControl"/>
         <convtrs:ConvertYesNoToBoolean x:Key="YesNoToBoolean"/>
         <convtrs:ConvertDateTimeToDate x:Key="DateTimeToDate"/>
@@ -23,17 +20,29 @@
         <convtrs:ConvertCategoryToPhrase x:Key="CategoryToPhrase"/>
         <convtrs:ConvertComboBoxItemToString x:Key="ComboBoxItemToString"/>
         <convtrs:ConvertIntToTwoCharString x:Key="IntToTwoCharString"/>
-        <convtrs:PassRadioButtonListBoxStackPanelAsCommandParameters x:Key="PassRadioButtonListBoxStackPanel"/>
-        <convtrs:PassCheckBoxBoolListBoxAsCommandParameters x:Key="PassCheckBoxBoolListBox"/>
+        <convtrs:PassRadioButtonListBoxStackPanelAsCommandParameters 
+            x:Key="PassRadioButtonListBoxStackPanel"/>
+        <convtrs:PassCheckBoxBoolListBoxAsCommandParameters 
+            x:Key="PassCheckBoxBoolListBox"/>
         <convtrs:PassListBoxAsCommandParameter x:Key="PassListBox"/>
         <convtrs:PassGroupBoxAsCommandParameter x:Key="PassGroupBox"/>
         <convtrs:ConvertTrueOrFalseToVisibility x:Key="TrueOrFalseToVisibility"/>
-        <convtrs:PassTextBoxComboBoxItemAsCommandParameters x:Key="PassTextBoxComboBoxItem"/>
-        <convtrs:PassTextBoxTwoComboxItemsAsCommandParameters x:Key="PassTextBoxTwoComboxItems"/>
-        <convtrs:PassDatePickerComboBoxAsCommandParameter x:Key="PassDatePickerComboBox"/>
-        <convtrs:PassComboBoxesAndButtonAsCommandParameters x:Key="PassComboBoxesAndButton"/>
-        <convtrs:PassDtPkrTxBxTwoCmboxsAsCommandParameters x:Key="PassDtPkrTxBxTwoCmboxs"/>
-        <convtrs:PassStackpanelExpanderAsCommandParameters x:Key="PassStackpanelExpander"/>
+        <convtrs:PassTextBoxComboBoxItemAsCommandParameters 
+            x:Key="PassTextBoxComboBoxItem"/>
+        <convtrs:PassTextBoxTwoComboxItemsAsCommandParameters 
+            x:Key="PassTextBoxTwoComboxItems"/>
+        <convtrs:PassDatePickerComboBoxAsCommandParameter 
+            x:Key="PassDatePickerComboBox"/>
+        <convtrs:PassComboBoxesAndButtonAsCommandParameters 
+            x:Key="PassComboBoxesAndButton"/>
+        <convtrs:PassDtPkrTxBxTwoCmboxsAsCommandParameters 
+            x:Key="PassDtPkrTxBxTwoCmboxs"/>
+        <convtrs:PassStackpanelExpanderAsCommandParameters 
+            x:Key="PassStackpanelExpander"/>
+        <convtrs:PassPswbxExpdrExpdrStkPlVwBxAsCommandParameters 
+            x:Key="PassPswbxExpdrExpdrStkPlVwBx"/>
+        <convtrs:PassStackpanelAsCommandParameters 
+            x:Key="PassStackpanel"/>
 
 
         <Window x:Key="windwPassword"

@@ -37,5 +37,11 @@ namespace Panel.Interfaces
 
         ObservableCollection<GeneratorScheduler> GetAnyPageGeneratorScheduledRmdrs(
             int pageIndex = 1, int pageSize = 10);
+
+        Dictionary<string, int> GetActiveGeneratorsAndLastID();
+
+        void GenerateNextReminders(string GeneratorName);
+
+        void DeleteInactiveReminders();
     }
 }

@@ -23,10 +23,5 @@ namespace Panel.UserControls
         {
             InitializeComponent();
         }
-
-        private void ok_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

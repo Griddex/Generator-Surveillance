@@ -30,13 +30,16 @@ namespace Panel.Views.SettingsView
         {
             InitializeComponent();
 
-            this.grpbxFuelConsumption.DataContext =
+            this.expdrfclSettings.DataContext =
                 consumptionSettingsViewModel;
 
-            this.grpbxAuthorisers.DataContext =
+            this.expdrraSettings.DataContext =
                 authoriserSettingsViewModel;
 
-            this.grpbxRemConfig.DataContext =
+            this.expdrrcSettings.DataContext =
+                remindersConfigViewModel;
+
+            this.stcpnlfc1Settings.DataContext =
                 remindersConfigViewModel;
         }
 
@@ -88,15 +91,6 @@ namespace Panel.Views.SettingsView
             }
         }
 
-        private void expdrAuthorisers_Expanded(object sender, RoutedEventArgs e)
-        {
-            this.dtgdAuthoriserTable.Items.Refresh();
-            ICollectionView cvsGeneratorConsumption = CollectionViewSource
-                                                    .GetDefaultView(this.dtgdAuthoriserTable
-                                                                        .ItemsSource);
-            cvsGeneratorConsumption.Refresh();
-        }
-
         private void GroupbyGeneratorRemConfig_Click(object sender, RoutedEventArgs e)
         {
             ICollectionView cvsRemConfig = CollectionViewSource
@@ -142,14 +136,103 @@ namespace Panel.Views.SettingsView
                     break;
             }
 
-            this.dtgdGenRemindersConfigTable.ItemsSource = (this.grpbxRemConfig.DataContext as RemindersConfigViewModel)
-                                                            .UnitOfWork
-                                                            .GeneratorScheduler.GetActiveGeneratorSchedules();
+            this.dtgdGenRemindersConfigTable
+                .ItemsSource = (this.grpbxRemConfig.DataContext as 
+                                        RemindersConfigViewModel)
+                                        .UnitOfWork
+                                        .GeneratorScheduler
+                                        .GetActiveGeneratorSchedules();
+
             this.dtgdGenRemindersConfigTable.Items.Refresh();
             ICollectionView cvsGeneratorReminders = CollectionViewSource
                                                     .GetDefaultView(this.dtgdGenRemindersConfigTable
                                                                         .ItemsSource);
             cvsGeneratorReminders.Refresh();
+        }
+
+        private void FuelComp_Expanded(object sender, RoutedEventArgs e)
+        {
+            this.vwbxSettings.Margin = new Thickness(0, 0, 0, 0);
+            this.vwbxSettings.Height = 820;
+            this.expdrfclSettings.Height = 820;
+
+            this.expdrraSettings.IsExpanded = false;
+            this.expdrrcSettings.IsExpanded = false;
+        }
+
+        private void FuelComp_Collapsed(object sender, RoutedEventArgs e)
+        {
+            this.expdrfclSettings.Height = 300;
+            CollapseAllExpanders();
+        }
+
+        private void expdrAuthorisers_Expanded(object sender, RoutedEventArgs e)
+        {
+            this.vwbxSettings.Margin = new Thickness(0, 0, 0, 0);
+            this.vwbxSettings.Height = 820;
+            this.expdrraSettings.Height = 820;
+
+            this.expdrfclSettings.IsExpanded = false;
+            this.expdrrcSettings.IsExpanded = false;
+        }
+
+        private void Authorisers_Collapsed(object sender, RoutedEventArgs e)
+        {
+            this.expdrraSettings.Height = 300;
+            CollapseAllExpanders();
+        }
+
+        private void expdrReminders_Expanded(object sender, RoutedEventArgs e)
+        {
+            this.vwbxSettings.Margin = new Thickness(0, 0, 0, 0);
+            this.vwbxSettings.Height = 820;
+            this.expdrrcSettings.Height = 820;
+
+            this.expdrfclSettings.IsExpanded = false;
+            this.expdrraSettings.IsExpanded = false;
+        }
+
+        private void Reminders_Collapsed(object sender, RoutedEventArgs e)
+        {
+            this.expdrrcSettings.Height = 300;
+            CollapseAllExpanders();
+        }
+
+        private void CollapseAllExpanders()
+        {
+            if(this.expdrfclSettings.IsExpanded == false ||
+                this.expdrraSettings.IsExpanded == false ||
+                this.expdrrcSettings.IsExpanded == false)
+            {
+                this.vwbxSettings.Margin = new Thickness(0, 300, 0, 0);
+                this.vwbxSettings.Height = 300;
+                this.expdrfclSettings.Height = 300;
+                this.expdrraSettings.Height = 300;
+                this.expdrrcSettings.Height = 300;
+
+            }
+        }
+
+        private void expdrraSettings_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.expdrfclSettings.IsExpanded = false;
+                this.expdrraSettings.IsExpanded = false;
+                this.expdrrcSettings.IsExpanded = false;
+                this.stckpnlPassword.Visibility = Visibility.Visible;
+            }                
+        }
+
+        private void expdrrcSettings_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.expdrfclSettings.IsExpanded = false;
+                this.expdrraSettings.IsExpanded = false;
+                this.expdrrcSettings.IsExpanded = false;
+                this.stckpnlPassword.Visibility = Visibility.Visible;
+            }                
         }
     }
 }

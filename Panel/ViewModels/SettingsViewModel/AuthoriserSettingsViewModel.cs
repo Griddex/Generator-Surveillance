@@ -34,7 +34,8 @@ namespace Panel.ViewModels.SettingsViewModel
         {
             UnitOfWork = unitOfWork;
 
-            AnyAuthorisersPage = UnitOfWork.AuthoriserSetting.GetAllAuthorisers();
+            AnyAuthorisersPage = UnitOfWork.AuthoriserSetting
+                                           .GetAllAuthorisers();
         }
 
         private ICommand _setAuthoriserCmd;

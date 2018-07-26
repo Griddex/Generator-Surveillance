@@ -369,7 +369,7 @@ namespace Panel.ViewModels.InputViewModels
             {
                 return this._closeCmd ??
                 (
-                    this._okCmd = new DelegateCommand
+                    this._closeCmd = new DelegateCommand
                     (
                         x =>
                         {
