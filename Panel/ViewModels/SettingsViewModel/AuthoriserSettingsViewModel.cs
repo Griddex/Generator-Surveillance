@@ -1,17 +1,10 @@
 ﻿using Panel.Commands;
 using Panel.Interfaces;
-using Panel.Models.InputModels;
 using Panel.Repositories;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Panel.ViewModels.SettingsViewModel
@@ -19,7 +12,8 @@ namespace Panel.ViewModels.SettingsViewModel
     public class AuthoriserSettingsViewModel : ViewModelBase, IViewModel
     {
 
-        public ObservableCollection<AuthoriserSetting> AnyAuthorisersPage { get; set; } =
+        public ObservableCollection<AuthoriserSetting> 
+            AnyAuthorisersPage { get; set; } =
             new ObservableCollection<AuthoriserSetting>();
 
         public UnitOfWork UnitOfWork { get; set; }
@@ -50,10 +44,12 @@ namespace Panel.ViewModels.SettingsViewModel
                         x =>
                         {
                             DataGrid dtgrd = (DataGrid)x;
-                            if (FirstName == null || LastName == null || Email == null
-                            || PhoneNumber == null || JobTitle == null)
+                            if (FirstName == null || LastName == null ||
+                                Email == null || PhoneNumber == null ||
+                                JobTitle == null)
                             {
-                                MessageBox.Show($"All details for the authoriser must " +
+                                MessageBox.Show($"All details for the " +
+                                    $"authoriser must " +
                                     $"be set to a valid value",
                                     "Error",
                                     MessageBoxButton.OK,
@@ -61,13 +57,16 @@ namespace Panel.ViewModels.SettingsViewModel
                                 return;
                             }
 
-                            UnitOfWork.AuthoriserSetting.SetAuthorisers(ReminderDate, FirstName, 
-                                LastName, Email, PhoneNumber, JobTitle);
+                            UnitOfWork.AuthoriserSetting.SetAuthorisers(
+                                ReminderDate, FirstName, 
+                                LastName, Email, PhoneNumber, 
+                                JobTitle);
 
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                AnyAuthorisersPage = UnitOfWork.AuthoriserSetting.GetAllAuthorisers();
+                                AnyAuthorisersPage = UnitOfWork.AuthoriserSetting
+                                                               .GetAllAuthorisers();
                                 OnPropertyChanged(nameof(AnyAuthorisersPage));
                             }
                         },

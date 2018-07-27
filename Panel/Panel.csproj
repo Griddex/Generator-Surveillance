@@ -209,6 +209,7 @@
     <Compile Include="GeneratorUsage.cs">
       <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IReminderSettingsRepository.cs" />
     <Compile Include="Interfaces\IChartsLogic.cs" />
     <Compile Include="Interfaces\IAuthorisersSettingsRepository.cs" />
     <Compile Include="Interfaces\IEmailService.cs" />
@@ -250,6 +251,7 @@
     <Compile Include="Repositories\GeneratorRunningHrsRepository.cs" />
     <Compile Include="Repositories\GeneratorSchedulerRepository.cs" />
     <Compile Include="Repositories\GeneratorUsageRepository.cs" />
+    <Compile Include="Repositories\ReminderSettingRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Services\MessagingServices\EmailMessage.cs" />

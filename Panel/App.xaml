@@ -141,25 +141,36 @@
             <Setter Property="FontSize" Value="12"/>
         </Style>
         
-        <ControlTemplate x:Key="ErrorTemplate" x:Name="ErrorTemplate">
+        <ControlTemplate x:Key="ErrorTemplate" 
+                         x:Name="ErrorTemplate">
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
                     <AdornedElementPlaceholder x:Name="adornerElement">
-                        <Border BorderBrush="Red" BorderThickness="2"/>
+                        <Border BorderBrush="Red" 
+                                BorderThickness="2"/>
                     </AdornedElementPlaceholder>
-                    <Ellipse Width="{Binding ElementName=adornerElement, Path=Width}" 
-                             Height="{Binding ElementName=adornerElement, Path=Width}" 
-                             Fill="Red" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Foreground="White" FontWeight="Heavy" FontSize="18" HorizontalAlignment="Center"
-                               VerticalAlignment="Center" TextAlignment="Center"
+                    <Ellipse Width="{Binding ElementName=adornerElement, 
+                                             Path=Width}" 
+                             Height="{Binding ElementName=adornerElement, 
+                                              Path=Width}" 
+                             Fill="Red" 
+                             HorizontalAlignment="Center" 
+                             VerticalAlignment="Center"/>
+                    <TextBlock Foreground="White" 
+                               FontWeight="Heavy" 
+                               FontSize="18" 
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" 
+                               TextAlignment="Center"
                                ToolTip="{Binding ElementName=adornerElement, 
-                        Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                                                 Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
                                Text="!"/>
                 </StackPanel>                
                 <ItemsControl ItemsSource="{Binding}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                            <TextBlock Text="{Binding ErrorContent}" 
+                                       Foreground="Red"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -187,15 +198,24 @@
         </Style>
         
         <!--Styling for the "Yes" button-->
-        <Style x:Key="AffirmativeButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Background" Value="#41C7DB"/>
+        <Style x:Key="AffirmativeButtonStyle" 
+               TargetType="{x:Type Button}">
+            <Setter Property="HorizontalContentAlignment" 
+                    Value="Center"/>
+            <Setter Property="VerticalContentAlignment" 
+                    Value="Center"/>
+            <Setter Property="Background" 
+                    Value="#1D8696"/>
             <Style.Triggers>
-                <Trigger Property="IsPressed" Value="True">
+                <Trigger Property="IsPressed" 
+                         Value="True">
                     <Setter Property="Button.Effect">
                         <Setter.Value>
-                            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="0" BlurRadius="0" Opacity="0"/>
+                            <DropShadowEffect Color="Black" 
+                                              Direction="320" 
+                                              ShadowDepth="0" 
+                                              BlurRadius="0" 
+                                              Opacity="0"/>
                         </Setter.Value>
                     </Setter>
                 </Trigger>                
@@ -204,7 +224,9 @@
         
         <!--Styling for the "NO" button-->
         <Style x:Key="NegativeButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#666666"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#FF3939 "/>
             <Style.Triggers>
                 <Trigger Property="IsPressed" Value="True">
                     <Setter Property="Button.Effect">
@@ -379,13 +401,22 @@
                                     <ColumnDefinition Width="55" />
                                 </Grid.ColumnDefinitions>
 
-                                <DatePickerTextBox  x:Name="PART_TextBox" Grid.Column="0" Grid.Row="0" Focusable="{TemplateBinding Focusable}" HorizontalContentAlignment="Stretch"  VerticalContentAlignment="Stretch">
+                                <DatePickerTextBox  x:Name="PART_TextBox" 
+                                                    Grid.Column="0" 
+                                                    Grid.Row="0" 
+                                                    Focusable="{TemplateBinding Focusable}" 
+                                                    HorizontalContentAlignment="Stretch"  
+                                                    VerticalContentAlignment="Stretch">
                                     <DatePickerTextBox.Style>
                                         <Style TargetType="DatePickerTextBox">
-                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
-                                            <Setter Property="Background" Value="Black"/>
-                                            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
-                                            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                                            <Setter Property="Foreground" 
+                                                    Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+                                            <Setter Property="Background" 
+                                                    Value="Black"/>
+                                            <Setter Property="ScrollViewer.PanningMode" 
+                                                    Value="VerticalFirst"/>
+                                            <Setter Property="Stylus.IsFlicksEnabled" 
+                                                    Value="False"/>
                                             <Setter Property="Template">
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="{x:Type DatePickerTextBox}">
@@ -431,9 +462,16 @@
                                                                     </VisualState>
                                                                 </VisualStateGroup>
                                                             </VisualStateManager.VisualStateGroups>
-                                                            <Border x:Name="DateTextBoxBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="1" Opacity="1" 
-                                                                    Padding="{TemplateBinding Padding}" Height="55" Background="#F2F2F2">
-                                                                <Grid x:Name="WatermarkContent" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <Border x:Name="DateTextBoxBorder" 
+                                                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                                                    CornerRadius="1" Opacity="1" 
+                                                                    Padding="{TemplateBinding Padding}" 
+                                                                    Height="55" 
+                                                                    Background="#F2F2F2">
+                                                                <Grid x:Name="WatermarkContent" 
+                                                                      HorizontalAlignment="Center" 
+                                                                      VerticalAlignment="Center">
                                                                     <Border x:Name="ContentElement" BorderBrush="#FFFFFFFF" BorderThickness="1"/>
                                                                     <Border x:Name="watermark_decorator" BorderBrush="#FFFFFFFF" BorderThickness="1">
                                                                         <ContentControl x:Name="PART_Watermark" Focusable="False" IsHitTestVisible="False" Opacity="0" Padding="2">
@@ -456,25 +494,47 @@
                                     </DatePickerTextBox.Style>
                                 </DatePickerTextBox>
 
-                                <Button x:Name="PART_Button" Grid.Column="1" Foreground="{TemplateBinding Foreground}" Focusable="False"   Grid.Row="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                                <Button x:Name="PART_Button" 
+                                        Grid.Column="1" 
+                                        Foreground="{TemplateBinding Foreground}" 
+                                        Focusable="False"   
+                                        Grid.Row="0" 
+                                        VerticalContentAlignment="Stretch" 
+                                        HorizontalContentAlignment="Stretch"
                                         Template="{StaticResource DropDownButtonTemplate}"  />
 
 
-                                <Grid x:Name="PART_DisabledVisual"  Grid.Column="0" IsHitTestVisible="False" Opacity="0" Grid.Row="0" Background="#F2F2F2">
+                                <Grid x:Name="PART_DisabledVisual"  
+                                      Grid.Column="0" 
+                                      IsHitTestVisible="False" 
+                                      Opacity="0" Grid.Row="0" 
+                                      Background="#F2F2F2">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Rectangle Grid.Column="0" Fill="#F2F2F2" RadiusY="1" Grid.Row="0" RadiusX="1" Margin="0"/>
-                                    <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_TextBox}" StaysOpen="False"
-                                           />
+                                    <Rectangle Grid.Column="0" 
+                                               Fill="#F2F2F2" 
+                                               RadiusY="1" 
+                                               Grid.Row="0" 
+                                               RadiusX="1" 
+                                               Margin="0"/>
+                                    <Popup x:Name="PART_Popup" 
+                                           AllowsTransparency="True" 
+                                           Placement="Bottom" 
+                                           PlacementTarget="{Binding ElementName=PART_TextBox}" 
+                                           StaysOpen="False"/>
                                 </Grid>
 
                             </Grid>
                         </Border>
 
                         <ControlTemplate.Triggers>
-                            <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="false">
-                                <Setter Property="Foreground" TargetName="PART_TextBox" Value="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" 
+                                         Value="false">
+                                <Setter Property="Foreground" 
+                                        TargetName="PART_TextBox" 
+                                        Value="{Binding Foreground, 
+                                                        RelativeSource={RelativeSource TemplatedParent}}"/>
                             </DataTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -483,6 +543,10 @@
         </Style>
 
         <!--Styling for Textboxes-->
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+        </Style>
 
         <!--Styling for Comboboxes-->
         
@@ -713,7 +777,11 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBox}">
-                        <ScrollViewer x:Name="PART_ContentHost" Background="Transparent" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        <ScrollViewer x:Name="PART_ContentHost" 
+                                      Background="Transparent" 
+                                      Focusable="false" 
+                                      HorizontalScrollBarVisibility="Hidden" 
+                                      VerticalScrollBarVisibility="Hidden"/>
 
                     </ControlTemplate>
                 </Setter.Value>

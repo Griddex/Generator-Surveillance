@@ -26,7 +26,10 @@ namespace Panel.Repositories
         public void GeneratorStarted(DateTime RecordDate, string GeneratorName, 
             DateTime GeneratorStarted)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorUsages.Count();
+            int NoOfRecords = GeneratorSurveillanceDBContext
+                                        .GeneratorUsages
+                                        .Count();
+
             GeneratorSurveillanceDBContext.GeneratorUsages.Add
             (
                 new GeneratorUsage

@@ -19,12 +19,16 @@ namespace Panel.ViewModels.SettingsViewModel
 
         public ObservableCollection<GeneratorScheduler> AllGeneratorSchedules { get; set; } =
             new ObservableCollection<GeneratorScheduler>();
+
         public ObservableCollection<GeneratorScheduler> ActiveGeneratorSchedules { get; set; } =
             new ObservableCollection<GeneratorScheduler>();
+
         public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } =
             new ObservableCollection<GeneratorNameModel>();
+
         public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } =
             new ObservableCollection<GeneratorNameModel>();
+
         public ObservableCollection<string> ReminderLevels { get; set; } =
             new ObservableCollection<string>();
 
@@ -40,7 +44,9 @@ namespace Panel.ViewModels.SettingsViewModel
                                                      .GetUniqueGeneratorNames();
 
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
-                (UniqueGeneratorNamesUnsorted.OrderBy(x => x.GeneratorName));
+                                        (UniqueGeneratorNamesUnsorted
+                                        .OrderBy(x => 
+                                                 x.GeneratorName));
 
             UniqueAuthoriserFullNames = unitOfWork.AuthoriserSetting
                                                   .GetAuthorisersFullNames();
@@ -83,14 +89,17 @@ namespace Panel.ViewModels.SettingsViewModel
                             string Authoriser = SchMaintenanceSelectedAuthoriser;
 
                             string RepeatReminderYesNo = RepeatReminder ? "Yes" : "No";
-                            string AuthoriserFirstName = Regex.Match(Authoriser, @"\b[A-Za-z]+\b", 
-                                                                RegexOptions.Singleline).Value;
+                            //string AuthoriserFirstName = Regex.Match(Authoriser, @"\b[A-Za-z]+\b", 
+                            //                                    RegexOptions.Singleline).Value;
+
+                            string AuthoriserFullName = Authoriser;
+
                             UnitOfWork.GeneratorScheduler
                                       .ActivateReminderNotification(SchMaintenanceSelectedGen,
                                                             SchMaintenanceStartDate, 
                                                             SchMaintenanceReminderHours,
                                                             ReminderLevel, RepeatReminderYesNo,
-                                                            AuthoriserFirstName);
+                                                            AuthoriserFullName);
 
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
@@ -111,6 +120,59 @@ namespace Panel.ViewModels.SettingsViewModel
                 );
             }
         }
+
+        private ICommand _deleteRemindersCmd;
+        public ICommand DeleteRemindersCmd
+        {
+            get
+            {
+                return this._deleteRemindersCmd ??
+                (
+                    this._deleteRemindersCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            MessageBoxResult result = MessageBox.Show(
+                                "Do you want to " +
+                                "delete all inactive reminders?", 
+                                "Confirmation", 
+                                MessageBoxButton.YesNoCancel, 
+                                MessageBoxImage.Question);
+
+                            switch (result)
+                            {
+                                case MessageBoxResult.None:
+                                case MessageBoxResult.No:
+                                case MessageBoxResult.Cancel:
+                                    return;
+                                case MessageBoxResult.OK:
+                                case MessageBoxResult.Yes:
+                                    UnitOfWork.GeneratorScheduler
+                                              .DeleteInactiveReminders();
+
+                                    int Success = UnitOfWork.Complete();
+                                    if (Success > 0)
+                                    {
+                                        MessageBox.Show($"All inactive reminders" +
+                                            $"have been deleted!",
+                                            "Information", MessageBoxButton.OK,
+                                            MessageBoxImage.Information);
+
+                                        ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
+                                                                             .GetActiveGeneratorSchedules();
+
+                                        OnPropertyChanged(nameof(ActiveGeneratorSchedules));
+                                    }
+                                    break;                                   
+                            }                            
+                            return;
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
 
         private ICommand _okCmd;
         public ICommand OKCmd
@@ -182,6 +244,47 @@ namespace Panel.ViewModels.SettingsViewModel
                                             (Tuple<StackPanel>)x;
 
                             stcPnlExpnder.Item1.Visibility = Visibility.Collapsed;
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _repeatReminderCmd;
+        public ICommand RepeatReminderCmd
+        {
+            get
+            {
+                return this._repeatReminderCmd ??
+                (
+                    this._repeatReminderCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            DataGrid dtgd = (DataGrid)x;
+
+                            var selectedRow = dtgd.SelectedItem 
+                                                  as GeneratorScheduler;
+
+                            UnitOfWork.ReminderSetting.RepeatReminder(
+                                                selectedRow.GeneratorName);
+
+                            int Success = UnitOfWork.Complete();
+                            if (Success > 0)
+                            {
+                                MessageBox.Show($"Repetitive Reminder" +
+                                    $"activated for {selectedRow.GeneratorName}",
+                                    "Information", 
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
+
+                                ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
+                                                                     .GetActiveGeneratorSchedules();
+
+                                OnPropertyChanged(nameof(ActiveGeneratorSchedules));
+                            }
+
                         },
                         y => !HasErrors
                     )

@@ -1,19 +1,14 @@
 ﻿using Panel.Commands;
+using Panel.Interfaces;
 using Panel.Models.InputModels;
+using Panel.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Panel.Interfaces;
-using System.Windows.Navigation;
-using Panel.Repositories;
+using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Collections.ObjectModel;
-using Unity;
-using System.Globalization;
+using System.Windows.Input;
 
 namespace Panel.ViewModels.InputViewModels
 {
@@ -77,22 +72,29 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         x =>
                         {
-                            if(SelectedGeneratorName == null || SelectedGeneratorName == "")
+                            if(SelectedGeneratorName == null || 
+                            SelectedGeneratorName == "")
                             {
-                                MessageBox.Show($"Please select a generator in General Generator Information", 
+                                MessageBox.Show($"Please select a " +
+                                    $"generator in General Generator Information", 
                                     "Error",
-                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBoxButton.OK, 
+                                    MessageBoxImage.Error);
                                 return;
                             }
 
                             string mergedStartTime = $"{SelectedStartHour.ToString("D2")}:" +
                                                     $"{SelectedStartMinute.ToString("D2")}:" +
-                                                    $"{SelectedStartSecond.ToString("D2")} {SelectedStartAMPM}";
+                                                    $"{SelectedStartSecond.ToString("D2")} " +
+                                                    $"{SelectedStartAMPM}";
 
-                            if(DateTime.TryParseExact(mergedStartTime, "hh:mm:ss tt", CultureInfo.InvariantCulture, 
+                            if(DateTime.TryParseExact(mergedStartTime, "hh:mm:ss tt", 
+                                CultureInfo.InvariantCulture, 
                                 DateTimeStyles.None, out _parsedStartTime))
                                 GeneratorStartedModel = _parsedStartTime;
-                            DateTime GeneratorStartedModelTime = SelectedRecordDate.Date + GeneratorStartedModel.TimeOfDay;
+
+                            DateTime GeneratorStartedModelTime = SelectedRecordDate.Date + 
+                                                                 GeneratorStartedModel.TimeOfDay;
 
                             UnitOfWork.GeneratorUsage.GeneratorStarted(SelectedRecordDate, 
                                 SelectedGeneratorName, GeneratorStartedModelTime);
@@ -104,7 +106,8 @@ namespace Panel.ViewModels.InputViewModels
                                     MessageBoxButton.OK, MessageBoxImage.Information);
                             else
                             {
-                                MessageBox.Show($"{GeneratorStartedModelTime.ToLongTimeString()} was not saved", 
+                                MessageBox.Show($"{GeneratorStartedModelTime.ToLongTimeString()} " +
+                                    $"was not saved", 
                                     "Error",
                                     MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;

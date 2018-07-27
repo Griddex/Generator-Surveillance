@@ -24,14 +24,19 @@ namespace Panel.ViewModels.InputViewModels
     {
         public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = 
             new ObservableCollection<GeneratorNameModel>();
+
         public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } = 
             new ObservableCollection<GeneratorNameModel>();
+
         public ObservableCollection<string> ReminderLevels { get; set; } = 
             new ObservableCollection<string>();
+
         public ObservableCollection<GeneratorScheduler> AllGeneratorSchedules { get; set; } = 
             new ObservableCollection<GeneratorScheduler>();
+
         public ObservableCollection<GeneratorScheduler> ActiveGeneratorSchedules { get; set; } = 
             new ObservableCollection<GeneratorScheduler>();
+
         public List<string> UniqueAuthoriserNames { get; set; } = new List<string>();
 
         public MaintenanceViewModel(UnitOfWork unitOfWork, PasswordControl passwordControl)
@@ -41,15 +46,21 @@ namespace Panel.ViewModels.InputViewModels
 
             UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation
                                                      .GetUniqueGeneratorNames();
+
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
-                (UniqueGeneratorNamesUnsorted.OrderBy(x => x.GeneratorName));
+                                        (UniqueGeneratorNamesUnsorted
+                                        .OrderBy(x => 
+                                                x.GeneratorName));
+
             AllGeneratorSchedules = unitOfWork.GeneratorScheduler
                                               .GetAllGeneratorSchedules();
+
             ActiveGeneratorSchedules = unitOfWork.GeneratorScheduler
                                                  .GetActiveGeneratorSchedules();
             //TODO
             UniqueAuthoriserNames.Add("Monday");
             UniqueAuthoriserNames.Add("Richard");
+
             ReminderLevels.Add("Normal");
             ReminderLevels.Add("Elevated");
             ReminderLevels.Add("Extreme");
@@ -163,13 +174,16 @@ namespace Panel.ViewModels.InputViewModels
                 OnPropertyChanged(nameof(SchMaintenanceSelectedGen));
 
                 SchMaintenanceStartDate = UnitOfWork.GeneratorScheduler
-                                            .GetStartDate(SchMaintenanceSelectedGen, 
-                                            AllGeneratorSchedules);
+                                                    .GetStartDate
+                                                    (SchMaintenanceSelectedGen, 
+                                                    AllGeneratorSchedules);
+
                 OnPropertyChanged(nameof(SchMaintenanceStartDate));
 
                 SchMaintenanceReminderHours = UnitOfWork.GeneratorScheduler
-                                            .GetReminderInHrs(SchMaintenanceSelectedGen, 
-                                            AllGeneratorSchedules);
+                                                        .GetReminderInHrs(
+                                                        SchMaintenanceSelectedGen, 
+                                                        AllGeneratorSchedules);
                 OnPropertyChanged(nameof(SchMaintenanceReminderHours));
 
                 try

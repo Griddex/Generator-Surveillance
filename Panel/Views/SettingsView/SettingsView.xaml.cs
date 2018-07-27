@@ -1,21 +1,11 @@
 ﻿using Panel.BusinessLogic.MaintenanceLogic;
 using Panel.Interfaces;
 using Panel.ViewModels.SettingsViewModel;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Panel.Views.SettingsView
 {
@@ -61,26 +51,28 @@ namespace Panel.Views.SettingsView
             ICollectionView cvsGeneratorConsumption = CollectionViewSource
                                                       .GetDefaultView(this.dtgdGenFuelConsumptionTable
                                                                           .ItemsSource);
-            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption.CanGroup == true)
+            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption
+                                                        .CanGroup == true)
             {
                 cvsGeneratorConsumption.GroupDescriptions.Clear();
             }
         }
 
-        private void GroupbyGeneratorAuthorisers_Click(object sender, RoutedEventArgs e)
+        private void GroupbyFirstNameAuthorisers_Click(object sender, RoutedEventArgs e)
         {
             ICollectionView cvsRemindersAuthorisers = CollectionViewSource
                                                       .GetDefaultView(this.dtgdAuthoriserTable
                                                                           .ItemsSource);
-            if (cvsRemindersAuthorisers != null && cvsRemindersAuthorisers.CanGroup == true)
+            if (cvsRemindersAuthorisers != null && cvsRemindersAuthorisers
+                                                        .CanGroup == true)
             {
                 cvsRemindersAuthorisers.GroupDescriptions.Clear();
                 cvsRemindersAuthorisers.GroupDescriptions
-                                       .Add(new PropertyGroupDescription("GeneratorName"));
+                                       .Add(new PropertyGroupDescription("FirstName"));
             }
         }
 
-        private void ClearGeneratorGroupingAuthorisers_Click(object sender, RoutedEventArgs e)
+        private void ClearFirstNameGroupingAuthorisers_Click(object sender, RoutedEventArgs e)
         {
             ICollectionView cvsRemindersAuthorisers = CollectionViewSource
                                                       .GetDefaultView(this.dtgdAuthoriserTable
@@ -152,12 +144,17 @@ namespace Panel.Views.SettingsView
 
         private void FuelComp_Expanded(object sender, RoutedEventArgs e)
         {
+            this.expdrraSettings.IsExpanded = false;
+            this.expdrrcSettings.IsExpanded = false;
+
             this.vwbxSettings.Margin = new Thickness(0, 0, 0, 0);
+            this.expdrfclSettings.Margin = new Thickness(0, 0, 0, 0);
+            this.grpbxFuelConsumption.Margin = new Thickness(0, 0, 0, 0);
+
             this.vwbxSettings.Height = 820;
             this.expdrfclSettings.Height = 820;
 
-            this.expdrraSettings.IsExpanded = false;
-            this.expdrrcSettings.IsExpanded = false;
+            this.stckpnlPassword.Visibility = Visibility.Collapsed;
         }
 
         private void FuelComp_Collapsed(object sender, RoutedEventArgs e)
@@ -168,12 +165,17 @@ namespace Panel.Views.SettingsView
 
         private void expdrAuthorisers_Expanded(object sender, RoutedEventArgs e)
         {
+            this.expdrfclSettings.IsExpanded = false;
+            this.expdrrcSettings.IsExpanded = false;
+
             this.vwbxSettings.Margin = new Thickness(0, 0, 0, 0);
+            this.expdrraSettings.Margin = new Thickness(0, 0, 0, 0);
+            this.grpbxAuthorisers.Margin = new Thickness(0, 0, 0, 0);
+
             this.vwbxSettings.Height = 820;
             this.expdrraSettings.Height = 820;
 
-            this.expdrfclSettings.IsExpanded = false;
-            this.expdrrcSettings.IsExpanded = false;
+            this.stckpnlPassword.Visibility = Visibility.Collapsed;
         }
 
         private void Authorisers_Collapsed(object sender, RoutedEventArgs e)
@@ -184,12 +186,17 @@ namespace Panel.Views.SettingsView
 
         private void expdrReminders_Expanded(object sender, RoutedEventArgs e)
         {
+            this.expdrfclSettings.IsExpanded = false;
+            this.expdrraSettings.IsExpanded = false;
+
             this.vwbxSettings.Margin = new Thickness(0, 0, 0, 0);
+            this.expdrrcSettings.Margin = new Thickness(0, 0, 0, 0);
+            this.grpbxRemConfig.Margin = new Thickness(0, 0, 0, 0);
+
             this.vwbxSettings.Height = 820;
             this.expdrrcSettings.Height = 820;
 
-            this.expdrfclSettings.IsExpanded = false;
-            this.expdrraSettings.IsExpanded = false;
+            this.stckpnlPassword.Visibility = Visibility.Collapsed;
         }
 
         private void Reminders_Collapsed(object sender, RoutedEventArgs e)

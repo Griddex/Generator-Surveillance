@@ -258,16 +258,19 @@ namespace Panel.Repositories
 
         public void DeleteInactiveReminders()
         {
+            var InactiveReminders = GeneratorSurveillanceDBContext
+                                        .GeneratorSchedulers
+                                        .Where(x => x.Id >= 0 &&
+                                                    x.IsActive == "No")
+                                        .ToList();
+
             RemoveRange
+            (
+                new ObservableCollection<GeneratorScheduler>
                 (
-                    new ObservableCollection<GeneratorScheduler>
-                    (
-                    GeneratorSurveillanceDBContext
-                    .GeneratorSchedulers
-                    .Where(x => x.Id >= 0 &&
-                                x.IsActive == "No")
-                    )
-                );
+                    InactiveReminders
+                )
+            );
         }
     }
 }

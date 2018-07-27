@@ -1,20 +1,9 @@
 ﻿using Panel.Interfaces;
 using Panel.ViewModels.InputViewModels;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Panel.Views.InputViews
 {
@@ -34,10 +23,12 @@ namespace Panel.Views.InputViews
             ICollectionView cvsGeneratorConsumption = CollectionViewSource
                                                       .GetDefaultView(this.dtgdGenFuelConsumptionTable
                                                                           .ItemsSource);
-            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption.CanGroup == true)
+            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption
+                                                    .CanGroup == true)
             {
                 cvsGeneratorConsumption.GroupDescriptions.Clear();
-                cvsGeneratorConsumption.GroupDescriptions.Add(new PropertyGroupDescription("Generator"));
+                cvsGeneratorConsumption.GroupDescriptions.Add(
+                    new PropertyGroupDescription("Generator"));
             }            
         }
 

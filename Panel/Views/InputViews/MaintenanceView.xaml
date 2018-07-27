@@ -25,13 +25,16 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="10"/>
             </Grid.RowDefinitions>
-            <ScrollViewer Grid.Row="0" Grid.Column="1" 
+            <ScrollViewer Grid.Row="0" 
+                          Grid.Column="1" 
                           HorizontalScrollBarVisibility="Auto"
                           VerticalScrollBarVisibility="Auto">
-                <GroupBox Grid.Row="0" Grid.Column="1" 
+                <GroupBox Grid.Row="0" 
+                          Grid.Column="1" 
                           Style="{StaticResource GroupBoxStyle}" 
                           Header="Generator Maintenance Information" 
-                          Width="846" Height="817">
+                          Width="846" 
+                          Height="817">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20"/>
@@ -45,11 +48,14 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="20"/>
                         </Grid.ColumnDefinitions>
-                        <GroupBox Grid.Row="1" Grid.Column="1" 
+                        <GroupBox Grid.Row="1" 
+                                  Grid.Column="1" 
                                   Style="{StaticResource GroupBoxStyle}"
                                   Header="Unscheduled Maintenance" 
-                                  Foreground="#1d8696" VerticalAlignment="Top">
-                            <Grid Grid.Row="1" Grid.Column="1">
+                                  Foreground="#1D8696" 
+                                  VerticalAlignment="Top">
+                            <Grid Grid.Row="1" 
+                                  Grid.Column="1">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="118"/>
                                     <RowDefinition Height="*"/>
@@ -59,49 +65,71 @@
                                     <ColumnDefinition Width="510"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom">
-                                    <StackPanel Height="115" VerticalAlignment="Bottom">
+                                <Grid Grid.Column="0" 
+                                      Grid.Row="0" 
+                                      VerticalAlignment="Bottom">
+                                    <StackPanel Height="115" 
+                                                VerticalAlignment="Bottom">
                                         <Label x:Name="lblGenUnSchMainGenerator" 
                                                Content="Select Generator" 
                                                VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Left" FontSize="14"/>
-                                        <ComboBox x:Name="cmbxSelectUnSchMain" Width="500" 
-                                                  Height="55" HorizontalAlignment="Left"
+                                               HorizontalAlignment="Left" 
+                                               FontSize="14"/>
+                                        <ComboBox x:Name="cmbxSelectUnSchMain" 
+                                                  Width="500" 
+                                                  Height="55" 
+                                                  HorizontalAlignment="Left"
                                                   ItemsSource="{Binding UniqueGeneratorNames}" 
-                                                  FontSize="16" Foreground="Black" 
+                                                  FontSize="16" 
+                                                  Foreground="Black" 
                                                   DisplayMemberPath="GeneratorName"
-                                                  SelectedValuePath="GeneratorName" SelectedValue="GeneratorName"
-                                                  SelectedIndex="0" Style="{StaticResource alignmentFontSize}"
+                                                  SelectedValuePath="GeneratorName" 
+                                                  SelectedValue="GeneratorName"
+                                                  SelectedIndex="0" 
+                                                  Style="{StaticResource alignmentFontSize}"
                                                   VerticalAlignment="Bottom"/>
                                     </StackPanel>
                                 </Grid>
-                                <Grid Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">
-                                    <StackPanel Orientation="Vertical" Grid.Row="0"
-                                                VerticalAlignment="Bottom"  Margin="10,0,0,30" 
+                                <Grid Grid.Column="1" 
+                                      Grid.Row="0" 
+                                      Grid.ColumnSpan="2">
+                                    <StackPanel Orientation="Vertical" 
+                                                Grid.Row="0"
+                                                VerticalAlignment="Bottom"  
+                                                Margin="10,0,0,30" 
                                                 Height="80">
-                                        <Label Content="On" Height="25" FontSize="14" 
+                                        <Label Content="On" 
+                                               Height="25" 
+                                               FontSize="14" 
                                                VerticalAlignment="Bottom"
                                                Margin="20,0,0,0"/>
                                         <DatePicker HorizontalAlignment="right" 
                                                     VerticalAlignment="Bottom"
                                                     Margin="2,0,0,30"
-                                                    Style="{DynamicResource DatePickerStyle}" Width="240" 
+                                                    Style="{DynamicResource DatePickerStyle}" 
+                                                    Width="240" 
                                                     Height="55"
                                                     SelectedDate="{Binding Path=UnschMaintenanceDate, 
                                                                            Mode=TwoWay}"
                                                     DisplayDate="{x:Static sys:DateTime.Now}"/>
                                     </StackPanel>
                                 </Grid>
-                                <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
+                                <Grid Grid.Column="0" 
+                                      Grid.Row="1" 
+                                      Grid.RowSpan="2">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="4*"/>
                                         <ColumnDefinition Width="3*"/>
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" 
+                                    <StackPanel Orientation="Vertical" 
+                                                Grid.ColumnSpan="2" 
                                                 Height="150">
-                                        <Label Content="Comments" Height="25" FontSize="14"/>
-                                        <TextBox  Background="#F2F2F2" Width="500" 
-                                                  Height="122" HorizontalAlignment="Left"
+                                        <Label Content="Comments" 
+                                               FontSize="14"/>
+                                        <TextBox  Background="#F2F2F2" 
+                                                  Width="500" 
+                                                  Height="122" 
+                                                  HorizontalAlignment="Left"
                                                   Text="{Binding Path=UnschMaintenanceComments, 
                                                                  Mode=TwoWay, 
                                                                  ValidatesOnNotifyDataErrors=True, 
@@ -111,14 +139,18 @@
                                                   Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                     </StackPanel>
                                 </Grid>
-                                <Grid Grid.Column="1" Grid.Row="1" >
+                                <Grid Grid.Column="1" 
+                                      Grid.Row="1" >
                                     <StackPanel Orientation="Vertical" 
                                                 VerticalAlignment="Bottom" 
                                                 Margin="10,0,0,0">
-                                        <Label Content="Total Cost (N)" Height="25" 
+                                        <Label Content="Total Cost (N)" 
+                                               Height="25" 
                                                FontSize="14"
                                                Margin="22,0,0,0"/>
-                                        <TextBox  Background="#F2F2F2" Width="240" Height="55" 
+                                        <TextBox  Background="#F2F2F2" 
+                                                  Width="240" 
+                                                  Height="55" 
                                                   HorizontalAlignment="right"
                                                   Text="{Binding Path=UnschMaintenanceTotalCost, 
                                                                  Mode=TwoWay, 
@@ -131,8 +163,11 @@
                                     </StackPanel>
                                 </Grid>
 
-                                <Button x:Name="btnAddUnMaintenance" Grid.Column="1" 
-                                        Grid.Row="2"  Height="55" Width="240"  
+                                <Button x:Name="btnAddUnMaintenance" 
+                                        Grid.Column="1" 
+                                        Grid.Row="2"  
+                                        Height="55" 
+                                        Width="240"  
                                         Content="Add Maintenance" 
                                         ToolTip="Add unscheduled maintenance" 
                                         Style="{StaticResource AffirmativeButtonStyle}" 
@@ -144,11 +179,15 @@
                                         CommandParameter="{Binding ElementName=cmbxSelectUnSchMain}"/>
                             </Grid>
                         </GroupBox>
-                        <GroupBox Grid.Row="3" Grid.Column="1" 
+                        <GroupBox Grid.Row="3" 
+                                  Grid.Column="1" 
                                   Style="{StaticResource GroupBoxStyle}"
-                                  Header="Scheduled Maintenance" Foreground="#1d8696"
-                                  Height="420" VerticalAlignment="Top">
-                            <Grid Grid.Row="3" Grid.Column="1">
+                                  Header="Scheduled Maintenance" 
+                                  Foreground="#1D8696"
+                                  Height="420" 
+                                  VerticalAlignment="Top">
+                            <Grid Grid.Row="3" 
+Grid.Column="1">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="110"/>
                                     <RowDefinition Height="*"/>
@@ -165,20 +204,29 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel Orientation="Vertical" Grid.Row="0" 
-                                            Grid.Column="0" Grid.ColumnSpan="9">
+                                <StackPanel Orientation="Vertical" 
+                                            Grid.Row="0" 
+                                            Grid.Column="0" 
+                                            Grid.ColumnSpan="9">
                                     <StackPanel Orientation="Vertical">
-                                        <Label x:Name="lblGenSchMainGenerator" Content="Select Generator" 
-                                               VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                        <Label x:Name="lblGenSchMainGenerator" 
+                                               Content="Select Generator" 
+                                               VerticalAlignment="Top" 
+                                               HorizontalAlignment="Left" 
                                                FontSize="14"/>
-                                        <ComboBox x:Name="cmbxSelectSchMain" Width="500" Height="55" 
+                                        <ComboBox x:Name="cmbxSelectSchMain" 
+                                                  Width="500" 
+                                                  Height="55" 
                                                   HorizontalAlignment="Left"
                                                   ItemsSource="{Binding UniqueGeneratorNames}" 
-                                                  Foreground="Black" DisplayMemberPath="GeneratorName"
-                                                  SelectedValuePath="GeneratorName" FontSize="16"
+                                                  Foreground="Black" 
+                                                  DisplayMemberPath="GeneratorName"
+                                                  SelectedValuePath="GeneratorName" 
+                                                  FontSize="16"
                                                   SelectedValue="{Binding Path=SchMaintenanceSelectedGen, 
                                                                           Mode=OneWayToSource}"
-                                                  SelectedIndex="0" Style="{StaticResource alignmentFontSize}"/>
+                                                  SelectedIndex="0" 
+                                                  Style="{StaticResource alignmentFontSize}"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <Grid Grid.Column="6" 
@@ -192,14 +240,17 @@
                                                Margin="17,0,0,0"/>
                                         <DatePicker HorizontalAlignment="Right"  
                                                     VerticalAlignment="Bottom" 
-                                                    Style="{DynamicResource DatePickerStyle}" Width="240" 
+                                                    Style="{DynamicResource DatePickerStyle}" 
+                                                    Width="240" 
                                                     Height="55" Margin="0,0,0,25"
                                                     SelectedDate="{Binding Path=SchMaintenanceDate, 
                                                                            Mode=TwoWay}"
                                                     DisplayDate="{x:Static sys:DateTime.Now}"/>
                                     </StackPanel>
                                 </Grid>
-                                <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="9"
+                                <Grid Grid.Column="0" 
+                                      Grid.Row="1" 
+                                      Grid.ColumnSpan="9"
                                       Grid.RowSpan="3"
                                       Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                            Path=IsExpanded, 
@@ -208,11 +259,15 @@
                                                 Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                                      Path=IsExpanded, 
                                                                      Converter={StaticResource TrueOrFalseToVisibility}}">
-                                        <Label Content="Comments" Height="25" FontSize="14"
+                                        <Label Content="Comments" 
+                                               Height="25" 
+                                               FontSize="14"
                                                Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                                     Path=IsExpanded, 
                                                                     Converter={StaticResource TrueOrFalseToVisibility}}"/>
-                                        <TextBox  Background="#F2F2F2" Width="500" Height="122" 
+                                        <TextBox  Background="#F2F2F2" 
+                                                  Width="500" 
+                                                  Height="122" 
                                                   HorizontalAlignment="Left"
                                                   Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                                        Path=IsExpanded, 
@@ -227,7 +282,9 @@
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="6"
+                                <Grid Grid.Column="6" 
+                                      Grid.Row="1" 
+                                      Grid.ColumnSpan="6"
                                       Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                            Path=IsExpanded, 
                                                            Converter={StaticResource TrueOrFalseToVisibility}}">
@@ -235,13 +292,18 @@
                                                 Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                                      Path=IsExpanded, 
                                                                      Converter={StaticResource TrueOrFalseToVisibility}}">
-                                        <Label Content="Total Cost (N)" Height="25" 
-                                               FontSize="14" Margin="15,0,0,0"
+                                        <Label Content="Total Cost (N)" 
+                                               Height="25" 
+                                               FontSize="14" 
+                                               Margin="15,0,0,0"
                                                Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                                     Path=IsExpanded, 
                                                                     Converter={StaticResource TrueOrFalseToVisibility}}"/>
-                                        <TextBox  Background="#F2F2F2" HorizontalAlignment="Right"  
-                                                  VerticalAlignment="Bottom" Width="240" Height="55"
+                                        <TextBox  Background="#F2F2F2" 
+                                                  HorizontalAlignment="Right"  
+                                                  VerticalAlignment="Bottom" 
+                                                  Width="240" 
+                                                  Height="55"
                                                   Text="{Binding Path=SchMaintenanceTotalCost, 
                                                                  Mode=TwoWay, 
                                                                  ValidatesOnNotifyDataErrors=True, 
@@ -255,10 +317,14 @@
                                                   HorizontalContentAlignment="Center"/>
                                     </StackPanel>
                                 </Grid>
-                                <Button x:Name="btnAddSchMaintenance" Grid.Column="6" 
+                                <Button x:Name="btnAddSchMaintenance" 
+                                        Grid.Column="6" 
                                         Grid.ColumnSpan="5" 
-                                        Grid.Row="2"  Grid.RowSpan="3"
-                                        Height="55" Width="240"  Margin="0,0,0,130"
+                                        Grid.Row="2"  
+                                        Grid.RowSpan="3"
+                                        Height="55" 
+                                        Width="240"  
+                                        Margin="0,0,0,130"
                                         Content="Add Maintenance" 
                                         ToolTip="Add a new generator" 
                                         Style="{StaticResource AffirmativeButtonStyle}" 
@@ -303,10 +369,13 @@
                                                    Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                                         Path=IsExpanded, 
                                                                         Converter={StaticResource TrueOrFalseToVisibility}}"/>
-                                            <DatePicker x:Name="dtpkrStarts"  HorizontalAlignment="Right"  
+                                            <DatePicker x:Name="dtpkrStarts"  
+                                                        HorizontalAlignment="Right"  
                                                         VerticalAlignment="Bottom" 
                                                         Style="{DynamicResource DatePickerStyle}" 
-                                                        Width="240" Height="55" Margin="0,0,0,0"
+                                                        Width="240" 
+                                                        Height="55" 
+                                                        Margin="0,0,0,0"
                                                         SelectedDate="{Binding SchMaintenanceStartDate, 
                                                                                Mode=TwoWay}"
                                                         DisplayDate="{x:Static sys:DateTime.Now}"
@@ -316,23 +385,34 @@
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="5"  
-                                      Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,160,0,0"
+                                <Grid Grid.Column="1" 
+                                      Grid.Row="5" 
+                                      Grid.ColumnSpan="5"  
+                                      Grid.RowSpan="2" 
+                                      VerticalAlignment="Top" 
+                                      Margin="0,160,0,0"
                                       Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                            Path=IsExpanded, 
                                                            Converter={StaticResource TrueOrFalseToVisibility}}">
-                                    <StackPanel Orientation="Vertical"  VerticalAlignment="Bottom" 
-                                                HorizontalAlignment="Left" Margin="175,0,0,0"
+                                    <StackPanel Orientation="Vertical"  
+                                                VerticalAlignment="Bottom" 
+                                                HorizontalAlignment="Left" 
+                                                Margin="175,0,0,0"
                                                 Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                                      Path=IsExpanded, 
                                                                      Converter={StaticResource TrueOrFalseToVisibility}}">
-                                        <Label Content="Every (hrs)" Height="25" FontSize="14" 
+                                        <Label Content="Every (hrs)" 
+                                               Height="25" 
+                                               FontSize="14" 
                                                VerticalContentAlignment="Center"
                                                Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                                     Path=IsExpanded, 
                                                                     Converter={StaticResource TrueOrFalseToVisibility}}"/>
-                                        <TextBox x:Name="txtBxEvery" Background="#F2F2F2" Width="100" 
-                                                 Height="55" HorizontalAlignment="Left" 
+                                        <TextBox x:Name="txtBxEvery" 
+                                                 Background="#F2F2F2" 
+                                                 Width="100" 
+                                                 Height="55" 
+                                                 HorizontalAlignment="Left" 
                                                  VerticalContentAlignment="Center"
                                                  Text="{Binding Path=SchMaintenanceReminderHours, 
                                                                 Mode=TwoWay, 
@@ -348,31 +428,44 @@
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="5"  
-                                      Grid.RowSpan="2" VerticalAlignment="Top" 
+                                <Grid Grid.Column="3" 
+                                      Grid.Row="5" 
+                                      Grid.ColumnSpan="5"  
+                                      Grid.RowSpan="2" 
+                                      VerticalAlignment="Top" 
                                       Margin="0,160,0,0"
                                       Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                            Path=IsExpanded, 
                                                            Converter={StaticResource TrueOrFalseToVisibility}}">
-                                    <StackPanel Grid.Column="4" Grid.Row="5" 
-                                                Grid.ColumnSpan="5" Grid.RowSpan="2"
-                                                Orientation="Vertical"  VerticalAlignment="Bottom" 
+                                    <StackPanel Grid.Column="4" 
+                                                Grid.Row="5" 
+                                                Grid.ColumnSpan="5" 
+                                                Grid.RowSpan="2"
+                                                Orientation="Vertical"  
+                                                VerticalAlignment="Bottom" 
                                                 HorizontalAlignment="Left"
                                                 Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                                      Path=IsExpanded, 
                                                                      Converter={StaticResource TrueOrFalseToVisibility}}"
                                                 Margin="100,0,0,0">
-                                        <Label Content="Reminder" Height="25" FontSize="14" 
+                                        <Label Content="Reminder" 
+                                               Height="25" 
+                                               FontSize="14" 
                                                VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Right" Margin="10,0,0,0"
+                                               HorizontalContentAlignment="Right" 
+                                               Margin="10,0,0,0"
                                                Visibility="{Binding IsExpanded, 
                                                                     Converter={StaticResource TrueOrFalseToVisibility}, 
                                                                     ElementName=expdrScheduledReminders}" 
                                                Width="80"/>
 
-                                        <ComboBox x:Name="cmbxReminderLevel" Width="100" Height="55" 
+                                        <ComboBox x:Name="cmbxReminderLevel" 
+                                                  Width="100" 
+                                                  Height="55" 
                                                   HorizontalAlignment="Left"                                              
-                                                  Foreground="Black" FontSize="14" Margin="50,0,0,0" 
+                                                  Foreground="Black" 
+                                                  FontSize="14" 
+                                                  Margin="50,0,0,0" 
                                                   IsHitTestVisible="False" 
                                                   Focusable="False"
                                                   ItemsSource="{Binding ReminderLevels}"
@@ -397,9 +490,13 @@
                                       Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                            Path=IsExpanded, 
                                                            Converter={StaticResource TrueOrFalseToVisibility}}">
-                                    <StackPanel Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="4"  
-                                                Grid.RowSpan="2" Orientation="Vertical"  
-                                                VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                                    <StackPanel Grid.Column="4" 
+                                                Grid.Row="5" 
+                                                Grid.ColumnSpan="4"  
+                                                Grid.RowSpan="2" 
+                                                Orientation="Vertical"  
+                                                VerticalAlignment="Bottom" 
+                                                HorizontalAlignment="Left"
                                                 Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                                      Path=IsExpanded, 
                                                                      Converter={StaticResource TrueOrFalseToVisibility}}"
@@ -422,7 +519,9 @@
                                                   IsHitTestVisible="False" 
                                                   Focusable="False" 
                                                   ItemsSource="{Binding UniqueAuthoriserNames}"
-                                                  Foreground="Black" Margin="0,0,110,0" FontSize="14"
+                                                  Foreground="Black" 
+                                                  Margin="0,0,110,0" 
+                                                  FontSize="14"
                                                   SelectedValue="{Binding SchMaintenanceSelectedAuthoriser, 
                                                                           Mode=TwoWay,
                                                                           Converter={StaticResource ComboBoxItemToString}}"
@@ -440,7 +539,8 @@
                                         Grid.Row="5"
                                         Grid.RowSpan="2" 
                                         VerticalAlignment="Top" 
-                                        Height="55" Width="65" 
+                                        Height="55" 
+                                        Width="65" 
                                         Content="Unlock" 
                                         ToolTip="Unlock Scheduled Reminders" 
                                         Margin="140,185,0,0"
@@ -466,7 +566,8 @@
                                         Grid.Row="5"
                                         Grid.RowSpan="2" 
                                         VerticalAlignment="Top"  
-                                        Height="55" Width="50" 
+                                        Height="55" 
+                                        Width="50" 
                                         Content="Add" 
                                         ToolTip="Activate Scheduled Reminder" 
                                         Style="{StaticResource AffirmativeButtonStyle}" 
@@ -502,9 +603,11 @@
                                     <PasswordBox x:Name="psswrdReminder" 
                                                  MaxLength="20"
                                                  Width="250"/>
-                                    <Button x:Name="ok" Content="Ok"
+                                    <Button x:Name="ok" 
+                                            Content="Ok"
                                             Margin="0,0,0,0"
-                                            Width="80" Height="30"
+                                            Width="80" 
+                                            Height="30"
                                             HorizontalAlignment="Right"
                                             Command="{Binding Path=OKCmd}">
                                         <Button.CommandParameter>
@@ -519,9 +622,11 @@
                                             </MultiBinding>
                                         </Button.CommandParameter>
                                     </Button>
-                                    <Button x:Name="close" Content="Close"
+                                    <Button x:Name="close" 
+                                            Content="Close"
                                             Margin="10,0,0,0"
-                                            Width="80" Height="30"
+                                            Width="80" 
+                                            Height="30"
                                             HorizontalAlignment="Right"
                                             Command="{Binding CloseCmd}">
                                         <Button.CommandParameter>
@@ -532,13 +637,19 @@
                                         </Button.CommandParameter>
                                     </Button>
                                 </StackPanel>
-                                <Expander x:Name="expdrScheduledReminders" Grid.Column="0"
-                                          Grid.Row="5" Grid.ColumnSpan="12" Grid.RowSpan="10"
-                                          Background="#F2F2F2" ExpandDirection="Up" 
+                                <Expander x:Name="expdrScheduledReminders" 
+                                          Grid.Column="0"
+                                          Grid.Row="5" 
+                                          Grid.ColumnSpan="12" 
+                                          Grid.RowSpan="10"
+                                          Background="#F2F2F2" 
+                                          ExpandDirection="Up" 
                                           Header="Active Scheduled Reminders" 
-                                          VerticalAlignment="Bottom" Width="780" 
+                                          VerticalAlignment="Bottom" 
+                                          Width="780" 
                                           Expanded="expdrScheduledReminders_Expanded"
-                                          FontSize="14" IsExpanded="False">
+                                          FontSize="14" 
+                                          IsExpanded="False">
                                     <Expander.Content>
                                         <ScrollViewer Height="250">
                                             <DataGrid x:Name="dtgdGenScheduledRemindersTable" 
@@ -566,14 +677,17 @@
                                                         </GroupStyle.HeaderTemplate>
                                                         <GroupStyle.ContainerStyle>
                                                             <Style TargetType="{x:Type GroupItem}">
-                                                                <Setter Property="Width" Value="Auto"/>
+                                                                <Setter Property="Width" 
+                                                                        Value="Auto"/>
                                                                 <Setter Property="Template">
                                                                     <Setter.Value>
                                                                         <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                                            <Expander IsExpanded="True" Background="#EAF9FB" 
+                                                                            <Expander IsExpanded="True" 
+                                                                                      Background="#EAF9FB" 
                                                                                       BorderBrush="LightGray" 
                                                                                       Foreground="Black"
-                                                                                      FontSize="12" BorderThickness="1,1,1,1">
+                                                                                      FontSize="12" 
+                                                                                      BorderThickness="1,1,1,1">
                                                                                 <Expander.Header>
                                                                                     <StackPanel Orientation="Horizontal">
                                                                                         <TextBlock FontWeight="Bold"
@@ -597,8 +711,10 @@
                                                 </DataGrid.GroupStyle>
                                                 <DataGrid.RowStyle>
                                                     <Style TargetType="DataGridRow">
-                                                        <Setter Property="Foreground" Value="Black"/>
-                                                        <Setter Property="Background" Value="White"/>
+                                                        <Setter Property="Foreground" 
+                                                                Value="Black"/>
+                                                        <Setter Property="Background" 
+                                                                Value="White"/>
                                                     </Style>
                                                 </DataGrid.RowStyle>
                                                 <DataGrid.Columns>
@@ -638,8 +754,11 @@
             </ScrollViewer>
         
 
-            <Button Grid.Row="0" Grid.Column="0" Height="55" 
-                    Width="55" BorderBrush="Transparent"
+            <Button Grid.Row="0" 
+                    Grid.Column="0" 
+                    Height="55" 
+                    Width="55" 
+                    BorderBrush="Transparent"
                     Command="{x:Static cmds:NavigationCommands.MaintenanceToFuellingView}">
                 <Button.Content>
                     <Image Source="/Images/Back.jpg" 
@@ -647,22 +766,31 @@
                 </Button.Content>
             </Button>
 
-            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" 
-                        VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Width="80" VerticalAlignment="Center" 
-                           HorizontalAlignment="Center" FontSize="18">
+            <StackPanel Grid.Row="1" 
+                        Grid.Column="1" 
+                        Orientation="Horizontal" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Center">
+                <TextBlock Width="80" 
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" 
+                           FontSize="18">
                 <Hyperlink Command="{x:Static cmds:NavigationCommands.InputToUsageView}">
-                    Usage</Hyperlink>
+                        Usage</Hyperlink>
                 </TextBlock>
-                <TextBlock Width=" 80" VerticalAlignment="Center" 
-                           HorizontalAlignment="Center" FontSize="18">
+                <TextBlock Width=" 80" 
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" 
+                           FontSize="18">
                 <Hyperlink Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}">
-                    Fuelling</Hyperlink>
+                        Fuelling</Hyperlink>
                 </TextBlock>
-                <TextBlock Width="110" VerticalAlignment="Center" 
-                           HorizontalAlignment="Center" FontSize="18">
+                <TextBlock Width="110" 
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" 
+                           FontSize="18">
                 <Hyperlink Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}">
-                    Maintenance</Hyperlink>
+                        Maintenance</Hyperlink>
                 </TextBlock>
             </StackPanel>
 

@@ -50,12 +50,12 @@
                                    VerticalAlignment="Center"/>
                                 <Label x:Name="lblCurrentGeneratorName" Content="{Binding SelectedGeneratorName, Mode=OneWayToSource}" 
                                        HorizontalAlignment="Center"
-                                       Foreground="#1d8696" Width="200" Height="30" HorizontalContentAlignment="Left" Margin="0,0,10,0"/>
+                                       Foreground="#1D8696" Width="200" Height="30" HorizontalContentAlignment="Left" Margin="0,0,10,0"/>
                                 <Label x:Name="GenRecordDate" Content="Record Date:" HorizontalAlignment="Center" 
                                    VerticalAlignment="Center" />
                                 <Label x:Name="lblGenRecordDate" Content="{Binding SelectedRecordDate, Mode=OneWayToSource}" 
                                        HorizontalAlignment="Center"
-                                       Foreground="#1d8696" Width="263" Height="30" HorizontalContentAlignment="Center"/>
+                                       Foreground="#1D8696" Width="263" Height="30" HorizontalContentAlignment="Center"/>
                             </StackPanel>
 
                         </Grid>
@@ -76,11 +76,13 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Content="Generator Started On" FontSize="16" 
-                                   FontWeight="Bold" Foreground="#1d8696" VerticalAlignment="Top"/>
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Content="Generator Started" FontSize="16" 
+                                   FontWeight="Bold" Foreground="#1D8696" VerticalAlignment="Top"/>
                             <Grid Grid.Column="0" Grid.Row="1">
                                 <StackPanel Orientation="Vertical" >
-                                    <Label Content="Hour" Height="25"/>
+                                    <Label Content="Hour" 
+                                           Height="25"
+                                           FontSize="12"/>
                                     <ComboBox x:Name="cmbxHrGenStd" Width="145" Height="75" HorizontalAlignment="Left"
                                               ItemsSource="{Binding HoursViewModelList, 
                                                 Converter={StaticResource IntArrayToTwoCharStringArray}}" Foreground="Black"
@@ -90,7 +92,9 @@
                             </Grid>
                             <Grid Grid.Column="2" Grid.Row="1">
                                 <StackPanel Orientation="Vertical" >
-                                    <Label Content="Minutes" Height="25"/>
+                                    <Label Content="Minutes" 
+                                           Height="25"
+                                           FontSize="12"/>
                                     <ComboBox x:Name="cmbxMinGenStd" Width="145" Height="75" HorizontalAlignment="Left"
                                               ItemsSource="{Binding MinutesViewModelList, 
                                                 Converter={StaticResource IntArrayToTwoCharStringArray}}" Foreground="Black"
@@ -100,7 +104,9 @@
                             </Grid>
                             <Grid Grid.Column="4" Grid.Row="1">
                                 <StackPanel Orientation="Vertical" >
-                                    <Label Content="Seconds" Height="25"/>
+                                    <Label Content="Seconds" 
+                                           Height="25"
+                                           FontSize="12"/>
                                     <ComboBox x:Name="cmbxSecsGenStd" Width="145" Height="75" HorizontalAlignment="Left"
                                               ItemsSource="{Binding SecondsViewModelList, 
                                                 Converter={StaticResource IntArrayToTwoCharStringArray}}" Foreground="Black"
@@ -110,7 +116,9 @@
                             </Grid>
                             <Grid Grid.Column="6" Grid.Row="1">
                                 <StackPanel Orientation="Vertical" >
-                                    <Label Content="AM/PM" Height="25"/>
+                                    <Label Content="AM/PM" 
+                                           Height="25"
+                                           FontSize="12"/>
                                     <ComboBox x:Name="cmbxAMPMGenStd" Width="145" Height="75" HorizontalAlignment="Left"
                                               ItemsSource="{Binding AMPMViewModelList}" Foreground="Black"
                                               SelectedIndex="0" SelectedItem="{Binding SelectedStartAMPM, Mode=OneWayToSource}" 
@@ -142,8 +150,8 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Content="Generator Stopped On" FontSize="16" 
-                                   FontWeight="Bold" Foreground="#1d8696" VerticalAlignment="Bottom"/>
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Content="Generator Stopped" FontSize="16" 
+                                   FontWeight="Bold" Foreground="#1D8696" VerticalAlignment="Bottom"/>
                             <RadioButton x:Name="rdbtnCurrentDay" Grid.Row="0" Grid.Column="2"
                                          Content="Current Day" GroupName="WhichDay" IsChecked="True" 
                                          VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
@@ -161,7 +169,9 @@
                                         DisplayDate="{x:Static sys:DateTime.Now}"/>
                             <Grid Grid.Column="0" Grid.Row="1">
                                 <StackPanel Orientation="Vertical" >
-                                    <Label Content="Hour" Height="25"/>
+                                    <Label Content="Hour" 
+                                           Height="25"
+                                           FontSize="12"/>
                                     <ComboBox x:Name="cmbxHrGenSpd" Width="145" Height="75" HorizontalAlignment="Left"
                                               ItemsSource="{Binding HoursViewModelList, 
                                                 Converter={StaticResource IntArrayToTwoCharStringArray}}" 
@@ -172,7 +182,9 @@
                             </Grid>
                             <Grid Grid.Column="2" Grid.Row="1">
                                 <StackPanel Orientation="Vertical" >
-                                    <Label Content="Minutes" Height="25"/>
+                                    <Label Content="Minutes" 
+                                           Height="25"
+                                           FontSize="12"/>
                                     <ComboBox x:Name="cmbxMinGenSpd" Width="145" Height="75" HorizontalAlignment="Left"
                                               ItemsSource="{Binding MinutesViewModelList, 
                                                 Converter={StaticResource IntArrayToTwoCharStringArray}}" 
@@ -183,7 +195,9 @@
                             </Grid>
                             <Grid Grid.Column="4" Grid.Row="1">
                                 <StackPanel Orientation="Vertical" >
-                                    <Label Content="Seconds" Height="25"/>
+                                    <Label Content="Seconds" 
+                                           Height="25"
+                                           FontSize="12"/>
                                     <ComboBox x:Name="cmbxSecsGenSpd" Width="145" Height="75" HorizontalAlignment="Left"
                                               ItemsSource="{Binding SecondsViewModelList, 
                                                 Converter={StaticResource IntArrayToTwoCharStringArray}}" 
@@ -194,7 +208,9 @@
                             </Grid>
                             <Grid Grid.Column="6" Grid.Row="1">
                                 <StackPanel Orientation="Vertical" >
-                                    <Label Content="AM/PM" Height="25"/>
+                                    <Label Content="AM/PM" 
+                                           Height="25"
+                                           FontSize="12"/>
                                     <ComboBox x:Name="cmbxAMPMGenSpd" Width="145" Height="75" HorizontalAlignment="Left"
                                               ItemsSource="{Binding AMPMViewModelList}" 
                                               Foreground="Black" SelectedItem="{Binding Path=SelectedStopAMPM,

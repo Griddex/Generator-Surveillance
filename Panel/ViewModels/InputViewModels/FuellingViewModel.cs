@@ -4,11 +4,8 @@ using Panel.Models.InputModels;
 using Panel.Repositories;
 using Panel.Validations;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -17,26 +14,49 @@ namespace Panel.ViewModels.InputViewModels
 {
     public class FuellingViewModel : ViewModelBase, IViewModel
     {
-        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = 
-            new ObservableCollection<GeneratorNameModel>();
-        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } = 
-            new ObservableCollection<GeneratorNameModel>();
-        public ObservableCollection<GeneratorRunningHr> _allGeneratorFuelConsumptionRecordsUnsorted { get; set; } = 
-            new ObservableCollection<GeneratorRunningHr>();
+        public ObservableCollection<GeneratorNameModel> 
+                        UniqueGeneratorNames { get; set; } = 
+                        new ObservableCollection<GeneratorNameModel>();
+
+        public ObservableCollection<GeneratorNameModel> 
+                        UniqueGeneratorNamesUnsorted { get; set; } = 
+                        new ObservableCollection<GeneratorNameModel>();
+
+        public ObservableCollection<GeneratorRunningHr> 
+                        _allGeneratorFuelConsumptionRecordsUnsorted { get; set; } = 
+                        new ObservableCollection<GeneratorRunningHr>();
+
+        public double CurrentFuelConsumption { get; set; }
+        public double TestFuelConsumption { get; set; }
+        public double StandardFuelConsumption { get; set; }
 
         public FuellingViewModel(UnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
 
-            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
+            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation
+                                                     .GetUniqueGeneratorNames();
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
                 (UniqueGeneratorNamesUnsorted
                     .OrderBy(x => x.GeneratorName));
 
-            _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
+            _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr
+                                                                    .GetAllRunningHours();
             _allGeneratorFuelConsumptionRecords = new ObservableCollection<GeneratorRunningHr>
                 (_allGeneratorFuelConsumptionRecordsUnsorted
                     .OrderByDescending(x => x.Date));
+
+            //try
+            //{
+            //    var FuelCompStats = UnitOfWork.GeneratorFuelling
+            //                  .GetFuelConsumptionData(
+            //                (string)SelectedGenerator.Content);
+
+            //    CurrentFuelConsumption = FuelCompStats.Curr;
+            //    TestFuelConsumption = FuelCompStats.Test;
+            //    StandardFuelConsumption = FuelCompStats.Stnd;
+            //}
+            //catch (Exception) { }
         }
 
         public UnitOfWork UnitOfWork { get; set; }
@@ -61,7 +81,8 @@ namespace Panel.ViewModels.InputViewModels
             {
                 _vendor = value;
                 OnPropertyChanged(nameof(Vendor));
-                ValidateVendorNameRule.ValidateVendorNameAsync(Vendor)
+                ValidateVendorNameRule
+                    .ValidateVendorNameAsync(Vendor)
                     .ContinueWith(t =>
                     {
                         lock (_errors)
@@ -82,7 +103,8 @@ namespace Panel.ViewModels.InputViewModels
             {
                 _volumeOfDiesel = value;
                 OnPropertyChanged(nameof(VolumeOfDiesel));
-                ValidateFuelVolumeCostRule.ValidateFuelVolumeCostAsync(VolumeOfDiesel)
+                ValidateFuelVolumeCostRule
+                    .ValidateFuelVolumeCostAsync(VolumeOfDiesel)
                     .ContinueWith(t =>
                     {
                         lock (_errors)
@@ -103,7 +125,8 @@ namespace Panel.ViewModels.InputViewModels
             {
                 _costOfDiesel = value;
                 OnPropertyChanged(nameof(CostOfDiesel));
-                ValidateFuelVolumeCostRule.ValidateFuelVolumeCostAsync(CostOfDiesel)
+                ValidateFuelVolumeCostRule
+                    .ValidateFuelVolumeCostAsync(CostOfDiesel)
                     .ContinueWith(t =>
                     {
                         lock (_errors)
@@ -127,7 +150,8 @@ namespace Panel.ViewModels.InputViewModels
                 _runningHours = value;
                 OnPropertyChanged(nameof(RunningHours));
                 OnPropertyChanged(nameof(AllGeneratorFuelConsumptionRecords));
-                ValidateRunningHoursRule.ValidateRunningHoursRuleAsync(RunningHours)
+                ValidateRunningHoursRule
+                    .ValidateRunningHoursRuleAsync(RunningHours)
                     .ContinueWith(t =>
                     {
                         lock (_errors)
@@ -149,7 +173,9 @@ namespace Panel.ViewModels.InputViewModels
                 _cumFuelVolumeSinceLastReading = value;
                 OnPropertyChanged(nameof(CumFuelVolumeSinceLastReading));
                 OnPropertyChanged(nameof(AllGeneratorFuelConsumptionRecords));
-                ValidateFuelVolumeCostRule.ValidateFuelVolumeCostAsync(CumFuelVolumeSinceLastReading)
+                ValidateFuelVolumeCostRule
+                    .ValidateFuelVolumeCostAsync
+                                        (CumFuelVolumeSinceLastReading)
                     .ContinueWith(t =>
                     {
                         lock (_errors)
@@ -174,7 +200,6 @@ namespace Panel.ViewModels.InputViewModels
             }
         }
 
-
         private ICommand _addPurchaseCmd;
         public ICommand AddPurchaseCmd
         {
@@ -186,12 +211,19 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         x =>
                         {
-                            UnitOfWork.GeneratorFuelling.AddFuelPurchaseRecord(FuellingDate, Vendor, 
-                                                                        VolumeOfDiesel, CostOfDiesel);
+                            UnitOfWork.GeneratorFuelling
+                                      .AddFuelPurchaseRecord(
+                                            FuellingDate, 
+                                            Vendor, 
+                                            VolumeOfDiesel, 
+                                            CostOfDiesel);
+
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {                                
-                                MessageBox.Show("Fuel purchase added!", "Information", MessageBoxButton.OK,
+                                MessageBox.Show("Fuel purchase added!", 
+                                    "Information", 
+                                    MessageBoxButton.OK,
                                     MessageBoxImage.Information);
                             }                                
                             return;
@@ -214,23 +246,51 @@ namespace Panel.ViewModels.InputViewModels
                         x =>
                         {
                             ComboBox cmbxSelectGenFuelling = x as ComboBox;
-                            if(cmbxSelectGenFuelling.Text == null || cmbxSelectGenFuelling.Text == "")
+                            if(cmbxSelectGenFuelling.Text == null || 
+                            cmbxSelectGenFuelling.Text == "")
                             {
-                                MessageBox.Show("Select a generator!", "Error", MessageBoxButton.OK,
+                                MessageBox.Show("Select a generator!", 
+                                    "Error", 
+                                    MessageBoxButton.OK,
                                     MessageBoxImage.Error);
                                 return;
                             }
 
-                            UnitOfWork.GeneratorFuelling.AddFuelConsumptionHours(cmbxSelectGenFuelling.Text, 
-                                           RunningHoursDate, RunningHours, CumFuelVolumeSinceLastReading);
+                            UnitOfWork.GeneratorFuelling
+                                      .AddFuelConsumptionHours(
+                                            cmbxSelectGenFuelling.Text, 
+                                            RunningHoursDate, 
+                                            RunningHours, 
+                                            CumFuelVolumeSinceLastReading);
+
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                AllGeneratorFuelConsumptionRecords = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
-                                MessageBox.Show($"Fuel Consumption for {cmbxSelectGenFuelling.Text} added!", 
-                                    "Information", 
-                                    MessageBoxButton.OK,
-                                   MessageBoxImage.Information);
+                                try
+                                {
+                                    var FuelCompStats = UnitOfWork.GeneratorFuelling
+                                                            .GetFuelConsumptionData(
+                                                            (string)SelectedGenerator
+                                                            .Content);
+
+                                    CurrentFuelConsumption = FuelCompStats.Curr;
+                                    OnPropertyChanged(nameof(CurrentFuelConsumption));
+
+                                    TestFuelConsumption = FuelCompStats.Test;
+                                    OnPropertyChanged(nameof(TestFuelConsumption));
+
+                                    StandardFuelConsumption = FuelCompStats.Stnd;
+                                    OnPropertyChanged(nameof(StandardFuelConsumption));
+                                }
+                                catch (Exception) { }
+
+                                MessageBox.Show($"Fuel Consumption for " +
+                                        $"{cmbxSelectGenFuelling.Text} " +
+                                        $"added!",
+                                        "Information",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Information);
+
                                 RequestUpdate = true;
                             }                               
                             return;
@@ -238,6 +298,31 @@ namespace Panel.ViewModels.InputViewModels
                         y => !HasErrors
                     )
                 );
+            }
+        }
+
+        private ComboBoxItem _selectedGenerator;
+        public ComboBoxItem SelectedGenerator
+        {
+            get { return _selectedGenerator; }
+            set
+            {
+                _selectedGenerator = value;
+                OnPropertyChanged(nameof(SelectedGenerator));
+
+                var FuelCompStats = UnitOfWork.GeneratorFuelling
+                              .GetFuelConsumptionData(
+                            (string)SelectedGenerator.Content);
+
+                CurrentFuelConsumption = FuelCompStats.Curr;
+                OnPropertyChanged(nameof(CurrentFuelConsumption));
+
+                TestFuelConsumption = FuelCompStats.Test;
+                OnPropertyChanged(nameof(TestFuelConsumption));
+
+                StandardFuelConsumption = FuelCompStats.Stnd;
+                OnPropertyChanged(nameof(StandardFuelConsumption));
+
             }
         }
     }
