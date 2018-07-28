@@ -258,6 +258,14 @@
     <Compile Include="Services\MessagingServices\EmailService.cs" />
     <Compile Include="Services\MessagingServices\Notifier.cs" />
     <Compile Include="Services\NavigationServices\FrameNavigationService.cs" />
+    <Compile Include="StyleableWindow\ControlDoubleClickBehavior.cs" />
+    <Compile Include="StyleableWindow\ShowSystemMenuBehavior.cs" />
+    <Compile Include="StyleableWindow\SystemMenuManager.cs" />
+    <Compile Include="StyleableWindow\WindowCloseCommand.cs" />
+    <Compile Include="StyleableWindow\WindowDragBehavior.cs" />
+    <Compile Include="StyleableWindow\WindowMaximizeCommand.cs" />
+    <Compile Include="StyleableWindow\WindowMinimizeCommand.cs" />
+    <Compile Include="StyleableWindow\WindowResizeBehavior.cs" />
     <Compile Include="UserControls\ExportReportType.xaml.cs">
       <DependentUpon>ExportReportType.xaml</DependentUpon>
     </Compile>

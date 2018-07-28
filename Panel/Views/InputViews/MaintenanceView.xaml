@@ -128,8 +128,10 @@
                                                FontSize="14"/>
                                         <TextBox  Background="#F2F2F2" 
                                                   Width="500" 
-                                                  Height="122" 
+                                                  Height="122"
+                                                  TextWrapping="Wrap"
                                                   HorizontalAlignment="Left"
+                                                  VerticalContentAlignment="Top"
                                                   Text="{Binding Path=UnschMaintenanceComments, 
                                                                  Mode=TwoWay, 
                                                                  ValidatesOnNotifyDataErrors=True, 
@@ -242,7 +244,8 @@ Grid.Column="1">
                                                     VerticalAlignment="Bottom" 
                                                     Style="{DynamicResource DatePickerStyle}" 
                                                     Width="240" 
-                                                    Height="55" Margin="0,0,0,25"
+                                                    Height="55" 
+                                                    Margin="0,0,0,25"
                                                     SelectedDate="{Binding Path=SchMaintenanceDate, 
                                                                            Mode=TwoWay}"
                                                     DisplayDate="{x:Static sys:DateTime.Now}"/>
@@ -269,6 +272,8 @@ Grid.Column="1">
                                                   Width="500" 
                                                   Height="122" 
                                                   HorizontalAlignment="Left"
+                                                  VerticalContentAlignment="Top"
+                                                  TextWrapping="Wrap"
                                                   Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                                        Path=IsExpanded, 
                                                                        Converter={StaticResource TrueOrFalseToVisibility}}"

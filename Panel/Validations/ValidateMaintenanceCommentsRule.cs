@@ -13,8 +13,10 @@ namespace Panel.Validations
         {
             var error = Task.Factory.StartNew<List<string>>(() =>
             {
-                string SpecialCharactersPattern = @"[^A-Za-z0-9\-_\s+]+";
-                if (Regex.Match(Comments, SpecialCharactersPattern).Success)
+                string SpecialCharactersPattern = 
+                        @"[^\.\@\'\#\%\&\;\,\?\/\!\+\(\)\^\*A-Za-z0-9\-_\s+]+";
+                if (Regex.Match(Comments, SpecialCharactersPattern)
+                         .Success)
                     return new List<string>() { "No special characters allowed" };
                 return null;
             });

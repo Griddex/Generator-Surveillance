@@ -272,5 +272,17 @@ namespace Panel.Repositories
                 )
             );
         }
+
+        public List<string> GetUniqueAuthorisers()
+        {
+            var UniqueAuthorisers =
+                GeneratorSurveillanceDBContext
+                                .GeneratorSchedulers
+                                .Select(x => x.Authoriser)
+                                .Distinct()
+                                .ToList();
+
+            return UniqueAuthorisers;
+        }
     }
 }

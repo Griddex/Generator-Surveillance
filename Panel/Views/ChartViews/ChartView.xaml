@@ -78,7 +78,8 @@
                                     <StackPanel Orientation="Horizontal">
                                         <StackPanel Orientation="Vertical" 
                                                     Margin="20,0,10,0">
-                                            <Label Content="Start" Height="30" 
+                                            <Label Content="Start" 
+                                                   Height="30" 
                                                    HorizontalAlignment="Left"/>
                                             <DatePicker HorizontalAlignment="Left"  
                                                         VerticalAlignment="Bottom" 
@@ -88,7 +89,8 @@
                                                         DisplayDateStart="{Binding SelectedStartDate}"
                                                         DisplayDateEnd="{Binding SelectedStopDate}"
                                                         SelectedDate="{Binding SelectedStartDate}"
-                                                        Background="#BFECF3" FontSize="16"/>
+                                                        Background="#BFECF3" 
+                                                        FontSize="16"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" 
                                                     Margin="10,0,1,0">
@@ -219,7 +221,8 @@
                             <StackPanel Orientation="Horizontal" 
                                         Margin="20,10,0,0" >
                                 <StackPanel x:Name="stkPlDurationPerspective" 
-                                            Margin="0,0,0,0" VerticalAlignment="Center" 
+                                            Margin="0,0,0,0" 
+                                            VerticalAlignment="Center" 
                                             Height="220"
                                             Width="220">
                                     <Label FontWeight="Bold">Duration Perspective</Label>

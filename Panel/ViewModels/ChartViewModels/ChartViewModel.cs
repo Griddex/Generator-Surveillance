@@ -1,6 +1,11 @@
-﻿using Panel.Commands;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using LiveCharts.Wpf.Charts.Base;
+using Panel.BusinessLogic;
+using Panel.BusinessLogic.AuxilliaryMethods;
+using Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic;
+using Panel.Commands;
 using Panel.Interfaces;
-using Panel.Models.ChartModels;
 using Panel.Models.InputModels;
 using Panel.Repositories;
 using System;
@@ -8,26 +13,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
-using LiveCharts;
-using LiveCharts.Wpf;
-using LiveCharts.Defaults;
 using System.Windows.Controls;
-using Panel.BusinessLogic.AuxilliaryMethods;
-using Panel.BusinessLogic;
-using Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic;
+using System.Windows.Input;
 using System.Windows.Media;
-using LiveCharts.Wpf.Charts.Base;
-using System.IO;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Panel.UserControls;
-using System.Drawing.Printing;
-using Panel.BusinessLogic.PrintLogic;
 
 
 namespace Panel.ViewModels.ChartViewModels
@@ -36,17 +27,28 @@ namespace Panel.ViewModels.ChartViewModels
     {
         public static int PlotButtonPressedCount = 0;
 
-        public ChartViewModel(UnitOfWork unitOfWork, ExtrudeInterveningDates extrudeInterveningDates)
+        public ChartViewModel(UnitOfWork unitOfWork, 
+            ExtrudeInterveningDates extrudeInterveningDates)
         {
             UnitOfWork = unitOfWork;
             ExtrudeInterveningDates = extrudeInterveningDates;
-            UniqueGeneratorNames = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
-            InitialiseChartViewModel();
+            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation
+                                             .GetUniqueGeneratorNames();
+
+            UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
+                                (UniqueGeneratorNamesUnsorted
+                                    .OrderBy(x => x.GeneratorName));
+                                        InitialiseChartViewModel();
         }
 
         public UnitOfWork UnitOfWork { get; private set; }
         public ExtrudeInterveningDates ExtrudeInterveningDates { get; set; }
-        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = new ObservableCollection<GeneratorNameModel>();
+
+        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } = 
+            new ObservableCollection<GeneratorNameModel>();
+
+        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = 
+            new ObservableCollection<GeneratorNameModel>();
 
         private ObservableCollection<string> _generatorData = new ObservableCollection<string>();
         public ObservableCollection<string> GeneratorData
@@ -54,13 +56,14 @@ namespace Panel.ViewModels.ChartViewModels
             get
             {
                 _generatorData.Add("Generator Usage Data");
-                _generatorData.Add("Generator " +
-                    "Maintenance Data");
+                _generatorData.Add("Generator Maintenance Data");
                 return _generatorData;
             }
         }
 
-        private ObservableCollection<string> _chartTypes = new ObservableCollection<string>();
+        private ObservableCollection<string> _chartTypes = 
+            new ObservableCollection<string>();
+
         public ObservableCollection<string> ChartTypes
         {
             get
@@ -93,7 +96,11 @@ namespace Panel.ViewModels.ChartViewModels
                 SelectedStopDate = UnitOfWork.GeneratorUsage.GetStoppedDate(_selectedGeneratorName);
                 OnPropertyChanged(nameof(SelectedStopDate));
 
-                SelectedStartHour = int.Parse(ParseTimeFromDateTime.GetTimePart(UnitOfWork.GeneratorUsage.GetStartedTime(_selectedGeneratorName),"Hours"));
+                SelectedStartHour = int.Parse(ParseTimeFromDateTime
+                                            .GetTimePart(UnitOfWork.GeneratorUsage
+                                                                    .GetStartedTime(
+                                                                _selectedGeneratorName),
+                                                                "Hours"));
                 OnPropertyChanged(nameof(SelectedStartHour));
 
                 SelectedStartMinute = int.Parse(ParseTimeFromDateTime.GetTimePart(UnitOfWork.GeneratorUsage.GetStartedTime(_selectedGeneratorName),"Minutes"));

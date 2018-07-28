@@ -1,22 +1,16 @@
 ﻿using Panel.Commands;
 using Panel.Interfaces;
-using Panel.Models;
 using Panel.Models.InputModels;
 using Panel.Repositories;
+using Panel.UserControls;
 using Panel.Validations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Microsoft.VisualBasic;
-using System.Windows.Navigation;
-using Panel.BusinessLogic.AuxilliaryMethods;
-using Panel.UserControls;
 
 namespace Panel.ViewModels.InputViewModels
 {
@@ -57,9 +51,9 @@ namespace Panel.ViewModels.InputViewModels
 
             ActiveGeneratorSchedules = unitOfWork.GeneratorScheduler
                                                  .GetActiveGeneratorSchedules();
-            //TODO
-            UniqueAuthoriserNames.Add("Monday");
-            UniqueAuthoriserNames.Add("Richard");
+
+            UniqueAuthoriserNames = UnitOfWork.GeneratorScheduler
+                                              .GetUniqueAuthorisers();
 
             ReminderLevels.Add("Normal");
             ReminderLevels.Add("Elevated");
@@ -70,7 +64,7 @@ namespace Panel.ViewModels.InputViewModels
         public PasswordControl PasswordControl { get; set; }
         public DateTime UnschMaintenanceDate { get; set; } = DateTime.Now;
         public DateTime SchMaintenanceDate { get; set; } = DateTime.Now;        
-        public DateTime SchMaintenanceStartDate { get { return DateTime.Now; } set { } } 
+        public DateTime SchMaintenanceStartDate { get; set; } = DateTime.Now;
         public double SchMaintenanceReminderHours { get; set; }
         public string SchMaintenanceSelectedReminderLevel { get; set; }
         public string SchMaintenanceSelectedAuthoriser { get; set; }
@@ -332,7 +326,7 @@ namespace Panel.ViewModels.InputViewModels
                                                                        ComboBox, StackPanel,
                                                                        Expander>)x;
 
-                            if (pbdptbcbcbstpnl.Item1.Password == "GSSReminder")
+                            if (pbdptbcbcbstpnl.Item1.Password == "reminder")
                             {
                                 pbdptbcbcbstpnl.Item2.IsHitTestVisible = true;
                                 pbdptbcbcbstpnl.Item2.Focusable = true;

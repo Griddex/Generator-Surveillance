@@ -43,5 +43,7 @@ namespace Panel.Interfaces
         void GenerateNextReminders(string GeneratorName);
 
         void DeleteInactiveReminders();
+
+        List<string> GetUniqueAuthorisers();
     }
 }
