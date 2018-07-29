@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cmds="clr-namespace:Panel.Commands"
         mc:Ignorable="d"
-        Title="Generator Surveillance"
+        Style="{StaticResource GrayWindowStyle}"
+        Title="Generator Surveillance Software"
         MaxWidth="{Binding Source={x:Static SystemParameters.WorkArea}, 
                            Path=Width}"
         MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, 

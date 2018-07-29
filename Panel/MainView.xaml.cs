@@ -8,6 +8,7 @@ using Panel.Views.TableViews;
 using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using Unity;
 
 namespace Panel
@@ -17,7 +18,8 @@ namespace Panel
     /// </summary>
     public partial class MainView : Window, IView
     {
-        UnityContainer container = (UnityContainer)Application.Current.Resources["UnityIoC"];
+        UnityContainer container = (UnityContainer)Application
+                                    .Current.Resources["UnityIoC"];
         
         private InputView _inputView;
         public MainView(InputView inputView)
@@ -75,12 +77,33 @@ namespace Panel
             usageView.lblCurrentGeneratorName.Content = this._inputView.cmbxGenInfo.Text;
 
             if(this._inputView.lblGenTimeStarted.Content != null)
-                usageView.lblGenRecordDate
+                usageView
+                    .lblGenRecordDate
                     .Content = $"{this._inputView.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()} " +
                                         $"{ this._inputView.lblGenTimeStarted.Content.ToString()}";
             else
-                usageView.lblGenRecordDate
+                usageView
+                    .lblGenRecordDate
                     .Content = $"{this._inputView.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()}";
+
+            var converter = new BrushConverter();
+            var GenActiveColor = (Brush)converter.ConvertFromString("#FF3939");
+            if (this._inputView.lblGenIndicator.Background != GenActiveColor)
+            {
+                usageView.cmbxHrGenSpd.IsHitTestVisible = false;
+                usageView.cmbxHrGenSpd.Focusable = false;
+
+                usageView.cmbxMinGenSpd.IsHitTestVisible = false;
+                usageView.cmbxMinGenSpd.Focusable = false;
+
+                usageView.cmbxSecsGenSpd.IsHitTestVisible = false;
+                usageView.cmbxSecsGenSpd.Focusable = false;
+
+                usageView.cmbxAMPMGenSpd.IsHitTestVisible = false;
+                usageView.cmbxAMPMGenSpd.Focusable = false;
+
+                usageView.btnGenStopped.IsEnabled = false;
+            }
 
             MainViewFrame.Navigate(usageView);
         }

@@ -13,8 +13,7 @@ namespace Panel.Models.InputModels
         private string _generatorName;
 
         [Required]
-        [StringLength(50)]
-        [CustomValidation(typeof(GeneratorNameModel), "ContainsNoSpecialCharactersValidation")]
+        [StringLength(150)]
         public string GeneratorName
         {
             get { return _generatorName; }

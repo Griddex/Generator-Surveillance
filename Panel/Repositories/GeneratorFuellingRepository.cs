@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Panel.Repositories
 {
@@ -90,9 +91,16 @@ namespace Panel.Repositories
             return FirstPageGeneratorFuellings;
         }
 
-        public (double Curr, double Test, double Stnd) GetFuelConsumptionData(
+        public (double CumFuel, double RunHrs, double Curr, 
+            double Test, double Stnd) GetFuelConsumptionData(
             string GeneratorName)
         {
+            double TestFuelComp;
+            double StndFuelComp;
+            double CurrFuelComp;
+            double CumFuelVol;
+            double GenRunningHrs;
+
             var LastRowCompSetting = GeneratorSurveillanceDBContext
                                             .ConsumptionSettings
                                             .Where(x => x.GeneratorName ==
@@ -100,8 +108,17 @@ namespace Panel.Repositories
                                             .OrderBy(x => x.Date)
                                             .FirstOrDefault();
 
-            double TestFuelComp = LastRowCompSetting.TestConsumption;
-            double StndFuelComp = LastRowCompSetting.StandardConsumption;
+            if(LastRowCompSetting != null)
+            {
+                TestFuelComp = LastRowCompSetting.TestConsumption;
+                StndFuelComp = LastRowCompSetting.StandardConsumption;
+            }
+            else
+            {
+                TestFuelComp = 0;
+                StndFuelComp = 0;
+            }
+
 
             var LastRowRunningHrs = GeneratorSurveillanceDBContext
                                             .GeneratorRunningHrs
@@ -118,15 +135,42 @@ namespace Panel.Repositories
                                                 .Skip(1)
                                                 .FirstOrDefault();
 
-            double CurrFuelComp = (LastRowRunningHrs
-                                        .CumFuelVolumeSinceLastReading
-                                    - PenultimateRowRunningHrs
-                                            .CumFuelVolumeSinceLastReading) /
-                            (LastRowRunningHrs
-                                    .RunningHours - PenultimateRowRunningHrs
-                                                            .RunningHours);
+            if(LastRowRunningHrs != null && PenultimateRowRunningHrs != null)
+            {
+                CumFuelVol = LastRowRunningHrs.CumFuelVolumeSinceLastReading;
+                GenRunningHrs = LastRowRunningHrs.RunningHours;
 
-            return (TestFuelComp, StndFuelComp, CurrFuelComp);
+                CurrFuelComp = (LastRowRunningHrs
+                                .CumFuelVolumeSinceLastReading
+                                - PenultimateRowRunningHrs
+                                .CumFuelVolumeSinceLastReading) /
+                                (LastRowRunningHrs
+                                .RunningHours 
+                                - PenultimateRowRunningHrs
+                                .RunningHours);
+                if(CurrFuelComp < 0)
+                {
+                    MessageBox.Show($"Negative current fuel " +
+                                    $"consumption " +
+                                    $"rate for {GeneratorName}! " +
+                                    "\n\nPlease check your last" +
+                                    " two fuel consumption data",
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
+
+                    CurrFuelComp = 0;
+                }
+            }
+            else
+            {
+                CumFuelVol = 0;
+                GenRunningHrs = 0;
+                CurrFuelComp = 0;
+            }
+
+            return (CumFuelVol, GenRunningHrs, CurrFuelComp,  
+                    StndFuelComp, TestFuelComp);
         }
 
     }

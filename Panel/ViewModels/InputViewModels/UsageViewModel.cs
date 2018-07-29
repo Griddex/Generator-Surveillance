@@ -83,6 +83,23 @@ namespace Panel.ViewModels.InputViewModels
                                 return;
                             }
 
+                            Tuple<ComboBox, ComboBox, ComboBox, ComboBox, Button> cmbx4Btn =
+                                        (Tuple<ComboBox, ComboBox, ComboBox, ComboBox, Button>)x;
+
+                            cmbx4Btn.Item1.IsHitTestVisible = true;
+                            cmbx4Btn.Item1.Focusable = true;
+
+                            cmbx4Btn.Item2.IsHitTestVisible = true;
+                            cmbx4Btn.Item2.Focusable = true;
+
+                            cmbx4Btn.Item3.IsHitTestVisible = true;
+                            cmbx4Btn.Item3.Focusable = true;
+
+                            cmbx4Btn.Item4.IsHitTestVisible = true;
+                            cmbx4Btn.Item4.Focusable = true;
+
+                            cmbx4Btn.Item5.IsEnabled = true;
+
                             string mergedStartTime = $"{SelectedStartHour.ToString("D2")}:" +
                                                     $"{SelectedStartMinute.ToString("D2")}:" +
                                                     $"{SelectedStartSecond.ToString("D2")} " +
@@ -131,9 +148,11 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         x =>
                         {
-                            if (SelectedGeneratorName == null || SelectedGeneratorName == "")
+                            if (SelectedGeneratorName == null || 
+                            SelectedGeneratorName == "")
                             {
-                                MessageBox.Show($"Please select a generator in General Generator Information",
+                                MessageBox.Show($"Please select a generator " +
+                                    $"in General Generator Information",
                                     "Error",
                                     MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;

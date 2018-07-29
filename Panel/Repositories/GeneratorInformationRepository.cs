@@ -38,7 +38,13 @@ namespace Panel.Repositories
 
             int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorUsages.Count();
             var ActiveGenerators = GeneratorSurveillanceDBContext.GeneratorUsages
-                                    .Where(x => x.GeneratorStopped == new DateTime(0001, 01, 01, 00, 00, 00) || x.GeneratorStopped == new DateTime(1899, 12, 30, 00, 00, 00));
+                                    .Where(x => 
+                                    x.GeneratorStopped == 
+                                    new DateTime(0001, 01, 01, 00, 00, 00) || 
+                                    x.GeneratorStopped == 
+                                    new DateTime(1899, 12, 30, 00, 00, 00) ||
+                                    x.GeneratorStopped ==
+                                    new DateTime(1900, 01, 01, 00, 00, 00));
             if (ActiveGenerators.ToList().Count == 0)
             {
                 isNull = false;

@@ -29,6 +29,8 @@ namespace Panel.ViewModels.InputViewModels
         public double CurrentFuelConsumption { get; set; }
         public double TestFuelConsumption { get; set; }
         public double StandardFuelConsumption { get; set; }
+        public double CumFuelVolume { get; set; }
+        public double GenRunningHrs { get; set; }
 
         public FuellingViewModel(UnitOfWork unitOfWork)
         {
@@ -36,6 +38,7 @@ namespace Panel.ViewModels.InputViewModels
 
             UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation
                                                      .GetUniqueGeneratorNames();
+
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
                 (UniqueGeneratorNamesUnsorted
                     .OrderBy(x => x.GeneratorName));
@@ -62,8 +65,10 @@ namespace Panel.ViewModels.InputViewModels
         public UnitOfWork UnitOfWork { get; set; }
         public DateTime FuellingDate { get; set; } = DateTime.Now;
 
-        private ObservableCollection<GeneratorRunningHr> _allGeneratorFuelConsumptionRecords;
-        public ObservableCollection<GeneratorRunningHr> AllGeneratorFuelConsumptionRecords
+        private ObservableCollection<GeneratorRunningHr> 
+            _allGeneratorFuelConsumptionRecords;
+        public ObservableCollection<GeneratorRunningHr> 
+            AllGeneratorFuelConsumptionRecords
         {
             get => _allGeneratorFuelConsumptionRecords;
             set
@@ -269,9 +274,8 @@ namespace Panel.ViewModels.InputViewModels
                                 try
                                 {
                                     var FuelCompStats = UnitOfWork.GeneratorFuelling
-                                                            .GetFuelConsumptionData(
-                                                            (string)SelectedGenerator
-                                                            .Content);
+                                                                  .GetFuelConsumptionData(
+                                                                   SelectedGenerator);
 
                                     CurrentFuelConsumption = FuelCompStats.Curr;
                                     OnPropertyChanged(nameof(CurrentFuelConsumption));
@@ -301,8 +305,8 @@ namespace Panel.ViewModels.InputViewModels
             }
         }
 
-        private ComboBoxItem _selectedGenerator;
-        public ComboBoxItem SelectedGenerator
+        private string _selectedGenerator;
+        public string SelectedGenerator
         {
             get { return _selectedGenerator; }
             set
@@ -311,8 +315,14 @@ namespace Panel.ViewModels.InputViewModels
                 OnPropertyChanged(nameof(SelectedGenerator));
 
                 var FuelCompStats = UnitOfWork.GeneratorFuelling
-                              .GetFuelConsumptionData(
-                            (string)SelectedGenerator.Content);
+                                              .GetFuelConsumptionData(
+                                               SelectedGenerator);
+
+                RunningHours = FuelCompStats.RunHrs;
+                OnPropertyChanged(nameof(RunningHours));
+
+                CumFuelVolumeSinceLastReading = FuelCompStats.CumFuel;
+                OnPropertyChanged(nameof(CumFuelVolumeSinceLastReading));
 
                 CurrentFuelConsumption = FuelCompStats.Curr;
                 OnPropertyChanged(nameof(CurrentFuelConsumption));
@@ -322,7 +332,6 @@ namespace Panel.ViewModels.InputViewModels
 
                 StandardFuelConsumption = FuelCompStats.Stnd;
                 OnPropertyChanged(nameof(StandardFuelConsumption));
-
             }
         }
     }

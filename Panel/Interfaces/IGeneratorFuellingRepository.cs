@@ -25,7 +25,8 @@ namespace Panel.Interfaces
 
         ObservableCollection<GeneratorFuelling> GetAllGeneratorFuellings();
 
-        (double Curr, double Test, double Stnd) GetFuelConsumptionData(
+        (double CumFuel, double RunHrs, double Curr,
+            double Test, double Stnd) GetFuelConsumptionData(
             string GeneratorName);
     }
 }

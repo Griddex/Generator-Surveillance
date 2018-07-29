@@ -1,30 +1,29 @@
 ﻿using Panel.Commands;
-using Panel.Models.InputModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using Panel.Interfaces;
-using Panel.Services.NavigationService;
-using System.Windows;
-using System.Windows.Navigation;
+using Panel.Models.InputModels;
 using Panel.Repositories;
-using System.Windows.Controls;
-using System.Collections.ObjectModel;
 using Panel.Validations;
-using System.Windows.Data;
-using System.Globalization;
-using System.Collections;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Panel.ViewModels.InputViewModels
 {
     public class InputViewModel : ViewModelBase, IViewModel
     {
-        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } = new ObservableCollection<GeneratorNameModel>();
-        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = new ObservableCollection<GeneratorNameModel>();
+        public ObservableCollection<GeneratorNameModel> 
+            UniqueGeneratorNamesUnsorted { get; set; } = 
+            new ObservableCollection<GeneratorNameModel>();
+
+        public ObservableCollection<GeneratorNameModel> 
+            UniqueGeneratorNames { get; set; } = 
+            new ObservableCollection<GeneratorNameModel>();
+
         public UnitOfWork UnitOfWork { get; private set; }
+        public string ActiveGenerator { get; set; }
 
         private string _ActiveGenName;
         private DateTime? _ActiveGenStartedDate;
@@ -32,14 +31,21 @@ namespace Panel.ViewModels.InputViewModels
         public InputViewModel(UnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
-            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
+
+            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation
+                                                     .GetUniqueGeneratorNames();
+
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
-                                (UniqueGeneratorNamesUnsorted.OrderBy(x => x.GeneratorName));
-            var (IsNull, ActiveGenName, ActiveGenStartedDate, ActiveGenStartedTime, ActiveGenID) = UnitOfWork
-                                                                            .GeneratorInformation
-                                                                            .GeneratorStoppedIsNull();
+                                (UniqueGeneratorNamesUnsorted
+                                .OrderBy(x => x.GeneratorName));
+
+            var (IsNull, ActiveGenName, ActiveGenStartedDate, 
+                ActiveGenStartedTime, ActiveGenID) = UnitOfWork
+                                                    .GeneratorInformation
+                                                    .GeneratorStoppedIsNull();
             this.IsNull = IsNull;
             this.ActiveGenStartedTime = ActiveGenStartedTime;
+            ActiveGenerator = ActiveGenName;
             this._ActiveGenName = ActiveGenName;
             this._ActiveGenStartedDate = ActiveGenStartedDate;
         }
@@ -55,7 +61,8 @@ namespace Panel.ViewModels.InputViewModels
             {
                 _generatorName = value;
                 OnPropertyChanged(nameof(GeneratorName));
-                ValidGeneratorNameRuleAsync.ValidateGeneratorNameAsync(GeneratorName)
+                ValidGeneratorNameRuleAsync
+                    .ValidateGeneratorNameAsync(GeneratorName)
                     .ContinueWith(t =>
                     {
                         lock (_errors)
@@ -80,9 +87,14 @@ namespace Panel.ViewModels.InputViewModels
                         {
                             if (IsNull)
                             {
-                                Tuple<DatePicker, ComboBox> dtpkrcmbx = (Tuple<DatePicker, ComboBox>)x;
-                                dtpkrcmbx.Item1.SelectedDate = _ActiveGenStartedDate;
-                                dtpkrcmbx.Item2.SelectedValue = _ActiveGenName;                                
+                                Tuple<DatePicker, ComboBox> dtpkrcmbx = 
+                                (Tuple<DatePicker, ComboBox>)x;
+
+                                dtpkrcmbx.Item1.SelectedDate = 
+                                _ActiveGenStartedDate;
+
+                                dtpkrcmbx.Item2.SelectedValue = 
+                                _ActiveGenName;                                
                             }                                                    
                         },
                         y =>
@@ -106,16 +118,20 @@ namespace Panel.ViewModels.InputViewModels
                         x =>
                         {
                             ComboBox cmbxGenInfo = x as ComboBox;
-                            if (cmbxGenInfo.Text == null || cmbxGenInfo.Text == "")
+                            if (cmbxGenInfo.Text == null || 
+                            cmbxGenInfo.Text == "")
                             {
-                                MessageBox.Show("Select or Type-in a valid generator name", "Error", 
+                                MessageBox.Show("Select or Type-in " +
+                                    "a valid generator name", "Error", 
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Error);
                                 return;
                             }
                             GeneratorName = cmbxGenInfo.Text;
-                            UnitOfWork.GeneratorInformation.AddGeneratorName(GeneratorName, 
-                                                                UniqueGeneratorNames, cmbxGenInfo);
+                            UnitOfWork.GeneratorInformation
+                                      .AddGeneratorName(GeneratorName, 
+                                                        UniqueGeneratorNames, 
+                                                        cmbxGenInfo);
                         },
                         y =>
                         {
@@ -138,24 +154,34 @@ namespace Panel.ViewModels.InputViewModels
                         x =>
                         {
                             ComboBox cmbxGenInfo = x as ComboBox;
-                            if (cmbxGenInfo.Text == null || cmbxGenInfo.Text == "")
+                            if (cmbxGenInfo.Text == null || 
+                            cmbxGenInfo.Text == "")
                             {
-                                MessageBox.Show("Select a valid generator name", "Error", 
+                                MessageBox.Show("Select a valid " +
+                                    "generator name", "Error", 
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Error);
                                 return;
                             }
+
                             GeneratorName = cmbxGenInfo.Text;
-                            UnitOfWork.GeneratorInformation.ArchiveGeneratorName(GeneratorName, 
-                                                                        UniqueGeneratorNames, cmbxGenInfo);
+                            UnitOfWork.GeneratorInformation
+                                      .ArchiveGeneratorName(GeneratorName, 
+                                                            UniqueGeneratorNames, 
+                                                            cmbxGenInfo);
+
                             int ArchivalSuccess = UnitOfWork.Complete();
                             if (ArchivalSuccess > 0)
-                                MessageBox.Show($"{GeneratorName} has been successfully archived!", "Success", 
+                                MessageBox.Show($"{GeneratorName} has been " +
+                                    $"successfully archived!", 
+                                    "Success", 
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Information);
                             else
                             {
-                                MessageBox.Show($"{GeneratorName} could not be archived...", "Error", 
+                                MessageBox.Show($"{GeneratorName} could " +
+                                    $"not be archived...", 
+                                    "Error", 
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Error);
                                 return;
