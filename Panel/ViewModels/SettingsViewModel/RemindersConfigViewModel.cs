@@ -197,20 +197,20 @@ namespace Panel.ViewModels.SettingsViewModel
 
                             if (expdrexpdr.Item1.Password == "reminder")
                             {
-                                expdrexpdr.Item5.Visibility = Visibility.Visible;
-
                                 MessageBoxResult result = MessageBox.Show("Reminder & Notification " +
                                                             "settings are unlocked", "Information",
-                                                            MessageBoxButton.OK,
+                                                            MessageBoxButton.OKCancel,
                                                             MessageBoxImage.Information);
                                 switch (result)
                                 {
                                     case MessageBoxResult.None:
                                     case MessageBoxResult.OK:
-                                    case MessageBoxResult.Cancel:
                                     case MessageBoxResult.Yes:
-                                    case MessageBoxResult.No:
                                         expdrexpdr.Item4.Visibility = Visibility.Collapsed;
+                                        expdrexpdr.Item5.Visibility = Visibility.Visible;
+                                        break;
+                                    case MessageBoxResult.Cancel:
+                                    case MessageBoxResult.No:                                        
                                         break;
                                 }
                             }

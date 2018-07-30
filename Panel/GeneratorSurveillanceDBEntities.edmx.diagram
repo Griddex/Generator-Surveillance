@@ -12,6 +12,8 @@
         <EntityTypeShape EntityType="GeneratorSurveillanceDBModel.GeneratorUsage" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GeneratorSurveillanceDBModel.AuthoriserSetting" Width="1.5" PointX="5.375" PointY="3.75" />
         <EntityTypeShape EntityType="GeneratorSurveillanceDBModel.ConsumptionSetting" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GeneratorSurveillanceDBModel.ActionPartySetting" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="GeneratorSurveillanceDBModel.Password" Width="1.5" PointX="2.75" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

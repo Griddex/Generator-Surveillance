@@ -68,7 +68,7 @@ namespace Panel.Views.SettingsView
             {
                 cvsRemindersAuthorisers.GroupDescriptions.Clear();
                 cvsRemindersAuthorisers.GroupDescriptions
-                                       .Add(new PropertyGroupDescription("FirstName"));
+                                       .Add(new PropertyGroupDescription("FirstNameAuthoriser"));
             }
         }
 
@@ -78,6 +78,33 @@ namespace Panel.Views.SettingsView
                                                       .GetDefaultView(this.dtgdAuthoriserTable
                                                                           .ItemsSource);
             if (cvsRemindersAuthorisers != null && cvsRemindersAuthorisers.CanGroup == true)
+            {
+                cvsRemindersAuthorisers.GroupDescriptions.Clear();
+            }
+        }
+
+        private void GroupbyFirstNameActionParties_Click(object sender, RoutedEventArgs e)
+        {
+            ICollectionView cvsRemindersAuthorisers = CollectionViewSource
+                                                      .GetDefaultView(this.dtgdAuthoriserTable
+                                                                          .ItemsSource);
+            if (cvsRemindersAuthorisers != null && cvsRemindersAuthorisers
+                                                        .CanGroup == true)
+            {
+                cvsRemindersAuthorisers.GroupDescriptions.Clear();
+                cvsRemindersAuthorisers.GroupDescriptions
+                                       .Add(new PropertyGroupDescription("FirstNameActionParty"));
+            }
+        }
+
+        private void ClearFirstNameGroupingActionParties_Click(
+            object sender, RoutedEventArgs e)
+        {
+            ICollectionView cvsRemindersAuthorisers = CollectionViewSource
+                                                      .GetDefaultView(this.dtgdAuthoriserTable
+                                                                          .ItemsSource);
+            if (cvsRemindersAuthorisers != null && cvsRemindersAuthorisers
+                                                        .CanGroup == true)
             {
                 cvsRemindersAuthorisers.GroupDescriptions.Clear();
             }
@@ -151,8 +178,8 @@ namespace Panel.Views.SettingsView
             this.expdrfclSettings.Margin = new Thickness(0, 0, 0, 0);
             this.grpbxFuelConsumption.Margin = new Thickness(0, 0, 0, 0);
 
-            this.vwbxSettings.Height = 820;
-            this.expdrfclSettings.Height = 820;
+            this.vwbxSettings.Height = 860;
+            this.expdrfclSettings.Height = 860;
 
             this.stckpnlPassword.Visibility = Visibility.Collapsed;
         }
@@ -172,8 +199,8 @@ namespace Panel.Views.SettingsView
             this.expdrraSettings.Margin = new Thickness(0, 0, 0, 0);
             this.grpbxAuthorisers.Margin = new Thickness(0, 0, 0, 0);
 
-            this.vwbxSettings.Height = 820;
-            this.expdrraSettings.Height = 820;
+            this.vwbxSettings.Height = 860;
+            this.expdrraSettings.Height = 860;
 
             this.stckpnlPassword.Visibility = Visibility.Collapsed;
         }
@@ -182,6 +209,28 @@ namespace Panel.Views.SettingsView
         {
             this.expdrraSettings.Height = 300;
             CollapseAllExpanders();
+        }
+
+        private void expdrAuthorisersPanel_Expanded(object sender, RoutedEventArgs e)
+        {
+            this.expdrActionPartyPanel.IsExpanded = false;
+            e.Handled = true;
+        }
+
+        private void expdrAuthorisersPanel_Collapsed(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void expdrActionPartiesPanel_Expanded(object sender, RoutedEventArgs e)
+        {
+            this.expdrAuthorisersPanel.IsExpanded = false;
+            e.Handled = true;
+        }
+
+        private void expdrActionPartiesPanel_Collapsed(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
         }
 
         private void expdrReminders_Expanded(object sender, RoutedEventArgs e)
@@ -193,8 +242,8 @@ namespace Panel.Views.SettingsView
             this.expdrrcSettings.Margin = new Thickness(0, 0, 0, 0);
             this.grpbxRemConfig.Margin = new Thickness(0, 0, 0, 0);
 
-            this.vwbxSettings.Height = 820;
-            this.expdrrcSettings.Height = 820;
+            this.vwbxSettings.Height = 860;
+            this.expdrrcSettings.Height = 860;
 
             this.stckpnlPassword.Visibility = Visibility.Collapsed;
         }

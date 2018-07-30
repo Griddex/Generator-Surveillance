@@ -25,6 +25,7 @@ namespace Panel.Repositories
             GeneratorFuelling = new GeneratorFuellingRepository(_context);
             ConsumptionSetting = new ConsumptionSettingRepository(_context);
             AuthoriserSetting = new AuthorisersSettingRepository(_context);
+            ActionPartySetting = new ActionPartySettingRepository(_context);
             ReminderSetting = new ReminderSettingRepository(_context);
         }
 
@@ -36,6 +37,7 @@ namespace Panel.Repositories
         public IGeneratorFuellingRepository GeneratorFuelling { get; private set; }
         public IConsumptionSettingsRepository ConsumptionSetting { get; private set; }
         public IAuthorisersSettingsRepository AuthoriserSetting { get; private set; }
+        public IActionPartySettingsRepository ActionPartySetting { get; private set; }
         public IReminderSettingsRepository ReminderSetting { get; private set; }
 
         public int Complete()

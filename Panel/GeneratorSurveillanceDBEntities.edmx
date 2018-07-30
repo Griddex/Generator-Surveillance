@@ -5,17 +5,29 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="GeneratorSurveillanceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ActionPartySettings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FirstNameActionParty" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastNameActionParty" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailActionParty" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="PhoneNumberActionParty" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="JobTitleActionParty" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="AuthoriserSettings">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="70" Nullable="false" />
-          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="JobTitle" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FirstNameAuthoriser" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastNameAuthoriser" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailAuthoriser" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="PhoneNumberAuthoriser" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="JobTitleAuthoriser" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="ConsumptionSettings">
           <Key>
@@ -84,7 +96,15 @@
           <Property Name="GeneratorStopped" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="IsArchived" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="Passwords">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ReminderPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="GeneratorSurveillanceDBModelStoreContainer">
+          <EntitySet Name="ActionPartySettings" EntityType="Self.ActionPartySettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AuthoriserSettings" EntityType="Self.AuthoriserSettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConsumptionSettings" EntityType="Self.ConsumptionSettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneratorFuelling" EntityType="Self.GeneratorFuelling" Schema="dbo" store:Type="Tables" />
@@ -92,6 +112,7 @@
           <EntitySet Name="GeneratorRunningHrs" EntityType="Self.GeneratorRunningHrs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneratorScheduler" EntityType="Self.GeneratorScheduler" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneratorUsage" EntityType="Self.GeneratorUsage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Passwords" EntityType="Self.Passwords" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -161,6 +182,8 @@
           <EntitySet Name="GeneratorUsages" EntityType="Self.GeneratorUsage" />
           <EntitySet Name="AuthoriserSettings" EntityType="GeneratorSurveillanceDBModel.AuthoriserSetting" />
           <EntitySet Name="ConsumptionSettings" EntityType="GeneratorSurveillanceDBModel.ConsumptionSetting" />
+          <EntitySet Name="ActionPartySettings" EntityType="GeneratorSurveillanceDBModel.ActionPartySetting" />
+          <EntitySet Name="Passwords" EntityType="GeneratorSurveillanceDBModel.Password" />
         </EntityContainer>
         <EntityType Name="AuthoriserSetting">
           <Key>
@@ -168,11 +191,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="JobTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FirstNameAuthoriser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastNameAuthoriser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAuthoriser" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberAuthoriser" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitleAuthoriser" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ConsumptionSetting">
           <Key>
@@ -184,6 +207,25 @@
           <Property Name="CurrentConsumption" Type="Double" Nullable="false" />
           <Property Name="TestConsumption" Type="Double" Nullable="false" />
           <Property Name="StandardConsumption" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActionPartySetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FirstNameActionParty" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastNameActionParty" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailActionParty" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberActionParty" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitleActionParty" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Password">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ReminderPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -255,11 +297,11 @@
           <EntitySetMapping Name="AuthoriserSettings">
             <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.AuthoriserSetting">
               <MappingFragment StoreEntitySet="AuthoriserSettings">
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="JobTitleAuthoriser" ColumnName="JobTitleAuthoriser" />
+                <ScalarProperty Name="PhoneNumberAuthoriser" ColumnName="PhoneNumberAuthoriser" />
+                <ScalarProperty Name="EmailAuthoriser" ColumnName="EmailAuthoriser" />
+                <ScalarProperty Name="LastNameAuthoriser" ColumnName="LastNameAuthoriser" />
+                <ScalarProperty Name="FirstNameAuthoriser" ColumnName="FirstNameAuthoriser" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -273,6 +315,27 @@
                 <ScalarProperty Name="CurrentConsumption" ColumnName="CurrentConsumption" />
                 <ScalarProperty Name="GeneratorName" ColumnName="GeneratorName" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActionPartySettings">
+            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.ActionPartySetting">
+              <MappingFragment StoreEntitySet="ActionPartySettings">
+                <ScalarProperty Name="JobTitleActionParty" ColumnName="JobTitleActionParty" />
+                <ScalarProperty Name="PhoneNumberActionParty" ColumnName="PhoneNumberActionParty" />
+                <ScalarProperty Name="EmailActionParty" ColumnName="EmailActionParty" />
+                <ScalarProperty Name="LastNameActionParty" ColumnName="LastNameActionParty" />
+                <ScalarProperty Name="FirstNameActionParty" ColumnName="FirstNameActionParty" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Passwords">
+            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.Password">
+              <MappingFragment StoreEntitySet="Passwords">
+                <ScalarProperty Name="ReminderPassword" ColumnName="ReminderPassword" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

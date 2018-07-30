@@ -16,13 +16,24 @@ namespace Panel.ViewModels.SettingsViewModel
             AnyAuthorisersPage { get; set; } =
             new ObservableCollection<AuthoriserSetting>();
 
+        public ObservableCollection<ActionPartySetting>
+            AnyActionPartiesPage { get; set; } =
+            new ObservableCollection<ActionPartySetting>();
+
         public UnitOfWork UnitOfWork { get; set; }
-        public DateTime ReminderDate { get; set; } = DateTime.Now;
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string JobTitle { get; set; }
+        public DateTime ReminderDateAuthoriser { get; set; } = DateTime.Now;
+        public string FirstNameAuthoriser { get; set; }
+        public string LastNameAuthoriser { get; set; }
+        public string EmailAuthoriser { get; set; }
+        public string PhoneNumberAuthoriser { get; set; }
+        public string JobTitleAuthoriser { get; set; }
+
+        public DateTime ReminderDateActionParty { get; set; } = DateTime.Now;
+        public string FirstNameActionParty { get; set; }
+        public string LastNameActionParty { get; set; }
+        public string EmailActionParty { get; set; }
+        public string PhoneNumberActionParty { get; set; }
+        public string JobTitleActionParty { get; set; }
 
         public AuthoriserSettingsViewModel(UnitOfWork unitOfWork)
         {
@@ -30,6 +41,9 @@ namespace Panel.ViewModels.SettingsViewModel
 
             AnyAuthorisersPage = UnitOfWork.AuthoriserSetting
                                            .GetAllAuthorisers();
+
+            AnyActionPartiesPage = UnitOfWork.ActionPartySetting
+                                            .GetAllActionParties();
         }
 
         private ICommand _setAuthoriserCmd;
@@ -44,9 +58,9 @@ namespace Panel.ViewModels.SettingsViewModel
                         x =>
                         {
                             DataGrid dtgrd = (DataGrid)x;
-                            if (FirstName == null || LastName == null ||
-                                Email == null || PhoneNumber == null ||
-                                JobTitle == null)
+                            if (FirstNameAuthoriser == null || LastNameAuthoriser == null ||
+                                EmailAuthoriser == null || PhoneNumberAuthoriser == null ||
+                                JobTitleAuthoriser == null)
                             {
                                 MessageBox.Show($"All details for the " +
                                     $"authoriser must " +
@@ -58,9 +72,9 @@ namespace Panel.ViewModels.SettingsViewModel
                             }
 
                             UnitOfWork.AuthoriserSetting.SetAuthorisers(
-                                ReminderDate, FirstName, 
-                                LastName, Email, PhoneNumber, 
-                                JobTitle);
+                                ReminderDateAuthoriser, FirstNameAuthoriser, 
+                                LastNameAuthoriser, EmailAuthoriser, PhoneNumberAuthoriser, 
+                                JobTitleAuthoriser);
 
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
@@ -68,6 +82,51 @@ namespace Panel.ViewModels.SettingsViewModel
                                 AnyAuthorisersPage = UnitOfWork.AuthoriserSetting
                                                                .GetAllAuthorisers();
                                 OnPropertyChanged(nameof(AnyAuthorisersPage));
+                            }
+                        },
+                        y => true
+                    )
+                );
+            }
+        }
+
+        private ICommand _setActionPartyCmd;
+        public ICommand SetActionPartyCmd
+        {
+            get
+            {
+                return this._setActionPartyCmd ??
+                (
+                    this._setActionPartyCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            DataGrid dtgrd = (DataGrid)x;
+                            if (FirstNameActionParty == null || LastNameActionParty == null ||
+                                EmailActionParty == null || PhoneNumberActionParty == null ||
+                                JobTitleActionParty == null)
+                            {
+                                MessageBox.Show($"All details for the " +
+                                    $"ActionParty must " +
+                                    $"be set to a valid value",
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
+                                return;
+                            }
+
+                            UnitOfWork.ActionPartySetting.SetActionParties(
+                                ReminderDateActionParty, FirstNameActionParty,
+                                LastNameActionParty, EmailActionParty, 
+                                PhoneNumberActionParty,
+                                JobTitleActionParty);
+
+                            int Success = UnitOfWork.Complete();
+                            if (Success > 0)
+                            {
+                                AnyActionPartiesPage = UnitOfWork.ActionPartySetting
+                                                               .GetAllActionParties();
+                                OnPropertyChanged(nameof(AnyActionPartiesPage));
                             }
                         },
                         y => true

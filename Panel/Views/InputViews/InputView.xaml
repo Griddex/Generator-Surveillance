@@ -109,34 +109,37 @@
                                     Width="200" 
                                     VerticalAlignment="Bottom"
                                     HorizontalAlignment="Center">
-                            <Label x:Name="lblGenName" 
-                                   Content="{Binding Path=ActiveGenerator}" 
-                                   Height="40" 
-                                   Width="200"
-                                   FontSize="14"
-                                   VerticalAlignment="Bottom"
-                                   HorizontalContentAlignment="Center"
-                                   VerticalContentAlignment="Bottom"/>
-                            <Label x:Name="lblGenState" 
-                                   Content="{Binding Path=IsNull, 
-                                                     Mode=OneWay, 
-                                                     Converter={StaticResource ConvBoolToString}}" 
-                                   Height="40" 
-                                   Width="50"
-                                   FontSize="14"
-                                   VerticalAlignment="Bottom"
-                                   HorizontalContentAlignment="Center"
-                                   VerticalContentAlignment="Center"/>
-                            <Label x:Name="lblGenIndicator" 
-                                   Background="{Binding Path=IsNull, 
-                                                        Mode=OneWay, 
-                                                        Converter={StaticResource ConvBoolToBrush}}" 
-                                   Height="40" 
-                                   Width="40"
-                                   VerticalAlignment="Bottom"
-                                   Style="{StaticResource RoundLabelStyle}"
-                                   MouseDown="lblGenIndicator_MouseDown">                                
-                            </Label>
+                            <StackPanel VerticalAlignment="Bottom"
+                                        Margin="0,50,0,0">
+                                <Label x:Name="lblGenName" 
+                                       Content="{Binding Path=ActiveGenerator}" 
+                                       Height="30" 
+                                       Width="200"
+                                       FontSize="14"
+                                       VerticalAlignment="Bottom"
+                                       HorizontalContentAlignment="Center"
+                                       VerticalContentAlignment="Bottom"/>
+                                <Label x:Name="lblGenState" 
+                                       Content="{Binding Path=IsNull, 
+                                                         Mode=OneWay, 
+                                                         Converter={StaticResource ConvBoolToString}}" 
+                                       Height="30" 
+                                       Width="50"
+                                       FontSize="14"
+                                       VerticalAlignment="Bottom"
+                                       HorizontalContentAlignment="Center"
+                                       VerticalContentAlignment="Center"/>
+                                <Label x:Name="lblGenIndicator" 
+                                       Background="{Binding Path=IsNull, 
+                                                            Mode=OneWay, 
+                                                            Converter={StaticResource ConvBoolToBrush}}" 
+                                       Height="40" 
+                                       Width="40"
+                                       VerticalAlignment="Bottom"
+                                       Style="{StaticResource RoundLabelStyle}"
+                                       MouseDown="lblGenIndicator_MouseDown">
+                                </Label>
+                            </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" 
                                     Grid.Row="1" 

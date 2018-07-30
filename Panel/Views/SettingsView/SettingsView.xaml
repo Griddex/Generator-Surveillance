@@ -5,8 +5,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
-      d:DesignHeight="920" d:DesignWidth="1930"
-      Title="Settings Panel" KeepAlive="True"      
+      d:DesignHeight="920" 
+      d:DesignWidth="1930"
+      Title="Settings Panel" 
+      KeepAlive="True"      
       Background="White">
 
     <Grid>
@@ -15,7 +17,7 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     Width="1600"
-                    Height="850">
+                    Height="870">
             <StackPanel x:Name="stckpnlPassword"
                         Width="570"
                         Height="55"
@@ -30,7 +32,21 @@
                              Width="250"
                              Height="40"
                              VerticalContentAlignment="Center"
-                             HorizontalContentAlignment="Center"/>
+                             HorizontalContentAlignment="Center">
+                    <PasswordBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Path=OKCmd}">
+                            <KeyBinding.CommandParameter>
+                                    <MultiBinding Converter="{StaticResource PassPswbxExpdrExpdrStkPlVwBx}">
+                                        <Binding ElementName="psswrdReminder"/>
+                                        <Binding ElementName="expdrraSettings"/>
+                                        <Binding ElementName="expdrrcSettings"/>
+                                        <Binding ElementName="stckpnlPassword"/>
+                                        <Binding ElementName="vwbxSettings"/>
+                                    </MultiBinding>
+                            </KeyBinding.CommandParameter>
+                        </KeyBinding>
+                    </PasswordBox.InputBindings>
+                </PasswordBox>
                 <StackPanel Orientation="Horizontal"
                             Margin="5">
                     <Button x:Name="ok" 
@@ -101,7 +117,7 @@
                                   Header="Fuel Consumption Data (Ltrs/hr)"
                                   Style="{StaticResource GroupBoxStyle}"
                                   Width="800" 
-                                  Height="820">
+                                  Height="860">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal" 
                                             Height="150">
@@ -165,8 +181,8 @@
                                                 VerticalAlignment="Top"
                                                 Height="200" 
                                                 Margin="25,0,0,0">
-                                        <Label Content="Test Fuel Consumption" 
-                                                Height="30"/>
+                                        <Label Content="Test Fuel Consumption"
+                                               Height="30"/>
                                         <TextBox  Background="#F2F2F2" 
                                                   Width="230" 
                                                   Height="55" 
@@ -182,11 +198,11 @@
                                                   Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical"
-                                        VerticalAlignment="Top"
-                                        Height="200" 
-                                        Margin="25,0,0,0">
+                                                VerticalAlignment="Top"
+                                                Height="200" 
+                                                Margin="25,0,0,0">
                                         <Label Content="Standard Fuel Consumption" 
-                                        Height="30"/>
+                                               Height="30"/>
                                         <TextBox  Background="#F2F2F2" 
                                                   Width="230" 
                                                   Height="55" 
@@ -337,214 +353,519 @@
                         <GroupBox x:Name="grpbxAuthorisers"
                                   Header="Reminders Authorisers"  
                                   Style="{StaticResource GroupBoxStyle}"
-                                  Width="800" Height="820">
+                                  Width="800" 
+                                  Height="860">
                             <StackPanel Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal" 
+                                <TextBox Height="50"
+                                         Width="800"
+                                         BorderBrush="Transparent"/>
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                              VerticalScrollBarVisibility="Auto"
+                                              Height="860">
+                                    <StackPanel Orientation="Vertical">
+                                    <Expander x:Name="expdrAuthorisersPanel"
+                                          ExpandDirection="Down"
+                                          Expanded="expdrAuthorisersPanel_Expanded"
+                                          Collapsed="expdrAuthorisersPanel_Collapsed">
+                                        <Expander.Header>
+                                            
+                                            <TextBox Text="Manage Authorisers"
+                                                 Background="#F2F2F2"
+                                                 Height="50"
+                                                 FontSize="20"
+                                                 Width="750"/>
+                                        </Expander.Header>
+                                        <StackPanel x:Name="stcpnlAuthorisers" 
+                                        Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal" 
                                             Height="150">
-                                    <StackPanel Orientation="Vertical"  
+                                                <StackPanel Orientation="Vertical"  
                                                 VerticalAlignment="Center"
                                                 Margin="20,0,0,0">
-                                        <Label Content="Date" 
+                                                    <Label Content="Date" 
                                                VerticalAlignment="Bottom"
                                                Margin="0,0,0,0"/>
-                                        <DatePicker HorizontalAlignment="right"  
+                                                    <DatePicker HorizontalAlignment="right"  
                                                     VerticalAlignment="Top"
                                                     Margin="0,0,0,0"
                                                     Style="{DynamicResource DatePickerStyle}" 
                                                     Width="230" 
                                                     Height="55"
-                                                    SelectedDate="{Binding Path=ReminderDate, 
-                                                                            Mode=TwoWay}"
+                                                    SelectedDate="{Binding Path=ReminderDateAuthoriser, 
+                                                                           Mode=TwoWay}"
                                                     DisplayDate="{x:Static sys:DateTime.Now}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical"  
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical"  
                                                 VerticalAlignment="Center"
                                                 Margin="30,0,0,0">
-                                        <Label x:Name="lblGenUnSchMainGenerator1" 
+                                                    <Label x:Name="lblGenUnSchMainGenerator1" 
                                                Content="First Name" 
                                                VerticalAlignment="Bottom"/>
-                                        <TextBox x:Name="txtbxFirstName"  
+                                                    <TextBox x:Name="txtbxFirstName"  
                                                  Background="#F2F2F2" 
-                                            Width="230" Height="55"
-                                            HorizontalAlignment="Left"
-                                            Text="{Binding Path=FirstName, 
-                                                            Mode=TwoWay, 
-                                                            ValidatesOnNotifyDataErrors=True, 
-                                                            UpdateSourceTrigger=PropertyChanged,
-                                                            ValidatesOnExceptions=True}"
-                                            VerticalAlignment="Center"
-                                            AcceptsReturn="True"
-                                            Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical"  VerticalAlignment="Center"
-                                        Margin="30,0,0,0">
-                                        <Label x:Name="lblGenUnSchMainGenerator2" Content="Last Name" 
-                                        VerticalAlignment="Bottom"/>
-                                        <TextBox x:Name="txtbxFirstName1"  Background="#F2F2F2" 
-                                            Width="230" Height="55"
-                                            HorizontalAlignment="Left"
-                                            Text="{Binding Path=LastName, 
-                                                        Mode=TwoWay, 
-                                                        ValidatesOnNotifyDataErrors=True, 
-                                                        UpdateSourceTrigger=PropertyChanged,
-                                                        ValidatesOnExceptions=True}"
-                                            VerticalAlignment="Center"
-                                            AcceptsReturn="True"
-                                            Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
-                                    </StackPanel>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Height="200">
-                                    <StackPanel Orientation="Vertical" 
-                                        VerticalAlignment="Top"
-                                        Height="200" Margin="20,0,0,0">
-                                        <Label Content="Email" Height="30"/>
-                                        <TextBox  Background="#F2F2F2" Width="230" Height="55" 
-                                            HorizontalAlignment="Left"
-                                            Text="{Binding Path=Email, 
-                                                            Mode=TwoWay,
-                                                            ValidatesOnNotifyDataErrors=True, 
-                                                            UpdateSourceTrigger=PropertyChanged,
-                                                            ValidatesOnExceptions=True}"
-                                            VerticalAlignment="Center"
-                                            AcceptsReturn="True"
-                                            Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical" 
-                                        VerticalAlignment="Top"
-                                        Height="200" Margin="30,0,0,0">
-                                        <Label Content="Phone Number" Height="30"/>
-                                        <TextBox  Background="#F2F2F2" Width="230" Height="55" 
-                                            HorizontalAlignment="Left"
-                                            Text="{Binding Path=PhoneNumber, 
-                                                            Mode=TwoWay, 
-                                                            ValidatesOnNotifyDataErrors=True, 
-                                                            UpdateSourceTrigger=PropertyChanged,
-                                                            ValidatesOnExceptions=True}"
-                                            VerticalAlignment="Center"
-                                            AcceptsReturn="True"
-                                            Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical"
-                                        VerticalAlignment="Top"
-                                        Height="200" Margin="30,0,0,0">
-                                        <Label Content="Job Title" Height="30"/>
-                                        <TextBox  Background="#F2F2F2" Width="230" Height="55" 
-                                            HorizontalAlignment="Left"
-                                            Text="{Binding Path=JobTitle, 
-                                                            Mode=TwoWay,
-                                                            ValidatesOnNotifyDataErrors=True, 
-                                                            UpdateSourceTrigger=PropertyChanged,
-                                                            ValidatesOnExceptions=True}"
-                                            VerticalAlignment="Center"
-                                            AcceptsReturn="True"
-                                            Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
-                                        <Button x:Name="btnAddUnMaintenance1" Height="55" Width="230"
-                                        Margin="0,30,0,0"
-                                        Content="Add Authoriser" 
-                                        ToolTip="Add unscheduled maintenance" 
-                                        Style="{StaticResource AffirmativeButtonStyle}" 
-                                        HorizontalContentAlignment="Center" 
-                                        VerticalContentAlignment="Center" HorizontalAlignment="Right" 
-                                        VerticalAlignment="Bottom"
-                                        Command="{Binding SetAuthoriserCmd}"
-                                        CommandParameter="{Binding ElementName=dtgdAuthoriserTable}"/>
-                                    </StackPanel>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Authorisers Details" Height="30" 
-                                    Margin="20,0,0,0"/>
-                                    <ScrollViewer Height="400" Width="745"
-                                            HorizontalScrollBarVisibility="Auto">
-                                        <DataGrid x:Name="dtgdAuthoriserTable" 
-                                            Style="{StaticResource DataGridStyle}"
-                                            ItemsSource="{Binding AnyAuthorisersPage}" 
-                                            ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
-                                            <DataGrid.ContextMenu>
-                                                <ContextMenu x:Name="ctxMnuSchedRemdrs1">
-                                                    <MenuItem Header="Group by FirstName" 
-                                                            Click="GroupbyFirstNameAuthorisers_Click"/>
-                                                    <MenuItem Header="Ungroup" 
-                                                            Click="ClearFirstNameGroupingAuthorisers_Click"/>
-                                                </ContextMenu>
-                                            </DataGrid.ContextMenu>
-                                            <DataGrid.GroupStyle>
-                                                <GroupStyle>
-                                                    <GroupStyle.HeaderTemplate>
-                                                        <DataTemplate>
-                                                            <StackPanel>
-                                                                <TextBlock Text="{Binding Path=Name}" />
-                                                            </StackPanel>
-                                                        </DataTemplate>
-                                                    </GroupStyle.HeaderTemplate>
-                                                    <GroupStyle.ContainerStyle>
-                                                        <Style TargetType="{x:Type GroupItem}">
-                                                            <Setter Property="Width" Value="Auto"/>
-                                                            <Setter Property="Template">
-                                                                <Setter.Value>
-                                                                    <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                                        <Expander IsExpanded="True" Background="#EAF9FB"
-                                                                            BorderBrush="LightGray" Foreground="Black"
-                                                                            FontSize="12" BorderThickness="1,1,1,1">
-                                                                            <Expander.Header>
-                                                                                <StackPanel Orientation="Horizontal">
-                                                                                    <TextBlock FontWeight="Bold"
-                                                                                        Text="{Binding Name, 
-                                                                                                        Converter={StaticResource CategoryToPhrase}}"/>
-                                                                                    <TextBlock FontWeight="Bold"
-                                                                                        Text="{Binding ItemCount, 
-                                                                                                        Converter={StaticResource ItemCountToPhrase}}"/>
-                                                                                </StackPanel>
-                                                                            </Expander.Header>
-                                                                            <Expander.Content>
-                                                                                <ItemsPresenter/>
-                                                                            </Expander.Content>
-                                                                        </Expander>
-                                                                    </ControlTemplate>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </Style>
-                                                    </GroupStyle.ContainerStyle>
-                                                </GroupStyle>
-                                            </DataGrid.GroupStyle>
-                                            <DataGrid.RowStyle>
-                                                <Style TargetType="DataGridRow">
-                                                    <Setter Property="Foreground" Value="Black"/>
-                                                    <Setter Property="Background" Value="White"/>
-                                                </Style>
-                                            </DataGrid.RowStyle>
-                                            <DataGrid.Columns>
-                                                <DataGridTextColumn Header="S/N" 
+                                                 Width="230" 
+                                                 Height="55"
+                                                 HorizontalAlignment="Left"
+                                                 Text="{Binding Path=FirstNameAuthoriser, 
+                                                                Mode=TwoWay, 
+                                                                ValidatesOnNotifyDataErrors=True, 
+                                                                UpdateSourceTrigger=PropertyChanged,
+                                                                ValidatesOnExceptions=True}"
+                                                 VerticalAlignment="Center"
+                                                 AcceptsReturn="True"
+                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical"  
+                                                VerticalAlignment="Center"
+                                                Margin="30,0,0,0">
+                                                    <Label x:Name="lblGenUnSchMainGenerator2" 
+                                               Content="Last Name"
+                                               VerticalAlignment="Bottom"/>
+                                                    <TextBox x:Name="txtbxFirstName1"  
+                                                 Background="#F2F2F2" 
+                                                 Width="230" 
+                                                 Height="55"
+                                                 HorizontalAlignment="Left"
+                                                 Text="{Binding Path=LastNameAuthoriser, 
+                                                                Mode=TwoWay, 
+                                                                ValidatesOnNotifyDataErrors=True, 
+                                                                UpdateSourceTrigger=PropertyChanged,
+                                                                ValidatesOnExceptions=True}"
+                                                 VerticalAlignment="Center"
+                                                 AcceptsReturn="True"
+                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" 
+                                            Height="200">
+                                                <StackPanel Orientation="Vertical" 
+                                                VerticalAlignment="Top"
+                                                Height="200" 
+                                                Margin="20,0,0,0">
+                                                    <Label Content="Email" 
+                                               Height="30"/>
+                                                    <TextBox  Background="#F2F2F2" 
+                                                  Width="230" 
+                                                  Height="55" 
+                                                  HorizontalAlignment="Left"
+                                                  Text="{Binding Path=EmailAuthoriser, 
+                                                                 Mode=TwoWay,
+                                                                 ValidatesOnNotifyDataErrors=True, 
+                                                                 UpdateSourceTrigger=PropertyChanged,
+                                                                 ValidatesOnExceptions=True}"
+                                                  VerticalAlignment="Center"
+                                                  AcceptsReturn="True"
+                                                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical" 
+                                                VerticalAlignment="Top"
+                                                Height="200" 
+                                                Margin="30,0,0,0">
+                                                    <Label Content="Phone Number" 
+                                               Height="30"/>
+                                                    <TextBox  Background="#F2F2F2" 
+                                                  Width="230" 
+                                                  Height="55" 
+                                                  HorizontalAlignment="Left"
+                                                  Text="{Binding Path=PhoneNumberAuthoriser, 
+                                                                 Mode=TwoWay, 
+                                                                 ValidatesOnNotifyDataErrors=True, 
+                                                                 UpdateSourceTrigger=PropertyChanged,
+                                                                 ValidatesOnExceptions=True}"
+                                                  VerticalAlignment="Center"
+                                                  AcceptsReturn="True"
+                                                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical"
+                                                VerticalAlignment="Top"
+                                                Height="200" 
+                                                Margin="30,0,0,0">
+                                                    <Label Content="Job Title" 
+                                               Height="30"/>
+                                                    <TextBox  Background="#F2F2F2" 
+                                                  Width="230" 
+                                                  Height="55" 
+                                                  HorizontalAlignment="Left"
+                                                  Text="{Binding Path=JobTitleAuthoriser, 
+                                                                 Mode=TwoWay,
+                                                                 ValidatesOnNotifyDataErrors=True, 
+                                                                 UpdateSourceTrigger=PropertyChanged,
+                                                                 ValidatesOnExceptions=True}"
+                                                  VerticalAlignment="Center"
+                                                  AcceptsReturn="True"
+                                                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                    <Button x:Name="btnAddUnMaintenance1" 
+                                                Height="55" 
+                                                Width="230"
+                                                Margin="0,30,0,0"
+                                                Content="Add Authoriser" 
+                                                ToolTip="Add unscheduled maintenance" 
+                                                Style="{StaticResource AffirmativeButtonStyle}" 
+                                                HorizontalContentAlignment="Center" 
+                                                VerticalContentAlignment="Center" 
+                                                HorizontalAlignment="Right" 
+                                                VerticalAlignment="Bottom"
+                                                Command="{Binding SetAuthoriserCmd}"
+                                                CommandParameter="{Binding ElementName=dtgdAuthoriserTable}"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Authorisers Details" 
+                                           Height="30" 
+                                           Margin="20,0,0,0"/>
+                                                <ScrollViewer Height="400" 
+                                                  Width="745"
+                                                  HorizontalScrollBarVisibility="Auto">
+                                                    <DataGrid x:Name="dtgdAuthoriserTable" 
+                                                  Style="{StaticResource DataGridStyle}"
+                                                  ItemsSource="{Binding AnyAuthorisersPage}" 
+                                                  ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
+                                                        <DataGrid.ContextMenu>
+                                                            <ContextMenu x:Name="ctxMnuSchedRemdrs1">
+                                                                <MenuItem Header="Group by FirstName" 
+                                                              Click="GroupbyFirstNameAuthorisers_Click"/>
+                                                                <MenuItem Header="Ungroup" 
+                                                              Click="ClearFirstNameGroupingAuthorisers_Click"/>
+                                                            </ContextMenu>
+                                                        </DataGrid.ContextMenu>
+                                                        <DataGrid.GroupStyle>
+                                                            <GroupStyle>
+                                                                <GroupStyle.HeaderTemplate>
+                                                                    <DataTemplate>
+                                                                        <StackPanel>
+                                                                            <TextBlock Text="{Binding Path=Name}" />
+                                                                        </StackPanel>
+                                                                    </DataTemplate>
+                                                                </GroupStyle.HeaderTemplate>
+                                                                <GroupStyle.ContainerStyle>
+                                                                    <Style TargetType="{x:Type GroupItem}">
+                                                                        <Setter Property="Width" 
+                                                                    Value="Auto"/>
+                                                                        <Setter Property="Template">
+                                                                            <Setter.Value>
+                                                                                <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                                                    <Expander IsExpanded="True" 
+                                                                                  Background="#EAF9FB"
+                                                                                  BorderBrush="LightGray" 
+                                                                                  Foreground="Black"
+                                                                                  FontSize="12" 
+                                                                                  BorderThickness="1,1,1,1">
+                                                                                        <Expander.Header>
+                                                                                            <StackPanel Orientation="Horizontal">
+                                                                                                <TextBlock FontWeight="Bold"
+                                                                                               Text="{Binding Name, 
+                                                                                                              Converter={StaticResource CategoryToPhrase}}"/>
+                                                                                                <TextBlock FontWeight="Bold"
+                                                                                               Text="{Binding ItemCount, 
+                                                                                                              Converter={StaticResource ItemCountToPhrase}}"/>
+                                                                                            </StackPanel>
+                                                                                        </Expander.Header>
+                                                                                        <Expander.Content>
+                                                                                            <ItemsPresenter/>
+                                                                                        </Expander.Content>
+                                                                                    </Expander>
+                                                                                </ControlTemplate>
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Style>
+                                                                </GroupStyle.ContainerStyle>
+                                                            </GroupStyle>
+                                                        </DataGrid.GroupStyle>
+                                                        <DataGrid.RowStyle>
+                                                            <Style TargetType="DataGridRow">
+                                                                <Setter Property="Foreground" 
+                                                            Value="Black"/>
+                                                                <Setter Property="Background" 
+                                                            Value="White"/>
+                                                            </Style>
+                                                        </DataGrid.RowStyle>
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn Header="S/N" 
                                                                     Binding="{Binding Id}"
                                                                     FontSize="12"
                                                                     Width="Auto"/>
-                                                <DataGridTextColumn Header="Date" 
+                                                            <DataGridTextColumn Header="Date" 
                                                                     Binding="{Binding Date}"
                                                                     FontSize="12"
                                                                     Width="Auto"/>
-                                                <DataGridTextColumn Header="First Name" 
-                                                                    Binding="{Binding FirstName}"
+                                                            <DataGridTextColumn Header="First Name" 
+                                                                    Binding="{Binding FirstNameAuthoriser}"
                                                                     FontSize="12" 
                                                                     Width="Auto"/>
-                                                <DataGridTextColumn Header="Last Name" 
-                                                                    Binding="{Binding LastName}"
+                                                            <DataGridTextColumn Header="Last Name" 
+                                                                    Binding="{Binding LastNameAuthoriser}"
                                                                     FontSize="12" 
                                                                     Width="Auto"/>
-                                                <DataGridTextColumn Header="Email"
-                                                                    Binding="{Binding Email}"
+                                                            <DataGridTextColumn Header="Email"
+                                                                    Binding="{Binding EmailAuthoriser}"
                                                                     FontSize="12" 
                                                                     Width="Auto"/>
-                                                <DataGridTextColumn Header="Phone Number"
-                                                                    Binding="{Binding PhoneNumber}"
+                                                            <DataGridTextColumn Header="Phone Number"
+                                                                    Binding="{Binding PhoneNumberAuthoriser}"
                                                                     FontSize="12" 
                                                                     Width="Auto"/>
-                                                <DataGridTextColumn Header="Job Title"
-                                                                    Binding="{Binding JobTitle}"
+                                                            <DataGridTextColumn Header="Job Title"
+                                                                    Binding="{Binding JobTitleAuthoriser}"
                                                                     FontSize="12" 
                                                                     Width="Auto"/>
-                                            </DataGrid.Columns>
-                                        </DataGrid>
-                                    </ScrollViewer>
-                                </StackPanel>
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </ScrollViewer>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Expander>
+                                    <Expander x:Name="expdrActionPartyPanel"
+                                          ExpandDirection="Down"
+                                          Expanded="expdrActionPartiesPanel_Expanded"
+                                          Collapsed="expdrActionPartiesPanel_Collapsed">
+                                        <Expander.Header>
+                                            <TextBox Text="Manage Action Parties"
+                                                 Background="#F2F2F2"
+                                                 Height="50"
+                                                 FontSize="20"
+                                                 Width="750"/>
+                                        </Expander.Header>
+                                        <StackPanel x:Name="stcpnlActionParty" 
+                                        Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal" 
+                                            Height="150">
+                                                <StackPanel Orientation="Vertical"  
+                                                VerticalAlignment="Center"
+                                                Margin="20,0,0,0">
+                                                    <Label Content="Date" 
+                                               VerticalAlignment="Bottom"
+                                               Margin="0,0,0,0"/>
+                                                    <DatePicker HorizontalAlignment="right"  
+                                                    VerticalAlignment="Top"
+                                                    Margin="0,0,0,0"
+                                                    Style="{DynamicResource DatePickerStyle}" 
+                                                    Width="230" 
+                                                    Height="55"
+                                                    SelectedDate="{Binding Path=ReminderDateActionParty, 
+                                                                           Mode=TwoWay}"
+                                                    DisplayDate="{x:Static sys:DateTime.Now}"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical"  
+                                                VerticalAlignment="Center"
+                                                Margin="30,0,0,0">
+                                                    <Label x:Name="lblGenUnSchMainGenerator3" 
+                                               Content="First Name" 
+                                               VerticalAlignment="Bottom"/>
+                                                    <TextBox x:Name="txtbxFirstNameActionParty"  
+                                                 Background="#F2F2F2" 
+                                                 Width="230" 
+                                                 Height="55"
+                                                 HorizontalAlignment="Left"
+                                                 Text="{Binding Path=FirstNameActionParty, 
+                                                                Mode=TwoWay, 
+                                                                ValidatesOnNotifyDataErrors=True, 
+                                                                UpdateSourceTrigger=PropertyChanged,
+                                                                ValidatesOnExceptions=True}"
+                                                 VerticalAlignment="Center"
+                                                 AcceptsReturn="True"
+                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical"  
+                                                VerticalAlignment="Center"
+                                                Margin="30,0,0,0">
+                                                    <Label x:Name="lblGenUnSchMainGenerator4" 
+                                               Content="Last Name"
+                                               VerticalAlignment="Bottom"/>
+                                                    <TextBox x:Name="txtbxFirstName2"  
+                                                 Background="#F2F2F2" 
+                                                 Width="230" 
+                                                 Height="55"
+                                                 HorizontalAlignment="Left"
+                                                 Text="{Binding Path=LastNameActionParty, 
+                                                                Mode=TwoWay, 
+                                                                ValidatesOnNotifyDataErrors=True, 
+                                                                UpdateSourceTrigger=PropertyChanged,
+                                                                ValidatesOnExceptions=True}"
+                                                 VerticalAlignment="Center"
+                                                 AcceptsReturn="True"
+                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" 
+                                            Height="200">
+                                                <StackPanel Orientation="Vertical" 
+                                                VerticalAlignment="Top"
+                                                Height="200" 
+                                                Margin="20,0,0,0">
+                                                    <Label Content="Email" 
+                                               Height="30"/>
+                                                    <TextBox  Background="#F2F2F2" 
+                                                  Width="230" 
+                                                  Height="55" 
+                                                  HorizontalAlignment="Left"
+                                                  Text="{Binding Path=EmailActionParty, 
+                                                                 Mode=TwoWay,
+                                                                 ValidatesOnNotifyDataErrors=True, 
+                                                                 UpdateSourceTrigger=PropertyChanged,
+                                                                 ValidatesOnExceptions=True}"
+                                                  VerticalAlignment="Center"
+                                                  AcceptsReturn="True"
+                                                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical" 
+                                                VerticalAlignment="Top"
+                                                Height="200" 
+                                                Margin="30,0,0,0">
+                                                    <Label Content="Phone Number" 
+                                               Height="30"/>
+                                                    <TextBox  Background="#F2F2F2" 
+                                                  Width="230" 
+                                                  Height="55" 
+                                                  HorizontalAlignment="Left"
+                                                  Text="{Binding Path=PhoneNumberActionParty, 
+                                                                 Mode=TwoWay, 
+                                                                 ValidatesOnNotifyDataErrors=True, 
+                                                                 UpdateSourceTrigger=PropertyChanged,
+                                                                 ValidatesOnExceptions=True}"
+                                                  VerticalAlignment="Center"
+                                                  AcceptsReturn="True"
+                                                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical"
+                                                VerticalAlignment="Top"
+                                                Height="200" 
+                                                Margin="30,0,0,0">
+                                                    <Label Content="Job Title" 
+                                               Height="30"/>
+                                                    <TextBox  Background="#F2F2F2" 
+                                                  Width="230" 
+                                                  Height="55" 
+                                                  HorizontalAlignment="Left"
+                                                  Text="{Binding Path=JobTitleActionParty, 
+                                                                 Mode=TwoWay,
+                                                                 ValidatesOnNotifyDataErrors=True, 
+                                                                 UpdateSourceTrigger=PropertyChanged,
+                                                                 ValidatesOnExceptions=True}"
+                                                  VerticalAlignment="Center"
+                                                  AcceptsReturn="True"
+                                                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                    <Button x:Name="btnAddUnMaintenance2" 
+                                                Height="55" 
+                                                Width="230"
+                                                Margin="0,30,0,0"
+                                                Content="Add ActionParty" 
+                                                ToolTip="Register ActionParty" 
+                                                Style="{StaticResource AffirmativeButtonStyle}" 
+                                                HorizontalContentAlignment="Center" 
+                                                VerticalContentAlignment="Center" 
+                                                HorizontalAlignment="Right" 
+                                                VerticalAlignment="Bottom"
+                                                Command="{Binding SetActionPartyCmd}"
+                                                CommandParameter="{Binding ElementName=dtgdActionPartyTable}"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Action Party Details" 
+                                           Height="30" 
+                                           Margin="20,0,0,0"/>
+                                                <ScrollViewer Height="400" 
+                                                  Width="745"
+                                                  HorizontalScrollBarVisibility="Auto">
+                                                    <DataGrid x:Name="dtgdActionPartyTable" 
+                                                  Style="{StaticResource DataGridStyle}"
+                                                  ItemsSource="{Binding AnyActionPartiesPage}" 
+                                                  ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
+                                                        <DataGrid.ContextMenu>
+                                                            <ContextMenu x:Name="ctxMnuSchedRemdrs2">
+                                                                <MenuItem Header="Group by FirstName" 
+                                                              Click="GroupbyFirstNameActionParties_Click"/>
+                                                                <MenuItem Header="Ungroup" 
+                                                              Click="ClearFirstNameGroupingActionParties_Click"/>
+                                                            </ContextMenu>
+                                                        </DataGrid.ContextMenu>
+                                                        <DataGrid.GroupStyle>
+                                                            <GroupStyle>
+                                                                <GroupStyle.HeaderTemplate>
+                                                                    <DataTemplate>
+                                                                        <StackPanel>
+                                                                            <TextBlock Text="{Binding Path=Name}" />
+                                                                        </StackPanel>
+                                                                    </DataTemplate>
+                                                                </GroupStyle.HeaderTemplate>
+                                                                <GroupStyle.ContainerStyle>
+                                                                    <Style TargetType="{x:Type GroupItem}">
+                                                                        <Setter Property="Width" 
+                                                                    Value="Auto"/>
+                                                                        <Setter Property="Template">
+                                                                            <Setter.Value>
+                                                                                <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                                                    <Expander IsExpanded="True" 
+                                                                                  Background="#EAF9FB"
+                                                                                  BorderBrush="LightGray" 
+                                                                                  Foreground="Black"
+                                                                                  FontSize="12" 
+                                                                                  BorderThickness="1,1,1,1">
+                                                                                        <Expander.Header>
+                                                                                            <StackPanel Orientation="Horizontal">
+                                                                                                <TextBlock FontWeight="Bold"
+                                                                                               Text="{Binding Name, 
+                                                                                                              Converter={StaticResource CategoryToPhrase}}"/>
+                                                                                                <TextBlock FontWeight="Bold"
+                                                                                               Text="{Binding ItemCount, 
+                                                                                                              Converter={StaticResource ItemCountToPhrase}}"/>
+                                                                                            </StackPanel>
+                                                                                        </Expander.Header>
+                                                                                        <Expander.Content>
+                                                                                            <ItemsPresenter/>
+                                                                                        </Expander.Content>
+                                                                                    </Expander>
+                                                                                </ControlTemplate>
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Style>
+                                                                </GroupStyle.ContainerStyle>
+                                                            </GroupStyle>
+                                                        </DataGrid.GroupStyle>
+                                                        <DataGrid.RowStyle>
+                                                            <Style TargetType="DataGridRow">
+                                                                <Setter Property="Foreground" 
+                                                            Value="Black"/>
+                                                                <Setter Property="Background" 
+                                                            Value="White"/>
+                                                            </Style>
+                                                        </DataGrid.RowStyle>
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn Header="S/N" 
+                                                                    Binding="{Binding Id}"
+                                                                    FontSize="12"
+                                                                    Width="Auto"/>
+                                                            <DataGridTextColumn Header="Date" 
+                                                                    Binding="{Binding Date}"
+                                                                    FontSize="12"
+                                                                    Width="Auto"/>
+                                                            <DataGridTextColumn Header="First Name" 
+                                                                    Binding="{Binding FirstNameActionParty}"
+                                                                    FontSize="12" 
+                                                                    Width="Auto"/>
+                                                            <DataGridTextColumn Header="Last Name" 
+                                                                    Binding="{Binding LastNameActionParty}"
+                                                                    FontSize="12" 
+                                                                    Width="Auto"/>
+                                                            <DataGridTextColumn Header="Email"
+                                                                    Binding="{Binding EmailActionParty}"
+                                                                    FontSize="12" 
+                                                                    Width="Auto"/>
+                                                            <DataGridTextColumn Header="Phone Number"
+                                                                    Binding="{Binding PhoneNumberActionParty}"
+                                                                    FontSize="12" 
+                                                                    Width="Auto"/>
+                                                            <DataGridTextColumn Header="Job Title"
+                                                                    Binding="{Binding JobTitleActionParty}"
+                                                                    FontSize="12" 
+                                                                    Width="Auto"/>
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </ScrollViewer>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Expander>
+                                    </StackPanel>
+                                </ScrollViewer>
                             </StackPanel>
                         </GroupBox>
                     </Expander>
@@ -575,7 +896,7 @@
                             Header="Reminders Configuration"  
                             Style="{StaticResource GroupBoxStyle}"
                             Width="800" 
-                            Height="820">
+                            Height="860">
                             <StackPanel>
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center"

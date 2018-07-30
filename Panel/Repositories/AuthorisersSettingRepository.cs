@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Panel.Repositories
 {
@@ -33,11 +31,11 @@ namespace Panel.Repositories
                 {
                     Id = NoOfRecords,
                     Date = ReminderDate,
-                    FirstName = FirstName,
-                    LastName = LastName,
-                    Email = Email,
-                    PhoneNumber = PhoneNumber,
-                    JobTitle = JobTitle
+                    FirstNameAuthoriser = FirstName,
+                    LastNameAuthoriser = LastName,
+                    EmailAuthoriser = Email,
+                    PhoneNumberAuthoriser = PhoneNumber,
+                    JobTitleAuthoriser = JobTitle
                 }
             );
         }
@@ -46,7 +44,8 @@ namespace Panel.Repositories
         {
             return new ObservableCollection<AuthoriserSetting>
                 (
-                    GeneratorSurveillanceDBContext.AuthoriserSettings
+                    GeneratorSurveillanceDBContext
+                    .AuthoriserSettings
                     .AsParallel()
                 );
         }
@@ -55,11 +54,23 @@ namespace Panel.Repositories
         {
             var FullNameList = new List<string>();
             foreach (var authoriser in GeneratorSurveillanceDBContext
-                                        .AuthoriserSettings)
+                                       .AuthoriserSettings)
             {
-                FullNameList.Add($"{authoriser.FirstName} {authoriser.LastName}");
+                FullNameList.Add($"{authoriser.FirstNameAuthoriser} " +
+                    $"{authoriser.LastNameAuthoriser}");
             }
             return FullNameList;
+        }
+
+        public List<string> GetAuthorisersEmails()
+        {
+            var EmailsList = new List<string>();
+            foreach (var Authoriser in GeneratorSurveillanceDBContext
+                                       .AuthoriserSettings)
+            {
+                EmailsList.Add(Authoriser.EmailAuthoriser);
+            }
+            return EmailsList.Distinct().ToList();
         }
     }
 }

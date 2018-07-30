@@ -52,9 +52,8 @@
                 Width="500">
             <StackPanel Margin="10">
                 <Label>Enter Password:</Label>
-                <PasswordBox x:Name="psswrdReminder" 
-                     MaxLength="20" 
-                     />
+                <PasswordBox x:Name="psswrdReminder"
+                             MaxLength="20"/>
             </StackPanel>
         </Window>
 
@@ -87,11 +86,11 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Label">
-                        <Border x:Name="_brdMain" 
-                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                        BorderBrush="{TemplateBinding BorderBrush}" 
-                                        Background="{TemplateBinding Background}"
-                                        CornerRadius="20,20,20,20">
+                        <Border x:Name="_brdMain"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="20,20,20,20">
                             <ContentPresenter HorizontalAlignment="Center" 
                                               VerticalAlignment="Center" />
                         </Border>

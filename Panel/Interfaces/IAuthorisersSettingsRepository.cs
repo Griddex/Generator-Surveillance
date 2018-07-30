@@ -16,5 +16,7 @@ namespace Panel.Interfaces
         ObservableCollection<AuthoriserSetting> GetAllAuthorisers();
 
         List<string> GetAuthorisersFullNames();
+
+        List<string> GetAuthorisersEmails();
     }
 }

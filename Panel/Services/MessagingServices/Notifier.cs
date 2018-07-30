@@ -1,14 +1,12 @@
-﻿using System;
-using System.Windows;
+﻿using Panel.Repositories;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-using TimerTimer = System.Timers.Timer;
-using Panel.Repositories;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading;
+using System.Windows;
 using Unity;
+using TimerTimer = System.Timers.Timer;
 
 namespace Panel.Services.MessagingServices
 {
@@ -56,8 +54,9 @@ namespace Panel.Services.MessagingServices
             ReminderLevel = NextGeneratorForNotification.ReminderLevel;
 
             FinalNotificationDate = AllGeneratorSchedules
-                                    .Where(x => x.GeneratorName == NextGeneratorForNotification
-                                                                        .GeneratorName)
+                                    .Where(x => x.GeneratorName == 
+                                                NextGeneratorForNotification
+                                                .GeneratorName)
                                     .Where(x => x.IsActive == "Yes")
                                     .Where(x => x.ReminderDateTimeProfile > DateTime.Now)
                                     .OrderBy(x => DateTime.Now - x.ReminderDateTimeProfile)

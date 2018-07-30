@@ -12,14 +12,9 @@ namespace Panel
     using System;
     using System.Collections.Generic;
     
-    public partial class AuthoriserSetting
+    public partial class Password
     {
         public int Id { get; set; }
-        public System.DateTime Date { get; set; }
-        public string FirstNameAuthoriser { get; set; }
-        public string LastNameAuthoriser { get; set; }
-        public string EmailAuthoriser { get; set; }
-        public string PhoneNumberAuthoriser { get; set; }
-        public string JobTitleAuthoriser { get; set; }
+        public string ReminderPassword { get; set; }
     }
 }

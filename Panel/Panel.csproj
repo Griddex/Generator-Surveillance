@@ -123,6 +123,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ActionPartySetting.cs">
+      <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="AuthoriserSetting.cs">
       <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
     </Compile>
@@ -209,6 +212,7 @@
     <Compile Include="GeneratorUsage.cs">
       <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IActionPartySettingsRepository.cs" />
     <Compile Include="Interfaces\IReminderSettingsRepository.cs" />
     <Compile Include="Interfaces\IChartsLogic.cs" />
     <Compile Include="Interfaces\IAuthorisersSettingsRepository.cs" />
@@ -243,6 +247,10 @@
     <Compile Include="Models\TableModels\GeneratorMaintenancetableModel.cs" />
     <Compile Include="Models\TableModels\GeneratorUsageTableModel.cs" />
     <Compile Include="Models\ValidateNotifyModelBase.cs" />
+    <Compile Include="Password.cs">
+      <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ActionPartySettingRepository.cs" />
     <Compile Include="Repositories\AuthorisersSettingRepository.cs" />
     <Compile Include="Repositories\ConsumptionSettingRepository.cs" />
     <Compile Include="Repositories\GeneratorFuellingRepository.cs" />
@@ -256,6 +264,7 @@
     <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Services\MessagingServices\EmailMessage.cs" />
     <Compile Include="Services\MessagingServices\EmailService.cs" />
+    <Compile Include="Services\MessagingServices\ExtractEmails.cs" />
     <Compile Include="Services\MessagingServices\Notifier.cs" />
     <Compile Include="Services\NavigationServices\FrameNavigationService.cs" />
     <Compile Include="StyleableWindow\ControlDoubleClickBehavior.cs" />

@@ -32,5 +32,7 @@ namespace Panel
         public virtual DbSet<GeneratorUsage> GeneratorUsages { get; set; }
         public virtual DbSet<AuthoriserSetting> AuthoriserSettings { get; set; }
         public virtual DbSet<ConsumptionSetting> ConsumptionSettings { get; set; }
+        public virtual DbSet<ActionPartySetting> ActionPartySettings { get; set; }
+        public virtual DbSet<Password> Passwords { get; set; }
     }
 }
