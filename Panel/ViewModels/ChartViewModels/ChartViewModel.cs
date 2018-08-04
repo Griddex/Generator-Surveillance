@@ -44,13 +44,16 @@ namespace Panel.ViewModels.ChartViewModels
         public UnitOfWork UnitOfWork { get; private set; }
         public ExtrudeInterveningDates ExtrudeInterveningDates { get; set; }
 
-        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } = 
+        public ObservableCollection<GeneratorNameModel> 
+            UniqueGeneratorNamesUnsorted { get; set; } = 
             new ObservableCollection<GeneratorNameModel>();
 
-        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } = 
+        public ObservableCollection<GeneratorNameModel> 
+            UniqueGeneratorNames { get; set; } = 
             new ObservableCollection<GeneratorNameModel>();
 
-        private ObservableCollection<string> _generatorData = new ObservableCollection<string>();
+        private ObservableCollection<string> _generatorData = 
+            new ObservableCollection<string>();
         public ObservableCollection<string> GeneratorData
         {
             get
@@ -103,25 +106,53 @@ namespace Panel.ViewModels.ChartViewModels
                                                                 "Hours"));
                 OnPropertyChanged(nameof(SelectedStartHour));
 
-                SelectedStartMinute = int.Parse(ParseTimeFromDateTime.GetTimePart(UnitOfWork.GeneratorUsage.GetStartedTime(_selectedGeneratorName),"Minutes"));
+                SelectedStartMinute = int.Parse(ParseTimeFromDateTime
+                                                .GetTimePart(UnitOfWork
+                                                            .GeneratorUsage
+                                                            .GetStartedTime(_selectedGeneratorName),
+                                                            "Minutes"));
                 OnPropertyChanged(nameof(SelectedStartMinute));
 
-                SelectedStartSecond = int.Parse(ParseTimeFromDateTime.GetTimePart(UnitOfWork.GeneratorUsage.GetStartedTime(_selectedGeneratorName), "Seconds"));
+                SelectedStartSecond = int.Parse(ParseTimeFromDateTime
+                                                .GetTimePart(UnitOfWork
+                                                            .GeneratorUsage
+                                                            .GetStartedTime(_selectedGeneratorName), 
+                                                            "Seconds"));
                 OnPropertyChanged(nameof(SelectedStartSecond));
 
-                SelectedStartAMPM = ParseTimeFromDateTime.GetTimePart(UnitOfWork.GeneratorUsage.GetStartedTime(_selectedGeneratorName), "AMPM");
+                SelectedStartAMPM = ParseTimeFromDateTime
+                                                .GetTimePart(UnitOfWork
+                                                            .GeneratorUsage
+                                                            .GetStartedTime(_selectedGeneratorName), 
+                                                            "AMPM");
                 OnPropertyChanged(nameof(SelectedStartAMPM));
 
-                SelectedStopHour = int.Parse(ParseTimeFromDateTime.GetTimePart(UnitOfWork.GeneratorUsage.GetStoppedTime(_selectedGeneratorName),"Hours"));
+                SelectedStopHour = int.Parse(ParseTimeFromDateTime
+                                            .GetTimePart(UnitOfWork
+                                                        .GeneratorUsage
+                                                        .GetStoppedTime(_selectedGeneratorName),
+                                                        "Hours"));
                 OnPropertyChanged(nameof(SelectedStopHour));
 
-                SelectedStopMinute = int.Parse(ParseTimeFromDateTime.GetTimePart(UnitOfWork.GeneratorUsage.GetStoppedTime(_selectedGeneratorName),"Minutes"));
+                SelectedStopMinute = int.Parse(ParseTimeFromDateTime
+                                              .GetTimePart(UnitOfWork
+                                                          .GeneratorUsage
+                                                          .GetStoppedTime(_selectedGeneratorName),
+                                                          "Minutes"));
                 OnPropertyChanged(nameof(SelectedStopMinute));
 
-                SelectedStopSecond = int.Parse(ParseTimeFromDateTime.GetTimePart(UnitOfWork.GeneratorUsage.GetStoppedTime(_selectedGeneratorName), "Seconds"));
+                SelectedStopSecond = int.Parse(ParseTimeFromDateTime
+                                              .GetTimePart(UnitOfWork
+                                                          .GeneratorUsage
+                                                          .GetStoppedTime(_selectedGeneratorName), 
+                                                          "Seconds"));
                 OnPropertyChanged(nameof(SelectedStopSecond));
 
-                SelectedStopAMPM = ParseTimeFromDateTime.GetTimePart(UnitOfWork.GeneratorUsage.GetStoppedTime(_selectedGeneratorName), "AMPM");
+                SelectedStopAMPM = ParseTimeFromDateTime
+                                             .GetTimePart(UnitOfWork
+                                                         .GeneratorUsage
+                                                         .GetStoppedTime(_selectedGeneratorName), 
+                                                         "AMPM");
                 OnPropertyChanged(nameof(SelectedStopAMPM));
             }
         }
@@ -163,8 +194,9 @@ namespace Panel.ViewModels.ChartViewModels
                 DateTime GeneratorStartedModelTime;
                 DateTime _parsedStartTime;
                 string mergedStartTime = $"{SelectedStartHour.ToString("D2")}:" +
-                    $"{SelectedStartMinute.ToString("D2")}:{SelectedStartSecond.ToString("D2")} " +
-                    $"{SelectedStartAMPM}";
+                                        $"{SelectedStartMinute.ToString("D2")}:" +
+                                        $"{SelectedStartSecond.ToString("D2")} " +
+                                        $"{SelectedStartAMPM}";
                 
                 if (DateTime.TryParseExact(mergedStartTime, "hh:mm:ss tt", 
                     CultureInfo.InvariantCulture, DateTimeStyles.None, out _parsedStartTime))
@@ -184,8 +216,9 @@ namespace Panel.ViewModels.ChartViewModels
                 DateTime GeneratorStoppedModelTime;
                 DateTime _parsedStopTime;
                 string mergedStopTime = $"{SelectedStopHour.ToString("D2")}:" +
-                    $"{SelectedStopMinute.ToString("D2")}:{SelectedStopSecond.ToString("D2")} " +
-                    $"{SelectedStopAMPM}";
+                                        $"{SelectedStopMinute.ToString("D2")}:" +
+                                        $"{SelectedStopSecond.ToString("D2")} " +
+                                        $"{SelectedStopAMPM}";
                 if (DateTime.TryParseExact(mergedStopTime, "hh:mm:ss tt", 
                     CultureInfo.InvariantCulture, DateTimeStyles.None, out _parsedStopTime))
                 {
@@ -210,22 +243,31 @@ namespace Panel.ViewModels.ChartViewModels
                             if (x != null)
                             {
                                 StackPanel StkplDurationPerspective = (StackPanel)x;
-                                RadioButton rdbtnDurationPerspective = StkplDurationPerspective
-                                                                       .Children.OfType<RadioButton>()
-                                                                       .FirstOrDefault(r => r.IsChecked == true);
+                                RadioButton rdbtnDurationPerspective = 
+                                                    StkplDurationPerspective
+                                                    .Children.OfType<RadioButton>()
+                                                    .FirstOrDefault(r => r.IsChecked == true);
                                 if(rdbtnDurationPerspective == null)
                                 {
-                                    MessageBox.Show("Please select a duration perspective", "Information",
-                                        MessageBoxButton.OK, MessageBoxImage.Information);
+                                    MessageBox.Show("Please select a duration perspective", 
+                                        "Information",
+                                        MessageBoxButton.OK, 
+                                        MessageBoxImage.Information);
                                     return;
                                 }
 
-                                IEnumerable<TextBlock> xtxblkDurationPerspective = FindChildren
-                                                        .FindVisualChildren<TextBlock>(rdbtnDurationPerspective);
+                                IEnumerable<TextBlock> xtxblkDurationPerspective = 
+                                                        FindChildren
+                                                        .FindVisualChildren<TextBlock>
+                                                        (rdbtnDurationPerspective);
+
                                 foreach (var control in xtxblkDurationPerspective)
                                 {
-                                    SelectedDurationPerspective = control.Name.Split(new string[] { "txtBlk" }, 
-                                        StringSplitOptions.RemoveEmptyEntries)[0];
+                                    SelectedDurationPerspective = control.Name
+                                                                        .Split(new string[] 
+                                                                        { "txtBlk" },                                                                        
+                                                                        StringSplitOptions
+                                                                        .RemoveEmptyEntries)[0];
                                 }                                              
                             }
                         },
@@ -249,8 +291,9 @@ namespace Panel.ViewModels.ChartViewModels
                             if (x != null)
                             {
                                 StackPanel StkplDurationPerspective = (StackPanel)x;
-                                RadioButton rdbtnYear = StkplDurationPerspective.Children.OfType<RadioButton>()
-                                                                .FirstOrDefault(r => r.Name == "rdbtnYear");
+                                RadioButton rdbtnYear = StkplDurationPerspective
+                                                        .Children.OfType<RadioButton>()
+                                                        .FirstOrDefault(r => r.Name == "rdbtnYear");
                                 rdbtnYear.IsChecked = true;
                             }
                         },
@@ -288,11 +331,16 @@ namespace Panel.ViewModels.ChartViewModels
                             DateTime StopDateTime = Convert.ToDateTime($"{SelectedStopDate.ToString(sysDateFormat)} " +
                                 $"{StopTime.TimeOfDay.ToString()}");
 
-                            Tuple<TextBlock, ListBox, StackPanel> txtBlkLstBxStkPnlTuple = (Tuple<TextBlock, ListBox, StackPanel>)x;
+                            Tuple<TextBlock, ListBox, StackPanel> txtBlkLstBxStkPnlTuple = 
+                                                            (Tuple<TextBlock, ListBox, StackPanel>)x;
                             string DateDurationPerspective = txtBlkLstBxStkPnlTuple.Item1.Text;
                             SelectedDurationPerspective = DateDurationPerspective;
-                            IEnumerable<string> DatePerspectiveList = ExtrudeInterveningDates.GetInterveningDates(StartDateTime, 
-                                                                        StopDateTime, SelectedGeneratorName, DateDurationPerspective);
+                            IEnumerable<string> DatePerspectiveList = ExtrudeInterveningDates
+                                                                        .GetInterveningDates(
+                                                                        StartDateTime, 
+                                                                        StopDateTime, 
+                                                                        SelectedGeneratorName, 
+                                                                        DateDurationPerspective);
                             try
                             {
                                 txtBlkLstBxStkPnlTuple.Item2.Items.Clear();
@@ -352,25 +400,40 @@ namespace Panel.ViewModels.ChartViewModels
                         {
                             if (SelectedDurationPerspective == null)
                             {
-                                MessageBox.Show("Please select a duration perspective", "Information",
-                                        MessageBoxButton.OK, MessageBoxImage.Information);
+                                MessageBox.Show("Please select a duration perspective", 
+                                        "Information",
+                                        MessageBoxButton.OK, 
+                                        MessageBoxImage.Information);
                                 return;
                             }
 
-                            Tuple<ListBox, GroupBox> lstBxChtGrpBxStkPnlTuple = (Tuple<ListBox, GroupBox>)x;
+                            Tuple<ListBox, GroupBox> lstBxChtGrpBxStkPnlTuple = 
+                                                        (Tuple<ListBox, GroupBox>)x;
 
-                            List<string> lstBoxStringValues = lstBxChtGrpBxStkPnlTuple.Item1.SelectedItems.Cast<string>().ToList();
+                            List<string> lstBoxStringValues = lstBxChtGrpBxStkPnlTuple
+                                                                .Item1
+                                                                .SelectedItems
+                                                                .Cast<string>()
+                                                                .ToList();
+
                             if (lstBoxStringValues.Count == 0)
                             {
-                                MessageBox.Show("Please select one or more date values", "Information",
-                                       MessageBoxButton.OK, MessageBoxImage.Information);
+                                MessageBox.Show("Please select one or more date values",
+                                    "Information",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
                                 return;
                             }
+
                             GroupBox chtGroupBox = lstBxChtGrpBxStkPnlTuple.Item2;
                             StackPanel chtStackPanel = (StackPanel)chtGroupBox.Content;                           
 
-                            GeneratorUsageLogic.PlotChart(SelectedGeneratorName, SelectedChartType, SelectedDurationPerspective, 
-                                                            lstBoxStringValues, lstBoxStringValues.Count, chtStackPanel);
+                            GeneratorUsageLogic.PlotChart(SelectedGeneratorName, 
+                                                            SelectedChartType, 
+                                                            SelectedDurationPerspective, 
+                                                            lstBoxStringValues, 
+                                                            lstBoxStringValues.Count, 
+                                                            chtStackPanel);
 
                         },
                         y => true
@@ -393,10 +456,13 @@ namespace Panel.ViewModels.ChartViewModels
                             if (x != null)
                             {
                                 Tuple<GroupBox> GrpBx = (Tuple<GroupBox>)x;
-                                if (FindChildren.FindVisualChildren<Chart>(GrpBx.Item1).FirstOrDefault() == null)
+                                if (FindChildren.FindVisualChildren<Chart>(GrpBx.Item1)
+                                .FirstOrDefault() == null)
                                 {
-                                    MessageBox.Show($"Generate a chart", "Error",
-                                         MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBox.Show($"Generate a chart", 
+                                        "Error",
+                                         MessageBoxButton.OK, 
+                                         MessageBoxImage.Error);
                                     return;
                                 }
                                 foreach (var control in FindChildren.FindVisualChildren<Chart>(GrpBx.Item1))
@@ -407,7 +473,8 @@ namespace Panel.ViewModels.ChartViewModels
                                         double height = control.ActualHeight;
                                         RenderTargetBitmap bmpCopied = new RenderTargetBitmap
                                                                        (
-                                                                            (int)Math.Round(width), (int)Math.Round(height),
+                                                                            (int)Math.Round(width), 
+                                                                            (int)Math.Round(height),
                                                                             96, 96, PixelFormats.Default
                                                                        );
 
@@ -417,19 +484,24 @@ namespace Panel.ViewModels.ChartViewModels
                                             Height = height,
                                             Fill = Brushes.White
                                         };
-                                        rectWhiteBackground.Arrange(new Rect(new Point(), new Size(width, height)));
+                                        rectWhiteBackground.Arrange(new Rect(new Point(), 
+                                                                    new Size(width, height)));
                                         bmpCopied.Render(rectWhiteBackground);
 
                                         DrawingVisual dv = new DrawingVisual();
                                         using (DrawingContext dc = dv.RenderOpen())
                                         {
                                             VisualBrush vb = new VisualBrush(control);
-                                            dc.DrawRectangle(vb, null, new Rect(new Point(), new Size(width, height)));
+                                            dc.DrawRectangle(vb, null, new Rect(new Point(), 
+                                                                        new Size(width, height)));
                                         }
 
                                         bmpCopied.Render(dv);
                                         Clipboard.SetImage(bmpCopied);                                        
-                                        MessageBox.Show("Chart copied", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                                        MessageBox.Show("Chart copied", 
+                                            "Information", 
+                                            MessageBoxButton.OK, 
+                                            MessageBoxImage.Information);
                                     }
                                 }
                             }
@@ -453,8 +525,10 @@ namespace Panel.ViewModels.ChartViewModels
                         {
                             if (true)
                             {
-                                MessageBox.Show($"Implementation coming soon", "Information",
-                                     MessageBoxButton.OK, MessageBoxImage.Information);                                
+                                MessageBox.Show($"Implementation coming soon", 
+                                    "Information",
+                                     MessageBoxButton.OK, 
+                                     MessageBoxImage.Information);                                
                             }
                             else
                             {
@@ -487,11 +561,17 @@ namespace Panel.ViewModels.ChartViewModels
                             if(x != null)
                             {
                                 chtGroupBoxTuple = (Tuple<GroupBox>)x;
-                                Chart chart = FindChildren.FindVisualChildren<Chart>(chtGroupBoxTuple.Item1).FirstOrDefault();
+                                Chart chart = FindChildren
+                                              .FindVisualChildren<Chart>
+                                              (chtGroupBoxTuple.Item1)
+                                              .FirstOrDefault();
+
                                 if(chart == null)
                                 {
-                                    MessageBox.Show($"Generate a chart", "Error",
-                                         MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBox.Show($"Generate a chart", 
+                                        "Error",
+                                         MessageBoxButton.OK, 
+                                         MessageBoxImage.Error);
                                     return;
                                 }                                
                                 PrintDialog printDialog = new PrintDialog();

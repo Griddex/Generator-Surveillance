@@ -79,41 +79,158 @@
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0">
-            <Menu>
-                <MenuItem x:Name="mnitmHome"  ToolTip="Home" 
-                          Height="45" Width="45">
+        <StackPanel Grid.Row="0"
+                    Orientation="Vertical">
+            
+            <StackPanel Height="15"
+                        Background="LightGray"
+                        Orientation="Horizontal">
+                <TextBox Text="Home"
+                         BorderBrush="Transparent"
+                         Background="LightGray"
+                         Width="50"
+                         Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                         AncestorType=StackPanel},
+                                          Path=Height}"
+                         FontSize="11"
+                         FontWeight="Bold"
+                         FontFamily="Segoe UI"
+                         HorizontalAlignment="Left"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         IsHitTestVisible="False"/>
+                <Separator Width="2"/>
+                <TextBox Text="Panel"
+                         BorderBrush="Transparent"
+                         Background="LightGray"
+                         Width="50"
+                         Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                         AncestorType=StackPanel},
+                                          Path=Height}"
+                         FontSize="11"
+                         FontWeight="Bold"
+                         FontFamily="Segoe UI"
+                         HorizontalAlignment="Left"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Top"
+                         IsHitTestVisible="False"/>
+                <Separator Width="2"/>
+                <TextBox Text="Tables"
+                         BorderBrush="Transparent"
+                         Background="LightGray"
+                         Width="50"
+                         Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                         AncestorType=StackPanel},
+                                          Path=Height}"
+                         FontSize="11"
+                         FontWeight="Bold"
+                         FontFamily="Segoe UI"
+                         HorizontalAlignment="Left"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Top"
+                         IsHitTestVisible="False"/>
+                <Separator Width="2"/>
+                <TextBox Text="Charts"
+                         BorderBrush="Transparent"
+                         Background="LightGray"
+                         Width="50"
+                         Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                         AncestorType=StackPanel},
+                                          Path=Height}"
+                         FontSize="11"
+                         FontWeight="Bold"
+                         FontFamily="Segoe UI"
+                         HorizontalAlignment="Left"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Top"
+                         IsHitTestVisible="False"/>
+                <Separator Width="2"/>
+                <TextBox Text="Reports"
+                         BorderBrush="Transparent"
+                         Background="LightGray"
+                         Width="50"
+                         Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                         AncestorType=StackPanel},
+                                          Path=Height}"
+                         FontSize="11"
+                         FontWeight="Bold"
+                         FontFamily="Segoe UI"
+                         HorizontalAlignment="Left"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Top"
+                         IsHitTestVisible="False"/>
+                <Separator Width="2"/>
+                <TextBox Text="Help"
+                         BorderBrush="Transparent"
+                         Background="LightGray"
+                         Width="50"
+                         Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                         AncestorType=StackPanel},
+                                          Path=Height}"
+                         FontSize="11"
+                         FontWeight="Bold"
+                         FontFamily="Segoe UI"
+                         HorizontalAlignment="Left"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Top"
+                         IsHitTestVisible="False"/>
+            </StackPanel>
+            <Menu Background="LightGray"
+                  Height="35">
+                <MenuItem x:Name="mnitmHome"  
+                          ToolTip="Home" 
+                          Width="50"
+                          Height="35">
+
                     <MenuItem.Icon>
-                        <Image Source="Images/Home.png" Margin="0,-15, -20,-13"/>
+                        <Viewbox Stretch="Uniform" 
+                                 Margin="0,-14,-19,-3">
+                            <Path Data="M12,3L2,12H5V20H19V12H22L12,
+                                    3M11,10H13V13H16V15H13V18H11V15H8V13H11V10Z" 
+                                    Fill="Teal" />
+                        </Viewbox>
                     </MenuItem.Icon>
                     <MenuItem x:Name="mnitmSettings"
                               Command="{x:Static cmds:MainMenuCommands.ShowSettingsView}"
-                              Header="Settings" ToolTip="Settings">
+                              Header="Settings" 
+                              ToolTip="Settings">
                         <MenuItem.Icon>
                             <Image Source="Images/Settings2.jpg"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem x:Name="mnitmExit"
                               Command="{x:Static cmds:MainMenuCommands.Exit}"
-                              Header="Exit" ToolTip="Exit">
+                              Header="Exit" 
+                              ToolTip="Exit">
                         <MenuItem.Icon>
                             <Image Source="Images/Exit3.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <Separator Width="2"/>
-                <MenuItem x:Name="mnitmPanel" Width="50" Height="50"
+                <MenuItem x:Name="mnitmPanel" 
+                          Width="50"
+                          Height="35"
                           ToolTip="Input Panel">
                     <MenuItem.Icon>
-                        <Image Source="/Images/Panelf.png" Margin="0,-13, -20,-13"
-                               VerticalAlignment="Top"/>
+                        <Viewbox Stretch="Uniform"
+                                 Margin="0,-14,-19,-3">
+                            <Path Data="M5,10H3V6A2,2 0 0,1 5,4H11V6H5V10M19,
+                                      18H13V20H19A2,2 0 0,0 21,18V14H19V18M5,18V14H3V18A2,
+                                      2 0 0,0 5,20H11V18H5M19,4H13V6H19V10H21V6A2,2 0 0,
+                                      0 19,4M8,13V15L11,12L8,9V11H3V13H8M16,11V9L13,12L16,
+                                      15V13H21V11H16Z" 
+                                      Fill="DarkSlateGray" />
+                        </Viewbox>
+
                     </MenuItem.Icon>
                     <MenuItem x:Name="mnitmInput"
                               Command="{x:Static cmds:NavigationCommands.UsageToInputView}"
-                              Header="General" ToolTip="Input Panel">
+                              Header="General" 
+                              ToolTip="Input Panel">
                         <MenuItem.Icon>
                             <Image Source="/Images/General.png"
-                               VerticalAlignment="Top"/>
+                                   VerticalAlignment="Top"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem x:Name="mnitmUsage" 
@@ -121,7 +238,7 @@
                               Header="Usage">
                         <MenuItem.Icon>
                             <Image Source="/Images/Usage.png"
-                               VerticalAlignment="Top"/>
+                                   VerticalAlignment="Top"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem x:Name="mnitmFuelling" 
@@ -129,7 +246,7 @@
                               Header="Fuelling">
                         <MenuItem.Icon>
                             <Image Source="/Images/Fuelling.png"
-                               VerticalAlignment="Top"/>
+                                   VerticalAlignment="Top"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem x:Name="mnitmMaintnce" 
@@ -137,23 +254,32 @@
                               Header="Maintenance">
                         <MenuItem.Icon>
                             <Image Source="/Images/Maintenance.png"
-                               VerticalAlignment="Top"/>
+                                   VerticalAlignment="Top"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <Separator Width="2"/>
-                <MenuItem x:Name="mnitmTables" Width="50" Height="50"
+                <MenuItem x:Name="mnitmTables" 
+                          Width="50"
+                          Height="35"
                           ToolTip="View Data Tables">
                     <MenuItem.Icon>
-                        <Image Source="/Images/Tables.png" Margin="0,-13, -20,-13"
-                               VerticalAlignment="Top"/>
+                        <Viewbox Stretch="Uniform"
+                                 Margin="0,-14,-19,-3">
+                            <Path Data="M4,3H20A2,2 0 0,1 22,5V20A2,2 0 0,1 20,
+                                      22H4A2,2 0 0,1 2,20V5A2,2 0 0,1 4,3M4,7V10H8V7H4M10,
+                                      7V10H14V7H10M20,10V7H16V10H20M4,12V15H8V12H4M4,
+                                      20H8V17H4V20M10,12V15H14V12H10M10,20H14V17H10V20M20,
+                                      20V17H16V20H20M20,12H16V15H20V12Z" 
+                                      Fill="DarkSlateBlue" />
+                        </Viewbox>
                     </MenuItem.Icon>
                     <MenuItem x:Name="mnitmTables1"
                               Command="{x:Static cmds:MainMenuCommands.ShowTablesView}"
                               Header="Data">
                         <MenuItem.Icon>
                             <Image Source="/Images/Tablef.png"
-                               VerticalAlignment="Top"/>
+                                   VerticalAlignment="Top"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem x:Name="mnitmTables2"
@@ -161,47 +287,80 @@
                               Header="Reminders">
                         <MenuItem.Icon>
                             <Image Source="/Images/Tableff.png"
-                               VerticalAlignment="Top"/>
+                                   VerticalAlignment="Top"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                
+
                 <Separator Width="2"/>
 
-                <MenuItem x:Name="mnitmCharts" Width="50" Height="50"
+                <MenuItem x:Name="mnitmCharts" 
+                          Width="50"
+                          Height="35"
                           Command="{x:Static cmds:MainMenuCommands.ShowChartsView}"
-                          ToolTip="View Charts" Header="">
+                          ToolTip="View Charts" 
+                          Header="">
                     <MenuItem.Icon>
-                        <Image Source="/Images/Chartsff.png" Margin="0,-13, -20,-13"
-                               VerticalAlignment="Top"/>
+                        <Viewbox Stretch="Uniform"
+                                 Margin="0,-14,-19,-3">
+                            <Path Data="M21,11H13V3A8,8 0 0,1 21,11M19,13C19,15.78 17.58,
+                                      18.23 15.43,19.67L11.58,13H19M11,21C8.22,21 5.77,19.58
+                                      4.33,17.43L10.82,13.68L14.56,20.17C13.5,20.7 12.28,21 
+                                      11,21M3,13A8,8 0 0,1 11,5V12.42L3.83,16.56C3.3,15.5 3,
+                                      14.28 3,13Z" 
+                                      Fill="Orange" />
+                        </Viewbox>
                     </MenuItem.Icon>
                 </MenuItem>
 
                 <Separator Width="2"/>
 
-                <MenuItem x:Name="mnitmReports" Width="50" Height="50"
+                <MenuItem x:Name="mnitmReports" 
+                          Width="50"
+                          Height="35"
                           Command="{x:Static cmds:MainMenuCommands.ShowReportsView}"  
-                          Header="" ToolTip="Create Reports">
+                          Header="" 
+                          ToolTip="Create Reports">
                     <MenuItem.Icon>
-                        <Image Source="/Images/Reportsff.png" Margin="0,-13, -20,-13"
-                               VerticalAlignment="Top"/>
+                        <Viewbox Stretch="Uniform"
+                                 Margin="0,-14,-19,-3">
+                            <Path Data="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 
+                                      18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M7,
+                                      20H9V14H7V20M11,20H13V12H11V20M15,20H17V16H15V20Z" 
+                                      Fill="Red" />
+                        </Viewbox>
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <Separator Width="2"/>
+                <Separator Width="2"
+                           BorderBrush="Transparent"/>
 
-                <MenuItem x:Name="mnitmHelp" Width="50" Height="50"
+                <MenuItem x:Name="mnitmHelp" 
+                          Width="50" 
+                          Height="35"
                           Command="{x:Static cmds:MainMenuCommands.ShowHelpView}" 
-                          Header="" ToolTip="Help">
+                          Header="" 
+                          ToolTip="Help">
                     <MenuItem.Icon>
-                        <Image Source="/Images/Help1.png" Margin="0,-8, -20,-13"
-                               VerticalAlignment="Top"/>
+                        <Viewbox Stretch="Uniform"
+                                 Margin="0,-14,-19,-3">
+                            <Path Data="M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 
+                                      13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,
+                                      10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,
+                                      2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 
+                                      15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,
+                                      0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 
+                                      17.5,2 12,2Z" 
+                                      Fill="RoyalBlue" />
+                        </Viewbox>
                     </MenuItem.Icon>
                 </MenuItem>
             </Menu>
-        </DockPanel>
+        </StackPanel>
 
-        <Frame x:Name="MainViewFrame"  Grid.Row="1"  NavigationUIVisibility="Hidden">
+        <Frame x:Name="MainViewFrame"  
+               Grid.Row="1"  
+               NavigationUIVisibility="Hidden">
             <Frame.CommandBindings>
                 <CommandBinding Command="{x:Static cmds:NavigationCommands.InputToUsageView}" 
                                 Executed="InputToUsageView_Executed"

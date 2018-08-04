@@ -12,6 +12,7 @@ using Panel.ViewModels.TableViewModels;
 using Panel.Views.ChartViews;
 using Panel.Views.HelpViews;
 using Panel.Views.InputViews;
+using Panel.Views.LandingViews;
 using Panel.Views.ReportViews;
 using Panel.Views.SettingsView;
 using Panel.Views.TableViews;
@@ -61,6 +62,13 @@ namespace Panel
                                                         (
                                                             typeof(UnitOfWork)
                                                         ));
+
+            container.RegisterType<IView, LandingView>("LandingView",
+                                            new ContainerControlledLifetimeManager(),
+                                            new InjectionConstructor
+                                            (
+
+                                            ));
 
             container.RegisterType<IView, InputView>("InputView",
                                                         new ContainerControlledLifetimeManager(),
@@ -159,7 +167,8 @@ namespace Panel
                                                     new ContainerControlledLifetimeManager(),
                                                     new InjectionConstructor
                                                     (
-                                                        typeof(InputView)
+                                                        typeof(InputView),
+                                                        typeof(LandingView)
                                                     ));
 
             Application.Current.Resources.Add("UnityIoC", container);

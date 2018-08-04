@@ -31,6 +31,8 @@ namespace Panel.Views.SettingsView
 
             this.stcpnlfc1Settings.DataContext =
                 remindersConfigViewModel;
+
+            this.stckpnlPassword.Margin = new Thickness(0, 440, 0, 0);
         }
 
         private void GroupbyGeneratorConsumption_Click(object sender, RoutedEventArgs e)
@@ -140,7 +142,8 @@ namespace Panel.Views.SettingsView
             string GeneratorName = dataGridRowSelected.GeneratorName;
 
             MessageBoxResult result = MessageBox.Show($"Do you want to deactivate {GeneratorName}?",
-                                                    "Confirmation", MessageBoxButton.YesNoCancel);
+                                                    "Confirmation", 
+                                                    MessageBoxButton.YesNoCancel);
             switch (result)
             {
                 case MessageBoxResult.No:
@@ -174,12 +177,15 @@ namespace Panel.Views.SettingsView
             this.expdrraSettings.IsExpanded = false;
             this.expdrrcSettings.IsExpanded = false;
 
-            this.vwbxSettings.Margin = new Thickness(0, 0, 0, 0);
-            this.expdrfclSettings.Margin = new Thickness(0, 0, 0, 0);
-            this.grpbxFuelConsumption.Margin = new Thickness(0, 0, 0, 0);
+            this.stckpnlPassword.Margin = new Thickness(0, -10, 0, 0);
+            this.vwbxSettings.Margin = new Thickness(0, 10, 0, 0);
+            this.expdrfclSettings.Margin = new Thickness(0, 10, 0, 0);
+            this.grpbxFuelConsumption.Margin = new Thickness(0, 10, 0, 0);
 
+            this.vwbxSettings.Width = 1200;
             this.vwbxSettings.Height = 860;
             this.expdrfclSettings.Height = 860;
+            this.grpbxFuelConsumption.Height = 860;
 
             this.stckpnlPassword.Visibility = Visibility.Collapsed;
         }

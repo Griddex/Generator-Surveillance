@@ -3,10 +3,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:rbyr="clr-namespace:Panel.BusinessLogic"
       xmlns:cmds="clr-namespace:Panel.Commands"
       mc:Ignorable="d" 
-      d:DesignHeight="920" d:DesignWidth="1930"
+      d:DesignHeight="920" 
+      d:DesignWidth="1930"
       Title="ChartsView"
       Background="White">
     <Viewbox Stretch="Uniform">
@@ -24,24 +24,31 @@
                     <ColumnDefinition Width="1270"/>
                 </Grid.ColumnDefinitions>
                 <ScrollViewer Grid.Column="0">
-                    <GroupBox Grid.Column="0" Margin="10" 
+                    <GroupBox Grid.Column="0" 
+                              Margin="10" 
                               Style="{StaticResource GroupBoxStyle}" 
-                              Header="Chart Panel" Width="620" 
+                              Header="Chart Panel" 
+                              Width="620" 
                               Height="750">
                         <StackPanel Margin="0,20,0,0">
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel Orientation="Vertical" 
                                             Margin="20,0,10,0">
-                                    <Label Content="Select Generator" Height="30" 
+                                    <Label Content="Select Generator" 
+                                           Height="30" 
                                            HorizontalAlignment="Left"/>
-                                    <ComboBox x:Name="cmbxSelectGenerator" Width="326" 
-                                              Height="55" HorizontalAlignment="Left"
+                                    <ComboBox x:Name="cmbxSelectGenerator" 
+                                              Width="326" 
+                                              Height="55" 
+                                              HorizontalAlignment="Left"
                                               ItemsSource="{Binding UniqueGeneratorNames}" 
-                                              Foreground="Black"  SelectedIndex="0" 
+                                              Foreground="Black"  
+                                              SelectedIndex="0" 
                                               SelectedItem="{Binding SelectedGeneratorName, 
                                                                      Mode=OneWayToSource,
                                                                      Converter={StaticResource ComboBoxItemToString}}"
-                                              SelectedValuePath="GeneratorName" SelectedValue="GeneratorName"
+                                              SelectedValuePath="GeneratorName" 
+                                              SelectedValue="GeneratorName"
                                               DisplayMemberPath="GeneratorName" 
                                               Style="{StaticResource lowerAlignmentFontSize}">
                                     </ComboBox>
@@ -51,21 +58,29 @@
                                 <StackPanel Orientation="Vertical" 
                                             Margin="20,0,10,0">
                                     <Label Content="Generator Data" 
-                                           Height="30" HorizontalAlignment="Left"/>
-                                    <ComboBox Width="326" Height="55" HorizontalAlignment="Left"
+                                           Height="30" 
+                                           HorizontalAlignment="Left"/>
+                                    <ComboBox Width="326" 
+                                              Height="55" 
+                                              HorizontalAlignment="Left"
                                               ItemsSource="{Binding GeneratorData}" 
-                                              Foreground="Black" SelectedIndex="0" 
+                                              Foreground="Black" 
+                                              SelectedIndex="0" 
                                               SelectedItem="{Binding SelectedGeneratorData, 
                                                                      Mode=OneWayToSource}" 
                                               Style="{StaticResource lowerAlignmentFontSize}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" 
                                             Margin="20,0,10,0">
-                                    <Label Content="Chart Type" Height="30" 
+                                    <Label Content="Chart Type" 
+                                           Height="30" 
                                            HorizontalAlignment="Left"/>
-                                    <ComboBox Width="229" Height="55" HorizontalAlignment="Left"
+                                    <ComboBox Width="229" 
+                                              Height="55" 
+                                              HorizontalAlignment="Left"
                                               ItemsSource="{Binding ChartTypes}" 
-                                              Foreground="Black" SelectedIndex="0" 
+                                              Foreground="Black" 
+                                              SelectedIndex="0" 
                                               SelectedItem="{Binding SelectedChartType, 
                                                                      Mode=OneWayToSource}" 
                                               Style="{StaticResource lowerAlignmentFontSize}"/>
@@ -84,7 +99,8 @@
                                             <DatePicker HorizontalAlignment="Left"  
                                                         VerticalAlignment="Bottom" 
                                                         Style="{DynamicResource DatePickerStyle}" 
-                                                        Width="230" Height="55"
+                                                        Width="230" 
+                                                        Height="55"
                                                         DisplayDate="{Binding SelectedStartDate}"
                                                         DisplayDateStart="{Binding SelectedStartDate}"
                                                         DisplayDateEnd="{Binding SelectedStopDate}"
@@ -94,8 +110,10 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" 
                                                     Margin="10,0,1,0">
-                                            <Label Content="Hour" Height="30"/>
-                                            <ComboBox Width="76" Height="55" 
+                                            <Label Content="Hour" 
+                                                   Height="30"/>
+                                            <ComboBox Width="76" 
+                                                      Height="55" 
                                                       HorizontalAlignment="Left"
                                                       ItemsSource="{Binding HoursViewModelList, 
                                                                             Converter={StaticResource IntArrayToTwoCharStringArray}}" 
@@ -108,12 +126,15 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" 
                                                     Margin="10,0,1,0">
-                                            <Label Content="Minutes" Height="30"/>
-                                            <ComboBox Width="76" Height="55" 
+                                            <Label Content="Minutes" 
+                                                   Height="30"/>
+                                            <ComboBox Width="76" 
+                                                      Height="55" 
                                                       HorizontalAlignment="Left"
                                                       ItemsSource="{Binding MinutesViewModelList, 
                                                                             Converter={StaticResource IntArrayToTwoCharStringArray}}" 
-                                                      Foreground="Black" SelectedIndex="0" 
+                                                      Foreground="Black" 
+                                                      SelectedIndex="0" 
                                                       SelectedItem="{Binding SelectedStartMinute, 
                                                                              Mode=TwoWay,
                                                                              Converter={StaticResource IntToTwoCharString}}" 
@@ -121,12 +142,15 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" 
                                                     Margin="10,0,1,0">
-                                            <Label Content="Seconds" Height="30"/>
-                                            <ComboBox Width="76" Height="55" 
+                                            <Label Content="Seconds" 
+                                                   Height="30"/>
+                                            <ComboBox Width="76" 
+                                                      Height="55" 
                                                       HorizontalAlignment="Left"
                                                       ItemsSource="{Binding SecondsViewModelList, 
                                                                             Converter={StaticResource IntArrayToTwoCharStringArray}}" 
-                                                      Foreground="Black" SelectedIndex="0" 
+                                                      Foreground="Black" 
+                                                      SelectedIndex="0" 
                                                       SelectedItem="{Binding SelectedStartSecond, 
                                                                              Mode=TwoWay,
                                                                              Converter={StaticResource IntToTwoCharString}}" 
@@ -134,11 +158,14 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" 
                                                     Margin="10,0,10,0">
-                                            <Label Content="AM/PM" Height="30"/>
-                                            <ComboBox Width="70" Height="55" 
+                                            <Label Content="AM/PM" 
+                                                   Height="30"/>
+                                            <ComboBox Width="70" 
+                                                      Height="55" 
                                                       HorizontalAlignment="Left"
                                                       ItemsSource="{Binding AMPMViewModelList}" 
-                                                      Foreground="Black" SelectedIndex="0" 
+                                                      Foreground="Black" 
+                                                      SelectedIndex="0" 
                                                       SelectedItem="{Binding SelectedStartAMPM, 
                                                                              Mode=TwoWay}" 
                                                       Style="{StaticResource lowerAlignmentFontSize}"/>
@@ -146,15 +173,18 @@
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" 
-                                            Margin="0,1,0,0" Height="100">
+                                            Margin="0,1,0,0" 
+                                            Height="100">
                                     <StackPanel Orientation="Vertical" 
                                                 Margin="20,0,10,0">
-                                        <Label Content="Stop" Height="30" 
+                                        <Label Content="Stop" 
+                                               Height="30" 
                                                HorizontalAlignment="Left"/>
                                         <DatePicker HorizontalAlignment="Left"  
                                                     VerticalAlignment="Bottom" 
                                                     Style="{DynamicResource DatePickerStyle}" 
-                                                    Width="230" Height="55"
+                                                    Width="230" 
+                                                    Height="55"
                                                     DisplayDate="{Binding SelectedStopDate}"
                                                     DisplayDateStart="{Binding SelectedStartDate}"
                                                     DisplayDateEnd="{Binding SelectedStopDate}"
@@ -164,13 +194,15 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" 
                                                 Margin="10,0,1,0">
-                                        <Label Content="Hour" Height="30"/>
-                                        <ComboBox Width="76" Height="55" 
+                                        <Label Content="Hour" 
+                                               Height="30"/>
+                                        <ComboBox Width="76" 
+                                                  Height="55" 
                                                   HorizontalAlignment="Left"
                                                   ItemsSource="{Binding HoursViewModelList, 
                                                                         Converter={StaticResource IntArrayToTwoCharStringArray}}" 
                                                   Foreground="Black" 
-                                                      SelectedIndex="0" 
+                                                  SelectedIndex="0" 
                                                   SelectedItem="{Binding SelectedStopHour, 
                                                                          Mode=TwoWay,
                                                                          Converter={StaticResource IntToTwoCharString}}" 
@@ -178,13 +210,15 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" 
                                                 Margin="10,0,1,0">
-                                        <Label Content="Minutes" Height="30"/>
-                                        <ComboBox Width="76" Height="55" 
+                                        <Label Content="Minutes" 
+                                               Height="30"/>
+                                        <ComboBox Width="76" 
+                                                  Height="55" 
                                                   HorizontalAlignment="Left"
                                                   ItemsSource="{Binding MinutesViewModelList, 
                                                                         Converter={StaticResource IntArrayToTwoCharStringArray}}" 
                                                   Foreground="Black" 
-                                                      SelectedIndex="0" 
+                                                  SelectedIndex="0" 
                                                   SelectedItem="{Binding SelectedStopMinute, 
                                                                          Mode=TwoWay,
                                                                          Converter={StaticResource IntToTwoCharString}}" 
@@ -192,8 +226,10 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" 
                                                 Margin="10,0,1,0">
-                                        <Label Content="Seconds" Height="30"/>
-                                        <ComboBox Width="76" Height="55" 
+                                        <Label Content="Seconds" 
+                                               Height="30"/>
+                                        <ComboBox Width="76" 
+                                                  Height="55" 
                                                   HorizontalAlignment="Left"
                                                   ItemsSource="{Binding SecondsViewModelList, 
                                                                         Converter={StaticResource IntArrayToTwoCharStringArray}}" 
@@ -206,8 +242,10 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" 
                                                 Margin="10,0,10,0">
-                                        <Label Content="AM/PM" Height="30"/>
-                                        <ComboBox Width="70" Height="55" 
+                                        <Label Content="AM/PM" 
+                                               Height="30"/>
+                                        <ComboBox Width="70" 
+                                                  Height="55" 
                                                   HorizontalAlignment="Left"
                                                   ItemsSource="{Binding AMPMViewModelList}" 
                                                   Foreground="Black" 
@@ -226,7 +264,8 @@
                                             Height="220"
                                             Width="220">
                                     <Label FontWeight="Bold">Duration Perspective</Label>
-                                    <RadioButton x:Name="rdbtnYear" Margin="0,10,0,0"  
+                                    <RadioButton x:Name="rdbtnYear" 
+                                                 Margin="0,10,0,0"  
                                                  GroupName="DateCategory"
                                                  IsChecked="{Binding SelectedRadioButtonYear}"
                                                  Command="{Binding DurationPerspectiveCmd}">
@@ -239,9 +278,13 @@
                                         </RadioButton.CommandParameter>
                                         <WrapPanel>
                                             <Image Source="/Images/Year.png" 
-                                                   Width="16" Height="16" Margin="0,0,5,0"/>
-                                            <TextBlock x:Name="txtBxYear" Text="Year" 
-                                                       Foreground="Black" FontSize="12"/>
+                                                   Width="16" 
+                                                   Height="16" 
+                                                   Margin="0,0,5,0"/>
+                                            <TextBlock x:Name="txtBxYear" 
+                                                       Text="Year" 
+                                                       Foreground="Black" 
+                                                       FontSize="12"/>
                                         </WrapPanel>
                                     </RadioButton>
                                     <Separator/>
@@ -256,10 +299,14 @@
                                             </MultiBinding>
                                         </RadioButton.CommandParameter>
                                         <WrapPanel>
-                                            <Image Source="/Images/Quarter.png" Width="16" 
-                                                   Height="16" Margin="0,0,5,0" />
-                                            <TextBlock x:Name="txtBxQuarter" Text="Quarter" 
-                                                       Foreground="Black" FontSize="12"/>
+                                            <Image Source="/Images/Quarter.png" 
+                                                   Width="16" 
+                                                   Height="16" 
+                                                   Margin="0,0,5,0" />
+                                            <TextBlock x:Name="txtBxQuarter" 
+                                                       Text="Quarter" 
+                                                       Foreground="Black" 
+                                                       FontSize="12"/>
                                         </WrapPanel>
                                     </RadioButton>
                                     <Separator/>
@@ -275,9 +322,13 @@
                                         </RadioButton.CommandParameter>
                                         <WrapPanel>
                                             <Image Source="/Images/Months2.jpg" 
-                                                   Width="16" Height="16" Margin="0,0,5,0"/>
-                                            <TextBlock x:Name="txtBxMonth" Text="Month" 
-                                                       Foreground="Black" FontSize="12"/>
+                                                   Width="16" 
+                                                   Height="16" 
+                                                   Margin="0,0,5,0"/>
+                                            <TextBlock x:Name="txtBxMonth" 
+                                                       Text="Month" 
+                                                       Foreground="Black" 
+                                                       FontSize="12"/>
                                         </WrapPanel>
                                     </RadioButton>
                                     <Separator/>
@@ -292,10 +343,14 @@
                                             </MultiBinding>
                                         </RadioButton.CommandParameter>
                                         <WrapPanel>
-                                            <Image Source="/Images/Week1.png" Width="16" 
-                                                   Height="16" Margin="0,0,5,0"/>
-                                            <TextBlock x:Name="txtBxWeek" Text="Week" 
-                                                       Foreground="Black" FontSize="12"/>
+                                            <Image Source="/Images/Week1.png" 
+                                                   Width="16" 
+                                                   Height="16" 
+                                                   Margin="0,0,5,0"/>
+                                            <TextBlock x:Name="txtBxWeek" 
+                                                       Text="Week" 
+                                                       Foreground="Black" 
+                                                       FontSize="12"/>
                                         </WrapPanel>
                                     </RadioButton>
                                     <Separator/>
@@ -310,40 +365,51 @@
                                             </MultiBinding>
                                         </RadioButton.CommandParameter>
                                         <WrapPanel>
-                                            <Image Source="/Images/Day.jpg" Width="16" 
-                                                   Height="16" Margin="0,0,5,0" />
-                                            <TextBlock x:Name="txtBxDay" Text="Day" 
-                                                       Foreground="Black" FontSize="12"/>
+                                            <Image Source="/Images/Day.jpg" 
+                                                   Width="16" 
+                                                   Height="16" 
+                                                   Margin="0,0,5,0" />
+                                            <TextBlock x:Name="txtBxDay" 
+                                                       Text="Day" 
+                                                       Foreground="Black" 
+                                                       FontSize="12"/>
                                         </WrapPanel>
                                     </RadioButton>
 
                                 </StackPanel>
-                                <StackPanel Height="220"  Width="360" 
+                                <StackPanel Height="220"  
+                                            Width="360" 
                                             VerticalAlignment="Center"
                                             Margin="10,0,0,0">
                                     <CheckBox x:Name="chkBxDurationPerspective"
                                               HorizontalAlignment="Left"
-                                              Content="Select All" Margin="20,0,0,0"
+                                              Content="Select All" 
+                                              Margin="20,0,0,0"
                                               Command="{Binding CheckedStatusCmd}"
                                               IsChecked="{Binding SelectedCheckButtonSelectAll}">
                                         <CheckBox.CommandParameter>
                                             <MultiBinding Converter="{StaticResource PassCheckBoxBoolListBox}">
-                                                <Binding ElementName="chkBxDurationPerspective" Path="IsChecked"/>
+                                                <Binding ElementName="chkBxDurationPerspective" 
+                                                         Path="IsChecked"/>
                                                 <Binding ElementName="lstBxDateDurationList"/>
                                             </MultiBinding>
                                         </CheckBox.CommandParameter>
                                     </CheckBox>
                                     <ListBox x:Name="lstBxDateDurationList" 
-                                             Width="335" Height="190" 
-                                             Margin="20,0,0,0" Background="#F2F2F2" 
+                                             Width="335" 
+                                             Height="190" 
+                                             Margin="20,0,0,0" 
+                                             Background="#F2F2F2" 
                                              FontSize="12"
                                              SelectionMode="Extended">
                                     </ListBox>
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel>
-                                <Button Content="Plot" Height="40" 
-                                        Width="150" HorizontalAlignment="Right"
+                                <Button Content="Plot" 
+                                        Height="40" 
+                                        Width="150" 
+                                        HorizontalAlignment="Right"
                                         Margin="0,0,0,0" 
                                         Style="{StaticResource AffirmativeButtonStyle}"
                                         Command="{Binding PlotChartCmd}">
@@ -361,17 +427,21 @@
                 <ScrollViewer Grid.Column="1" 
                               HorizontalScrollBarVisibility="Auto"
                               VerticalScrollBarVisibility="Auto">
-                    <GroupBox x:Name="grpBxChart" Grid.Column="1" 
+                    <GroupBox x:Name="grpBxChart" 
+                              Grid.Column="1" 
                               Style="{StaticResource GroupBoxStyle}" 
                               Header="Chart" 
-                              Width="1250" Height="750" 
+                              Width="1250" 
+                              Height="750" 
                               HorizontalAlignment="Left">
                         <StackPanel Orientation="Vertical">
                             <ToolBarTray Height="30">
                                 <ToolBar>
-                                    <Button x:Name="btnCamera" Width="30" 
-                                            Height="30" ToolTip="Take a snapshot"
-                                        Command="{Binding CopyChartCmd}">
+                                    <Button x:Name="btnCamera" 
+                                            Width="30" 
+                                            Height="30" 
+                                            ToolTip="Take a snapshot"
+                                            Command="{Binding CopyChartCmd}">
                                         <Button.CommandParameter>
                                             <MultiBinding Converter="{StaticResource PassGroupBox}">
                                                 <Binding ElementName="grpBxChart"/>
@@ -381,14 +451,18 @@
                                             <Image Source="/Images/Camera.png" />
                                         </Button.Content>
                                     </Button>
-                                    <Button x:Name="btnSnipe" Width="30" Height="30" 
+                                    <Button x:Name="btnSnipe" 
+                                            Width="30" 
+                                            Height="30" 
                                             ToolTip="Take a snipe"
                                             Command="{Binding SnipeCmd}">
                                         <Button.Content>
                                             <Image Source="/Images/Snipe.png" />
                                         </Button.Content>
                                     </Button>
-                                    <Button x:Name="btnPrint" Width="30" Height="30" 
+                                    <Button x:Name="btnPrint" 
+                                            Width="30" 
+                                            Height="30" 
                                             ToolTip="Print Chart"
                                             Command="{Binding PrintCmd}">
                                         <Button.CommandParameter>
@@ -407,20 +481,29 @@
                 </ScrollViewer>
             </Grid>
 
-            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" 
-                        VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Width="80" VerticalAlignment="Center" 
-                           HorizontalAlignment="Center" FontSize="18">
+            <StackPanel Grid.Row="2" 
+                        Grid.Column="1" 
+                        Orientation="Horizontal" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Center">
+                <TextBlock Width="80" 
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" 
+                           FontSize="18">
                 <Hyperlink Command="{x:Static cmds:NavigationCommands.InputToUsageView}">
                     Usage</Hyperlink>
                 </TextBlock>
-                <TextBlock Width=" 80" VerticalAlignment="Center" 
-                           HorizontalAlignment="Center" FontSize="18">
+                <TextBlock Width=" 80" 
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" 
+                           FontSize="18">
                 <Hyperlink Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}">
                     Fuelling</Hyperlink>
                 </TextBlock>
-                <TextBlock Width="110" VerticalAlignment="Center" 
-                           HorizontalAlignment="Center" FontSize="18">
+                <TextBlock Width="110" 
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Center" 
+                           FontSize="18">
                 <Hyperlink Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}">
                     Maintenance</Hyperlink>
                 </TextBlock>

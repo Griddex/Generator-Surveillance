@@ -56,7 +56,7 @@ namespace Panel.ViewModels.SettingsViewModel
             ReminderLevels.Add("Extreme");
         }
 
-        public DateTime SchMaintenanceStartDate { get { return DateTime.Now; } set { } }
+        public DateTime SchMaintenanceStartDate { get; set; } = DateTime.Now;
         public double SchMaintenanceReminderHours { get; set; }
         public string SchMaintenanceSelectedReminderLevel { get; set; }
         public List<string> UniqueAuthoriserFullNames { get; set; } = new List<string>();
@@ -207,6 +207,7 @@ namespace Panel.ViewModels.SettingsViewModel
                                     case MessageBoxResult.OK:
                                     case MessageBoxResult.Yes:
                                         expdrexpdr.Item4.Visibility = Visibility.Collapsed;
+                                        expdrexpdr.Item5.Margin = new Thickness(0, 270, 0, 0);
                                         expdrexpdr.Item5.Visibility = Visibility.Visible;
                                         break;
                                     case MessageBoxResult.Cancel:
@@ -251,23 +252,20 @@ namespace Panel.ViewModels.SettingsViewModel
             }
         }
 
-        private ICommand _repeatReminderCmd;
-        public ICommand RepeatReminderCmd
+        private ICommand _setRepeatReminderCmd;
+        public ICommand SetRepeatReminderCmd
         {
             get
             {
-                return this._repeatReminderCmd ??
+                return this._setRepeatReminderCmd ??
                 (
-                    this._repeatReminderCmd = new DelegateCommand
+                    this._setRepeatReminderCmd = new DelegateCommand
                     (
                         x =>
                         {
-                            DataGrid dtgd = (DataGrid)x;
+                            GeneratorScheduler selectedRow = (GeneratorScheduler)x;
 
-                            var selectedRow = dtgd.SelectedItem 
-                                                  as GeneratorScheduler;
-
-                            UnitOfWork.ReminderSetting.RepeatReminder(
+                            UnitOfWork.ReminderSetting.SetRepeatReminder(
                                                 selectedRow.GeneratorName);
 
                             int Success = UnitOfWork.Complete();
@@ -284,7 +282,43 @@ namespace Panel.ViewModels.SettingsViewModel
 
                                 OnPropertyChanged(nameof(ActiveGeneratorSchedules));
                             }
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
 
+        private ICommand _deactivateRepeatReminderCmd;
+        public ICommand DeactivateRepeatReminderCmd
+        {
+            get
+            {
+                return this._deactivateRepeatReminderCmd ??
+                (
+                    this._deactivateRepeatReminderCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            GeneratorScheduler selectedRow = (GeneratorScheduler)x;
+
+                            UnitOfWork.ReminderSetting.DeactivateRepeatReminder(
+                                                selectedRow.GeneratorName);
+
+                            int Success = UnitOfWork.Complete();
+                            if (Success > 0)
+                            {
+                                MessageBox.Show($"Repetitive Reminder" +
+                                    $"activated for {selectedRow.GeneratorName}",
+                                    "Information",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
+
+                                ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
+                                                                     .GetActiveGeneratorSchedules();
+
+                                OnPropertyChanged(nameof(ActiveGeneratorSchedules));
+                            }
                         },
                         y => !HasErrors
                     )

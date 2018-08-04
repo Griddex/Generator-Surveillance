@@ -549,7 +549,7 @@ Grid.Column="1">
                                         Content="Unlock" 
                                         ToolTip="Unlock Scheduled Reminders" 
                                         Margin="140,185,0,0"
-                                        Style="{StaticResource AffirmativeButtonStyle}" 
+                                        Style="{StaticResource NegativeButtonStyle}" 
                                         HorizontalContentAlignment="Center" 
                                         VerticalContentAlignment="Center" 
                                         HorizontalAlignment="Left" 
@@ -603,11 +603,28 @@ Grid.Column="1">
                                             Grid.ColumnSpan="12"
                                             VerticalAlignment="Bottom"
                                             HorizontalAlignment="Center"
-                                            Visibility="Collapsed">
+                                            Visibility="Collapsed"
+                                            FocusManager.FocusedElement="{Binding ElementName=psswrdReminder}">
                                     <Label>Enter Password:</Label>
                                     <PasswordBox x:Name="psswrdReminder" 
                                                  MaxLength="20"
-                                                 Width="250"/>
+                                                 Width="250">
+                                        <PasswordBox.InputBindings>
+                                            <KeyBinding Command="{Binding OkCmd}">
+                                                <KeyBinding.CommandParameter>
+                                                    <MultiBinding Converter="{StaticResource PassDtPkrTxBxTwoCmboxs}">
+                                                        <Binding ElementName="psswrdReminder"/>
+                                                        <Binding ElementName="dtpkrStarts"/>
+                                                        <Binding ElementName="txtBxEvery"/>
+                                                        <Binding ElementName="cmbxReminderLevel"/>
+                                                        <Binding ElementName="cmbxAuthoriser"/>
+                                                        <Binding ElementName="stckpnlPassword"/>
+                                                        <Binding ElementName="expdrScheduledReminders"/>
+                                                    </MultiBinding>
+                                                </KeyBinding.CommandParameter>
+                                            </KeyBinding>
+                                        </PasswordBox.InputBindings>
+                                    </PasswordBox>
                                     <Button x:Name="ok" 
                                             Content="Ok"
                                             Margin="0,0,0,0"

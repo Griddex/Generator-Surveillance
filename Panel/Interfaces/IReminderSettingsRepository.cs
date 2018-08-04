@@ -9,6 +9,7 @@ namespace Panel.Interfaces
 {
     public interface IReminderSettingsRepository
     {
-        void RepeatReminder(string GeneratorName);
+        void SetRepeatReminder(string GeneratorName);
+        void DeactivateRepeatReminder(string GeneratorName);
     }
 }

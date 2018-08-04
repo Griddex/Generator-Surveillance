@@ -22,7 +22,7 @@
                         Width="570"
                         Height="55"
                         Orientation="Horizontal" 
-                        Margin="0,200,0,0"
+                        Margin="0,0,0,0"
                         HorizontalAlignment="Center"
                         Visibility="Visible">
                 <Label VerticalContentAlignment="Center"
@@ -34,7 +34,8 @@
                              VerticalContentAlignment="Center"
                              HorizontalContentAlignment="Center">
                     <PasswordBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding Path=OKCmd}">
+                        <KeyBinding Key="Return" 
+                                    Command="{Binding Path=OKCmd}">
                             <KeyBinding.CommandParameter>
                                     <MultiBinding Converter="{StaticResource PassPswbxExpdrExpdrStkPlVwBx}">
                                         <Binding ElementName="psswrdReminder"/>
@@ -87,8 +88,8 @@
                      Stretch="Uniform" 
                      Width="800"
                      Height="300"
-                     Margin="0,200,0,0"
-                     Visibility="Visible">
+                     Margin="0,0,0,0"
+                     Visibility="Collapsed">
                 <StackPanel x:Name="stcpnlfc2Settings"
                             Orientation="Horizontal"
                             HorizontalAlignment="Center">
@@ -245,9 +246,9 @@
                                             <DataGrid.ContextMenu>
                                                 <ContextMenu x:Name="ctxMnuSchedRemdrs">
                                                     <MenuItem Header="Group by Generator" 
-                                                        Click="GroupbyGeneratorConsumption_Click"/>
+                                                              Click="GroupbyGeneratorConsumption_Click"/>
                                                     <MenuItem Header="Ungroup" 
-                                                        Click="ClearGeneratorGroupingConsumption_Click"/>
+                                                              Click="ClearGeneratorGroupingConsumption_Click"/>
                                                 </ContextMenu>
                                             </DataGrid.ContextMenu>
                                             <DataGrid.GroupStyle>
@@ -262,24 +263,24 @@
                                                     <GroupStyle.ContainerStyle>
                                                         <Style TargetType="{x:Type GroupItem}">
                                                             <Setter Property="Width" 
-                                                            Value="Auto"/>
+                                                                    Value="Auto"/>
                                                             <Setter Property="Template">
                                                                 <Setter.Value>
                                                                     <ControlTemplate TargetType="{x:Type GroupItem}">
                                                                         <Expander IsExpanded="True" 
-                                                                            Background="#EAF9FB" 
-                                                                            BorderBrush="LightGray" 
-                                                                            Foreground="Black"
-                                                                            FontSize="12" 
-                                                                            BorderThickness="1,1,1,1">
+                                                                                  Background="#EAF9FB" 
+                                                                                  BorderBrush="LightGray" 
+                                                                                  Foreground="Black"
+                                                                                  FontSize="12" 
+                                                                                  BorderThickness="1,1,1,1">
                                                                             <Expander.Header>
                                                                                 <StackPanel Orientation="Horizontal">
                                                                                     <TextBlock FontWeight="Bold"
-                                                                                        Text="{Binding Name, 
-                                                                                                        Converter={StaticResource CategoryToPhrase}}"/>
+                                                                                               Text="{Binding Name, 
+                                                                                                              Converter={StaticResource CategoryToPhrase}}"/>
                                                                                     <TextBlock FontWeight="Bold"
-                                                                                        Text="{Binding ItemCount, 
-                                                                                                        Converter={StaticResource ItemCountToPhrase}}"/>
+                                                                                               Text="{Binding ItemCount, 
+                                                                                                              Converter={StaticResource ItemCountToPhrase}}"/>
                                                                                 </StackPanel>
                                                                             </Expander.Header>
                                                                             <Expander.Content>
@@ -296,30 +297,30 @@
                                             <DataGrid.RowStyle>
                                                 <Style TargetType="DataGridRow">
                                                     <Setter Property="Foreground" 
-                                                    Value="Black"/>
+                                                            Value="Black"/>
                                                     <Setter Property="Background" 
-                                                    Value="White"/>
+                                                            Value="White"/>
                                                 </Style>
                                             </DataGrid.RowStyle>
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn Header="S/N" 
-                                                            Binding="{Binding Id}" 
-                                                            FontSize="12"/>
+                                                                    Binding="{Binding Id}" 
+                                                                    FontSize="12"/>
                                                 <DataGridTextColumn Header="Date" 
-                                                            Binding="{Binding Date}" 
-                                                            FontSize="12" Width="150"/>
+                                                                    Binding="{Binding Date}" 
+                                                                    FontSize="12" Width="150"/>
                                                 <DataGridTextColumn Header="Generator Name" 
-                                                            Binding="{Binding GeneratorName}" 
-                                                            FontSize="12" Width="Auto"/>
+                                                                    Binding="{Binding GeneratorName}" 
+                                                                    FontSize="12" Width="Auto"/>
                                                 <DataGridTextColumn Header="Current Fuel Consumption" 
-                                                            Binding="{Binding CurrentConsumption}" 
-                                                            FontSize="12" Width="Auto"/>
+                                                                    Binding="{Binding CurrentConsumption}" 
+                                                                    FontSize="12" Width="Auto"/>
                                                 <DataGridTextColumn Header="Test Fuel Consumption" 
-                                                            Binding="{Binding TestConsumption}"
-                                                            FontSize="12" Width="Auto"/>
+                                                                    Binding="{Binding TestConsumption}"
+                                                                    FontSize="12" Width="Auto"/>
                                                 <DataGridTextColumn Header="Standard Fuel Consumption"
-                                                            Binding="{Binding StandardConsumption}"
-                                                            FontSize="12" Width="*"/>
+                                                                    Binding="{Binding StandardConsumption}"
+                                                                    FontSize="12" Width="*"/>
                                             </DataGrid.Columns>
                                         </DataGrid>
                                     </ScrollViewer>
@@ -329,25 +330,25 @@
                     </Expander>
 
                     <Expander x:Name="expdrraSettings" 
-                            ExpandDirection="Right" 
-                            Height="300"
-                            VerticalAlignment="Center"
-                            IsExpanded="False"
-                            Expanded="expdrAuthorisers_Expanded"
-                            MouseDown="expdrraSettings_MouseDown"
-                            Collapsed="Authorisers_Collapsed">
+                              ExpandDirection="Right" 
+                              Height="300"
+                              VerticalAlignment="Center"
+                              IsExpanded="False"
+                              Expanded="expdrAuthorisers_Expanded"
+                              MouseDown="expdrraSettings_MouseDown"
+                              Collapsed="Authorisers_Collapsed">
                         <Expander.Header>
                             <StackPanel>
                                 <Image Source="/Images/Authoriser3.png" 
-                                Width="150" 
-                                Height="150"/>
+                                       Width="150" 
+                                       Height="150"/>
                                 <TextBox TextWrapping="Wrap"
-                                    BorderBrush="Transparent"
-                                    FontSize="20"
-                                    Text="Reminders Authorisers"
-                                    FontWeight="Bold" 
-                                    Width="150"
-                                    HorizontalContentAlignment="Center"/>
+                                         BorderBrush="Transparent"
+                                         FontSize="20"
+                                         Text="Reminders Authorisers"
+                                         FontWeight="Bold" 
+                                         Width="150"
+                                         HorizontalContentAlignment="Center"/>
                             </StackPanel>
                         </Expander.Header>
                         <GroupBox x:Name="grpbxAuthorisers"
@@ -357,175 +358,174 @@
                                   Height="860">
                             <StackPanel Orientation="Vertical">
                                 <TextBox Height="50"
-                                         Width="800"
+                                         Width="780"
                                          BorderBrush="Transparent"/>
                                 <ScrollViewer HorizontalScrollBarVisibility="Auto"
                                               VerticalScrollBarVisibility="Auto"
                                               Height="860">
                                     <StackPanel Orientation="Vertical">
                                     <Expander x:Name="expdrAuthorisersPanel"
-                                          ExpandDirection="Down"
-                                          Expanded="expdrAuthorisersPanel_Expanded"
-                                          Collapsed="expdrAuthorisersPanel_Collapsed">
-                                        <Expander.Header>
-                                            
+                                              ExpandDirection="Down"
+                                              Expanded="expdrAuthorisersPanel_Expanded"
+                                              Collapsed="expdrAuthorisersPanel_Collapsed">
+                                        <Expander.Header>                                            
                                             <TextBox Text="Manage Authorisers"
-                                                 Background="#F2F2F2"
-                                                 Height="50"
-                                                 FontSize="20"
-                                                 Width="750"/>
+                                                     Background="#F2F2F2"
+                                                     Height="50"
+                                                     FontSize="20"
+                                                     Width="730"/>
                                         </Expander.Header>
                                         <StackPanel x:Name="stcpnlAuthorisers" 
-                                        Orientation="Vertical">
+                                                    Orientation="Vertical">
                                             <StackPanel Orientation="Horizontal" 
-                                            Height="150">
+                                                        Height="150">
                                                 <StackPanel Orientation="Vertical"  
-                                                VerticalAlignment="Center"
-                                                Margin="20,0,0,0">
+                                                            VerticalAlignment="Center"
+                                                            Margin="20,0,0,0">
                                                     <Label Content="Date" 
-                                               VerticalAlignment="Bottom"
-                                               Margin="0,0,0,0"/>
+                                                            VerticalAlignment="Bottom"
+                                                            Margin="0,0,0,0"/>
                                                     <DatePicker HorizontalAlignment="right"  
-                                                    VerticalAlignment="Top"
-                                                    Margin="0,0,0,0"
-                                                    Style="{DynamicResource DatePickerStyle}" 
-                                                    Width="230" 
-                                                    Height="55"
-                                                    SelectedDate="{Binding Path=ReminderDateAuthoriser, 
-                                                                           Mode=TwoWay}"
-                                                    DisplayDate="{x:Static sys:DateTime.Now}"/>
+                                                                VerticalAlignment="Top"
+                                                                Margin="0,0,0,0"
+                                                                Style="{DynamicResource DatePickerStyle}" 
+                                                                Width="230" 
+                                                                Height="55"
+                                                                SelectedDate="{Binding Path=ReminderDateAuthoriser, 
+                                                                                       Mode=TwoWay}"
+                                                                DisplayDate="{x:Static sys:DateTime.Now}"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Vertical"  
-                                                VerticalAlignment="Center"
-                                                Margin="30,0,0,0">
+                                                            VerticalAlignment="Center"
+                                                            Margin="20,0,0,0">
                                                     <Label x:Name="lblGenUnSchMainGenerator1" 
-                                               Content="First Name" 
-                                               VerticalAlignment="Bottom"/>
+                                                            Content="First Name" 
+                                                            VerticalAlignment="Bottom"/>
                                                     <TextBox x:Name="txtbxFirstName"  
-                                                 Background="#F2F2F2" 
-                                                 Width="230" 
-                                                 Height="55"
-                                                 HorizontalAlignment="Left"
-                                                 Text="{Binding Path=FirstNameAuthoriser, 
-                                                                Mode=TwoWay, 
-                                                                ValidatesOnNotifyDataErrors=True, 
-                                                                UpdateSourceTrigger=PropertyChanged,
-                                                                ValidatesOnExceptions=True}"
-                                                 VerticalAlignment="Center"
-                                                 AcceptsReturn="True"
-                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                             Background="#F2F2F2" 
+                                                             Width="230" 
+                                                             Height="55"
+                                                             HorizontalAlignment="Left"
+                                                             Text="{Binding Path=FirstNameAuthoriser, 
+                                                                            Mode=TwoWay, 
+                                                                            ValidatesOnNotifyDataErrors=True, 
+                                                                            UpdateSourceTrigger=PropertyChanged,
+                                                                            ValidatesOnExceptions=True}"
+                                                             VerticalAlignment="Center"
+                                                             AcceptsReturn="True"
+                                                             Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Vertical"  
-                                                VerticalAlignment="Center"
-                                                Margin="30,0,0,0">
+                                                            VerticalAlignment="Center"
+                                                            Margin="20,0,0,0">
                                                     <Label x:Name="lblGenUnSchMainGenerator2" 
-                                               Content="Last Name"
-                                               VerticalAlignment="Bottom"/>
+                                                           Content="Last Name"
+                                                           VerticalAlignment="Bottom"/>
                                                     <TextBox x:Name="txtbxFirstName1"  
-                                                 Background="#F2F2F2" 
-                                                 Width="230" 
-                                                 Height="55"
-                                                 HorizontalAlignment="Left"
-                                                 Text="{Binding Path=LastNameAuthoriser, 
-                                                                Mode=TwoWay, 
-                                                                ValidatesOnNotifyDataErrors=True, 
-                                                                UpdateSourceTrigger=PropertyChanged,
-                                                                ValidatesOnExceptions=True}"
-                                                 VerticalAlignment="Center"
-                                                 AcceptsReturn="True"
-                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                             Background="#F2F2F2" 
+                                                             Width="230" 
+                                                             Height="55"
+                                                             HorizontalAlignment="Left"
+                                                             Text="{Binding Path=LastNameAuthoriser, 
+                                                                            Mode=TwoWay, 
+                                                                            ValidatesOnNotifyDataErrors=True, 
+                                                                            UpdateSourceTrigger=PropertyChanged,
+                                                                            ValidatesOnExceptions=True}"
+                                                             VerticalAlignment="Center"
+                                                             AcceptsReturn="True"
+                                                             Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                                 </StackPanel>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" 
-                                            Height="200">
+                                                        Height="200">
                                                 <StackPanel Orientation="Vertical" 
-                                                VerticalAlignment="Top"
-                                                Height="200" 
-                                                Margin="20,0,0,0">
+                                                            VerticalAlignment="Top"
+                                                            Height="200" 
+                                                            Margin="20,0,0,0">
                                                     <Label Content="Email" 
-                                               Height="30"/>
+                                                            Height="30"/>
                                                     <TextBox  Background="#F2F2F2" 
-                                                  Width="230" 
-                                                  Height="55" 
-                                                  HorizontalAlignment="Left"
-                                                  Text="{Binding Path=EmailAuthoriser, 
-                                                                 Mode=TwoWay,
-                                                                 ValidatesOnNotifyDataErrors=True, 
-                                                                 UpdateSourceTrigger=PropertyChanged,
-                                                                 ValidatesOnExceptions=True}"
-                                                  VerticalAlignment="Center"
-                                                  AcceptsReturn="True"
-                                                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                              Width="230" 
+                                                              Height="55" 
+                                                              HorizontalAlignment="Left"
+                                                              Text="{Binding Path=EmailAuthoriser, 
+                                                                             Mode=TwoWay,
+                                                                             ValidatesOnNotifyDataErrors=True, 
+                                                                             UpdateSourceTrigger=PropertyChanged,
+                                                                             ValidatesOnExceptions=True}"
+                                                              VerticalAlignment="Center"
+                                                              AcceptsReturn="True"
+                                                              Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Vertical" 
-                                                VerticalAlignment="Top"
-                                                Height="200" 
-                                                Margin="30,0,0,0">
+                                                            VerticalAlignment="Top"
+                                                            Height="200" 
+                                                            Margin="20,0,0,0">
                                                     <Label Content="Phone Number" 
-                                               Height="30"/>
+                                                           Height="30"/>
                                                     <TextBox  Background="#F2F2F2" 
-                                                  Width="230" 
-                                                  Height="55" 
-                                                  HorizontalAlignment="Left"
-                                                  Text="{Binding Path=PhoneNumberAuthoriser, 
-                                                                 Mode=TwoWay, 
-                                                                 ValidatesOnNotifyDataErrors=True, 
-                                                                 UpdateSourceTrigger=PropertyChanged,
-                                                                 ValidatesOnExceptions=True}"
-                                                  VerticalAlignment="Center"
-                                                  AcceptsReturn="True"
-                                                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                              Width="230" 
+                                                              Height="55" 
+                                                              HorizontalAlignment="Left"
+                                                              Text="{Binding Path=PhoneNumberAuthoriser, 
+                                                                             Mode=TwoWay, 
+                                                                             ValidatesOnNotifyDataErrors=True, 
+                                                                             UpdateSourceTrigger=PropertyChanged,
+                                                                             ValidatesOnExceptions=True}"
+                                                              VerticalAlignment="Center"
+                                                              AcceptsReturn="True"
+                                                              Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Vertical"
-                                                VerticalAlignment="Top"
-                                                Height="200" 
-                                                Margin="30,0,0,0">
+                                                            VerticalAlignment="Top"
+                                                            Height="200" 
+                                                            Margin="20,0,0,0">
                                                     <Label Content="Job Title" 
-                                               Height="30"/>
+                                                           Height="30"/>
                                                     <TextBox  Background="#F2F2F2" 
-                                                  Width="230" 
-                                                  Height="55" 
-                                                  HorizontalAlignment="Left"
-                                                  Text="{Binding Path=JobTitleAuthoriser, 
-                                                                 Mode=TwoWay,
-                                                                 ValidatesOnNotifyDataErrors=True, 
-                                                                 UpdateSourceTrigger=PropertyChanged,
-                                                                 ValidatesOnExceptions=True}"
-                                                  VerticalAlignment="Center"
-                                                  AcceptsReturn="True"
-                                                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                              Width="230" 
+                                                              Height="55" 
+                                                              HorizontalAlignment="Left"
+                                                              Text="{Binding Path=JobTitleAuthoriser, 
+                                                                             Mode=TwoWay,
+                                                                             ValidatesOnNotifyDataErrors=True, 
+                                                                             UpdateSourceTrigger=PropertyChanged,
+                                                                             ValidatesOnExceptions=True}"
+                                                              VerticalAlignment="Center"
+                                                              AcceptsReturn="True"
+                                                              Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                                     <Button x:Name="btnAddUnMaintenance1" 
-                                                Height="55" 
-                                                Width="230"
-                                                Margin="0,30,0,0"
-                                                Content="Add Authoriser" 
-                                                ToolTip="Add unscheduled maintenance" 
-                                                Style="{StaticResource AffirmativeButtonStyle}" 
-                                                HorizontalContentAlignment="Center" 
-                                                VerticalContentAlignment="Center" 
-                                                HorizontalAlignment="Right" 
-                                                VerticalAlignment="Bottom"
-                                                Command="{Binding SetAuthoriserCmd}"
-                                                CommandParameter="{Binding ElementName=dtgdAuthoriserTable}"/>
+                                                            Height="55" 
+                                                            Width="230"
+                                                            Margin="0,30,0,0"
+                                                            Content="Add Authoriser" 
+                                                            ToolTip="Add unscheduled maintenance" 
+                                                            Style="{StaticResource AffirmativeButtonStyle}" 
+                                                            HorizontalContentAlignment="Center" 
+                                                            VerticalContentAlignment="Center" 
+                                                            HorizontalAlignment="Right" 
+                                                            VerticalAlignment="Bottom"
+                                                            Command="{Binding SetAuthoriserCmd}"
+                                                            CommandParameter="{Binding ElementName=dtgdAuthoriserTable}"/>
                                                 </StackPanel>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Authorisers Details" 
-                                           Height="30" 
-                                           Margin="20,0,0,0"/>
+                                                       Height="30" 
+                                                       Margin="20,0,0,0"/>
                                                 <ScrollViewer Height="400" 
-                                                  Width="745"
-                                                  HorizontalScrollBarVisibility="Auto">
+                                                              Width="745"
+                                                              HorizontalScrollBarVisibility="Auto">
                                                     <DataGrid x:Name="dtgdAuthoriserTable" 
-                                                  Style="{StaticResource DataGridStyle}"
-                                                  ItemsSource="{Binding AnyAuthorisersPage}" 
-                                                  ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
+                                                              Style="{StaticResource DataGridStyle}"
+                                                              ItemsSource="{Binding AnyAuthorisersPage}" 
+                                                              ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
                                                         <DataGrid.ContextMenu>
                                                             <ContextMenu x:Name="ctxMnuSchedRemdrs1">
                                                                 <MenuItem Header="Group by FirstName" 
-                                                              Click="GroupbyFirstNameAuthorisers_Click"/>
+                                                                          Click="GroupbyFirstNameAuthorisers_Click"/>
                                                                 <MenuItem Header="Ungroup" 
-                                                              Click="ClearFirstNameGroupingAuthorisers_Click"/>
+                                                                          Click="ClearFirstNameGroupingAuthorisers_Click"/>
                                                             </ContextMenu>
                                                         </DataGrid.ContextMenu>
                                                         <DataGrid.GroupStyle>
@@ -540,24 +540,26 @@
                                                                 <GroupStyle.ContainerStyle>
                                                                     <Style TargetType="{x:Type GroupItem}">
                                                                         <Setter Property="Width" 
-                                                                    Value="Auto"/>
+                                                                                Value="Auto"/>
                                                                         <Setter Property="Template">
                                                                             <Setter.Value>
                                                                                 <ControlTemplate TargetType="{x:Type GroupItem}">
                                                                                     <Expander IsExpanded="True" 
-                                                                                  Background="#EAF9FB"
-                                                                                  BorderBrush="LightGray" 
-                                                                                  Foreground="Black"
-                                                                                  FontSize="12" 
-                                                                                  BorderThickness="1,1,1,1">
+                                                                                              Background="#EAF9FB"
+                                                                                              BorderBrush="LightGray" 
+                                                                                              Foreground="Black"
+                                                                                              FontSize="12" 
+                                                                                              BorderThickness="1,1,1,1">
                                                                                         <Expander.Header>
                                                                                             <StackPanel Orientation="Horizontal">
                                                                                                 <TextBlock FontWeight="Bold"
-                                                                                               Text="{Binding Name, 
-                                                                                                              Converter={StaticResource CategoryToPhrase}}"/>
+                                                                                                           Text="{Binding Name, 
+                                                                                                                          Converter={StaticResource 
+                                                                                                                                    CategoryToPhrase}}"/>
                                                                                                 <TextBlock FontWeight="Bold"
-                                                                                               Text="{Binding ItemCount, 
-                                                                                                              Converter={StaticResource ItemCountToPhrase}}"/>
+                                                                                                           Text="{Binding ItemCount, 
+                                                                                                                          Converter={StaticResource 
+                                                                                                                                    ItemCountToPhrase}}"/>
                                                                                             </StackPanel>
                                                                                         </Expander.Header>
                                                                                         <Expander.Content>
@@ -574,40 +576,40 @@
                                                         <DataGrid.RowStyle>
                                                             <Style TargetType="DataGridRow">
                                                                 <Setter Property="Foreground" 
-                                                            Value="Black"/>
+                                                                        Value="Black"/>
                                                                 <Setter Property="Background" 
-                                                            Value="White"/>
+                                                                        Value="White"/>
                                                             </Style>
                                                         </DataGrid.RowStyle>
                                                         <DataGrid.Columns>
                                                             <DataGridTextColumn Header="S/N" 
-                                                                    Binding="{Binding Id}"
-                                                                    FontSize="12"
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding Id}"
+                                                                                FontSize="12"
+                                                                                Width="Auto"/>
                                                             <DataGridTextColumn Header="Date" 
-                                                                    Binding="{Binding Date}"
-                                                                    FontSize="12"
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding Date}"
+                                                                                FontSize="12"
+                                                                                Width="Auto"/>
                                                             <DataGridTextColumn Header="First Name" 
-                                                                    Binding="{Binding FirstNameAuthoriser}"
-                                                                    FontSize="12" 
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding FirstNameAuthoriser}"
+                                                                                FontSize="12" 
+                                                                                Width="Auto"/>
                                                             <DataGridTextColumn Header="Last Name" 
-                                                                    Binding="{Binding LastNameAuthoriser}"
-                                                                    FontSize="12" 
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding LastNameAuthoriser}"
+                                                                                FontSize="12" 
+                                                                                Width="Auto"/>
                                                             <DataGridTextColumn Header="Email"
-                                                                    Binding="{Binding EmailAuthoriser}"
-                                                                    FontSize="12" 
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding EmailAuthoriser}"
+                                                                                FontSize="12" 
+                                                                                Width="Auto"/>
                                                             <DataGridTextColumn Header="Phone Number"
-                                                                    Binding="{Binding PhoneNumberAuthoriser}"
-                                                                    FontSize="12" 
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding PhoneNumberAuthoriser}"
+                                                                                FontSize="12" 
+                                                                                Width="Auto"/>
                                                             <DataGridTextColumn Header="Job Title"
-                                                                    Binding="{Binding JobTitleAuthoriser}"
-                                                                    FontSize="12" 
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding JobTitleAuthoriser}"
+                                                                                FontSize="12" 
+                                                                                Width="Auto"/>
                                                         </DataGrid.Columns>
                                                     </DataGrid>
                                                 </ScrollViewer>
@@ -615,167 +617,167 @@
                                         </StackPanel>
                                     </Expander>
                                     <Expander x:Name="expdrActionPartyPanel"
-                                          ExpandDirection="Down"
-                                          Expanded="expdrActionPartiesPanel_Expanded"
-                                          Collapsed="expdrActionPartiesPanel_Collapsed">
+                                              ExpandDirection="Down"
+                                              Expanded="expdrActionPartiesPanel_Expanded"
+                                              Collapsed="expdrActionPartiesPanel_Collapsed">
                                         <Expander.Header>
                                             <TextBox Text="Manage Action Parties"
-                                                 Background="#F2F2F2"
-                                                 Height="50"
-                                                 FontSize="20"
-                                                 Width="750"/>
+                                                     Background="#F2F2F2"
+                                                     Height="50"
+                                                     FontSize="20"
+                                                     Width="730"/>
                                         </Expander.Header>
                                         <StackPanel x:Name="stcpnlActionParty" 
-                                        Orientation="Vertical">
+                                                    Orientation="Vertical">
                                             <StackPanel Orientation="Horizontal" 
-                                            Height="150">
+                                                        Height="150">
                                                 <StackPanel Orientation="Vertical"  
-                                                VerticalAlignment="Center"
-                                                Margin="20,0,0,0">
+                                                            VerticalAlignment="Center"
+                                                            Margin="20,0,0,0">
                                                     <Label Content="Date" 
-                                               VerticalAlignment="Bottom"
-                                               Margin="0,0,0,0"/>
+                                                           VerticalAlignment="Bottom"
+                                                           Margin="0,0,0,0"/>
                                                     <DatePicker HorizontalAlignment="right"  
-                                                    VerticalAlignment="Top"
-                                                    Margin="0,0,0,0"
-                                                    Style="{DynamicResource DatePickerStyle}" 
-                                                    Width="230" 
-                                                    Height="55"
-                                                    SelectedDate="{Binding Path=ReminderDateActionParty, 
-                                                                           Mode=TwoWay}"
-                                                    DisplayDate="{x:Static sys:DateTime.Now}"/>
+                                                                VerticalAlignment="Top"
+                                                                Margin="0,0,0,0"
+                                                                Style="{DynamicResource DatePickerStyle}" 
+                                                                Width="230" 
+                                                                Height="55"
+                                                                SelectedDate="{Binding Path=ReminderDateActionParty, 
+                                                                                       Mode=TwoWay}"
+                                                                DisplayDate="{x:Static sys:DateTime.Now}"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Vertical"  
-                                                VerticalAlignment="Center"
-                                                Margin="30,0,0,0">
+                                                            VerticalAlignment="Center"
+                                                            Margin="20,0,0,0">
                                                     <Label x:Name="lblGenUnSchMainGenerator3" 
-                                               Content="First Name" 
-                                               VerticalAlignment="Bottom"/>
+                                                           Content="First Name" 
+                                                           VerticalAlignment="Bottom"/>
                                                     <TextBox x:Name="txtbxFirstNameActionParty"  
-                                                 Background="#F2F2F2" 
-                                                 Width="230" 
-                                                 Height="55"
-                                                 HorizontalAlignment="Left"
-                                                 Text="{Binding Path=FirstNameActionParty, 
-                                                                Mode=TwoWay, 
-                                                                ValidatesOnNotifyDataErrors=True, 
-                                                                UpdateSourceTrigger=PropertyChanged,
-                                                                ValidatesOnExceptions=True}"
-                                                 VerticalAlignment="Center"
-                                                 AcceptsReturn="True"
-                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                             Background="#F2F2F2" 
+                                                             Width="230" 
+                                                             Height="55"
+                                                             HorizontalAlignment="Left"
+                                                             Text="{Binding Path=FirstNameActionParty, 
+                                                                            Mode=TwoWay, 
+                                                                            ValidatesOnNotifyDataErrors=True, 
+                                                                            UpdateSourceTrigger=PropertyChanged,
+                                                                            ValidatesOnExceptions=True}"
+                                                             VerticalAlignment="Center"
+                                                             AcceptsReturn="True"
+                                                             Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Vertical"  
-                                                VerticalAlignment="Center"
-                                                Margin="30,0,0,0">
+                                                            VerticalAlignment="Center"
+                                                            Margin="20,0,0,0">
                                                     <Label x:Name="lblGenUnSchMainGenerator4" 
-                                               Content="Last Name"
-                                               VerticalAlignment="Bottom"/>
+                                                           Content="Last Name"
+                                                           VerticalAlignment="Bottom"/>
                                                     <TextBox x:Name="txtbxFirstName2"  
-                                                 Background="#F2F2F2" 
-                                                 Width="230" 
-                                                 Height="55"
-                                                 HorizontalAlignment="Left"
-                                                 Text="{Binding Path=LastNameActionParty, 
-                                                                Mode=TwoWay, 
-                                                                ValidatesOnNotifyDataErrors=True, 
-                                                                UpdateSourceTrigger=PropertyChanged,
-                                                                ValidatesOnExceptions=True}"
-                                                 VerticalAlignment="Center"
-                                                 AcceptsReturn="True"
-                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                             Background="#F2F2F2" 
+                                                             Width="230" 
+                                                             Height="55"
+                                                             HorizontalAlignment="Left"
+                                                             Text="{Binding Path=LastNameActionParty, 
+                                                                            Mode=TwoWay, 
+                                                                            ValidatesOnNotifyDataErrors=True, 
+                                                                            UpdateSourceTrigger=PropertyChanged,
+                                                                            ValidatesOnExceptions=True}"
+                                                             VerticalAlignment="Center"
+                                                             AcceptsReturn="True"
+                                                             Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                                 </StackPanel>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" 
-                                            Height="200">
+                                                        Height="200">
                                                 <StackPanel Orientation="Vertical" 
-                                                VerticalAlignment="Top"
-                                                Height="200" 
-                                                Margin="20,0,0,0">
+                                                            VerticalAlignment="Top"
+                                                            Height="200" 
+                                                            Margin="20,0,0,0">
                                                     <Label Content="Email" 
-                                               Height="30"/>
+                                                           Height="30"/>
                                                     <TextBox  Background="#F2F2F2" 
-                                                  Width="230" 
-                                                  Height="55" 
-                                                  HorizontalAlignment="Left"
-                                                  Text="{Binding Path=EmailActionParty, 
-                                                                 Mode=TwoWay,
-                                                                 ValidatesOnNotifyDataErrors=True, 
-                                                                 UpdateSourceTrigger=PropertyChanged,
-                                                                 ValidatesOnExceptions=True}"
-                                                  VerticalAlignment="Center"
-                                                  AcceptsReturn="True"
-                                                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                              Width="230" 
+                                                              Height="55" 
+                                                              HorizontalAlignment="Left"
+                                                              Text="{Binding Path=EmailActionParty, 
+                                                                             Mode=TwoWay,
+                                                                             ValidatesOnNotifyDataErrors=True, 
+                                                                             UpdateSourceTrigger=PropertyChanged,
+                                                                             ValidatesOnExceptions=True}"
+                                                              VerticalAlignment="Center"
+                                                              AcceptsReturn="True"
+                                                              Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Vertical" 
-                                                VerticalAlignment="Top"
-                                                Height="200" 
-                                                Margin="30,0,0,0">
+                                                            VerticalAlignment="Top"
+                                                            Height="200" 
+                                                            Margin="20,0,0,0">
                                                     <Label Content="Phone Number" 
-                                               Height="30"/>
+                                                           Height="30"/>
                                                     <TextBox  Background="#F2F2F2" 
-                                                  Width="230" 
-                                                  Height="55" 
-                                                  HorizontalAlignment="Left"
-                                                  Text="{Binding Path=PhoneNumberActionParty, 
-                                                                 Mode=TwoWay, 
-                                                                 ValidatesOnNotifyDataErrors=True, 
-                                                                 UpdateSourceTrigger=PropertyChanged,
-                                                                 ValidatesOnExceptions=True}"
-                                                  VerticalAlignment="Center"
-                                                  AcceptsReturn="True"
-                                                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                              Width="230" 
+                                                              Height="55" 
+                                                              HorizontalAlignment="Left"
+                                                              Text="{Binding Path=PhoneNumberActionParty, 
+                                                                             Mode=TwoWay, 
+                                                                             ValidatesOnNotifyDataErrors=True, 
+                                                                             UpdateSourceTrigger=PropertyChanged,
+                                                                             ValidatesOnExceptions=True}"
+                                                              VerticalAlignment="Center"
+                                                              AcceptsReturn="True"
+                                                              Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Vertical"
-                                                VerticalAlignment="Top"
-                                                Height="200" 
-                                                Margin="30,0,0,0">
+                                                            VerticalAlignment="Top"
+                                                            Height="200" 
+                                                            Margin="20,0,0,0">
                                                     <Label Content="Job Title" 
-                                               Height="30"/>
+                                                           Height="30"/>
                                                     <TextBox  Background="#F2F2F2" 
-                                                  Width="230" 
-                                                  Height="55" 
-                                                  HorizontalAlignment="Left"
-                                                  Text="{Binding Path=JobTitleActionParty, 
-                                                                 Mode=TwoWay,
-                                                                 ValidatesOnNotifyDataErrors=True, 
-                                                                 UpdateSourceTrigger=PropertyChanged,
-                                                                 ValidatesOnExceptions=True}"
-                                                  VerticalAlignment="Center"
-                                                  AcceptsReturn="True"
-                                                  Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                              Width="230" 
+                                                              Height="55" 
+                                                              HorizontalAlignment="Left"
+                                                              Text="{Binding Path=JobTitleActionParty, 
+                                                                             Mode=TwoWay,
+                                                                             ValidatesOnNotifyDataErrors=True, 
+                                                                             UpdateSourceTrigger=PropertyChanged,
+                                                                             ValidatesOnExceptions=True}"
+                                                              VerticalAlignment="Center"
+                                                              AcceptsReturn="True"
+                                                              Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                                                     <Button x:Name="btnAddUnMaintenance2" 
-                                                Height="55" 
-                                                Width="230"
-                                                Margin="0,30,0,0"
-                                                Content="Add ActionParty" 
-                                                ToolTip="Register ActionParty" 
-                                                Style="{StaticResource AffirmativeButtonStyle}" 
-                                                HorizontalContentAlignment="Center" 
-                                                VerticalContentAlignment="Center" 
-                                                HorizontalAlignment="Right" 
-                                                VerticalAlignment="Bottom"
-                                                Command="{Binding SetActionPartyCmd}"
-                                                CommandParameter="{Binding ElementName=dtgdActionPartyTable}"/>
+                                                            Height="55" 
+                                                            Width="230"
+                                                            Margin="0,30,0,0"
+                                                            Content="Add ActionParty" 
+                                                            ToolTip="Register ActionParty" 
+                                                            Style="{StaticResource AffirmativeButtonStyle}" 
+                                                            HorizontalContentAlignment="Center" 
+                                                            VerticalContentAlignment="Center" 
+                                                            HorizontalAlignment="Right" 
+                                                            VerticalAlignment="Bottom"
+                                                            Command="{Binding SetActionPartyCmd}"
+                                                            CommandParameter="{Binding ElementName=dtgdActionPartyTable}"/>
                                                 </StackPanel>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Action Party Details" 
-                                           Height="30" 
-                                           Margin="20,0,0,0"/>
+                                                       Height="30" 
+                                                       Margin="20,0,0,0"/>
                                                 <ScrollViewer Height="400" 
-                                                  Width="745"
-                                                  HorizontalScrollBarVisibility="Auto">
+                                                              Width="745"
+                                                              HorizontalScrollBarVisibility="Auto">
                                                     <DataGrid x:Name="dtgdActionPartyTable" 
-                                                  Style="{StaticResource DataGridStyle}"
-                                                  ItemsSource="{Binding AnyActionPartiesPage}" 
-                                                  ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
+                                                              Style="{StaticResource DataGridStyle}"
+                                                              ItemsSource="{Binding AnyActionPartiesPage}" 
+                                                              ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
                                                         <DataGrid.ContextMenu>
                                                             <ContextMenu x:Name="ctxMnuSchedRemdrs2">
                                                                 <MenuItem Header="Group by FirstName" 
-                                                              Click="GroupbyFirstNameActionParties_Click"/>
+                                                                          Click="GroupbyFirstNameActionParties_Click"/>
                                                                 <MenuItem Header="Ungroup" 
-                                                              Click="ClearFirstNameGroupingActionParties_Click"/>
+                                                                          Click="ClearFirstNameGroupingActionParties_Click"/>
                                                             </ContextMenu>
                                                         </DataGrid.ContextMenu>
                                                         <DataGrid.GroupStyle>
@@ -790,24 +792,26 @@
                                                                 <GroupStyle.ContainerStyle>
                                                                     <Style TargetType="{x:Type GroupItem}">
                                                                         <Setter Property="Width" 
-                                                                    Value="Auto"/>
+                                                                                Value="Auto"/>
                                                                         <Setter Property="Template">
                                                                             <Setter.Value>
                                                                                 <ControlTemplate TargetType="{x:Type GroupItem}">
                                                                                     <Expander IsExpanded="True" 
-                                                                                  Background="#EAF9FB"
-                                                                                  BorderBrush="LightGray" 
-                                                                                  Foreground="Black"
-                                                                                  FontSize="12" 
-                                                                                  BorderThickness="1,1,1,1">
+                                                                                              Background="#EAF9FB"
+                                                                                              BorderBrush="LightGray" 
+                                                                                              Foreground="Black"
+                                                                                              FontSize="12" 
+                                                                                              BorderThickness="1,1,1,1">
                                                                                         <Expander.Header>
                                                                                             <StackPanel Orientation="Horizontal">
                                                                                                 <TextBlock FontWeight="Bold"
-                                                                                               Text="{Binding Name, 
-                                                                                                              Converter={StaticResource CategoryToPhrase}}"/>
+                                                                                                           Text="{Binding Name, 
+                                                                                                                          Converter={StaticResource 
+                                                                                                                                    CategoryToPhrase}}"/>
                                                                                                 <TextBlock FontWeight="Bold"
-                                                                                               Text="{Binding ItemCount, 
-                                                                                                              Converter={StaticResource ItemCountToPhrase}}"/>
+                                                                                                           Text="{Binding ItemCount, 
+                                                                                                                          Converter={StaticResource 
+                                                                                                                                    ItemCountToPhrase}}"/>
                                                                                             </StackPanel>
                                                                                         </Expander.Header>
                                                                                         <Expander.Content>
@@ -824,40 +828,40 @@
                                                         <DataGrid.RowStyle>
                                                             <Style TargetType="DataGridRow">
                                                                 <Setter Property="Foreground" 
-                                                            Value="Black"/>
+                                                                        Value="Black"/>
                                                                 <Setter Property="Background" 
-                                                            Value="White"/>
+                                                                        Value="White"/>
                                                             </Style>
                                                         </DataGrid.RowStyle>
                                                         <DataGrid.Columns>
                                                             <DataGridTextColumn Header="S/N" 
-                                                                    Binding="{Binding Id}"
-                                                                    FontSize="12"
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding Id}"
+                                                                                FontSize="12"
+                                                                                Width="Auto"/>
                                                             <DataGridTextColumn Header="Date" 
-                                                                    Binding="{Binding Date}"
-                                                                    FontSize="12"
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding Date}"
+                                                                                FontSize="12"
+                                                                                Width="Auto"/>
                                                             <DataGridTextColumn Header="First Name" 
-                                                                    Binding="{Binding FirstNameActionParty}"
-                                                                    FontSize="12" 
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding FirstNameActionParty}"
+                                                                                FontSize="12" 
+                                                                                Width="Auto"/>
                                                             <DataGridTextColumn Header="Last Name" 
-                                                                    Binding="{Binding LastNameActionParty}"
-                                                                    FontSize="12" 
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding LastNameActionParty}"
+                                                                                FontSize="12" 
+                                                                                Width="Auto"/>
                                                             <DataGridTextColumn Header="Email"
-                                                                    Binding="{Binding EmailActionParty}"
-                                                                    FontSize="12" 
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding EmailActionParty}"
+                                                                                FontSize="12" 
+                                                                                Width="Auto"/>
                                                             <DataGridTextColumn Header="Phone Number"
-                                                                    Binding="{Binding PhoneNumberActionParty}"
-                                                                    FontSize="12" 
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding PhoneNumberActionParty}"
+                                                                                FontSize="12" 
+                                                                                Width="Auto"/>
                                                             <DataGridTextColumn Header="Job Title"
-                                                                    Binding="{Binding JobTitleActionParty}"
-                                                                    FontSize="12" 
-                                                                    Width="Auto"/>
+                                                                                Binding="{Binding JobTitleActionParty}"
+                                                                                FontSize="12" 
+                                                                                Width="Auto"/>
                                                         </DataGrid.Columns>
                                                     </DataGrid>
                                                 </ScrollViewer>
@@ -871,75 +875,96 @@
                     </Expander>
 
                     <Expander x:Name="expdrrcSettings"
-                            ExpandDirection="Right" 
-                            Height="300"
-                            VerticalAlignment="Center"
-                            IsExpanded="False"
-                            Expanded="expdrReminders_Expanded"
-                            MouseDown="expdrrcSettings_MouseDown"
-                            Collapsed="Reminders_Collapsed">
+                              ExpandDirection="Right" 
+                              Height="300"
+                              VerticalAlignment="Center"
+                              IsExpanded="False"
+                              Expanded="expdrReminders_Expanded"
+                              MouseDown="expdrrcSettings_MouseDown"
+                              Collapsed="Reminders_Collapsed">
                         <Expander.Header>
                             <StackPanel>
                                 <Image Source="/Images/Settings3.jpg" 
-                                Width="150" 
-                                Height="150"/>
+                                       Width="150" 
+                                       Height="150"/>
                                 <TextBox TextWrapping="Wrap"
-                                    BorderBrush="Transparent"
-                                    FontSize="20"
-                                    Text="Reminders Configuration"
-                                    FontWeight="Bold" 
-                                    Width="150"
-                                    HorizontalContentAlignment="Center"/>
+                                         BorderBrush="Transparent"
+                                         FontSize="20"
+                                         Text="Reminders Configuration"
+                                         FontWeight="Bold" 
+                                         Width="150"
+                                         HorizontalContentAlignment="Center"/>
                             </StackPanel>
                         </Expander.Header>
                         <GroupBox x:Name="grpbxRemConfig"
-                            Header="Reminders Configuration"  
-                            Style="{StaticResource GroupBoxStyle}"
-                            Width="800" 
-                            Height="860">
+                                  Header="Reminders Configuration"  
+                                  Style="{StaticResource GroupBoxStyle}"
+                                  Width="800" 
+                                  Height="860">
                             <StackPanel>
                                 <StackPanel>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
-                                        Margin="0,20,0,0">
-                                        <StackPanel Orientation="Vertical" Margin="20,0,0,0">
-                                            <Label Content="Starts" Height="30" FontSize="14"
-                                            VerticalAlignment="Top"/>
-                                            <DatePicker x:Name="dtpkrStarts"  HorizontalAlignment="Left"  
-					                        VerticalAlignment="Bottom" 
-					                        Style="{DynamicResource DatePickerStyle}" 
-					                        Width="240" Height="55" Margin="0,0,0,0"
-					                        SelectedDate="{Binding SchMaintenanceStartDate, 
-										                            Mode=TwoWay}"
-					                        DisplayDate="{x:Static sys:DateTime.Now}"/>
+                                    <StackPanel Orientation="Horizontal" 
+                                                VerticalAlignment="Center"
+                                                Margin="0,20,0,0">
+                                        <StackPanel Orientation="Vertical" 
+                                                    Margin="20,0,0,0">
+                                            <Label Content="Starts" 
+                                                   Height="30" 
+                                                   FontSize="14"
+                                                   VerticalAlignment="Top"/>
+                                            <DatePicker x:Name="dtpkrStarts"  
+                                                        HorizontalAlignment="Left"  
+					                                    VerticalAlignment="Bottom" 
+					                                    Style="{DynamicResource DatePickerStyle}" 
+					                                    Width="240" 
+                                                        Height="55" 
+                                                        Margin="0,0,0,0"
+					                                    SelectedDate="{Binding SchMaintenanceStartDate, 
+										                                        Mode=TwoWay}"
+					                                    DisplayDate="{x:Static sys:DateTime.Now}"/>
                                         </StackPanel>
-                                        <StackPanel Orientation="Vertical" Margin="20,0,0,0">
-                                            <Label x:Name="lblGenSchMainGenerator" Content="Select Generator" 
-                                            VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                        <StackPanel Orientation="Vertical" 
+                                                    Margin="20,0,0,0">
+                                            <Label x:Name="lblGenSchMainGenerator" 
+                                                   Content="Select Generator" 
+                                                   VerticalAlignment="Top" 
+                                                   HorizontalAlignment="Left" 
                                             FontSize="14" Height="30"/>
-                                            <ComboBox x:Name="cmbxSelectSchMain" Width="350" Height="55" 
-                                                HorizontalAlignment="Left"
-                                                ItemsSource="{Binding UniqueGeneratorNames}" 
-                                                Foreground="Black" DisplayMemberPath="GeneratorName"
-                                                SelectedValuePath="GeneratorName" FontSize="16"
-                                                SelectedValue="{Binding Path=SchMaintenanceSelectedGen, 
-                                                                        Mode=OneWayToSource}"
-                                                SelectedIndex="0" Style="{StaticResource alignmentFontSize}"/>
+                                            <ComboBox x:Name="cmbxSelectSchMain" 
+                                                      Width="350" 
+                                                      Height="55" 
+                                                      HorizontalAlignment="Left"
+                                                      ItemsSource="{Binding UniqueGeneratorNames}" 
+                                                      Foreground="Black" 
+                                                      DisplayMemberPath="GeneratorName"
+                                                      SelectedValuePath="GeneratorName" 
+                                                      FontSize="16"
+                                                      SelectedValue="{Binding Path=SchMaintenanceSelectedGen, 
+                                                                              Mode=OneWayToSource}"
+                                                      SelectedIndex="0" 
+                                                      Style="{StaticResource alignmentFontSize}"/>
                                         </StackPanel>
-                                        <StackPanel Orientation="Vertical"  VerticalAlignment="Bottom"
-                                            HorizontalAlignment="Left" Margin="20,0,0,0">
-                                            <Label Content="Every (hrs)" Height="30" FontSize="14" 
-		                                    VerticalContentAlignment="Center"/>
-                                            <TextBox x:Name="txtBxEvery" Background="#F2F2F2" 
-                                                Width="120" Height="55" 
-                                                HorizontalAlignment="Left" 
-			                                    VerticalContentAlignment="Center"
-			                                    Text="{Binding Path=SchMaintenanceReminderHours, 
-							                                Mode=TwoWay, 
-							                                ValidatesOnNotifyDataErrors=True, 
-							                                UpdateSourceTrigger=PropertyChanged,
-							                                ValidatesOnExceptions=True}"
-			                            Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
-			                            HorizontalContentAlignment="Center"/>
+                                        <StackPanel Orientation="Vertical"  
+                                                    VerticalAlignment="Bottom"
+                                                    HorizontalAlignment="Left" 
+                                                    Margin="20,0,0,0">
+                                            <Label Content="Every (hrs)" 
+                                                   Height="30" 
+                                                   FontSize="14" 
+		                                           VerticalContentAlignment="Center"/>
+                                            <TextBox x:Name="txtBxEvery" 
+                                                     Background="#F2F2F2" 
+                                                     Width="120" 
+                                                     Height="55" 
+                                                     HorizontalAlignment="Left" 
+			                                         VerticalContentAlignment="Center"
+			                                         Text="{Binding Path=SchMaintenanceReminderHours, 
+							                                        Mode=TwoWay, 
+							                                        ValidatesOnNotifyDataErrors=True, 
+							                                        UpdateSourceTrigger=PropertyChanged,
+							                                        ValidatesOnExceptions=True}"
+			                                         Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+			                                         HorizontalContentAlignment="Center"/>
                                         </StackPanel>
                                     </StackPanel>
 
@@ -963,50 +988,62 @@
                                                                                                   AncestorType={x:Type StackPanel}}}"/>
                                             <ComboBox x:Name="cmbxReminderLevel" 
                                                       Height="55" 
-			                                    HorizontalAlignment="Left"                                              
-			                                    Foreground="Black" FontSize="14" Margin="0,0,0,0" 
-                                                Width="{Binding Path=Width, 
-                                                                RelativeSource={RelativeSource Mode=FindAncestor, 
-                                                                                                AncestorLevel=1,
-                                                                                                AncestorType={x:Type StackPanel}}}"
-			                                    ItemsSource="{Binding ReminderLevels}"
-			                                    SelectedValue="{Binding SchMaintenanceSelectedReminderLevel, 
-									                                    Mode=TwoWay,
-									                                    Converter={StaticResource ComboBoxItemToString}}"
-			                                    SelectedIndex="0" 
-			                                    Style="{StaticResource alignmentFontSize}"/>
+			                                          HorizontalAlignment="Left"                                              
+			                                          Foreground="Black" FontSize="14" Margin="0,0,0,0" 
+                                                      Width="{Binding Path=Width, 
+                                                                      RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                                                      AncestorLevel=1,
+                                                                                                      AncestorType={x:Type StackPanel}}}"
+			                                          ItemsSource="{Binding ReminderLevels}"
+			                                          SelectedValue="{Binding SchMaintenanceSelectedReminderLevel, 
+									                                          Mode=TwoWay,
+									                                          Converter={StaticResource ComboBoxItemToString}}"
+			                                          SelectedIndex="0" 
+			                                          Style="{StaticResource alignmentFontSize}"/>
                                         </StackPanel>
 
                                         <StackPanel Orientation="Vertical"  
-			                                VerticalAlignment="Top" HorizontalAlignment="Left"
-			                                Margin="25,0,0,0" Width="250">
-                                            <Label Content="Authoriser" Height="30" FontSize="14" 
-		                                    VerticalContentAlignment="Center"
-		                                    HorizontalContentAlignment="Left" Margin="0,0,0,0"
-		                                    Width="{Binding Path=Width, 
-                                                            RelativeSource={RelativeSource Mode=FindAncestor, 
-                                                                                            AncestorLevel=1,
-                                                                                            AncestorType={x:Type StackPanel}}}"/>
-                                            <ComboBox x:Name="cmbxAuthoriser" Height="55" 
-			                                    HorizontalAlignment="Right"
-			                                    ItemsSource="{Binding UniqueAuthoriserFullNames}"
-			                                    Foreground="Black" Margin="0,0,0,0" FontSize="14"
-                                                Width="{Binding Path=Width, 
-                                                                RelativeSource={RelativeSource Mode=FindAncestor, 
-                                                                                                AncestorLevel=1,
-                                                                                                AncestorType={x:Type StackPanel}}}"
-			                                    SelectedValue="{Binding SchMaintenanceSelectedAuthoriser, 
-									                                    Mode=TwoWay,
-									                                    Converter={StaticResource ComboBoxItemToString}}"
-			                                    SelectedIndex="0" 
-			                                    Style="{StaticResource alignmentFontSize}"/>
+			                                        VerticalAlignment="Top" 
+                                                    HorizontalAlignment="Left"
+			                                        Margin="25,0,0,0" 
+                                                    Width="250">
+                                                    <Label Content="Authoriser" 
+                                                           Height="30" 
+                                                           FontSize="14" 
+		                                                   VerticalContentAlignment="Center"
+		                                                   HorizontalContentAlignment="Left" 
+                                                           Margin="0,0,0,0"
+		                                                   Width="{Binding Path=Width, 
+                                                                           RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                                                           AncestorLevel=1,
+                                                                                                           AncestorType={x:Type StackPanel}}}"/>
+                                            <ComboBox x:Name="cmbxAuthoriser" 
+                                                      Height="55" 
+			                                          HorizontalAlignment="Right"
+			                                          ItemsSource="{Binding UniqueAuthoriserFullNames}"
+			                                          Foreground="Black" 
+                                                      Margin="0,0,0,0" 
+                                                      FontSize="14"
+                                                      Width="{Binding Path=Width, 
+                                                                      RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                                                     AncestorLevel=1,
+                                                                                                     AncestorType={x:Type StackPanel}}}"
+			                                          SelectedValue="{Binding SchMaintenanceSelectedAuthoriser, 
+									                                          Mode=TwoWay,
+									                                          Converter={StaticResource ComboBoxItemToString}}"
+			                                          SelectedIndex="0" 
+			                                          Style="{StaticResource alignmentFontSize}"/>
                                         </StackPanel>
 
-                                        <CheckBox x:Name="chkbxIsRepetitive" VerticalAlignment="Center"
-                                            Width="60" Height="30" Content="Repeat"
-                                            Margin="20,30,0,0" FontSize="12"
-                                            VerticalContentAlignment="Center"
-                                            IsChecked="{Binding RepeatReminder}"/>
+                                        <CheckBox x:Name="chkbxIsRepetitive" 
+                                                  VerticalAlignment="Center"
+                                                  Width="60" 
+                                                  Height="30" 
+                                                  Content="Repeat"
+                                                  Margin="20,30,0,0" 
+                                                  FontSize="12"
+                                                 VerticalContentAlignment="Center"
+                                                 IsChecked="{Binding RepeatReminder}"/>
 
                                         <Button x:Name="btnActivateReminder" 
                                                 Grid.Column="6" 
@@ -1055,9 +1092,9 @@
                                                 <MultiBinding Converter="{StaticResource PassTextBoxTwoComboxItems}">
                                                     <Binding ElementName="txtBxEvery"/>
                                                     <Binding ElementName="cmbxReminderLevel" 
-                                                                     Path="SelectedItem"/>
+                                                             Path="SelectedItem"/>
                                                     <Binding ElementName="cmbxAuthoriser" 
-                                                                     Path="SelectedItem"/>
+                                                             Path="SelectedItem"/>
                                                 </MultiBinding>
                                             </Button.CommandParameter>
                                         </Button>
@@ -1070,7 +1107,7 @@
                                           Width="750" 
                                           Margin="0,50,0,0">
                                     <TextBox Text="Generator Scheduled Reminders"
-                                             FontSize="12"
+                                             FontSize="14"
                                              Width="750"/>
                                     <ScrollViewer Height="500"
                                                   HorizontalScrollBarVisibility="Auto"
@@ -1080,19 +1117,27 @@
 					                              ItemsSource="{Binding ActiveGeneratorSchedules}" 
 					                              ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
                                             <DataGrid.ContextMenu>
-                                                <ContextMenu x:Name="ctxMnuRemCongig">
+                                                <ContextMenu x:Name="ctxMnuRemCongig"
+                                                             DataContext="{Binding RelativeSource={RelativeSource Mode=Self}, 
+                                                                                   Path=PlacementTarget.DataContext}">
                                                     <MenuItem Header="Group by Generator" 
 								                              Click="GroupbyGeneratorRemConfig_Click"/>
-                                                    <MenuItem Header="Ungroup" 
+                                                    <MenuItem Header="Ungroup Generators" 
 								                              Click="ClearGeneratorGroupingRemConfig_Click"/>
+                                                    <Separator/>
                                                     <MenuItem Header="Deactivate Generator" 
 								                              Click="DeactivateGeneratorRemConfig_Click"/>
                                                     <Separator/>
-                                                    <MenuItem Header="Repeat Reminder"
-                                                              DataContext="{Binding PlacementTarget.Tag, 
-                                                                                    RelativeSource={RelativeSource AncestorType=DataGrid}}"
-								                              Command="{Binding RepeatReminderCmd}"
-                                                              CommandParameter="{Binding Path=SelectedItem}"/>
+                                                    <MenuItem Header="Set Repeat Reminder"
+								                              Command="{Binding SetRepeatReminderCmd}"
+                                                              CommandParameter="{Binding Path=PlacementTarget.SelectedItem,
+                                                                                         RelativeSource={RelativeSource FindAncestor,
+                                                                                                                        AncestorType={x:Type ContextMenu}}}"/>
+                                                    <MenuItem Header="Deactivate Repeat Reminder"
+								                              Command="{Binding DeactivateRepeatReminderCmd}"
+                                                              CommandParameter="{Binding Path=PlacementTarget.SelectedItem,
+                                                                                         RelativeSource={RelativeSource FindAncestor,
+                                                                                                                        AncestorType={x:Type ContextMenu}}}"/>
                                                 </ContextMenu>
                                             </DataGrid.ContextMenu>
                                             <DataGrid.GroupStyle>
@@ -1106,22 +1151,25 @@
                                                     </GroupStyle.HeaderTemplate>
                                                     <GroupStyle.ContainerStyle>
                                                         <Style TargetType="{x:Type GroupItem}">
-                                                            <Setter Property="Width" Value="Auto"/>
+                                                            <Setter Property="Width" 
+                                                                    Value="Auto"/>
                                                             <Setter Property="Template">
                                                                 <Setter.Value>
                                                                     <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                                        <Expander IsExpanded="True" Background="#EAF9FB" 
-													                            BorderBrush="LightGray" 
-													                            Foreground="Black"
-													                            FontSize="12" BorderThickness="1,1,1,1">
+                                                                        <Expander IsExpanded="True" 
+                                                                                  Background="#EAF9FB" 
+													                              BorderBrush="LightGray" 
+													                              Foreground="Black"
+													                              FontSize="12" 
+                                                                                  BorderThickness="1,1,1,1">
                                                                             <Expander.Header>
                                                                                 <StackPanel Orientation="Horizontal">
                                                                                     <TextBlock FontWeight="Bold"
-																                            Text="{Binding Name, 
-																				                            Converter={StaticResource CategoryToPhrase}}"/>
+																                               Text="{Binding Name, 
+																				                               Converter={StaticResource CategoryToPhrase}}"/>
                                                                                     <TextBlock FontWeight="Bold"
-																                            Text="{Binding ItemCount, 
-																				                            Converter={StaticResource ItemCountToPhrase}}"/>
+																                               Text="{Binding ItemCount, 
+																				                               Converter={StaticResource ItemCountToPhrase}}"/>
                                                                                 </StackPanel>
                                                                             </Expander.Header>
                                                                             <Expander.Content>
@@ -1137,39 +1185,41 @@
                                             </DataGrid.GroupStyle>
                                             <DataGrid.RowStyle>
                                                 <Style TargetType="DataGridRow">
-                                                    <Setter Property="Foreground" Value="Black"/>
-                                                    <Setter Property="Background" Value="White"/>
+                                                    <Setter Property="Foreground" 
+                                                            Value="Black"/>
+                                                    <Setter Property="Background" 
+                                                            Value="White"/>
                                                 </Style>
                                             </DataGrid.RowStyle>
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn Header="Generator Name" 
-										                        Binding="{Binding GeneratorName}" 
-										                        FontSize="12" 
-										                        Width="150"/>
+										                            Binding="{Binding GeneratorName}" 
+										                            FontSize="12" 
+										                            Width="150"/>
                                                 <DataGridTextColumn Header="Start Date" 
-										                        Binding="{Binding Starts}" 
-										                        FontSize="12" 
-										                        Width="220"/>
+										                            Binding="{Binding Starts}" 
+										                            FontSize="12" 
+										                            Width="220"/>
                                                 <DataGridTextColumn Header="Every (hours)" 
-										                        Binding="{Binding Every}" 
-										                        FontSize="12" 
-										                        Width="100"/>
+										                            Binding="{Binding Every}" 
+										                            FontSize="12" 
+										                            Width="100"/>
                                                 <DataGridTextColumn Header="Reminder Level" 
-										                        Binding="{Binding ReminderLevel}" 
-										                        FontSize="12" 
-										                        Width="Auto"/>
+										                            Binding="{Binding ReminderLevel}" 
+										                            FontSize="12" 
+										                            Width="Auto"/>
                                                 <DataGridTextColumn Header="Authoriser" 
-										                        Binding="{Binding Authoriser}" 
-										                        FontSize="12" 
-										                        Width="Auto"/>
-                                                <DataGridTextColumn Header="IsActive" 
-										                        Binding="{Binding IsActive}" 
-										                        FontSize="12" 
-										                        Width="Auto"/>
-                                                <DataGridTextColumn Header="IsRepetitive" 
-										                        Binding="{Binding IsRepetitive}" 
-										                        FontSize="12" 
-										                        Width="Auto"/>
+										                            Binding="{Binding Authoriser}" 
+										                            FontSize="12" 
+										                            Width="Auto"/>
+                                                <DataGridTextColumn Header="Active" 
+										                            Binding="{Binding IsActive}" 
+										                            FontSize="12" 
+										                            Width="Auto"/>
+                                                <DataGridTextColumn Header="Repetitive" 
+										                            Binding="{Binding IsRepetitive}" 
+										                            FontSize="12" 
+										                            Width="Auto"/>
                                             </DataGrid.Columns>
                                         </DataGrid>
                                     </ScrollViewer>

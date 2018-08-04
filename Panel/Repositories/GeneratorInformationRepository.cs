@@ -59,9 +59,11 @@ namespace Panel.Repositories
                 activeGenStartedTime = ActiveGeneratorsList[LastActiveGenIndex].GeneratorStarted;
                 activeGenID = ActiveGeneratorsList[LastActiveGenIndex].Id;
 
-                return (isNull, activeGenName, activeGenStartedDate, activeGenStartedTime, activeGenID);
+                return (isNull, activeGenName, activeGenStartedDate, 
+                    activeGenStartedTime, activeGenID);
             }
-            return (isNull, activeGenName, activeGenStartedDate, activeGenStartedTime, activeGenID);
+            return (isNull, activeGenName, activeGenStartedDate, 
+                activeGenStartedTime, activeGenID);
         }
         
 
@@ -86,15 +88,19 @@ namespace Panel.Repositories
         {
             if (!uniqueGeneratorNames.Where(x => x.GeneratorName == GeneratorName).Any())
             {
-                uniqueGeneratorNames.Add(new GeneratorNameModel { GeneratorName = GeneratorName });
+                uniqueGeneratorNames.Add(
+                    new GeneratorNameModel { GeneratorName = GeneratorName });
                 cmbxGenInfo.ItemsSource = uniqueGeneratorNames;
                 cmbxGenInfo.SelectedIndex = cmbxGenInfo.Items.Count;
-                MessageBox.Show($"{GeneratorName} added!", "Success", MessageBoxButton.OKCancel, 
+                MessageBox.Show($"{GeneratorName} added!", 
+                    "Success", 
+                    MessageBoxButton.OKCancel, 
                     MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show($"{GeneratorName} already exists", "Error", 
+                MessageBox.Show($"{GeneratorName} already exists", 
+                    "Error", 
                     MessageBoxButton.OKCancel, 
                     MessageBoxImage.Error);
                 return;

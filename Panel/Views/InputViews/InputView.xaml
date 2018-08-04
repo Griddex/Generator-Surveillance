@@ -10,7 +10,6 @@
       d:DesignHeight="920" 
       d:DesignWidth="1930"
       Title="Input Panel" 
-      KeepAlive="True"      
       Background="White">
     <Page.Resources>
         <convs:PassDatePickerComboBoxAsCommandParameter 

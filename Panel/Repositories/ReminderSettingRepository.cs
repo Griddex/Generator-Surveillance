@@ -18,7 +18,7 @@ namespace Panel.Repositories
             get { return Context as GeneratorSurveillanceDBEntities; }
         }
 
-        public void RepeatReminder(string GeneratorName)
+        public void SetRepeatReminder(string GeneratorName)
         {
             foreach (var item in GeneratorSurveillanceDBContext
                                   .GeneratorSchedulers
@@ -27,10 +27,27 @@ namespace Panel.Repositories
                                   (Key, g) => g.FirstOrDefault()))
             {
                 if (item.GeneratorName == GeneratorName)
+                {
                     item.IsRepetitive = "Yes";
-            }
-           
+                    break;
+                }
+            }           
         }
 
+        public void DeactivateRepeatReminder(string GeneratorName)
+        {
+            foreach (var item in GeneratorSurveillanceDBContext
+                                  .GeneratorSchedulers
+                                  .Where(x => x.Id >= 0 && x.IsActive == "Yes")
+                                  .GroupBy(x => x.GeneratorName,
+                                  (Key, g) => g.FirstOrDefault()))
+            {
+                if (item.GeneratorName == GeneratorName)
+                {
+                    item.IsRepetitive = "No";
+                    break;
+                }
+            }
+        }
     }
 }

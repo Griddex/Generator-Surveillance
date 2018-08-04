@@ -37,25 +37,44 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                 case "Line":
                     CartesianChart cartesianChart = new CartesianChart();
                     chtStackPanel.Children.Add(cartesianChart);
-                    List<List<double>> AllCartesianOrdinateSeriesInHours = GetOrdinateData.GetData(SelectedGeneratorName, SelectedChartType,
-                                                                                            DurationPerspective,lstBoxSelectedStringValues);
-                    Tuple<Axis, List<Series>> AxisCartesianSeriesTuple = ConfigureChart.ConfigureChartByChartType(SelectedChartType, 
-                                                                                                    lstBoxSelectedStringValues);
-                    AssembleChart.ShowPlot(SelectedChartType, AllCartesianOrdinateSeriesInHours, AxisCartesianSeriesTuple, cartesianChart, 
-                                                                                    lstBoxSelectedStringValues);
-                    
+
+                    List<List<double>> AllCartesianOrdinateSeriesInHours = 
+                                            GetOrdinateData.GetData(SelectedGeneratorName, 
+                                                                    SelectedChartType,
+                                                                    DurationPerspective,
+                                                                    lstBoxSelectedStringValues);
+
+                    Tuple<Axis, List<Series>> AxisCartesianSeriesTuple = 
+                                            ConfigureChart.ConfigureChartByChartType(
+                                                                    SelectedChartType, 
+                                                                    lstBoxSelectedStringValues);
+
+                    AssembleChart.ShowPlot(SelectedChartType, 
+                                            AllCartesianOrdinateSeriesInHours, 
+                                            AxisCartesianSeriesTuple, 
+                                            cartesianChart, 
+                                            lstBoxSelectedStringValues);                    
                     break;
 
                 case "Pie":
                     PieChart pieChart = new PieChart();
                     chtStackPanel.Children.Add(pieChart);
-                    List<List<double>> AllPieOrdinateSeriesInHours = GetOrdinateData.GetData(SelectedGeneratorName, SelectedChartType,
-                                                                                           DurationPerspective, lstBoxSelectedStringValues);
-                    Tuple<Axis, List<Series>> AxisPieSeriesTuple = ConfigureChart.ConfigureChartByChartType(SelectedChartType, 
-                                                                                                    lstBoxSelectedStringValues);
-                    AssembleChart.ShowPlot(SelectedChartType, AllPieOrdinateSeriesInHours, AxisPieSeriesTuple, pieChart,
-                                                                            lstBoxSelectedStringValues);
 
+                    List<List<double>> AllPieOrdinateSeriesInHours = 
+                                            GetOrdinateData.GetData(SelectedGeneratorName, 
+                                                                    SelectedChartType,
+                                                                    DurationPerspective, 
+                                                                    lstBoxSelectedStringValues);
+
+                    Tuple<Axis, List<Series>> AxisPieSeriesTuple = 
+                                            ConfigureChart.ConfigureChartByChartType(
+                                                                    SelectedChartType, 
+                                                                    lstBoxSelectedStringValues);
+
+                    AssembleChart.ShowPlot(SelectedChartType, 
+                                           AllPieOrdinateSeriesInHours, 
+                                           AxisPieSeriesTuple, pieChart,
+                                           lstBoxSelectedStringValues);
                     break;
                 default:
                     break;

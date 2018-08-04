@@ -33,7 +33,8 @@ namespace Panel.ViewModels.InputViewModels
 
         public List<string> UniqueAuthoriserNames { get; set; } = new List<string>();
 
-        public MaintenanceViewModel(UnitOfWork unitOfWork, PasswordControl passwordControl)
+        public MaintenanceViewModel(UnitOfWork unitOfWork, 
+            PasswordControl passwordControl)
         {
             UnitOfWork = unitOfWork;
             PasswordControl = passwordControl;

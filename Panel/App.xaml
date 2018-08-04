@@ -1678,11 +1678,11 @@
         <SolidColorBrush x:Key="WindowColor" 
                          Color="Red"/>
         <SolidColorBrush x:Key="WindowBackColor" 
-                         Color="DarkGray"/>
+                         Color="Gray"/>
         <SolidColorBrush x:Key="WindowForeColor" 
-                         Color="WhiteSmoke"/>
+                         Color="Black"/>
         <SolidColorBrush x:Key="WindowForeHighlightColor" 
-                         Color="WhiteSmoke"/>
+                         Color="Black"/>
         <SolidColorBrush x:Key="WindowButtonColor" 
                          Color="Gray"/>
         <SolidColorBrush x:Key="WindowButtonOverColor" 
@@ -1971,7 +1971,7 @@
             <Setter Property="BorderThickness" 
                     Value="7"/>
             <Setter Property="Foreground" 
-                    Value="DarkGray"/>
+                    Value="Gray"/>
             <Setter Property="Template" 
                     Value="{StaticResource WindowTemplate}"/>
         </Style>
@@ -1994,7 +1994,7 @@
             <Setter Property="BorderThickness" 
                     Value="3"/>
             <Setter Property="Foreground" 
-                    Value="DarkGray"/>
+                    Value="Gray"/>
             <Setter Property="Template" 
                     Value="{StaticResource WindowTemplate}"/>
         </Style>

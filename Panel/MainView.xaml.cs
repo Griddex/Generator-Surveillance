@@ -2,6 +2,7 @@
 using Panel.Views.ChartViews;
 using Panel.Views.HelpViews;
 using Panel.Views.InputViews;
+using Panel.Views.LandingViews;
 using Panel.Views.ReportViews;
 using Panel.Views.SettingsView;
 using Panel.Views.TableViews;
@@ -22,59 +23,79 @@ namespace Panel
                                     .Current.Resources["UnityIoC"];
         
         private InputView _inputView;
-        public MainView(InputView inputView)
+        private LandingView _landingView;
+        public MainView(InputView inputView, LandingView landingView)
         {
             InitializeComponent();
             this._inputView = inputView;
             MainViewFrame.Navigate(this._inputView);
+            //this._landingView = landingView;
+            //MainViewFrame.Navigate(this._landingView);
         }
 
-        private void InputViewCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e) => 
+        private void InputViewCmd_CanExecute(object sender, 
+            CanExecuteRoutedEventArgs e) => 
             e.CanExecute = true;
-        private void InputViewCmd_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void InputViewCmd_Executed(object sender, 
+            ExecutedRoutedEventArgs e)
         {
+            //this._inputView.lblGenIndicator.
             MainViewFrame.Navigate(this._inputView);
         }
 
-        private void TablesViewCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e) => 
+        private void TablesViewCmd_CanExecute(object sender, 
+            CanExecuteRoutedEventArgs e) => 
             e.CanExecute = true;
-        private void TablesViewCmd_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void TablesViewCmd_Executed(object sender, 
+            ExecutedRoutedEventArgs e)
         {
             UsageFuellingTablesView usageFuellingTablesView = 
-                (UsageFuellingTablesView)container.Resolve<IView>("UsageFuellingTablesView");
+                (UsageFuellingTablesView)container
+                .Resolve<IView>("UsageFuellingTablesView");
             MainViewFrame.Navigate(usageFuellingTablesView);
         }
 
-        private void ChartsViewCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e) => 
+        private void ChartsViewCmd_CanExecute(object sender, 
+            CanExecuteRoutedEventArgs e) => 
             e.CanExecute = true;
-        private void ChartsViewCmd_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void ChartsViewCmd_Executed(object sender, 
+            ExecutedRoutedEventArgs e)
         {
-            ChartView chartView = (ChartView)container.Resolve<IView>("ChartView");
+            ChartView chartView = (ChartView)container
+                .Resolve<IView>("ChartView");
             MainViewFrame.Navigate(chartView);
         }
 
-        private void ReportsViewCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e) => 
+        private void ReportsViewCmd_CanExecute(object sender, 
+            CanExecuteRoutedEventArgs e) => 
             e.CanExecute = true;
-        private void ReportsViewCmd_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void ReportsViewCmd_Executed(object sender, 
+            ExecutedRoutedEventArgs e)
         {
-            ReportView reportView = (ReportView)container.Resolve<IView>("ReportView");
+            ReportView reportView = (ReportView)container
+                .Resolve<IView>("ReportView");
             MainViewFrame.Navigate(reportView);
         }
 
         private void HelpViewCmd_CanExecute(object sender, 
             CanExecuteRoutedEventArgs e) => e.CanExecute = true;
-        private void HelpViewCmd_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void HelpViewCmd_Executed(object sender, 
+            ExecutedRoutedEventArgs e)
         {
-            HelpView helpView = (HelpView)container.Resolve<IView>("HelpView");
+            HelpView helpView = (HelpView)container
+                .Resolve<IView>("HelpView");
             MainViewFrame.Navigate(helpView);
         }
         
         private void InputToUsageView_CanExecute(object sender, 
             CanExecuteRoutedEventArgs e) => e.CanExecute = true;
-        private void InputToUsageView_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void InputToUsageView_Executed(object sender, 
+            ExecutedRoutedEventArgs e)
         {
-            UsageView usageView = (UsageView)container.Resolve<IView>("UsageView");
-            usageView.lblCurrentGeneratorName.Content = this._inputView.cmbxGenInfo.Text;
+            UsageView usageView = (UsageView)container
+                .Resolve<IView>("UsageView");
+            usageView.lblCurrentGeneratorName.Content = 
+                this._inputView.cmbxGenInfo.Text;
 
             if(this._inputView.lblGenTimeStarted.Content != null)
                 usageView
@@ -190,6 +211,6 @@ namespace Panel
             CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
-        }        
+        }
     }
 }

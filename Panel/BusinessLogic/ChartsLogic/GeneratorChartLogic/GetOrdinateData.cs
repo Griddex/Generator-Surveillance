@@ -1,19 +1,19 @@
 ﻿using Panel.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
 {
     public static class GetOrdinateData
     {
-        public static List<List<double>> GetData(string SelectedGeneratorName, string SelectedChartType, 
-                                            string DurationPerspective, List<string> lstBoxSelectedStringValues)
+        
+        public static List<List<double>> GetData(string SelectedGeneratorName, 
+                                                string SelectedChartType, 
+                                                string DurationPerspective, 
+                                                List<string> lstBoxSelectedStringValues)
         {
             List<List<double>> ListOfHoursList = new List<List<double>>();
             CalculateUsageHours calculateUsageHours = new CalculateUsageHours(new UnitOfWork(new GeneratorSurveillanceDBEntities()));
+
             switch (DurationPerspective)
             {
                 case "Day":
