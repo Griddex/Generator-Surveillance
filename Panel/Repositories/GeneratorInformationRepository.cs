@@ -1,12 +1,8 @@
 ﻿using Panel.Interfaces;
 using Panel.Models.InputModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -45,6 +41,7 @@ namespace Panel.Repositories
                                     new DateTime(1899, 12, 30, 00, 00, 00) ||
                                     x.GeneratorStopped ==
                                     new DateTime(1900, 01, 01, 00, 00, 00));
+
             if (ActiveGenerators.ToList().Count == 0)
             {
                 isNull = false;
@@ -70,16 +67,16 @@ namespace Panel.Repositories
         public ObservableCollection<GeneratorNameModel> GetUniqueGeneratorNames()
         {
             return new ObservableCollection<GeneratorNameModel>
-                (
-                      GeneratorSurveillanceDBContext.GeneratorUsages
-                     .Where(x => x.Id >= 1 && x.IsArchived != "Yes")
-                     .OrderBy(x => x.GeneratorName)
-                     .Select(x => new GeneratorNameModel
-                        {
-                            GeneratorName = x.GeneratorName
-                        })
-                     .Distinct()
-                 );
+            (
+                GeneratorSurveillanceDBContext.GeneratorUsages
+                .Where(x => x.Id >= 1 && x.IsArchived != "Yes")
+                .OrderBy(x => x.GeneratorName)
+                .Select(x => new GeneratorNameModel
+                {
+                    GeneratorName = x.GeneratorName
+                })
+                .Distinct()
+            );
         }
 
         public void AddGeneratorName(string GeneratorName, 

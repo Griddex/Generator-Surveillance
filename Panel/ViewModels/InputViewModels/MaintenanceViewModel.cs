@@ -45,7 +45,7 @@ namespace Panel.ViewModels.InputViewModels
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
                                         (UniqueGeneratorNamesUnsorted
                                         .OrderBy(x => 
-                                                x.GeneratorName));
+                                                 x.GeneratorName));
 
             AllGeneratorSchedules = unitOfWork.GeneratorScheduler
                                               .GetAllGeneratorSchedules();
@@ -217,7 +217,8 @@ namespace Panel.ViewModels.InputViewModels
                             cmbxUnschMaintenance.Text == "")
                             {
                                 MessageBox.Show("Select a generator!", 
-                                    "Error", MessageBoxButton.OK,
+                                    "Error", 
+                                    MessageBoxButton.OK,
                                     MessageBoxImage.Error);
                                 return;
                             }
@@ -231,7 +232,8 @@ namespace Panel.ViewModels.InputViewModels
                             if (Success > 0)
                                 MessageBox.Show($"Unscheduled maintenance " +
                                     $"record for {cmbxUnschMaintenance.Text} " +
-                                    $"added!", "Information", 
+                                    $"added!", 
+                                    "Information", 
                                     MessageBoxButton.OK, 
                                     MessageBoxImage.Information);
                             return;
@@ -258,7 +260,8 @@ namespace Panel.ViewModels.InputViewModels
                             cmbxSchMaintenance.Text == "")
                             {
                                 MessageBox.Show("Select a generator!", 
-                                    "Error", MessageBoxButton.OK,
+                                    "Error", 
+                                    MessageBoxButton.OK,
                                     MessageBoxImage.Error);
                                 return;
                             }
@@ -274,7 +277,8 @@ namespace Panel.ViewModels.InputViewModels
                                 MessageBox.Show($"Scheduled maintenance " +
                                     $"record for " +
                                     $"{cmbxSchMaintenance.Text} added!",
-                                    "Information", MessageBoxButton.OK, 
+                                    "Information", 
+                                    MessageBoxButton.OK, 
                                     MessageBoxImage.Information);
                             return;
                         },
@@ -295,10 +299,16 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         x =>
                         {
-                            Tuple<StackPanel, Expander> stcPnlExpnder = 
-                                            (Tuple<StackPanel, Expander>)x;
+                            Tuple<StackPanel, 
+                                  Expander,
+                                  Button> 
+                                  stcPnlExpnder = 
+                                                (Tuple<StackPanel, 
+                                                Expander,
+                                                Button>)x;
 
                             stcPnlExpnder.Item2.Visibility = Visibility.Collapsed;
+                            stcPnlExpnder.Item3.IsEnabled = true;
                             stcPnlExpnder.Item1.Visibility = Visibility.Visible;
                         },
                         y => !HasErrors
@@ -340,10 +350,10 @@ namespace Panel.ViewModels.InputViewModels
 
                                 pbdptbcbcbstpnl.Item3.IsReadOnly = false;
 
-                                MessageBoxResult result =   MessageBox.Show("Reminder & Notification " +
-                                                            "have been activated", "Information",
-                                                            MessageBoxButton.OK,
-                                                            MessageBoxImage.Information);
+                                MessageBoxResult result =  MessageBox.Show("Reminder & Notification " +
+                                                           "have been activated", "Information",
+                                                           MessageBoxButton.OK,
+                                                           MessageBoxImage.Information);
                                 switch (result)
                                 {
                                     case MessageBoxResult.None:
@@ -382,8 +392,13 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         x =>
                         {
-                            Tuple<StackPanel, Expander> stcPnlExpnder =
-                                            (Tuple<StackPanel, Expander>)x;
+                            Tuple<StackPanel, 
+                                  Expander,
+                                  Button> 
+                                  stcPnlExpnder =
+                                                (Tuple<StackPanel, 
+                                                       Expander,
+                                                       Button>)x;
 
                             stcPnlExpnder.Item1.Visibility = Visibility.Collapsed;
                             stcPnlExpnder.Item2.Visibility = Visibility.Visible;
@@ -413,18 +428,23 @@ namespace Panel.ViewModels.InputViewModels
                                       .ActivateReminderNotification(SchMaintenanceSelectedGen, 
                                                                     SchMaintenanceStartDate, 
                                                                     SchMaintenanceReminderHours,
-                                                                    ReminderLevel, RepeatReminderYesNo, 
+                                                                    ReminderLevel, 
+                                                                    RepeatReminderYesNo, 
                                                                     Authoriser);
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                MessageBox.Show($"Scheduled maintenance reminder information " +
-                                    $"for {SchMaintenanceSelectedGen} has been updated!",
-                                    "Information", MessageBoxButton.OK, 
-                                    MessageBoxImage.Information);
+                                MessageBox.Show($"Scheduled maintenance " +
+                                                $"reminder information " +
+                                                $"for {SchMaintenanceSelectedGen} " +
+                                                $"has been updated!",
+                                                "Information", 
+                                                MessageBoxButton.OK, 
+                                                MessageBoxImage.Information);
 
                                 ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
                                                                      .GetActiveGeneratorSchedules();
+
                                 OnPropertyChanged(nameof(ActiveGeneratorSchedules));
                             }                                
                             return;

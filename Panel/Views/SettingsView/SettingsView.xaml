@@ -89,10 +89,12 @@
                      Width="800"
                      Height="300"
                      Margin="0,0,0,0"
-                     Visibility="Collapsed">
+                     Visibility="Visible">
                 <StackPanel x:Name="stcpnlfc2Settings"
                             Orientation="Horizontal"
                             HorizontalAlignment="Center">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Auto">
                     <Expander x:Name="expdrfclSettings"
                               ExpandDirection="Right"
                               Height="300"
@@ -328,7 +330,10 @@
                             </StackPanel>
                         </GroupBox>
                     </Expander>
+                    </ScrollViewer>
 
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Auto">
                     <Expander x:Name="expdrraSettings" 
                               ExpandDirection="Right" 
                               Height="300"
@@ -873,7 +878,10 @@
                             </StackPanel>
                         </GroupBox>
                     </Expander>
+                    </ScrollViewer>
 
+                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Auto">
                     <Expander x:Name="expdrrcSettings"
                               ExpandDirection="Right" 
                               Height="300"
@@ -1228,6 +1236,7 @@
                             </StackPanel>
                         </GroupBox>
                     </Expander>
+                    </ScrollViewer>
                 </StackPanel>
             </Viewbox>
         </StackPanel>            

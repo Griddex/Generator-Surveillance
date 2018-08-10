@@ -1,79 +1,110 @@
 ﻿using LiveCharts;
 using LiveCharts.Defaults;
-using LiveCharts.Definitions.Series;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
 {
     public static class ConfigureChart
     {
-        public static Tuple<Axis, List<Series>> ConfigureChartByChartType(string SeriesChartType, List<string> lstBoxSelectedStringValues)
+        public static Tuple<Axis, Axis, List<Series>> ConfigureChartByChartType(
+                                    string SeriesChartType, 
+                                    List<string> lstBoxSelectedStringValues)
         {
-            
+            DefaultTooltip defaultTooltip = new DefaultTooltip();
+            defaultTooltip.SelectionMode = TooltipSelectionMode.OnlySender;
+
             Axis AbscissaAxis = new Axis()
             {
-                Separator = new LiveCharts.Wpf.Separator() { Step = 1, IsEnabled = false },
+                Separator = new Separator() { Step = 1, IsEnabled = false },
                 Title = "Date",
                 Labels = lstBoxSelectedStringValues,
-                LabelsRotation = 20
+                LabelsRotation = 20,
+                FontSize = 16
             };
-            //YFormatter = v => v.ToString("N") + " hrs";
+
+            Axis OrdinateAxis = new Axis()
+            {
+                Title = "Time Duration (hrs)",
+                FontSize = 16,
+                LabelFormatter = v => v.ToString("N0")
+            };
+
             switch (SeriesChartType)
             {
                 case "Column":
                     ColumnSeries columnSeries = new ColumnSeries()
                     {
-                        DataLabels = false,
+                        Title = "GeneratorOn (hrs)",
+                        DataLabels = true,
                         Values = new ChartValues<double>()
                     };
                     List<Series> columnSeriesList = new List<Series>();
                     columnSeriesList.Add(columnSeries);
-                    return new Tuple<Axis, List<Series>>(AbscissaAxis, columnSeriesList);
+
+                    return new Tuple<Axis, Axis, List<Series>>(
+                        OrdinateAxis,
+                        AbscissaAxis, 
+                        columnSeriesList);
 
                 case "Stacked Column":
                     StackedColumnSeries stackedColumnSeries = new StackedColumnSeries()
                     {
-                        DataLabels = false,
+                        DataLabels = true,
                         Values = new ChartValues<double>()
                     };
                     List<Series> stackedColumnSeriesList = new List<Series>();
                     stackedColumnSeriesList.Add(stackedColumnSeries);
-                    return new Tuple<Axis, List<Series>>(AbscissaAxis, stackedColumnSeriesList);
+
+                    return new Tuple<Axis, Axis, List<Series>>(
+                        OrdinateAxis,
+                        AbscissaAxis, 
+                        stackedColumnSeriesList);
 
                 case "Stacked Area":
                     StackedAreaSeries stackedAreaSeries = new StackedAreaSeries()
                     {
-                        DataLabels = false,
+                        DataLabels = true,
                         Values = new ChartValues<DateTimePoint>()
                     };
                     List<Series> stackedAreaSeriesList = new List<Series>();
                     stackedAreaSeriesList.Add(stackedAreaSeries);
-                    return new Tuple<Axis, List<Series>>(AbscissaAxis, stackedAreaSeriesList);
+
+                    return new Tuple<Axis, Axis, List<Series>>(
+                        OrdinateAxis,
+                        AbscissaAxis, 
+                        stackedAreaSeriesList);
 
                 case "Line":                    
                     LineSeries lineSeries = new LineSeries()
                     {
-                        DataLabels = false,                        
+                        Title = "GeneratorOn (hrs)",
+                        DataLabels = true,                        
                         Values = new ChartValues<double>()
                     };
                     List<Series> lineSeriesList = new List<Series>();
                     lineSeriesList.Add(lineSeries);
-                    return new Tuple<Axis, List<Series>>(AbscissaAxis, lineSeriesList);
+
+                    return new Tuple<Axis, Axis, List<Series>>(
+                        OrdinateAxis,
+                        AbscissaAxis, 
+                        lineSeriesList);
 
                 case "Pie":
                     PieSeries pieSeries = new PieSeries()
                     {
-                        DataLabels = false,
+                        Title = "GeneratorOn (hrs)",
+                        DataLabels = true,
                         Values = new ChartValues<double>()
                     };
                     List<Series> pieSeriesList = new List<Series>();
                     pieSeriesList.Add(pieSeries);
-                    return new Tuple<Axis, List<Series>>(AbscissaAxis, pieSeriesList);
+
+                    return new Tuple<Axis, Axis, List<Series>>(
+                        OrdinateAxis,
+                        AbscissaAxis, 
+                        pieSeriesList);
 
                 default:
                     break;

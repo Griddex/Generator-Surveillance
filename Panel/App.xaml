@@ -38,8 +38,8 @@
             x:Key="PassComboBoxesAndButton"/>
         <convtrs:PassDtPkrTxBxTwoCmboxsAsCommandParameters 
             x:Key="PassDtPkrTxBxTwoCmboxs"/>
-        <convtrs:PassStackpanelExpanderAsCommandParameters 
-            x:Key="PassStackpanelExpander"/>
+        <convtrs:PassStackpanelExpanderButtonAsCommandParameters 
+            x:Key="PassStackpanelExpanderButton"/>
         <convtrs:PassPswbxExpdrExpdrStkPlVwBxAsCommandParameters 
             x:Key="PassPswbxExpdrExpdrStkPlVwBx"/>
         <convtrs:PassStackpanelAsCommandParameters 

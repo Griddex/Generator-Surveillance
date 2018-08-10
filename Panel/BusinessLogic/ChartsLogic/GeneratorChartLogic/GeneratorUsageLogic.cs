@@ -1,10 +1,6 @@
 ﻿using LiveCharts.Wpf;
-using Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
@@ -29,6 +25,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                 }                   
             }
 
+
             switch (SelectedChartType)
             {
                 case "Column":
@@ -36,6 +33,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                 case "Stacked Area":
                 case "Line":
                     CartesianChart cartesianChart = new CartesianChart();
+
                     chtStackPanel.Children.Add(cartesianChart);
 
                     List<List<double>> AllCartesianOrdinateSeriesInHours = 
@@ -44,7 +42,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                                                                     DurationPerspective,
                                                                     lstBoxSelectedStringValues);
 
-                    Tuple<Axis, List<Series>> AxisCartesianSeriesTuple = 
+                    Tuple<Axis, Axis, List<Series>> AxisCartesianSeriesTuple = 
                                             ConfigureChart.ConfigureChartByChartType(
                                                                     SelectedChartType, 
                                                                     lstBoxSelectedStringValues);
@@ -66,7 +64,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                                                                     DurationPerspective, 
                                                                     lstBoxSelectedStringValues);
 
-                    Tuple<Axis, List<Series>> AxisPieSeriesTuple = 
+                    Tuple<Axis, Axis, List<Series>> AxisPieSeriesTuple = 
                                             ConfigureChart.ConfigureChartByChartType(
                                                                     SelectedChartType, 
                                                                     lstBoxSelectedStringValues);

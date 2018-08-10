@@ -28,12 +28,14 @@ namespace Panel.Views.InputViews
                                     CollectionViewSource
                                     .GetDefaultView(this.dtgdGenScheduledRemindersTable
                                                         .ItemsSource);
+
             if (cvsGeneratorConsumption != null && cvsGeneratorConsumption
                                                             .CanGroup == true)
             {
                 cvsGeneratorConsumption.GroupDescriptions.Clear();
                 cvsGeneratorConsumption.GroupDescriptions
-                                .Add(new PropertyGroupDescription("Generator"));
+                                       .Add(new PropertyGroupDescription
+                                       ("Generator"));
             }
         }
 
@@ -43,6 +45,7 @@ namespace Panel.Views.InputViews
                                     CollectionViewSource
                                     .GetDefaultView(this.dtgdGenScheduledRemindersTable
                                                         .ItemsSource);
+
             if (cvsGeneratorConsumption != null && cvsGeneratorConsumption
                                                             .CanGroup == true)
             {
@@ -53,10 +56,12 @@ namespace Panel.Views.InputViews
         private void expdrScheduledReminders_Expanded(object sender, RoutedEventArgs e)
         {
             this.dtgdGenScheduledRemindersTable.Items.Refresh();
+
             ICollectionView cvsGeneratorConsumption = 
                             CollectionViewSource
                             .GetDefaultView(this.dtgdGenScheduledRemindersTable
                                             .ItemsSource);
+
             cvsGeneratorConsumption.Refresh();
         }
 
@@ -64,6 +69,7 @@ namespace Panel.Views.InputViews
         {
             var dataGridRowSelected = (dynamic)dtgdGenScheduledRemindersTable
                                                .SelectedItem;
+
             string GeneratorName = dataGridRowSelected.GeneratorName;
 
             MessageBoxResult result = MessageBox.Show($"Do you want to " +
@@ -87,8 +93,11 @@ namespace Panel.Views.InputViews
             this.dtgdGenScheduledRemindersTable.ItemsSource = 
                                         (this.DataContext as MaintenanceViewModel)
                                         .UnitOfWork
-                                        .GeneratorScheduler.GetActiveGeneratorSchedules();
+                                        .GeneratorScheduler
+                                        .GetActiveGeneratorSchedules();
+
             this.dtgdGenScheduledRemindersTable.Items.Refresh();
+
             ICollectionView cvsGeneratorReminders = 
                             CollectionViewSource
                             .GetDefaultView(this.dtgdGenScheduledRemindersTable

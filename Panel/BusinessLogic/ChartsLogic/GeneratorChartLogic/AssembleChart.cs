@@ -4,8 +4,6 @@ using LiveCharts.Wpf.Charts.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
@@ -13,45 +11,80 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
     public static class AssembleChart
     {
         public static Func<ChartPoint,string> PointLabel { get; set; }
-        public static void ShowPlot(string SelectedChartType, List<List<double>> AllOrdinateSeriesInHours,
-                                    Tuple<Axis, List<Series>> AxisSeriesTuple, Chart Chart, List<string> lstBoxSelectedStringValues)
+        public static void ShowPlot(string SelectedChartType, 
+                                    List<List<double>> AllOrdinateSeriesInHours,
+                                    Tuple<Axis, Axis, List<Series>> AxisSeriesTuple, 
+                                    Chart Chart, List<string> lstBoxSelectedStringValues)
         {
             Chart.Height = 690;
             Chart.Width = 1150;
 
+            //PointLabel = chtPt => string.Format($"Duration: " +
+            //                                    $"{lstBoxSelectedStringValues[Convert.ToInt32(chtPt.X)]}\n" +
+            //                                    $"Time:" +
+            //                                    $"[{chtPt.Y.ToString("N0")} hours]");
+
+            PointLabel = chtPt => string.Format($"{chtPt.Y.ToString("N0")} hours");
+
             switch (SelectedChartType)
             {
                 case "Column":
-                    List<ColumnSeries> ColumnSeries = AxisSeriesTuple.Item2.Cast<ColumnSeries>().ToList();
+                    List<ColumnSeries> ColumnSeries = AxisSeriesTuple
+                                                        .Item3
+                                                        .Cast<ColumnSeries>()
+                                                        .ToList();
+
                     for (int i = 0; i < AllOrdinateSeriesInHours[0].Count; i++)
                     {
                         ColumnSeries[0].Values.Add(AllOrdinateSeriesInHours[0][i]);
                     }
-                    Chart.Series.Add(ColumnSeries[0]);                   
-                    Chart.AxisX.Add(AxisSeriesTuple.Item1);
+
+                    Chart.Series.Add(ColumnSeries[0]);
+                    Chart.AxisY.Add(AxisSeriesTuple.Item1);
+                    Chart.AxisX.Add(AxisSeriesTuple.Item2);                    
+                    Chart.LegendLocation = LegendLocation.Right;
+
                     break;
 
                 case "Stacked Column":
-                    List<StackedColumnSeries> StackedColumnSeries = AxisSeriesTuple.Item2.Cast<StackedColumnSeries>().ToList();
+                    List<StackedColumnSeries> StackedColumnSeries = AxisSeriesTuple
+                                                                        .Item3
+                                                                        .Cast<StackedColumnSeries>()
+                                                                        .ToList();
+
                     for (int i = 0; i < AllOrdinateSeriesInHours.Count(); i++)
                     {
+                        
                         StackedColumnSeries.Add
                         (
                             new StackedColumnSeries
                             {
-                                Values = new ChartValues<double>(),
+                                Values = new ChartValues<double>(),                                
                                 StackMode = StackMode.Values,
-                                DataLabels = true
+                                FontSize = 14,
+                                DataLabels = true,
+                                LabelPoint = PointLabel
                             }
                         );
                         for (int j = 0; j < AllOrdinateSeriesInHours[i].Count; j++)
                         {
                             
-                            StackedColumnSeries[i].Values.Add(AllOrdinateSeriesInHours[i][j]);
+                            StackedColumnSeries[i].Values.Add(
+                                                    AllOrdinateSeriesInHours[i][j]);
                         }
+
+                        if (i == 0)
+                            StackedColumnSeries[i].Title = "GeneratorOn (hours)";
+                        else
+                            StackedColumnSeries[i].Title = "PowerOn (hours)";
+
                         Chart.Series.Add(StackedColumnSeries[i]);
                     }
-                    Chart.AxisX.Add(AxisSeriesTuple.Item1);
+
+                    Chart.AxisY.Add(AxisSeriesTuple.Item1);
+                    Chart.AxisX.Add(AxisSeriesTuple.Item2);
+                    Chart.LegendLocation = LegendLocation.Right;
+
                     break;
 
                 case "Stacked Area":
@@ -65,22 +98,34 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                     //    Chart.Series.Add(StackedAreaSeries);
                     //}
                     //Chart.AxisX.Add(AxisSeriesTuple.Item1);
-                    MessageBox.Show("Implementation coming soon", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Implementation coming soon", 
+                                    "Information", 
+                                    MessageBoxButton.OK, 
+                                    MessageBoxImage.Information);
                     return;
 
                 case "Line":
-                    List<LineSeries> LineSeries = AxisSeriesTuple.Item2.Cast<LineSeries>().ToList();
+                    List<LineSeries> LineSeries = AxisSeriesTuple
+                                                        .Item3
+                                                        .Cast<LineSeries>()
+                                                        .ToList();
+
                     for (int i = 0; i < AllOrdinateSeriesInHours[0].Count; i++)
                     {
                         LineSeries[0].Values.Add(AllOrdinateSeriesInHours[0][i]);
                     }
+
                     Chart.Series.Add(LineSeries[0]);
-                    Chart.AxisX.Add(AxisSeriesTuple.Item1);
+                    Chart.AxisY.Add(AxisSeriesTuple.Item1);
+                    Chart.AxisX.Add(AxisSeriesTuple.Item2);
+                    Chart.LegendLocation = LegendLocation.Right;
+
                     break;
 
                 case "Pie":
-                    PointLabel = chtPt => string.Format($"{chtPt.Y.ToString("N")} hours");
-                    List<Series> SeriesCollection = AxisSeriesTuple.Item2;
+
+                    List<Series> SeriesCollection = AxisSeriesTuple.Item3;
+
                     for (int i = 0; i < AllOrdinateSeriesInHours[0].Count; i++)
                     {
                         Chart.Series.Add
@@ -90,12 +135,17 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                                 Title = lstBoxSelectedStringValues[i],
                                 DataLabels = true,
                                 LabelPoint = PointLabel,
-                                Values = new ChartValues<double>() { AllOrdinateSeriesInHours[0][i] }
+                                FontSize = 14,
+                                Values = new ChartValues<double>() {
+                                                AllOrdinateSeriesInHours[0][i] }
                             }
                         );
                     }
-                    Chart.AxisX.Add(AxisSeriesTuple.Item1);
-                    Chart.LegendLocation = LegendLocation.Bottom;
+
+                    Chart.AxisY.Add(AxisSeriesTuple.Item1);
+                    Chart.AxisX.Add(AxisSeriesTuple.Item2);
+                    Chart.LegendLocation = LegendLocation.Right;
+
                     break;
 
                 default:

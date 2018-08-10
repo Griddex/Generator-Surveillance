@@ -318,21 +318,36 @@ namespace Panel.ViewModels.ChartViewModels
                             DateTime StopTime = Convert.ToDateTime(MergedStopTime);
                             if (SelectedStartDate == SelectedStopDate)
                             {
-                                if (TimeSpan.Compare(StartTime.TimeOfDay, StopTime.TimeOfDay) > 0)
+                                if (TimeSpan.Compare(StartTime.TimeOfDay, 
+                                    StopTime.TimeOfDay) > 0)
                                 {
-                                    MessageBox.Show($"Stop date must be greater than start date", "Error",
-                                         MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBox.Show($"Stop date must be greater" +
+                                                    $" than start date", 
+                                                    "Error",
+                                                    MessageBoxButton.OK, 
+                                                    MessageBoxImage.Error);
                                     return;
                                 }
                             }
-                            string sysDateFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
-                            DateTime StartDateTime = Convert.ToDateTime($"{SelectedStartDate.ToString(sysDateFormat)} " +
-                                $"{StartTime.TimeOfDay.ToString()}");
-                            DateTime StopDateTime = Convert.ToDateTime($"{SelectedStopDate.ToString(sysDateFormat)} " +
-                                $"{StopTime.TimeOfDay.ToString()}");
+                            string sysDateFormat = CultureInfo.CurrentCulture.DateTimeFormat
+                                                                             .ShortDatePattern;
 
-                            Tuple<TextBlock, ListBox, StackPanel> txtBlkLstBxStkPnlTuple = 
-                                                            (Tuple<TextBlock, ListBox, StackPanel>)x;
+                            DateTime StartDateTime = Convert.ToDateTime(
+                                                    $"{SelectedStartDate.ToString(sysDateFormat)} " +
+                                                    $"{StartTime.TimeOfDay.ToString()}");
+
+                            DateTime StopDateTime = Convert.ToDateTime(
+                                                    $"{SelectedStopDate.ToString(sysDateFormat)} " +
+                                                    $"{StopTime.TimeOfDay.ToString()}");
+
+                            Tuple<TextBlock, 
+                                  ListBox, 
+                                  StackPanel> 
+                                  txtBlkLstBxStkPnlTuple = 
+                                                        (Tuple<TextBlock, 
+                                                               ListBox, 
+                                                               StackPanel>)x;
+
                             string DateDurationPerspective = txtBlkLstBxStkPnlTuple.Item1.Text;
                             SelectedDurationPerspective = DateDurationPerspective;
                             IEnumerable<string> DatePerspectiveList = ExtrudeInterveningDates

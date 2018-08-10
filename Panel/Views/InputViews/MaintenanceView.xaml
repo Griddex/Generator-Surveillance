@@ -189,7 +189,7 @@
                                   Height="420" 
                                   VerticalAlignment="Top">
                             <Grid Grid.Row="3" 
-Grid.Column="1">
+                                  Grid.Column="1">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="110"/>
                                     <RowDefinition Height="*"/>
@@ -538,32 +538,6 @@ Grid.Column="1">
                                         </ComboBox>
                                     </StackPanel>
                                 </Grid>
-                                <Button x:Name="btnEditHours" 
-                                        Grid.Column="6" 
-                                        Grid.ColumnSpan="3" 
-                                        Grid.Row="5"
-                                        Grid.RowSpan="2" 
-                                        VerticalAlignment="Top" 
-                                        Height="55" 
-                                        Width="65" 
-                                        Content="Unlock" 
-                                        ToolTip="Unlock Scheduled Reminders" 
-                                        Margin="140,185,0,0"
-                                        Style="{StaticResource NegativeButtonStyle}" 
-                                        HorizontalContentAlignment="Center" 
-                                        VerticalContentAlignment="Center" 
-                                        HorizontalAlignment="Left" 
-                                        Visibility="{Binding ElementName=expdrScheduledReminders, 
-                                                             Path=IsExpanded, 
-                                                             Converter={StaticResource TrueOrFalseToVisibility}}"
-                                        Command="{Binding Path=UnlockReminderNotificationCmd}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource PassStackpanelExpander}">
-                                            <Binding ElementName="stckpnlPassword"/>
-                                            <Binding ElementName="expdrScheduledReminders"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
 
                                 <Button x:Name="btnActivateReminder" 
                                         Grid.Column="6" 
@@ -579,7 +553,8 @@ Grid.Column="1">
                                         HorizontalContentAlignment="Center" 
                                         VerticalContentAlignment="Center" 
                                         HorizontalAlignment="Left" 
-                                        Margin="210,185,0,0"
+                                        Margin="140,185,0,0"
+                                        IsEnabled="False"
                                         Visibility="{Binding ElementName=expdrScheduledReminders, 
                                                              Path=IsExpanded, 
                                                              Converter={StaticResource TrueOrFalseToVisibility}}"
@@ -594,6 +569,35 @@ Grid.Column="1">
                                         </MultiBinding>
                                     </Button.CommandParameter>
                                 </Button>
+                                
+                                <Button x:Name="btnEditHours" 
+                                        Grid.Column="6" 
+                                        Grid.ColumnSpan="3" 
+                                        Grid.Row="5"
+                                        Grid.RowSpan="2" 
+                                        VerticalAlignment="Top" 
+                                        Height="55" 
+                                        Width="65" 
+                                        Content="Unlock" 
+                                        ToolTip="Unlock Scheduled Reminders" 
+                                        Margin="195,185,0,0"
+                                        Style="{StaticResource NegativeButtonStyle}" 
+                                        HorizontalContentAlignment="Center" 
+                                        VerticalContentAlignment="Center" 
+                                        HorizontalAlignment="Left" 
+                                        Visibility="{Binding ElementName=expdrScheduledReminders, 
+                                                             Path=IsExpanded, 
+                                                             Converter={StaticResource TrueOrFalseToVisibility}}"
+                                        Command="{Binding Path=UnlockReminderNotificationCmd}">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource PassStackpanelExpanderButton}">
+                                            <Binding ElementName="stckpnlPassword"/>
+                                            <Binding ElementName="expdrScheduledReminders"/>
+                                            <Binding ElementName="btnActivateReminder"/>
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
+                                </Button>
+                                
                                 <StackPanel x:Name="stckpnlPassword"
                                             Height="35"
                                             Width="570"
@@ -603,14 +607,20 @@ Grid.Column="1">
                                             Grid.ColumnSpan="12"
                                             VerticalAlignment="Bottom"
                                             HorizontalAlignment="Center"
-                                            Visibility="Collapsed"
+                                            Visibility="Visible"
                                             FocusManager.FocusedElement="{Binding ElementName=psswrdReminder}">
-                                    <Label>Enter Password:</Label>
+                                    <Label FontSize="12"
+                                           VerticalContentAlignment="Center">Enter Password:</Label>
                                     <PasswordBox x:Name="psswrdReminder" 
                                                  MaxLength="20"
-                                                 Width="250">
+                                                 Width="250"
+                                                 Height="30"
+                                                 FontSize="12"
+                                                 HorizontalContentAlignment="Center"
+                                                 VerticalContentAlignment="Center">
                                         <PasswordBox.InputBindings>
-                                            <KeyBinding Command="{Binding OkCmd}">
+                                            <KeyBinding Key="Return" 
+                                                        Command="{Binding Path=OKCmd}">
                                                 <KeyBinding.CommandParameter>
                                                     <MultiBinding Converter="{StaticResource PassDtPkrTxBxTwoCmboxs}">
                                                         <Binding ElementName="psswrdReminder"/>
@@ -625,9 +635,10 @@ Grid.Column="1">
                                             </KeyBinding>
                                         </PasswordBox.InputBindings>
                                     </PasswordBox>
-                                    <Button x:Name="ok" 
+                                    <Button x:Name="ok"
+                                            FontSize="12"
                                             Content="Ok"
-                                            Margin="0,0,0,0"
+                                            Margin="10,0,0,0"
                                             Width="80" 
                                             Height="30"
                                             HorizontalAlignment="Right"
@@ -644,7 +655,8 @@ Grid.Column="1">
                                             </MultiBinding>
                                         </Button.CommandParameter>
                                     </Button>
-                                    <Button x:Name="close" 
+                                    <Button x:Name="close"
+                                            FontSize="12"
                                             Content="Close"
                                             Margin="10,0,0,0"
                                             Width="80" 
@@ -652,9 +664,10 @@ Grid.Column="1">
                                             HorizontalAlignment="Right"
                                             Command="{Binding CloseCmd}">
                                         <Button.CommandParameter>
-                                            <MultiBinding Converter="{StaticResource PassStackpanelExpander}">
+                                            <MultiBinding Converter="{StaticResource PassStackpanelExpanderButton}">
                                                 <Binding ElementName="stckpnlPassword"/>
                                                 <Binding ElementName="expdrScheduledReminders"/>
+                                                <Binding ElementName="btnActivateReminder"/>
                                             </MultiBinding>
                                         </Button.CommandParameter>
                                     </Button>

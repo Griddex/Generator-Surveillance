@@ -2,7 +2,6 @@
 using Panel.Interfaces;
 using Panel.Repositories;
 using Panel.Services.MessagingServices;
-using Panel.UserControls;
 using Panel.ViewModels.ChartViewModels;
 using Panel.ViewModels.HelpViewModels;
 using Panel.ViewModels.InputViewModels;

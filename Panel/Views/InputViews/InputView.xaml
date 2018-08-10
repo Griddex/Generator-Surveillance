@@ -262,21 +262,24 @@
                            HorizontalAlignment="Center" 
                            FontSize="18">
                     <Hyperlink Command="{x:Static cmds:NavigationCommands.InputToUsageView}" 
-                               CommandParameter="{Binding ElementName=cmbxGenInfo}">
+                               CommandParameter="{Binding ElementName=cmbxGenInfo}"
+                               Foreground="#1D8696">
                                                  Usage</Hyperlink>
                 </TextBlock>
                 <TextBlock Width=" 80" 
                            VerticalAlignment="Center" 
                            HorizontalAlignment="Center" 
                            FontSize="18">
-                    <Hyperlink Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}">
+                    <Hyperlink Command="{x:Static cmds:NavigationCommands.UsageToFuellingView}"
+                               Foreground="#1D8696">
                                         Fuelling</Hyperlink>
                 </TextBlock>
                 <TextBlock Width="110" 
                            VerticalAlignment="Center" 
                            HorizontalAlignment="Center" 
                            FontSize="18">
-                    <Hyperlink Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}">
+                    <Hyperlink Command="{x:Static cmds:NavigationCommands.FuellingToMaintenanceView}"
+                               Foreground="#1D8696">
                                         Maintenance</Hyperlink>
                 </TextBlock>
             </StackPanel>

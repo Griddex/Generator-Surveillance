@@ -173,7 +173,7 @@
     <Compile Include="Converters\PassDtPkrTxBxTwoCmboxsAsCommandParameters.cs" />
     <Compile Include="Converters\PassStackpanelAsCommandParameters.cs" />
     <Compile Include="Converters\PassPswbxExpdrExpdrStkPlVwBxAsCommandParameters.cs" />
-    <Compile Include="Converters\PassStackpanelExpanderAsCommandParameters.cs" />
+    <Compile Include="Converters\PassStackpanelExpanderButtonAsCommandParameters.cs" />
     <Compile Include="Converters\PassTextBoxTwoComboxItemsAsCommandParameters.cs" />
     <Compile Include="Converters\PassTextBoxComboBoxItemAsCommandParameters.cs" />
     <Compile Include="Converters\PassCheckBoxBoolListBoxAsCommandParameters.cs" />

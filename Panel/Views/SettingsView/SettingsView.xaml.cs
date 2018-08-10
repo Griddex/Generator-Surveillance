@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using Unity;
 
 namespace Panel.Views.SettingsView
 {
@@ -14,6 +15,10 @@ namespace Panel.Views.SettingsView
     /// </summary>
     public partial class SettingsView : Page, IView
     {
+        public static UnityContainer container { get; private set; } =
+                      (UnityContainer)Application.Current.Resources["UnityIoC"];
+        IView mainView = container.Resolve<IView>("MainView");
+
         public SettingsView(AuthoriserSettingsViewModel authoriserSettingsViewModel,
             ConsumptionSettingsViewModel consumptionSettingsViewModel,
             RemindersConfigViewModel remindersConfigViewModel)
@@ -40,6 +45,7 @@ namespace Panel.Views.SettingsView
             ICollectionView cvsGeneratorConsumption = CollectionViewSource
                                                       .GetDefaultView(this.dtgdGenFuelConsumptionTable
                                                                           .ItemsSource);
+
             if (cvsGeneratorConsumption != null && cvsGeneratorConsumption.CanGroup == true)
             {
                 cvsGeneratorConsumption.GroupDescriptions.Clear();
@@ -79,6 +85,7 @@ namespace Panel.Views.SettingsView
             ICollectionView cvsRemindersAuthorisers = CollectionViewSource
                                                       .GetDefaultView(this.dtgdAuthoriserTable
                                                                           .ItemsSource);
+
             if (cvsRemindersAuthorisers != null && cvsRemindersAuthorisers.CanGroup == true)
             {
                 cvsRemindersAuthorisers.GroupDescriptions.Clear();
@@ -90,6 +97,7 @@ namespace Panel.Views.SettingsView
             ICollectionView cvsRemindersAuthorisers = CollectionViewSource
                                                       .GetDefaultView(this.dtgdAuthoriserTable
                                                                           .ItemsSource);
+
             if (cvsRemindersAuthorisers != null && cvsRemindersAuthorisers
                                                         .CanGroup == true)
             {
@@ -105,6 +113,7 @@ namespace Panel.Views.SettingsView
             ICollectionView cvsRemindersAuthorisers = CollectionViewSource
                                                       .GetDefaultView(this.dtgdAuthoriserTable
                                                                           .ItemsSource);
+
             if (cvsRemindersAuthorisers != null && cvsRemindersAuthorisers
                                                         .CanGroup == true)
             {
@@ -117,6 +126,7 @@ namespace Panel.Views.SettingsView
             ICollectionView cvsRemConfig = CollectionViewSource
                                             .GetDefaultView(this.dtgdGenRemindersConfigTable
                                                                 .ItemsSource);
+
             if (cvsRemConfig != null && cvsRemConfig.CanGroup == true)
             {
                 cvsRemConfig.GroupDescriptions.Clear();
@@ -130,6 +140,7 @@ namespace Panel.Views.SettingsView
             ICollectionView cvsRemConfig = CollectionViewSource
                                             .GetDefaultView(this.dtgdGenRemindersConfigTable
                                                                 .ItemsSource);
+
             if (cvsRemConfig != null && cvsRemConfig.CanGroup == true)
             {
                 cvsRemConfig.GroupDescriptions.Clear();
@@ -182,10 +193,15 @@ namespace Panel.Views.SettingsView
             this.expdrfclSettings.Margin = new Thickness(0, 10, 0, 0);
             this.grpbxFuelConsumption.Margin = new Thickness(0, 10, 0, 0);
 
-            this.vwbxSettings.Width = 1200;
+            this.vwbxSettings.Width = 1000;
             this.vwbxSettings.Height = 860;
             this.expdrfclSettings.Height = 860;
             this.grpbxFuelConsumption.Height = 860;
+
+            //this.Height = (mainView as MainView).MainViewFrame.ActualHeight;
+            //this.vwbxSettings.Height = (mainView as MainView).MainViewFrame.ActualHeight * 0.8;
+            //this.expdrfclSettings.Height = (mainView as MainView).MainViewFrame.ActualHeight * 0.8;
+            //this.grpbxFuelConsumption.Height = (mainView as MainView).MainViewFrame.ActualHeight * 0.8;
 
             this.stckpnlPassword.Visibility = Visibility.Collapsed;
         }
@@ -201,11 +217,14 @@ namespace Panel.Views.SettingsView
             this.expdrfclSettings.IsExpanded = false;
             this.expdrrcSettings.IsExpanded = false;
 
-            this.vwbxSettings.Margin = new Thickness(0, 0, 0, 0);
-            this.expdrraSettings.Margin = new Thickness(0, 0, 0, 0);
-            this.grpbxAuthorisers.Margin = new Thickness(0, 0, 0, 0);
+            this.stckpnlPassword.Margin = new Thickness(0, -10, 0, 0);
+            this.vwbxSettings.Margin = new Thickness(0, 10, 0, 0);
+            this.expdrraSettings.Margin = new Thickness(0, 10, 0, 0);
+            this.grpbxAuthorisers.Margin = new Thickness(0, 10, 0, 0);
 
+            this.vwbxSettings.Width = 1000;
             this.vwbxSettings.Height = 860;
+            this.grpbxAuthorisers.Height = 860;
             this.expdrraSettings.Height = 860;
 
             this.stckpnlPassword.Visibility = Visibility.Collapsed;
@@ -244,11 +263,14 @@ namespace Panel.Views.SettingsView
             this.expdrfclSettings.IsExpanded = false;
             this.expdrraSettings.IsExpanded = false;
 
-            this.vwbxSettings.Margin = new Thickness(0, 0, 0, 0);
-            this.expdrrcSettings.Margin = new Thickness(0, 0, 0, 0);
-            this.grpbxRemConfig.Margin = new Thickness(0, 0, 0, 0);
+            this.stckpnlPassword.Margin = new Thickness(0, -10, 0, 0);
+            this.vwbxSettings.Margin = new Thickness(0, 10, 0, 0);
+            this.expdrrcSettings.Margin = new Thickness(0, 10, 0, 0);
+            this.grpbxRemConfig.Margin = new Thickness(0, 10, 0, 0);
 
+            this.vwbxSettings.Width = 1000;
             this.vwbxSettings.Height = 860;
+            this.grpbxRemConfig.Height = 860;
             this.expdrrcSettings.Height = 860;
 
             this.stckpnlPassword.Visibility = Visibility.Collapsed;

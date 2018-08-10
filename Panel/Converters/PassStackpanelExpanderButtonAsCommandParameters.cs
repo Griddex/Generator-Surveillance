@@ -5,14 +5,15 @@ using System.Windows.Data;
 
 namespace Panel.Converters
 {
-    class PassStackpanelExpanderAsCommandParameters : IMultiValueConverter
+    class PassStackpanelExpanderButtonAsCommandParameters : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, 
             object parameter, CultureInfo culture)
         {
-            return new Tuple<StackPanel, Expander>(
+            return new Tuple<StackPanel, Expander, Button>(
                 (StackPanel)values[0], 
-                (Expander)values[1]);
+                (Expander)values[1],
+                (Button)values[2]);
         }
 
 
