@@ -104,9 +104,13 @@ namespace Panel.ViewModels.SettingsViewModel
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                MessageBox.Show($"Scheduled maintenance reminder information " +
-                                    $"for {SchMaintenanceSelectedGen} has been updated!",
-                                    "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                                //MessageBox.Show($"Scheduled maintenance " +
+                                //    $"reminder information " +
+                                //    $"for {SchMaintenanceSelectedGen} " +
+                                //    $"has been updated!",
+                                //    "Information", 
+                                //    MessageBoxButton.OK, 
+                                //    MessageBoxImage.Information);
 
                                 ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
                                                                      .GetActiveGeneratorSchedules();
@@ -153,10 +157,10 @@ namespace Panel.ViewModels.SettingsViewModel
                                     int Success = UnitOfWork.Complete();
                                     if (Success > 0)
                                     {
-                                        MessageBox.Show($"All inactive reminders" +
-                                            $"have been deleted!",
-                                            "Information", MessageBoxButton.OK,
-                                            MessageBoxImage.Information);
+                                        //MessageBox.Show($"All inactive reminders" +
+                                        //    $"have been deleted!",
+                                        //    "Information", MessageBoxButton.OK,
+                                        //    MessageBoxImage.Information);
 
                                         ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
                                                                              .GetActiveGeneratorSchedules();
@@ -271,11 +275,11 @@ namespace Panel.ViewModels.SettingsViewModel
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                MessageBox.Show($"Repetitive Reminder" +
-                                    $"activated for {selectedRow.GeneratorName}",
-                                    "Information", 
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Information);
+                                //MessageBox.Show($"Repetitive Reminder" +
+                                //    $"activated for {selectedRow.GeneratorName}",
+                                //    "Information", 
+                                //    MessageBoxButton.OK,
+                                //    MessageBoxImage.Information);
 
                                 ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
                                                                      .GetActiveGeneratorSchedules();
@@ -308,17 +312,66 @@ namespace Panel.ViewModels.SettingsViewModel
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                MessageBox.Show($"Repetitive Reminder" +
-                                    $"activated for {selectedRow.GeneratorName}",
-                                    "Information",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Information);
 
                                 ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
                                                                      .GetActiveGeneratorSchedules();
 
                                 OnPropertyChanged(nameof(ActiveGeneratorSchedules));
+
+                                //MessageBox.Show($"Repetitive Reminder" +
+                                //    $"activated for {selectedRow.GeneratorName}",
+                                //    "Information",
+                                //    MessageBoxButton.OK,
+                                //    MessageBoxImage.Information);
                             }
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _deleteReminderCmd;
+        public ICommand DeleteReminderCmd
+        {
+            get
+            {
+                return this._deleteReminderCmd ??
+                (
+                    this._deleteReminderCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            GeneratorScheduler selectedRow = (GeneratorScheduler)x;
+
+                            MessageBoxResult result = MessageBox.Show($"You are about to" +
+                                                        $" delete all reminder " +
+                                                        $"records for {selectedRow.GeneratorName}" +
+                                                        $"\n\nContinue?", 
+                                                        $"Confirmation",
+                                                        MessageBoxButton.YesNoCancel,
+                                                        MessageBoxImage.Warning);
+                            switch (result)
+                            {
+                                case MessageBoxResult.None:
+                                case MessageBoxResult.OK:
+                                case MessageBoxResult.Yes:
+                                    UnitOfWork.ReminderSetting.DeleteReminder(
+                                                selectedRow.GeneratorName);
+
+                                    int Success = UnitOfWork.Complete();
+                                    if (Success > 0)
+                                    {
+                                        ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
+                                                                             .GetActiveGeneratorSchedules();
+
+                                        OnPropertyChanged(nameof(ActiveGeneratorSchedules));
+                                    }
+                                    break;
+                                case MessageBoxResult.Cancel:
+                                case MessageBoxResult.No:
+                                    break;
+                            }                   
                         },
                         y => !HasErrors
                     )

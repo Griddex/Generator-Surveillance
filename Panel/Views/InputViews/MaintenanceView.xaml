@@ -539,7 +539,7 @@
                                     </StackPanel>
                                 </Grid>
 
-                                <Button x:Name="btnActivateReminder" 
+                                <Button x:Name="btnAddReminder" 
                                         Grid.Column="6" 
                                         Grid.ColumnSpan="3" 
                                         Grid.Row="5"
@@ -593,7 +593,7 @@
                                         <MultiBinding Converter="{StaticResource PassStackpanelExpanderButton}">
                                             <Binding ElementName="stckpnlPassword"/>
                                             <Binding ElementName="expdrScheduledReminders"/>
-                                            <Binding ElementName="btnActivateReminder"/>
+                                            <Binding ElementName="btnAddReminder"/>
                                         </MultiBinding>
                                     </Button.CommandParameter>
                                 </Button>
@@ -607,7 +607,7 @@
                                             Grid.ColumnSpan="12"
                                             VerticalAlignment="Bottom"
                                             HorizontalAlignment="Center"
-                                            Visibility="Visible"
+                                            Visibility="Collapsed"
                                             FocusManager.FocusedElement="{Binding ElementName=psswrdReminder}">
                                     <Label FontSize="12"
                                            VerticalContentAlignment="Center">Enter Password:</Label>
@@ -617,12 +617,13 @@
                                                  Height="30"
                                                  FontSize="12"
                                                  HorizontalContentAlignment="Center"
-                                                 VerticalContentAlignment="Center">
+                                                 VerticalContentAlignment="Center"
+                                                 FocusManager.FocusedElement="{Binding ElementName=psswrdReminder}">
                                         <PasswordBox.InputBindings>
                                             <KeyBinding Key="Return" 
                                                         Command="{Binding Path=OKCmd}">
                                                 <KeyBinding.CommandParameter>
-                                                    <MultiBinding Converter="{StaticResource PassDtPkrTxBxTwoCmboxs}">
+                                                    <MultiBinding Converter="{StaticResource PassDtPkrTxBxTwoCmboxsBtn}">
                                                         <Binding ElementName="psswrdReminder"/>
                                                         <Binding ElementName="dtpkrStarts"/>
                                                         <Binding ElementName="txtBxEvery"/>
@@ -630,6 +631,7 @@
                                                         <Binding ElementName="cmbxAuthoriser"/>
                                                         <Binding ElementName="stckpnlPassword"/>
                                                         <Binding ElementName="expdrScheduledReminders"/>
+                                                        <Binding ElementName="btnAddReminder"/>
                                                     </MultiBinding>
                                                 </KeyBinding.CommandParameter>
                                             </KeyBinding>
@@ -644,7 +646,7 @@
                                             HorizontalAlignment="Right"
                                             Command="{Binding Path=OKCmd}">
                                         <Button.CommandParameter>
-                                            <MultiBinding Converter="{StaticResource PassDtPkrTxBxTwoCmboxs}">
+                                            <MultiBinding Converter="{StaticResource PassDtPkrTxBxTwoCmboxsBtn}">
                                                 <Binding ElementName="psswrdReminder"/>
                                                 <Binding ElementName="dtpkrStarts"/>
                                                 <Binding ElementName="txtBxEvery"/>
@@ -652,6 +654,7 @@
                                                 <Binding ElementName="cmbxAuthoriser"/>
                                                 <Binding ElementName="stckpnlPassword"/>
                                                 <Binding ElementName="expdrScheduledReminders"/>
+                                                <Binding ElementName="btnAddReminder"/>
                                             </MultiBinding>
                                         </Button.CommandParameter>
                                     </Button>
@@ -667,7 +670,7 @@
                                             <MultiBinding Converter="{StaticResource PassStackpanelExpanderButton}">
                                                 <Binding ElementName="stckpnlPassword"/>
                                                 <Binding ElementName="expdrScheduledReminders"/>
-                                                <Binding ElementName="btnActivateReminder"/>
+                                                <Binding ElementName="btnAddReminder"/>
                                             </MultiBinding>
                                         </Button.CommandParameter>
                                     </Button>

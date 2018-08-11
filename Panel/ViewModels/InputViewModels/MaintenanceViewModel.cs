@@ -1,4 +1,5 @@
-﻿using Panel.Commands;
+﻿using Panel.BusinessLogic.AuxilliaryMethods;
+using Panel.Commands;
 using Panel.Interfaces;
 using Panel.Models.InputModels;
 using Panel.Repositories;
@@ -307,9 +308,19 @@ namespace Panel.ViewModels.InputViewModels
                                                 Expander,
                                                 Button>)x;
 
-                            stcPnlExpnder.Item2.Visibility = Visibility.Collapsed;
-                            stcPnlExpnder.Item3.IsEnabled = true;
+                            stcPnlExpnder.Item2.Visibility = Visibility.Collapsed;                            
                             stcPnlExpnder.Item1.Visibility = Visibility.Visible;
+
+                            foreach (var item in FindChildren
+                                                 .FindVisualChildren<PasswordBox>(
+                                                 stcPnlExpnder.Item1))
+                            {
+                                if(item is PasswordBox)
+                                {
+                                    Keyboard.Focus(item);
+                                    break;
+                                }
+                            }
                         },
                         y => !HasErrors
                     )
@@ -328,14 +339,21 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         x =>
                         {
-                            Tuple<PasswordBox, DatePicker,
-                            TextBox, ComboBox, ComboBox, StackPanel,
-                            Expander> 
-                                                    pbdptbcbcbstpnl = (Tuple<PasswordBox, 
-                                                                        DatePicker,
-                                                                       TextBox, ComboBox,
-                                                                       ComboBox, StackPanel,
-                                                                       Expander>)x;
+                            Tuple<PasswordBox, 
+                                  DatePicker,
+                                  TextBox, 
+                                  ComboBox, 
+                                  ComboBox, 
+                                  StackPanel,
+                                  Expander, 
+                                  Tuple<Button>>  pbdptbcbcbstpnl = (Tuple<PasswordBox, 
+                                                                    DatePicker,
+                                                                    TextBox, 
+                                                                    ComboBox,
+                                                                    ComboBox, 
+                                                                    StackPanel,
+                                                                    Expander, 
+                                                                    Tuple<Button>>)x;
 
                             if (pbdptbcbcbstpnl.Item1.Password == "reminder")
                             {
@@ -350,10 +368,15 @@ namespace Panel.ViewModels.InputViewModels
 
                                 pbdptbcbcbstpnl.Item3.IsReadOnly = false;
 
-                                MessageBoxResult result =  MessageBox.Show("Reminder & Notification " +
-                                                           "have been activated", "Information",
-                                                           MessageBoxButton.OK,
-                                                           MessageBoxImage.Information);
+                                pbdptbcbcbstpnl.Rest.Item1.IsEnabled = true;
+
+
+                                MessageBoxResult result =  MessageBox.Show("Reminder & " +
+                                                                "Notification " +
+                                                                "have been activated", 
+                                                                "Information",
+                                                                MessageBoxButton.OK,
+                                                                MessageBoxImage.Information);
                                 switch (result)
                                 {
                                     case MessageBoxResult.None:
@@ -368,9 +391,10 @@ namespace Panel.ViewModels.InputViewModels
                             }
                             else
                             {
-                                MessageBox.Show("Wrong password", "Error",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                                MessageBox.Show("Wrong password", 
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
 
                                 return;
                             }

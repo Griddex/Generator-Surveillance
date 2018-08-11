@@ -1,9 +1,5 @@
 ﻿using Panel.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Panel.Repositories
 {
@@ -46,6 +42,21 @@ namespace Panel.Repositories
                 {
                     item.IsRepetitive = "No";
                     break;
+                }
+            }
+        }
+
+        public void DeleteReminder(string GeneratorName)
+        {
+            foreach (var item in GeneratorSurveillanceDBContext
+                                  .GeneratorSchedulers
+                                  .Where(x => x.Id >= 0))
+            {
+                if (item.GeneratorName == GeneratorName)
+                {
+                    GeneratorSurveillanceDBContext
+                        .GeneratorSchedulers
+                        .Remove(item);
                 }
             }
         }

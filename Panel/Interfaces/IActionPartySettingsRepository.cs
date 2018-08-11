@@ -10,6 +10,8 @@ namespace Panel.Interfaces
             string LastName, string Email, string PhoneNumber,
             string JobTitle);
 
+        void DeleteActionParty(string FirstName, string LastName);
+
         ObservableCollection<ActionPartySetting> GetAllActionParties();
 
         List<string> GetActionPartiesFullNames();

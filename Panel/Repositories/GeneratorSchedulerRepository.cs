@@ -124,16 +124,28 @@ namespace Panel.Repositories
                 EveryHrs, ReminderLevel);
 
             int i = 0;
-            int NoOfRecords = GeneratorSurveillanceDBContext
-                                            .GeneratorSchedulers
-                                            .Count();
+            int NoOfRecords;
+            try
+            {
+                NoOfRecords = GeneratorSurveillanceDBContext
+                                        .GeneratorSchedulers
+                                        .OrderByDescending(x => x.Id)
+                                        .FirstOrDefault()
+                                        .Id + 1;
+            }
+            catch (NullReferenceException)
+            {
+                NoOfRecords = 0;
+            }
+            
+                                            
             foreach (double Hours in NotificationHoursDateTime.Item1)
             {
                 GeneratorSurveillanceDBContext.GeneratorSchedulers.Add
                 (
                     new GeneratorScheduler
                     {
-                        Id = NoOfRecords == 0 ? 0 : NoOfRecords + i + 1,
+                        Id = NoOfRecords + i,
                         GeneratorName = GeneratorName,
                         Starts = StartDate,
                         Every = EveryHrs,
@@ -167,6 +179,7 @@ namespace Panel.Repositories
             int NoOfRecords = GeneratorSurveillanceDBContext
                                     .GeneratorSchedulers
                                     .Count();
+
             var NextPageLastRowNumber = pageIndex * pageSize;
             int SkipBy = (pageIndex == 1) ? (pageIndex - 1) * pageSize
                                           : ((pageIndex - 1) * pageSize) - 1;
@@ -251,7 +264,8 @@ namespace Panel.Repositories
                                                                 .Every);
 
             ActivateReminderNotification(GeneratorName, NextStartDate,
-                     GenLastRowReminder.Every, GenLastRowReminder.ReminderLevel,
+                     GenLastRowReminder.Every, 
+                     GenLastRowReminder.ReminderLevel,
                      GenLastRowReminder.IsRepetitive = "Yes", 
                      GenLastRowReminder.Authoriser);
         }

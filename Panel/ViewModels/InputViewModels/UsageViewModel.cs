@@ -36,10 +36,20 @@ namespace Panel.ViewModels.InputViewModels
         public string SelectedStopAMPM { get; set; }
 
         public int ActiveGenID { get; set; }
+        public string ActiveGenerator { get; set; }
 
         public UsageViewModel(UnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
+
+            var (IsNull, 
+                ActiveGenName, 
+                ActiveGenStartedDate,
+                ActiveGenStartedTime, 
+                ActiveGenID) = UnitOfWork.GeneratorInformation
+                                         .GeneratorStoppedIsNull();
+            ActiveGenerator = ActiveGenName;
+
             InitialiseUsageViewModel();            
         }
 
@@ -72,19 +82,44 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         x =>
                         {
+                            if (x == null)
+                                return;
+
                             if(SelectedGeneratorName == null || 
                             SelectedGeneratorName == "")
                             {
                                 MessageBox.Show($"Please select a " +
-                                    $"generator in General Generator Information", 
+                                    $"generator in General " +
+                                    $"Generator Information", 
                                     "Error",
                                     MessageBoxButton.OK, 
                                     MessageBoxImage.Error);
                                 return;
                             }
 
-                            Tuple<ComboBox, ComboBox, ComboBox, ComboBox, Button> cmbx4Btn =
-                                        (Tuple<ComboBox, ComboBox, ComboBox, ComboBox, Button>)x;
+                            Tuple<ComboBox, 
+                                  ComboBox, 
+                                  ComboBox, 
+                                  ComboBox, 
+                                  Button,
+                                  Label> cmbx4Btn = (Tuple<ComboBox, 
+                                                           ComboBox, 
+                                                           ComboBox, 
+                                                           ComboBox, 
+                                                           Button,
+                                                           Label>)x;
+
+                            //if(ActiveGenerator == cmbx4Btn.Item6.Content as string)
+                            //{
+                            //    MessageBox.Show($"{ActiveGenerator} is active" +
+                            //        $"\n\nPlease select a new " +
+                            //        $"generator in General " +
+                            //        $"Generator Information",
+                            //        "Information",
+                            //        MessageBoxButton.OK,
+                            //        MessageBoxImage.Information);
+                            //    return;
+                            //}
 
                             cmbx4Btn.Item1.IsHitTestVisible = true;
                             cmbx4Btn.Item1.Focusable = true;
@@ -113,20 +148,25 @@ namespace Panel.ViewModels.InputViewModels
                             DateTime GeneratorStartedModelTime = SelectedRecordDate.Date + 
                                                                  GeneratorStartedModel.TimeOfDay;
 
-                            UnitOfWork.GeneratorUsage.GeneratorStarted(SelectedRecordDate, 
-                                SelectedGeneratorName, GeneratorStartedModelTime);
+                            UnitOfWork.GeneratorUsage
+                                      .GeneratorStarted(SelectedRecordDate, 
+                                                        SelectedGeneratorName, 
+                                                        GeneratorStartedModelTime);
+
                             int success = UnitOfWork.Complete();
                             if (success > 0)
                                 MessageBox.Show($"Generator started on " +
                                     $"{GeneratorStartedModelTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}", 
                                     "Success",
-                                    MessageBoxButton.OK, MessageBoxImage.Information);
+                                    MessageBoxButton.OK, 
+                                    MessageBoxImage.Information);
                             else
                             {
                                 MessageBox.Show($"{GeneratorStartedModelTime.ToLongTimeString()} " +
-                                    $"was not saved", 
-                                    "Error",
-                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                                                $"was not saved", 
+                                                "Error",
+                                                MessageBoxButton.OK, 
+                                                MessageBoxImage.Error);
                                 return;
                             }
                         },
@@ -154,12 +194,20 @@ namespace Panel.ViewModels.InputViewModels
                                 MessageBox.Show($"Please select a generator " +
                                     $"in General Generator Information",
                                     "Error",
-                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBoxButton.OK, 
+                                    MessageBoxImage.Error);
                                 return;
                             }
 
-                            Tuple<ComboBox, ComboBox, ComboBox, ComboBox, Button> cmbx4Btn = 
-                                        (Tuple<ComboBox, ComboBox, ComboBox, ComboBox, Button>)x;
+                            Tuple<ComboBox, 
+                                  ComboBox, 
+                                  ComboBox, 
+                                  ComboBox, 
+                                  Button> cmbx4Btn = (Tuple<ComboBox, 
+                                                            ComboBox, 
+                                                            ComboBox, 
+                                                            ComboBox, 
+                                                            Button>)x;
 
                             cmbx4Btn.Item1.IsHitTestVisible = true;
                             cmbx4Btn.Item1.Focusable = true;
@@ -175,37 +223,56 @@ namespace Panel.ViewModels.InputViewModels
 
                             cmbx4Btn.Item5.IsEnabled = true;
 
-                            string mergedStopTime = $"{SelectedStopHour.ToString("D2")}:{SelectedStopMinute.ToString("D2")}:" +
-                                                    $"{SelectedStopSecond.ToString("D2")} {SelectedStopAMPM}";
-                            if (DateTime.TryParseExact(mergedStopTime, "HH:mm:ss tt", CultureInfo.InvariantCulture, 
+                            string mergedStopTime = $"{SelectedStopHour.ToString("D2")}:" +
+                                                    $"{SelectedStopMinute.ToString("D2")}:" +
+                                                    $"{SelectedStopSecond.ToString("D2")} " +
+                                                    $"{SelectedStopAMPM}";
+
+                            if (DateTime.TryParseExact(mergedStopTime, "HH:mm:ss tt", 
+                                CultureInfo.InvariantCulture, 
                                 DateTimeStyles.None, out _parsedStopTime))
                                 GeneratorStoppedModel = _parsedStopTime;
-                            DateTime GeneratorStoppedModelTime = GeneratorStoppedAnotherDay + GeneratorStoppedModel.TimeOfDay;
+
+                            DateTime GeneratorStoppedModelTime = GeneratorStoppedAnotherDay + 
+                                                                    GeneratorStoppedModel.TimeOfDay;
 
                             if((GeneratorStoppedModelTime - DateTime.MinValue).TotalSeconds <=
                             (SelectedRecordDate - DateTime.MinValue).TotalSeconds)
                             {
-                                MessageBox.Show($"{GeneratorStoppedModel.ToLongTimeString()} was not stopped\n\n" +
-                                    $"Generator must be stopped at a later date", "Error",
-                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show($"{GeneratorStoppedModel.ToLongTimeString()} " +
+                                    $"was not stopped\n\n" +
+                                    $"Generator must be stopped at a later date", 
+                                    "Error",
+                                    MessageBoxButton.OK, 
+                                    MessageBoxImage.Error);
                                 return;
                             }
 
-                            var (IsNull, ActiveGenName, ActiveGenStartedDate, ActiveGenStartedTime, ActiveGenID) =
-                                        UnitOfWork.GeneratorInformation.GeneratorStoppedIsNull();
-                            UnitOfWork.GeneratorUsage.GeneratorStopped(GeneratorStoppedModelTime,
-                                ActiveGenID);
+                            var (IsNull, 
+                                 ActiveGenName, 
+                                 ActiveGenStartedDate, 
+                                 ActiveGenStartedTime, 
+                                 ActiveGenID) = UnitOfWork.GeneratorInformation
+                                                          .GeneratorStoppedIsNull();
+
+                            UnitOfWork.GeneratorUsage.GeneratorStopped(
+                                                GeneratorStoppedModelTime,
+                                                ActiveGenID);
+
                             int success = UnitOfWork.Complete();
                             if (success > 0)
                                 MessageBox.Show($"Generator stopped on " +
                                     $"{GeneratorStoppedModelTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}", 
                                     "Success",
-                                    MessageBoxButton.OK, MessageBoxImage.Information);
+                                    MessageBoxButton.OK, 
+                                    MessageBoxImage.Information);
                             else
                             {
-                                MessageBox.Show($"{GeneratorStoppedModel.ToLongTimeString()} was not saved", 
+                                MessageBox.Show($"{GeneratorStoppedModel.ToLongTimeString()}" +
+                                    $" was not saved", 
                                     "Error",
-                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBoxButton.OK, 
+                                    MessageBoxImage.Error);
                                 return;
                             }
                         },

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace Panel.Repositories
 {
@@ -23,7 +24,9 @@ namespace Panel.Repositories
         {
             int NoOfRecords = GeneratorSurveillanceDBContext
                                             .ActionPartySettings
-                                            .Count();
+                                            .OrderByDescending(x => x.Id)
+                                            .FirstOrDefault()
+                                            .Id + 1;
 
             GeneratorSurveillanceDBContext.ActionPartySettings.Add
             (
@@ -39,15 +42,31 @@ namespace Panel.Repositories
                 }
             );
         }
-        
+
+        public void DeleteActionParty(string FirstName, string LastName)
+        {
+            foreach (var item in GeneratorSurveillanceDBContext
+                                  .ActionPartySettings
+                                  .Where(x => x.Id >= 0))
+            {
+                if (item.FirstNameActionParty == FirstName &&
+                    item.LastNameActionParty == LastName)
+                {
+                    GeneratorSurveillanceDBContext
+                        .ActionPartySettings
+                        .Remove(item);
+                }
+            }
+        }
+
         public ObservableCollection<ActionPartySetting> GetAllActionParties()
         {
             return new ObservableCollection<ActionPartySetting>
-                (
-                    GeneratorSurveillanceDBContext
-                    .ActionPartySettings
-                    .AsParallel()
-                );
+            (
+                GeneratorSurveillanceDBContext
+                .ActionPartySettings
+                .AsParallel()
+            );
         }
 
         public List<string> GetActionPartiesFullNames()

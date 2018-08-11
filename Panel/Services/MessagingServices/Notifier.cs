@@ -49,44 +49,57 @@ namespace Panel.Services.MessagingServices
                                         .OrderBy(x => x.ReminderDateTimeProfile - DateTime.Now)
                                         .FirstOrDefault();
 
-            GeneratorID = NextGeneratorForNotification.Id;
-            GeneratorName = NextGeneratorForNotification.GeneratorName;
-            ReminderLevel = NextGeneratorForNotification.ReminderLevel;
+            if(NextGeneratorForNotification != null)
+            {
+                GeneratorID = NextGeneratorForNotification.Id;
+                GeneratorName = NextGeneratorForNotification.GeneratorName;
+                ReminderLevel = NextGeneratorForNotification.ReminderLevel;
 
-            FinalNotificationDate = AllGeneratorSchedules
-                                    .Where(x => x.GeneratorName == 
-                                                NextGeneratorForNotification
-                                                .GeneratorName)
-                                    .Where(x => x.IsActive == "Yes")
-                                    .Where(x => x.ReminderDateTimeProfile > DateTime.Now)
-                                    .OrderBy(x => DateTime.Now - x.ReminderDateTimeProfile)
-                                    .LastOrDefault().ReminderDateTimeProfile;
-            NextNotificationDuration = NextGeneratorForNotification
-                                            .ReminderDateTimeProfile - DateTime.Now;
+                FinalNotificationDate = AllGeneratorSchedules
+                                        .Where(x => x.GeneratorName ==
+                                                    NextGeneratorForNotification
+                                                    .GeneratorName)
+                                        .Where(x => x.IsActive == "Yes")
+                                        .Where(x => x.ReminderDateTimeProfile > DateTime.Now)
+                                        .OrderBy(x => DateTime.Now - x.ReminderDateTimeProfile)
+                                        .LastOrDefault().ReminderDateTimeProfile;
 
-            FirstID = AllGeneratorSchedules
-                        .Where(x => x.GeneratorName == NextGeneratorForNotification
-                                                                .GeneratorName)
-                        .Where(x => x.IsActive == "Yes")
-                        .OrderBy(x => x.Id)
-                        .FirstOrDefault().Id;
-            LastID = AllGeneratorSchedules
-                        .Where(x => x.GeneratorName == NextGeneratorForNotification
-                                                                .GeneratorName)
-                        .Where(x => x.IsActive == "Yes")
-                        .OrderBy(x => x.Id)
-                        .LastOrDefault().Id;
-            
-            int SecondsFromNextNotification = (int)(NextNotificationDuration
-                                                                .TotalSeconds);
+                NextNotificationDuration = NextGeneratorForNotification
+                                                .ReminderDateTimeProfile - DateTime.Now;
 
-            TimerTimer timer = new TimerTimer();
-            timer.Elapsed += Timer_Elapsed;
-            timer.Interval = SecondsFromNextNotification * 1000;
-            timer.AutoReset = false;
-            timer.Enabled = true;
+                FirstID = AllGeneratorSchedules
+                            .Where(x => x.GeneratorName == NextGeneratorForNotification
+                                                                    .GeneratorName)
+                            .Where(x => x.IsActive == "Yes")
+                            .OrderBy(x => x.Id)
+                            .FirstOrDefault().Id;
 
-            GeneratorAndLastIDDict = gsr.GetActiveGeneratorsAndLastID();
+                LastID = AllGeneratorSchedules
+                            .Where(x => x.GeneratorName == NextGeneratorForNotification
+                                                                    .GeneratorName)
+                            .Where(x => x.IsActive == "Yes")
+                            .OrderBy(x => x.Id)
+                            .LastOrDefault().Id;
+
+                int SecondsFromNextNotification = (int)(NextNotificationDuration
+                                                                    .TotalSeconds);
+
+                TimerTimer timer = new TimerTimer();
+                timer.Elapsed += Timer_Elapsed;
+                try
+                {
+                    timer.Interval = SecondsFromNextNotification * 1000;
+                }
+                catch (Exception)
+                {
+                    timer.Interval = 1 * 1000;
+                }
+
+                timer.AutoReset = false;
+                timer.Enabled = true;
+
+                GeneratorAndLastIDDict = gsr.GetActiveGeneratorsAndLastID();
+            }            
         }
 
         private static void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)

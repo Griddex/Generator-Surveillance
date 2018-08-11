@@ -1,4 +1,5 @@
-﻿using Panel.Interfaces;
+﻿using Panel.BusinessLogic.AuxilliaryMethods;
+using Panel.Interfaces;
 using Panel.Views.ChartViews;
 using Panel.Views.HelpViews;
 using Panel.Views.InputViews;
@@ -23,7 +24,7 @@ namespace Panel
                                     .Current.Resources["UnityIoC"];
         
         private InputView _inputView;
-        private LandingView _landingView;
+        //private LandingView _landingView;
         public MainView(InputView inputView, LandingView landingView)
         {
             InitializeComponent();
@@ -34,8 +35,8 @@ namespace Panel
         }
 
         private void InputViewCmd_CanExecute(object sender, 
-            CanExecuteRoutedEventArgs e) => 
-            e.CanExecute = true;
+            CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
         private void InputViewCmd_Executed(object sender, 
             ExecutedRoutedEventArgs e)
         {
@@ -44,8 +45,8 @@ namespace Panel
         }
 
         private void TablesViewCmd_CanExecute(object sender, 
-            CanExecuteRoutedEventArgs e) => 
-            e.CanExecute = true;
+            CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
         private void TablesViewCmd_Executed(object sender, 
             ExecutedRoutedEventArgs e)
         {
@@ -56,8 +57,8 @@ namespace Panel
         }
 
         private void ChartsViewCmd_CanExecute(object sender, 
-            CanExecuteRoutedEventArgs e) => 
-            e.CanExecute = true;
+            CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
         private void ChartsViewCmd_Executed(object sender, 
             ExecutedRoutedEventArgs e)
         {
@@ -67,8 +68,8 @@ namespace Panel
         }
 
         private void ReportsViewCmd_CanExecute(object sender, 
-            CanExecuteRoutedEventArgs e) => 
-            e.CanExecute = true;
+            CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
         private void ReportsViewCmd_Executed(object sender, 
             ExecutedRoutedEventArgs e)
         {
@@ -79,6 +80,7 @@ namespace Panel
 
         private void HelpViewCmd_CanExecute(object sender, 
             CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
         private void HelpViewCmd_Executed(object sender, 
             ExecutedRoutedEventArgs e)
         {
@@ -89,13 +91,15 @@ namespace Panel
         
         private void InputToUsageView_CanExecute(object sender, 
             CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
         private void InputToUsageView_Executed(object sender, 
             ExecutedRoutedEventArgs e)
         {
             UsageView usageView = (UsageView)container
-                .Resolve<IView>("UsageView");
+                                    .Resolve<IView>("UsageView");
+
             usageView.lblCurrentGeneratorName.Content = 
-                this._inputView.cmbxGenInfo.Text;
+                                    this._inputView.cmbxGenInfo.Text;
 
             if(this._inputView.lblGenTimeStarted.Content != null)
                 usageView
@@ -107,30 +111,62 @@ namespace Panel
                     .lblGenRecordDate
                     .Content = $"{this._inputView.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()}";
 
-            var converter = new BrushConverter();
-            var GenActiveColor = (Brush)converter.ConvertFromString("#FF3939");
-            if (this._inputView.lblGenIndicator.Background != GenActiveColor)
+            //var converter = new BrushConverter();
+            //var GenActiveColor = (Brush)converter.ConvertFromString("#FF3939");
+            if ((string)usageView.lblCurrentGeneratorName
+                                 .Content == ActiveGeneratorInformation
+                                                    .GetActiveGeneratorInformation()
+                                                    .ActiveGenName)
             {
-                usageView.cmbxHrGenSpd.IsHitTestVisible = false;
-                usageView.cmbxHrGenSpd.Focusable = false;
-
-                usageView.cmbxMinGenSpd.IsHitTestVisible = false;
-                usageView.cmbxMinGenSpd.Focusable = false;
-
-                usageView.cmbxSecsGenSpd.IsHitTestVisible = false;
-                usageView.cmbxSecsGenSpd.Focusable = false;
-
-                usageView.cmbxAMPMGenSpd.IsHitTestVisible = false;
-                usageView.cmbxAMPMGenSpd.Focusable = false;
-
-                usageView.btnGenStopped.IsEnabled = false;
+                
             }
 
             MainViewFrame.Navigate(usageView);
         }
 
+        private void GeneratorStartedControls(bool truefalse)
+        {
+            UsageView usageView = (UsageView)container
+                                    .Resolve<IView>("UsageView");
+
+            usageView.cmbxHrGenStd.IsHitTestVisible = truefalse;
+            usageView.cmbxHrGenStd.Focusable = truefalse;
+
+            usageView.cmbxMinGenStd.IsHitTestVisible = truefalse;
+            usageView.cmbxMinGenStd.Focusable = truefalse;
+
+            usageView.cmbxSecsGenStd.IsHitTestVisible = truefalse;
+            usageView.cmbxSecsGenStd.Focusable = truefalse;
+
+            usageView.cmbxAMPMGenStd.IsHitTestVisible = truefalse;
+            usageView.cmbxAMPMGenStd.Focusable = truefalse;
+
+            usageView.btnGenStarted.IsEnabled = truefalse;
+        }
+
+        private void GeneratorStoppedControls(bool truefalse)
+        {
+            UsageView usageView = (UsageView)container
+                                    .Resolve<IView>("UsageView");
+
+            usageView.cmbxHrGenSpd.IsHitTestVisible = truefalse;
+            usageView.cmbxHrGenSpd.Focusable = truefalse;
+
+            usageView.cmbxMinGenSpd.IsHitTestVisible = truefalse;
+            usageView.cmbxMinGenSpd.Focusable = truefalse;
+
+            usageView.cmbxSecsGenSpd.IsHitTestVisible = truefalse;
+            usageView.cmbxSecsGenSpd.Focusable = truefalse;
+
+            usageView.cmbxAMPMGenSpd.IsHitTestVisible = truefalse;
+            usageView.cmbxAMPMGenSpd.Focusable = truefalse;
+
+            usageView.btnGenStopped.IsEnabled = truefalse;
+        }
+
         private void UsageToFuellingView_CanExecute(object sender, 
             CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
         private void UsageToFuellingView_Executed(object sender, 
             ExecutedRoutedEventArgs e)
         {
@@ -141,52 +177,62 @@ namespace Panel
 
         private void FuellingToMaintenanceView_CanExecute(object sender, 
             CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
         private void FuellingToMaintenanceView_Executed(object sender, 
             ExecutedRoutedEventArgs e)
         {
             MaintenanceView maintenanceView = 
                 (MaintenanceView)container.Resolve<IView>("MaintenanceView");
+
             MainViewFrame.Navigate(maintenanceView);
         }
 
         private void UsageMaintToRunningHrsSchedulerView_CanExecute(object sender, 
             CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
         private void UsageMaintToRunningHrsSchedulerView_Executed(object sender, 
             ExecutedRoutedEventArgs e)
         {
             RunningHrsSchedulingTablesView runningHrsSchedulingTablesView = 
                 (RunningHrsSchedulingTablesView)container
                 .Resolve<IView>("RunningHrsSchedulingTablesView");
+
             MainViewFrame.Navigate(runningHrsSchedulingTablesView);
         }
         
         private void RunningHrsSchedulerToUsageMaintView_CanExecute(object sender, 
             CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
         private void RunningHrsSchedulerToUsageMaintView_Executed(object sender, 
             ExecutedRoutedEventArgs e)
         {
             UsageFuellingTablesView usageFuellingTablesView = 
                 (UsageFuellingTablesView)container.Resolve<IView>("UsageFuellingTablesView");
+
             MainViewFrame.Navigate(usageFuellingTablesView);
         }
 
-        private void SettingsView_CanExecute(object sender, CanExecuteRoutedEventArgs e) => 
-            e.CanExecute = true;
+        private void SettingsView_CanExecute(object sender, 
+            CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
         private void SettingsView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            SettingsView settingsView = (SettingsView)container.Resolve<IView>("SettingsView");
+            SettingsView settingsView = (SettingsView)container
+                                        .Resolve<IView>("SettingsView");
+
             MainViewFrame.Navigate(settingsView);
         }
 
-        private void Exit_CanExecute(object sender, CanExecuteRoutedEventArgs e) => 
-            e.CanExecute = true;
+        private void Exit_CanExecute(object sender, 
+            CanExecuteRoutedEventArgs e) => e.CanExecute = true;
+
         private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageBoxResult result =
-                MessageBox.Show("Do you want to exit the application?", 
-                "Confirmation", 
-                MessageBoxButton.YesNoCancel, 
-                MessageBoxImage.Question);
+            MessageBoxResult result =   MessageBox.Show("Do you want to " +
+                                        "exit the application?", 
+                                        "Confirmation", 
+                                        MessageBoxButton.YesNoCancel, 
+                                        MessageBoxImage.Question);
             switch (result)
             {
                 case MessageBoxResult.Yes:
@@ -207,10 +253,7 @@ namespace Panel
             }            
         }
 
-        private void CommandBinding_CanExecute(object sender, 
-            CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
+        private void CommandBinding_CanExecute(object sender,
+            CanExecuteRoutedEventArgs e) => e.CanExecute = true;
     }
 }

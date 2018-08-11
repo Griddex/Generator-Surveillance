@@ -18,6 +18,10 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
         {
             Chart.Height = 690;
             Chart.Width = 1150;
+            if (AllOrdinateSeriesInHours[0].Count > 12)
+                Chart.LegendLocation = LegendLocation.Bottom;
+            else
+                Chart.LegendLocation = LegendLocation.Right;
 
             //PointLabel = chtPt => string.Format($"Duration: " +
             //                                    $"{lstBoxSelectedStringValues[Convert.ToInt32(chtPt.X)]}\n" +
@@ -42,7 +46,6 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                     Chart.Series.Add(ColumnSeries[0]);
                     Chart.AxisY.Add(AxisSeriesTuple.Item1);
                     Chart.AxisX.Add(AxisSeriesTuple.Item2);                    
-                    Chart.LegendLocation = LegendLocation.Right;
 
                     break;
 
@@ -83,7 +86,6 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
 
                     Chart.AxisY.Add(AxisSeriesTuple.Item1);
                     Chart.AxisX.Add(AxisSeriesTuple.Item2);
-                    Chart.LegendLocation = LegendLocation.Right;
 
                     break;
 
@@ -118,7 +120,6 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                     Chart.Series.Add(LineSeries[0]);
                     Chart.AxisY.Add(AxisSeriesTuple.Item1);
                     Chart.AxisX.Add(AxisSeriesTuple.Item2);
-                    Chart.LegendLocation = LegendLocation.Right;
 
                     break;
 

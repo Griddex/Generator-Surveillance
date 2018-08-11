@@ -1,12 +1,12 @@
 ﻿using Panel.BusinessLogic.MaintenanceLogic;
 using Panel.Interfaces;
-using Panel.UserControls;
 using Panel.ViewModels.InputViewModels;
 using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace Panel.Views.InputViews
 {
@@ -20,6 +20,12 @@ namespace Panel.Views.InputViews
             this.DataContext = maintenanceViewModel;
             InitializeComponent();
             this.dtpkrStarts.SelectedDate = DateTime.Now;
+            this.Loaded += MaintenanceView_Loaded;
+        }
+
+        private void MaintenanceView_Loaded(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private void GroupbyGenerator_Click(object sender, RoutedEventArgs e)

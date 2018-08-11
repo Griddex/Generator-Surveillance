@@ -270,10 +270,11 @@
                                                  IsChecked="{Binding SelectedRadioButtonYear}"
                                                  Command="{Binding DurationPerspectiveCmd}">
                                         <RadioButton.CommandParameter>
-                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
+                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanelCheckBox}">
                                                 <Binding ElementName="txtBxYear"/>
                                                 <Binding ElementName="lstBxDateDurationList"/>
                                                 <Binding ElementName="stkPlDurationPerspective"/>
+                                                <Binding ElementName="chkBxDurationPerspective"/>
                                             </MultiBinding>
                                         </RadioButton.CommandParameter>
                                         <WrapPanel>
@@ -292,10 +293,11 @@
                                                  GroupName="DateCategory"
                                                  Command="{Binding DurationPerspectiveCmd}">
                                         <RadioButton.CommandParameter>
-                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
+                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanelCheckBox}">
                                                 <Binding ElementName="txtBxQuarter"/>
                                                 <Binding ElementName="lstBxDateDurationList"/>
                                                 <Binding ElementName="stkPlDurationPerspective"/>
+                                                <Binding ElementName="chkBxDurationPerspective"/>
                                             </MultiBinding>
                                         </RadioButton.CommandParameter>
                                         <WrapPanel>
@@ -314,10 +316,11 @@
                                                  GroupName="DateCategory"
                                                  Command="{Binding DurationPerspectiveCmd}">
                                         <RadioButton.CommandParameter>
-                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
+                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanelCheckBox}">
                                                 <Binding ElementName="txtBxMonth"/>
                                                 <Binding ElementName="lstBxDateDurationList"/>
                                                 <Binding ElementName="stkPlDurationPerspective"/>
+                                                <Binding ElementName="chkBxDurationPerspective"/>
                                             </MultiBinding>
                                         </RadioButton.CommandParameter>
                                         <WrapPanel>
@@ -336,10 +339,11 @@
                                                  GroupName="DateCategory"
                                                  Command="{Binding DurationPerspectiveCmd}">
                                         <RadioButton.CommandParameter>
-                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
+                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanelCheckBox}">
                                                 <Binding ElementName="txtBxWeek"/>
                                                 <Binding ElementName="lstBxDateDurationList"/>
                                                 <Binding ElementName="stkPlDurationPerspective"/>
+                                                <Binding ElementName="chkBxDurationPerspective"/>
                                             </MultiBinding>
                                         </RadioButton.CommandParameter>
                                         <WrapPanel>
@@ -358,10 +362,11 @@
                                                   GroupName="DateCategory"
                                                   Command="{Binding DurationPerspectiveCmd}">
                                         <RadioButton.CommandParameter>
-                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanel}">
+                                            <MultiBinding Converter="{StaticResource PassRadioButtonListBoxStackPanelCheckBox}">
                                                 <Binding ElementName="txtBxDay"/>
                                                 <Binding ElementName="lstBxDateDurationList"/>
                                                 <Binding ElementName="stkPlDurationPerspective"/>
+                                                <Binding ElementName="chkBxDurationPerspective"/>
                                             </MultiBinding>
                                         </RadioButton.CommandParameter>
                                         <WrapPanel>

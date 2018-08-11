@@ -11,5 +11,6 @@ namespace Panel.Interfaces
     {
         void SetRepeatReminder(string GeneratorName);
         void DeactivateRepeatReminder(string GeneratorName);
+        void DeleteReminder(string GeneratorName);
     }
 }

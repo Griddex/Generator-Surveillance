@@ -71,6 +71,20 @@ namespace Panel.ViewModels.SettingsViewModel
                                 return;
                             }
 
+                            foreach (var item in dtgrd.Items)
+                            {
+                                var row = item as AuthoriserSetting;
+                                if (row.EmailAuthoriser == EmailAuthoriser.Trim())
+                                {
+                                    MessageBox.Show($"{FirstNameAuthoriser} {LastNameAuthoriser} " +
+                                        $"already exists",
+                                        "Information",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Information);
+                                    return;
+                                }
+                            }
+
                             UnitOfWork.AuthoriserSetting.SetAuthorisers(
                                 ReminderDateAuthoriser, FirstNameAuthoriser, 
                                 LastNameAuthoriser, EmailAuthoriser, PhoneNumberAuthoriser, 
@@ -115,6 +129,20 @@ namespace Panel.ViewModels.SettingsViewModel
                                 return;
                             }
 
+                            foreach (var item in dtgrd.Items)
+                            {
+                                var row = item as ActionPartySetting;
+                                if (row.EmailActionParty == EmailActionParty.Trim())
+                                {
+                                    MessageBox.Show($"{FirstNameActionParty} {LastNameActionParty} " +
+                                        $"already exists",
+                                        "Information",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Information);
+                                    return;
+                                }
+                            }
+
                             UnitOfWork.ActionPartySetting.SetActionParties(
                                 ReminderDateActionParty, FirstNameActionParty,
                                 LastNameActionParty, EmailActionParty, 
@@ -126,6 +154,118 @@ namespace Panel.ViewModels.SettingsViewModel
                             {
                                 AnyActionPartiesPage = UnitOfWork.ActionPartySetting
                                                                .GetAllActionParties();
+                                OnPropertyChanged(nameof(AnyActionPartiesPage));
+                            }
+                        },
+                        y => true
+                    )
+                );
+            }
+        }
+
+        private ICommand _deleteAuthoriserCmd;
+        public ICommand DeleteAuthoriserCmd
+        {
+            get
+            {
+                return this._deleteAuthoriserCmd ??
+                (
+                    this._deleteAuthoriserCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            if (x != null)
+                            {
+                                AuthoriserSetting SelectedAuthoriser = (AuthoriserSetting)x;
+
+                                MessageBoxResult result = MessageBox.Show($"You are about to" +
+                                                       $" remove {SelectedAuthoriser.FirstNameAuthoriser}" +
+                                                       $" {SelectedAuthoriser.LastNameAuthoriser}" +
+                                                       $" as an authoriser" +
+                                                       $"\n\nContinue?",
+                                                       $"Confirmation",
+                                                       MessageBoxButton.YesNoCancel,
+                                                       MessageBoxImage.Warning);
+
+                                switch (result)
+                                {
+                                    case MessageBoxResult.None:
+                                    case MessageBoxResult.Cancel:
+                                    case MessageBoxResult.No:
+                                        return;
+                                    case MessageBoxResult.OK:
+                                    case MessageBoxResult.Yes:
+                                        UnitOfWork.AuthoriserSetting.DeleteAuthoriser(
+                                                SelectedAuthoriser.FirstNameAuthoriser,
+                                                SelectedAuthoriser.LastNameAuthoriser);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+
+                            int Success = UnitOfWork.Complete();
+                            if (Success > 0)
+                            {
+                                AnyAuthorisersPage = UnitOfWork.AuthoriserSetting
+                                                               .GetAllAuthorisers();
+
+                                OnPropertyChanged(nameof(AnyAuthorisersPage));
+                            }
+                        },
+                        y => true
+                    )
+                );
+            }
+        }
+
+        private ICommand _deleteActionPartyCmd;
+        public ICommand DeleteActionPartyCmd
+        {
+            get
+            {
+                return this._deleteActionPartyCmd ??
+                (
+                    this._deleteActionPartyCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            if (x != null)
+                            {
+                                ActionPartySetting SelectedActionParty = (ActionPartySetting)x;
+
+                                MessageBoxResult result = MessageBox.Show($"You are about to" +
+                                                                   $" remove {SelectedActionParty.FirstNameActionParty}" +
+                                                                   $" {SelectedActionParty.LastNameActionParty}" +
+                                                                   $" as an authoriser" +
+                                                                   $"\n\nContinue?",
+                                                                   $"Confirmation",
+                                                                   MessageBoxButton.YesNoCancel,
+                                                                   MessageBoxImage.Warning);
+
+                                switch (result)
+                                {
+                                    case MessageBoxResult.None:
+                                    case MessageBoxResult.Cancel:
+                                    case MessageBoxResult.No:
+                                        return;
+                                    case MessageBoxResult.OK:
+                                    case MessageBoxResult.Yes:
+                                        UnitOfWork.ActionPartySetting.DeleteActionParty(
+                                                                SelectedActionParty.FirstNameActionParty,
+                                                                SelectedActionParty.LastNameActionParty);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+
+                            int Success = UnitOfWork.Complete();
+                            if (Success > 0)
+                            {
+                                AnyActionPartiesPage = UnitOfWork.ActionPartySetting
+                                                              .GetAllActionParties();
+
                                 OnPropertyChanged(nameof(AnyActionPartiesPage));
                             }
                         },

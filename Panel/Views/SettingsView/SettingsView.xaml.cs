@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using Unity;
 
 namespace Panel.Views.SettingsView
@@ -38,6 +39,12 @@ namespace Panel.Views.SettingsView
                 remindersConfigViewModel;
 
             this.stckpnlPassword.Margin = new Thickness(0, 440, 0, 0);
+            this.Loaded += SettingsView_Loaded;
+        }
+
+        private void SettingsView_Loaded(object sender, RoutedEventArgs e)
+        {
+            Keyboard.Focus(this.psswrdReminder);
         }
 
         private void GroupbyGeneratorConsumption_Click(object sender, RoutedEventArgs e)
@@ -193,15 +200,10 @@ namespace Panel.Views.SettingsView
             this.expdrfclSettings.Margin = new Thickness(0, 10, 0, 0);
             this.grpbxFuelConsumption.Margin = new Thickness(0, 10, 0, 0);
 
-            this.vwbxSettings.Width = 1000;
+            this.vwbxSettings.Width = (mainView as MainView).MainViewFrame.ActualWidth * 0.8; 
             this.vwbxSettings.Height = 860;
             this.expdrfclSettings.Height = 860;
             this.grpbxFuelConsumption.Height = 860;
-
-            //this.Height = (mainView as MainView).MainViewFrame.ActualHeight;
-            //this.vwbxSettings.Height = (mainView as MainView).MainViewFrame.ActualHeight * 0.8;
-            //this.expdrfclSettings.Height = (mainView as MainView).MainViewFrame.ActualHeight * 0.8;
-            //this.grpbxFuelConsumption.Height = (mainView as MainView).MainViewFrame.ActualHeight * 0.8;
 
             this.stckpnlPassword.Visibility = Visibility.Collapsed;
         }
@@ -222,7 +224,7 @@ namespace Panel.Views.SettingsView
             this.expdrraSettings.Margin = new Thickness(0, 10, 0, 0);
             this.grpbxAuthorisers.Margin = new Thickness(0, 10, 0, 0);
 
-            this.vwbxSettings.Width = 1000;
+            this.vwbxSettings.Width = (mainView as MainView).MainViewFrame.ActualWidth * 0.8;
             this.vwbxSettings.Height = 860;
             this.grpbxAuthorisers.Height = 860;
             this.expdrraSettings.Height = 860;
@@ -238,23 +240,29 @@ namespace Panel.Views.SettingsView
 
         private void expdrAuthorisersPanel_Expanded(object sender, RoutedEventArgs e)
         {
+            this.expdrAuthorisersPanel.Background = Brushes.White;
             this.expdrActionPartyPanel.IsExpanded = false;
             e.Handled = true;
         }
 
         private void expdrAuthorisersPanel_Collapsed(object sender, RoutedEventArgs e)
         {
+            this.expdrAuthorisersPanel.Background = new BrushConverter()
+                                    .ConvertFromString("#F2F2F2") as Brush;
             e.Handled = true;
         }
 
         private void expdrActionPartiesPanel_Expanded(object sender, RoutedEventArgs e)
         {
+            this.expdrActionPartyPanel.Background = Brushes.White;
             this.expdrAuthorisersPanel.IsExpanded = false;
             e.Handled = true;
         }
 
         private void expdrActionPartiesPanel_Collapsed(object sender, RoutedEventArgs e)
         {
+            this.expdrActionPartyPanel.Background = new BrushConverter()
+                        .ConvertFromString("#F2F2F2") as Brush;
             e.Handled = true;
         }
 
@@ -268,7 +276,7 @@ namespace Panel.Views.SettingsView
             this.expdrrcSettings.Margin = new Thickness(0, 10, 0, 0);
             this.grpbxRemConfig.Margin = new Thickness(0, 10, 0, 0);
 
-            this.vwbxSettings.Width = 1000;
+            this.vwbxSettings.Width = (mainView as MainView).MainViewFrame.ActualWidth * 0.8;
             this.vwbxSettings.Height = 860;
             this.grpbxRemConfig.Height = 860;
             this.expdrrcSettings.Height = 860;

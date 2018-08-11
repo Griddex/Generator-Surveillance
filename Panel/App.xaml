@@ -21,8 +21,8 @@
         <convtrs:ConvertCategoryToPhrase x:Key="CategoryToPhrase"/>
         <convtrs:ConvertComboBoxItemToString x:Key="ComboBoxItemToString"/>
         <convtrs:ConvertIntToTwoCharString x:Key="IntToTwoCharString"/>
-        <convtrs:PassRadioButtonListBoxStackPanelAsCommandParameters 
-            x:Key="PassRadioButtonListBoxStackPanel"/>
+        <convtrs:PassRadioButtonListBoxStackPanelCheckBoxAsCommandParameters 
+            x:Key="PassRadioButtonListBoxStackPanelCheckBox"/>
         <convtrs:PassCheckBoxBoolListBoxAsCommandParameters 
             x:Key="PassCheckBoxBoolListBox"/>
         <convtrs:PassListBoxAsCommandParameter x:Key="PassListBox"/>
@@ -34,10 +34,10 @@
             x:Key="PassTextBoxTwoComboxItems"/>
         <convtrs:PassDatePickerComboBoxAsCommandParameter 
             x:Key="PassDatePickerComboBox"/>
-        <convtrs:PassComboBoxesAndButtonAsCommandParameters 
-            x:Key="PassComboBoxesAndButton"/>
-        <convtrs:PassDtPkrTxBxTwoCmboxsAsCommandParameters 
-            x:Key="PassDtPkrTxBxTwoCmboxs"/>
+        <convtrs:PassComboBoxesButtonLabelAsCommandParameters 
+            x:Key="PassComboBoxesButtonLabel"/>
+        <convtrs:PassDtPkrTxBxTwoCmboxsBtnAsCommandParameters 
+            x:Key="PassDtPkrTxBxTwoCmboxsBtn"/>
         <convtrs:PassStackpanelExpanderButtonAsCommandParameters 
             x:Key="PassStackpanelExpanderButton"/>
         <convtrs:PassPswbxExpdrExpdrStkPlVwBxAsCommandParameters 

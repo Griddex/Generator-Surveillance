@@ -247,6 +247,7 @@ namespace Panel.ViewModels.ChartViewModels
                                                     StkplDurationPerspective
                                                     .Children.OfType<RadioButton>()
                                                     .FirstOrDefault(r => r.IsChecked == true);
+
                                 if(rdbtnDurationPerspective == null)
                                 {
                                     MessageBox.Show("Please select a duration perspective", 
@@ -316,6 +317,7 @@ namespace Panel.ViewModels.ChartViewModels
                         {
                             DateTime StartTime = Convert.ToDateTime(MergedStartTime);
                             DateTime StopTime = Convert.ToDateTime(MergedStopTime);
+
                             if (SelectedStartDate == SelectedStopDate)
                             {
                                 if (TimeSpan.Compare(StartTime.TimeOfDay, 
@@ -342,11 +344,13 @@ namespace Panel.ViewModels.ChartViewModels
 
                             Tuple<TextBlock, 
                                   ListBox, 
-                                  StackPanel> 
+                                  StackPanel,
+                                  CheckBox> 
                                   txtBlkLstBxStkPnlTuple = 
                                                         (Tuple<TextBlock, 
                                                                ListBox, 
-                                                               StackPanel>)x;
+                                                               StackPanel,
+                                                               CheckBox>)x;
 
                             string DateDurationPerspective = txtBlkLstBxStkPnlTuple.Item1.Text;
                             SelectedDurationPerspective = DateDurationPerspective;
@@ -363,6 +367,9 @@ namespace Panel.ViewModels.ChartViewModels
                             catch (Exception) { }                            
                             
                             txtBlkLstBxStkPnlTuple.Item2.ItemsSource = DatePerspectiveList;
+                            txtBlkLstBxStkPnlTuple.Item4.IsChecked = true;
+                            txtBlkLstBxStkPnlTuple.Item2.SelectAll();
+
                             PlotButtonPressedCount++;
                         },
                         y => true

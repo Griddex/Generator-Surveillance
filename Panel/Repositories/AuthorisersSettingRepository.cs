@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace Panel.Repositories
 {
@@ -22,8 +23,10 @@ namespace Panel.Repositories
             string JobTitle)
         {
             int NoOfRecords = GeneratorSurveillanceDBContext
-                                            .AuthoriserSettings
-                                            .Count();
+                                    .AuthoriserSettings
+                                    .OrderByDescending(x => x.Id)
+                                    .FirstOrDefault()
+                                    .Id + 1;
 
             GeneratorSurveillanceDBContext.AuthoriserSettings.Add
             (
@@ -39,15 +42,31 @@ namespace Panel.Repositories
                 }
             );
         }
-        
+
+        public void DeleteAuthoriser(string FirstName, string LastName)
+        {
+            foreach (var item in GeneratorSurveillanceDBContext
+                                  .AuthoriserSettings
+                                  .Where(x => x.Id >= 0))
+            {
+                if (item.FirstNameAuthoriser == FirstName &&
+                    item.LastNameAuthoriser == LastName)
+                {
+                    GeneratorSurveillanceDBContext
+                        .AuthoriserSettings
+                        .Remove(item);
+                }
+            }
+        }
+
         public ObservableCollection<AuthoriserSetting> GetAllAuthorisers()
         {
             return new ObservableCollection<AuthoriserSetting>
-                (
-                    GeneratorSurveillanceDBContext
-                    .AuthoriserSettings
-                    .AsParallel()
-                );
+            (
+                GeneratorSurveillanceDBContext
+                .AuthoriserSettings
+                .AsParallel()
+            );
         }
 
         public List<string> GetAuthorisersFullNames()
