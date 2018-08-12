@@ -55,8 +55,8 @@ namespace Panel.ViewModels.SettingsViewModel
                             if (CurrentFuelConsumption == 0 || TestFuelConsumption == 0
                             || StandardFuelConsumption == 0)
                             {
-                                MessageBox.Show($"All fuel consumption values must " +
-                                    $"be set to a valid value",
+                                MessageBox.Show($"All fuel consumption data must " +
+                                    $"be set to a valid values",
                                     "Error",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Error);

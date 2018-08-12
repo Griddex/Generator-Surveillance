@@ -74,6 +74,28 @@ namespace Panel.ViewModels.SettingsViewModel
             }
         }
 
+        private ICommand _uniqueAuthoriserFullNamesCmd;
+        public ICommand UniqueAuthoriserFullNamesCmd
+        {
+            get
+            {
+                return this._uniqueAuthoriserFullNamesCmd ??
+                (
+                    this._uniqueAuthoriserFullNamesCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            UniqueAuthoriserFullNames = UnitOfWork.AuthoriserSetting
+                                                                  .GetAuthorisersFullNames();
+
+                            OnPropertyChanged(nameof(UniqueAuthoriserFullNames));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
         private ICommand _addReminderNotificationCmd;
         public ICommand AddReminderNotificationCmd
         {

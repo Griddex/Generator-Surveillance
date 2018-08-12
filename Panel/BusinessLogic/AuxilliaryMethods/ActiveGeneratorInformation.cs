@@ -10,13 +10,13 @@ namespace Panel.BusinessLogic.AuxilliaryMethods
         static UnityContainer container = (UnityContainer)Application
                                           .Current.Resources["UnityIoC"];
 
-        public static (bool IsNull, string ActiveGenName, DateTime? ActiveGenStartedDate,
+        public static (bool IsGenActive, string ActiveGenName, DateTime? ActiveGenStartedDate,
             DateTime? ActiveGenStartedTime, int ActiveGenID) GetActiveGeneratorInformation()
         {
             var gse = container.Resolve<GeneratorSurveillanceDBEntities>();
             var gir = new GeneratorInformationRepository(gse);
 
-            return gir.GeneratorStoppedIsNull();
+            return gir.GeneratorStoppedIsGenActive();
         }
     }
 }

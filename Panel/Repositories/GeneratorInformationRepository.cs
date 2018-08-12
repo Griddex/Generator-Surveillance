@@ -23,17 +23,21 @@ namespace Panel.Repositories
             get { return Context as GeneratorSurveillanceDBEntities; }
         }
 
-        public (bool IsNull, string ActiveGenName, DateTime? ActiveGenStartedDate,
-            DateTime? ActiveGenStartedTime, int ActiveGenID) GeneratorStoppedIsNull()
+        public (bool IsGenActive, string ActiveGenName, DateTime? ActiveGenStartedDate,
+            DateTime? ActiveGenStartedTime, int ActiveGenID) GeneratorStoppedIsGenActive()
         {
-            bool isNull;
+            bool IsGenActive;
             string activeGenName = null;
             DateTime? activeGenStartedDate = null;
             DateTime? activeGenStartedTime = null;
             int activeGenID = 0;
 
-            int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorUsages.Count();
-            var ActiveGenerators = GeneratorSurveillanceDBContext.GeneratorUsages
+            int NoOfRecords = GeneratorSurveillanceDBContext
+                                    .GeneratorUsages
+                                    .Count();
+
+            var ActiveGenerators = GeneratorSurveillanceDBContext
+                                    .GeneratorUsages
                                     .Where(x => 
                                     x.GeneratorStopped == 
                                     new DateTime(0001, 01, 01, 00, 00, 00) || 
@@ -44,11 +48,11 @@ namespace Panel.Repositories
 
             if (ActiveGenerators.ToList().Count == 0)
             {
-                isNull = false;
+                IsGenActive = false;
             }
             else
             {
-                isNull = true;
+                IsGenActive = true;
                 var ActiveGeneratorsList = ActiveGenerators.ToList();
                 var LastActiveGenIndex = ActiveGenerators.ToList().Count - 1;
                 activeGenName = ActiveGeneratorsList[LastActiveGenIndex].GeneratorName;
@@ -56,10 +60,10 @@ namespace Panel.Repositories
                 activeGenStartedTime = ActiveGeneratorsList[LastActiveGenIndex].GeneratorStarted;
                 activeGenID = ActiveGeneratorsList[LastActiveGenIndex].Id;
 
-                return (isNull, activeGenName, activeGenStartedDate, 
+                return (IsGenActive, activeGenName, activeGenStartedDate, 
                     activeGenStartedTime, activeGenID);
             }
-            return (isNull, activeGenName, activeGenStartedDate, 
+            return (IsGenActive, activeGenName, activeGenStartedDate, 
                 activeGenStartedTime, activeGenID);
         }
         

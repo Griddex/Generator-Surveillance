@@ -11,6 +11,7 @@
       d:DesignWidth="1930"
       Title="Input Panel" 
       Background="White">
+    
     <Page.Resources>
         <convs:PassDatePickerComboBoxAsCommandParameter 
             x:Key="ConvObjectsToDtPrCmbx"/>
@@ -26,7 +27,8 @@
             </StackPanel>
         </ControlTemplate>
     </Page.Resources>
-    <Viewbox>
+    
+    <Viewbox x:Name="vwbxGenInfo">
         <Grid x:Name="grdGeneralInformation">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
@@ -67,7 +69,8 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <WrapPanel Orientation="Vertical" 
+                        <WrapPanel x:Name="wppnlLoadActiveGen"
+                                   Orientation="Vertical" 
                                    Grid.Row="0" 
                                    Grid.Column="1" 
                                    Grid.ColumnSpan="2" 
@@ -119,7 +122,7 @@
                                        HorizontalContentAlignment="Center"
                                        VerticalContentAlignment="Bottom"/>
                                 <Label x:Name="lblGenState" 
-                                       Content="{Binding Path=IsNull, 
+                                       Content="{Binding Path=IsGenActive, 
                                                          Mode=OneWay, 
                                                          Converter={StaticResource ConvBoolToString}}" 
                                        Height="30" 
@@ -129,7 +132,7 @@
                                        HorizontalContentAlignment="Center"
                                        VerticalContentAlignment="Center"/>
                                 <Label x:Name="lblGenIndicator" 
-                                       Background="{Binding Path=IsNull, 
+                                       Background="{Binding Path=IsGenActive, 
                                                             Mode=OneWay, 
                                                             Converter={StaticResource ConvBoolToBrush}}" 
                                        Height="40" 

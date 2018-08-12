@@ -81,19 +81,12 @@ namespace Panel.Services.MessagingServices
                             .OrderBy(x => x.Id)
                             .LastOrDefault().Id;
 
-                int SecondsFromNextNotification = (int)(NextNotificationDuration
+                double SecondsFromNextNotification = (double)(NextNotificationDuration
                                                                     .TotalSeconds);
 
                 TimerTimer timer = new TimerTimer();
                 timer.Elapsed += Timer_Elapsed;
-                try
-                {
-                    timer.Interval = SecondsFromNextNotification * 1000;
-                }
-                catch (Exception)
-                {
-                    timer.Interval = 1 * 1000;
-                }
+                timer.Interval = SecondsFromNextNotification * 1000;
 
                 timer.AutoReset = false;
                 timer.Enabled = true;

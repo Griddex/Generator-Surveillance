@@ -39,18 +39,21 @@ namespace Panel.ViewModels.InputViewModels
                                 (UniqueGeneratorNamesUnsorted
                                 .OrderBy(x => x.GeneratorName));
 
-            var (IsNull, ActiveGenName, ActiveGenStartedDate, 
-                ActiveGenStartedTime, ActiveGenID) = UnitOfWork
-                                                    .GeneratorInformation
-                                                    .GeneratorStoppedIsNull();
-            this.IsNull = IsNull;
+            var (IsGenActive, 
+                ActiveGenName, 
+                ActiveGenStartedDate, 
+                ActiveGenStartedTime, 
+                ActiveGenID) = UnitOfWork.GeneratorInformation
+                                         .GeneratorStoppedIsGenActive();
+
+            this.IsGenActive = IsGenActive;
             this.ActiveGenStartedTime = ActiveGenStartedTime;
             ActiveGenerator = ActiveGenName;
             this._ActiveGenName = ActiveGenName;
             this._ActiveGenStartedDate = ActiveGenStartedDate;
         }
 
-        public bool IsNull { get; }
+        public bool IsGenActive { get; }
         public DateTime? ActiveGenStartedTime { get; }
 
         private string _generatorName;
@@ -85,7 +88,7 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         x =>
                         {
-                            if (IsNull)
+                            if (IsGenActive)
                             {
                                 Tuple<DatePicker, ComboBox> dtpkrcmbx = 
                                 (Tuple<DatePicker, ComboBox>)x;

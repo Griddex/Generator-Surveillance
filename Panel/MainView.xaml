@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Style="{StaticResource GrayWindowStyle}"
         Title="Generator Surveillance Software"
+        WindowState="Maximized"
         FontWeight="Bold"
         MaxWidth="{Binding Source={x:Static SystemParameters.WorkArea}, 
                            Path=Width}"

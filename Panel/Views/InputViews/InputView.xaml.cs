@@ -1,4 +1,5 @@
-﻿using Panel.Interfaces;
+﻿using Panel.BusinessLogic.AuxilliaryMethods;
+using Panel.Interfaces;
 using Panel.Repositories;
 using Panel.ViewModels.InputViewModels;
 using System;
@@ -16,6 +17,8 @@ namespace Panel.Views.InputViews
     {
         private UnitOfWork _unitOfWork;
 
+        public bool IsGenActive { get; set; }
+
         public InputView(UnitOfWork unitOfWork, InputViewModel inputViewModel)
         {
             InitializeComponent();
@@ -28,19 +31,41 @@ namespace Panel.Views.InputViews
 
         private void InputView_Loaded(object sender, RoutedEventArgs e)
         {
+            IsGenActive = ActiveGeneratorInformation
+                            .GetActiveGeneratorInformation()
+                            .IsGenActive;
+
             var inputViewModel = this.DataContext as InputViewModel;
-            if (inputViewModel.IsNull)
+
+            if (IsGenActive)
             {
                 inputViewModel.LoadActiveGeneratorRecord
                     .Execute(new Tuple<DatePicker, ComboBox>
                     (this.dtepkrGenInfo,
                     this.cmbxGenInfo));
             }
-                
+            else
+            {
+                this.wppnlLoadActiveGen.Visibility = Visibility.Collapsed;
+                this.lblGenName.Content = "";
+                this.lblGenState.Content = "OFF";
+                this.cmbxGenInfo.SelectedItem = null;
+            }
+        }
+
+        private string[] TimeParts(DateTime dateTime)
+        {
+            string strdateTime = dateTime.ToString("hh:mm:ss tt");
+            char[] delimeters = new char[] { ':', ' ' };
+            string[] timeParts = strdateTime.Split(delimeters,
+                                    StringSplitOptions.RemoveEmptyEntries);
+            return timeParts;
         }
 
         private void lblGenIndicator_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (!IsGenActive) return;
+
             MessageBoxResult result = MessageBox.Show($"Do you want to " +
                                                       $"stop active generator?",
                                                       "Confirmation",
@@ -56,11 +81,12 @@ namespace Panel.Views.InputViews
                 case MessageBoxResult.OK:
                 case MessageBoxResult.Yes:
                     UnityContainer container = (UnityContainer)Application
-                                        .Current.Resources["UnityIoC"];
+                                               .Current.Resources["UnityIoC"];
 
                     UsageView _usageView = (UsageView)container.Resolve<IView>("UsageView");
 
                     _usageView.lblCurrentGeneratorName.Content = this.cmbxGenInfo.Text;
+
                     if (this.lblGenTimeStarted.Content != null)
                         _usageView.lblGenRecordDate
                             .Content = $"{this.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()} " +
@@ -69,53 +95,33 @@ namespace Panel.Views.InputViews
                         _usageView.lblGenRecordDate
                             .Content = $"{this.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()}";
 
-                    DateTime lastGenTime = Convert.ToDateTime(_usageView
-                                                            .lblGenRecordDate
-                                                            .Content);
+                    DateTime lastGenTime = (DateTime)ActiveGeneratorInformation
+                                                    .GetActiveGeneratorInformation()
+                                                    .ActiveGenStartedTime;
 
-                    string strlastGenTime = lastGenTime.ToString("hh:mm:ss tt");
-                    char[] delimeters = new char[] { ':', ' ' };
-                    string[] timeParts = strlastGenTime.Split(delimeters,
-                                            StringSplitOptions.RemoveEmptyEntries);
-
-                    _usageView.cmbxHrGenStd.SelectedValue = timeParts[0];
-                    _usageView.cmbxMinGenStd.SelectedValue = timeParts[1];
-                    _usageView.cmbxSecsGenStd.SelectedValue = timeParts[2];
-                    _usageView.cmbxAMPMGenStd.SelectedValue = timeParts[3];
+                    string[] LastGenTimeParts = TimeParts(lastGenTime);
+                    _usageView.cmbxHrGenStd.SelectedValue = LastGenTimeParts[0];
+                    _usageView.cmbxMinGenStd.SelectedValue = LastGenTimeParts[1];
+                    _usageView.cmbxSecsGenStd.SelectedValue = LastGenTimeParts[2];
+                    _usageView.cmbxAMPMGenStd.SelectedValue = LastGenTimeParts[3];
 
 
                     DateTime currGenTime = DateTime.Now;
-                    string strCurrGenTime = currGenTime.ToString("hh:mm:ss tt");
-                    char[] delimeters1 = new char[] { ':', ' ' };
-                    string[] timeParts1 = strCurrGenTime.Split(delimeters1,
-                        StringSplitOptions.RemoveEmptyEntries);
-
-                    _usageView.cmbxHrGenSpd.SelectedValue = timeParts1[0];
-                    _usageView.cmbxMinGenSpd.SelectedValue = timeParts1[1];
-                    _usageView.cmbxSecsGenSpd.SelectedValue = timeParts1[2];
-                    _usageView.cmbxAMPMGenSpd.SelectedValue = timeParts1[3];
-
-                    _usageView.cmbxHrGenStd.IsHitTestVisible = false;
-                    _usageView.cmbxHrGenStd.Focusable = false;
-
-                    _usageView.cmbxMinGenStd.IsHitTestVisible = false;
-                    _usageView.cmbxMinGenStd.Focusable = false;
-
-                    _usageView.cmbxSecsGenStd.IsHitTestVisible = false;
-                    _usageView.cmbxSecsGenStd.Focusable = false;
-
-                    _usageView.cmbxAMPMGenStd.IsHitTestVisible = false;
-                    _usageView.cmbxAMPMGenStd.Focusable = false;
-
-                    _usageView.btnGenStarted.IsEnabled = false;
+                    string[] CurrTimeParts = TimeParts(currGenTime);
+                    _usageView.cmbxHrGenSpd.SelectedValue = CurrTimeParts[0];
+                    _usageView.cmbxMinGenSpd.SelectedValue = CurrTimeParts[1];
+                    _usageView.cmbxSecsGenSpd.SelectedValue = CurrTimeParts[2];
+                    _usageView.cmbxAMPMGenSpd.SelectedValue = CurrTimeParts[3];
 
                     IView mainView = container.Resolve<IView>("MainView");
+                    (mainView as MainView).GeneratorStartedControls(false);
+                    (mainView as MainView).GeneratorStoppedControls(true);
                     (mainView as MainView).MainViewFrame.Navigate(_usageView);
+
                     break;
                 default:
                     break;
-            }
-            
+            }            
         }
     }
 }

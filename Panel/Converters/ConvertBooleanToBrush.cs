@@ -9,8 +9,8 @@ namespace Panel.Converters
         public object Convert(object value, Type targetType, 
             object parameter, CultureInfo culture)
         {
-            bool IsNull = (bool)value;
-            if (IsNull)
+            bool IsGenActive = (bool)value;
+            if (IsGenActive)
                 return "#FF3939";
             else
                 return "Black";

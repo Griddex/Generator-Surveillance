@@ -24,14 +24,13 @@ namespace Panel
                                     .Current.Resources["UnityIoC"];
         
         private InputView _inputView;
-        //private LandingView _landingView;
+        public (bool,string,DateTime?, DateTime?, int) ActiveGeneratorInfo { get; set; }
+
         public MainView(InputView inputView, LandingView landingView)
         {
             InitializeComponent();
             this._inputView = inputView;
             MainViewFrame.Navigate(this._inputView);
-            //this._landingView = landingView;
-            //MainViewFrame.Navigate(this._landingView);
         }
 
         private void InputViewCmd_CanExecute(object sender, 
@@ -40,7 +39,37 @@ namespace Panel
         private void InputViewCmd_Executed(object sender, 
             ExecutedRoutedEventArgs e)
         {
-            //this._inputView.lblGenIndicator.
+            var ActiveGenerator =
+                    ActiveGeneratorInformation.GetActiveGeneratorInformation();
+
+            ActiveGeneratorInfo = ActiveGenerator;
+            string ActiveGeneratorName = ActiveGenerator.ActiveGenName;
+
+            if (ActiveGeneratorName != null)
+            {
+                this._inputView.lblGenIndicator
+                               .Background = new BrushConverter()
+                                                 .ConvertFromString("#FF3939") 
+                                                            as SolidColorBrush;
+
+                this._inputView.wppnlLoadActiveGen.Visibility = Visibility.Visible;
+                this._inputView.lblGenName.Content = ActiveGeneratorName;
+                this._inputView.lblGenState.Content = "ON";
+                this._inputView.cmbxGenInfo.Text = ActiveGeneratorName;
+            }
+            else
+            {
+                this._inputView.lblGenIndicator
+                               .Background = new BrushConverter()
+                                                 .ConvertFromString("Black")
+                                                            as SolidColorBrush;
+
+                this._inputView.wppnlLoadActiveGen.Visibility = Visibility.Collapsed;
+                this._inputView.lblGenName.Content = "";
+                this._inputView.lblGenState.Content = "OFF";
+                this._inputView.cmbxGenInfo.SelectedItem = null;
+            }
+
             MainViewFrame.Navigate(this._inputView);
         }
 
@@ -53,6 +82,7 @@ namespace Panel
             UsageFuellingTablesView usageFuellingTablesView = 
                 (UsageFuellingTablesView)container
                 .Resolve<IView>("UsageFuellingTablesView");
+
             MainViewFrame.Navigate(usageFuellingTablesView);
         }
 
@@ -105,26 +135,32 @@ namespace Panel
                 usageView
                     .lblGenRecordDate
                     .Content = $"{this._inputView.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()} " +
-                                        $"{ this._inputView.lblGenTimeStarted.Content.ToString()}";
+                               $"{ this._inputView.lblGenTimeStarted.Content.ToString()}";
             else
                 usageView
                     .lblGenRecordDate
                     .Content = $"{this._inputView.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()}";
 
-            //var converter = new BrushConverter();
-            //var GenActiveColor = (Brush)converter.ConvertFromString("#FF3939");
             if ((string)usageView.lblCurrentGeneratorName
                                  .Content == ActiveGeneratorInformation
                                                     .GetActiveGeneratorInformation()
                                                     .ActiveGenName)
             {
-                
+                ParseActiveGeneratorTime();
+                GeneratorStartedControls(false);
+                GeneratorStoppedControls(true);
             }
-
+            else
+            {
+                ParseActiveGeneratorTime();
+                GeneratorStartedControls(true);
+                GeneratorStoppedControls(false);
+            }
+            
             MainViewFrame.Navigate(usageView);
         }
 
-        private void GeneratorStartedControls(bool truefalse)
+        public void GeneratorStartedControls(bool truefalse)
         {
             UsageView usageView = (UsageView)container
                                     .Resolve<IView>("UsageView");
@@ -144,7 +180,7 @@ namespace Panel
             usageView.btnGenStarted.IsEnabled = truefalse;
         }
 
-        private void GeneratorStoppedControls(bool truefalse)
+        public void GeneratorStoppedControls(bool truefalse)
         {
             UsageView usageView = (UsageView)container
                                     .Resolve<IView>("UsageView");
@@ -164,6 +200,42 @@ namespace Panel
             usageView.btnGenStopped.IsEnabled = truefalse;
         }
 
+        private string[] TimeParts(DateTime dateTime)
+        {
+            string strdateTime = dateTime.ToString("hh:mm:ss tt");
+            char[] delimeters = new char[] { ':', ' ' };
+            string[] timeParts = strdateTime.Split(delimeters,
+                                    StringSplitOptions.RemoveEmptyEntries);
+            return timeParts;
+        }
+
+        public void ParseActiveGeneratorTime()
+        {
+            UsageView usageView = (UsageView)container
+                                  .Resolve<IView>("UsageView");
+
+            try
+            {
+                DateTime lastGenTime = (DateTime)ActiveGeneratorInformation
+                                        .GetActiveGeneratorInformation()
+                                        .ActiveGenStartedTime;
+
+                string[] LastGenTimeParts = TimeParts(lastGenTime);
+                usageView.cmbxHrGenStd.SelectedValue = LastGenTimeParts[0];
+                usageView.cmbxMinGenStd.SelectedValue = LastGenTimeParts[1];
+                usageView.cmbxSecsGenStd.SelectedValue = LastGenTimeParts[2];
+                usageView.cmbxAMPMGenStd.SelectedValue = LastGenTimeParts[3];
+
+                DateTime currGenTime = DateTime.Now;
+                string[] CurrTimeParts = TimeParts(currGenTime);
+                usageView.cmbxHrGenSpd.SelectedValue = CurrTimeParts[0];
+                usageView.cmbxMinGenSpd.SelectedValue = CurrTimeParts[1];
+                usageView.cmbxSecsGenSpd.SelectedValue = CurrTimeParts[2];
+                usageView.cmbxAMPMGenSpd.SelectedValue = CurrTimeParts[3];
+            }
+            catch (InvalidOperationException) { }            
+        }
+
         private void UsageToFuellingView_CanExecute(object sender, 
             CanExecuteRoutedEventArgs e) => e.CanExecute = true;
 
@@ -171,7 +243,8 @@ namespace Panel
             ExecutedRoutedEventArgs e)
         {
             FuellingView fuellingView = (FuellingView)container
-                                                      .Resolve<IView>("FuellingView");
+                                        .Resolve<IView>("FuellingView");
+
             MainViewFrame.Navigate(fuellingView);
         }
 
@@ -181,8 +254,8 @@ namespace Panel
         private void FuellingToMaintenanceView_Executed(object sender, 
             ExecutedRoutedEventArgs e)
         {
-            MaintenanceView maintenanceView = 
-                (MaintenanceView)container.Resolve<IView>("MaintenanceView");
+            MaintenanceView maintenanceView = (MaintenanceView)container
+                                              .Resolve<IView>("MaintenanceView");
 
             MainViewFrame.Navigate(maintenanceView);
         }

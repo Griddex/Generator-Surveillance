@@ -58,6 +58,10 @@
         </Window>
 
         <PasswordBox x:Key="psswrd"/>
+        <Style TargetType="{x:Type Hyperlink}">
+            <Setter Property="Foreground"
+                    Value="#1D8696"/>
+        </Style>
 
         <Style TargetType="{x:Type Label}" 
                x:Key="RoundLabelStyle">

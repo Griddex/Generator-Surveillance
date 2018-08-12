@@ -1,21 +1,10 @@
-﻿using Panel.Interfaces;
-using Panel.Models.InputModels;
-using Panel.Repositories;
+﻿using Panel.BusinessLogic.AuxilliaryMethods;
+using Panel.Interfaces;
 using Panel.ViewModels.InputViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Unity;
 
 namespace Panel.Views.InputViews
@@ -32,34 +21,45 @@ namespace Panel.Views.InputViews
             this.Loaded += new RoutedEventHandler(UsageView_Loaded);
         }
 
+        private string[] TimeParts(DateTime dateTime)
+        {
+            string strdateTime = dateTime.ToString("hh:mm:ss tt");
+            char[] delimeters = new char[] { ':', ' ' };
+            string[] timeParts = strdateTime.Split(delimeters,
+                                    StringSplitOptions.RemoveEmptyEntries);
+            return timeParts;
+        }
+
         public void UsageView_Loaded(object sender, RoutedEventArgs args)
         {
-            
-            UnityContainer container = (UnityContainer)Application.Current.Resources["UnityIoC"];
+
+            UnityContainer container =
+                      (UnityContainer)Application.Current.Resources["UnityIoC"];
+
             InputView _inputView = (InputView)container.Resolve<IView>("InputView");
-            if (_inputView.lblGenIndicator.Background == (SolidColorBrush)new BrushConverter().ConvertFromString("Red"))
+
+            if (ActiveGeneratorInformation
+                .GetActiveGeneratorInformation().IsGenActive)
             {
-                DateTime lastGenTime = Convert.ToDateTime(this.lblGenRecordDate.Content);
-                string strlastGenTime = lastGenTime.ToString("hh:mm:ss tt");
-                char[] delimeters = new char[] { ':', ' ' };
-                string[] timeParts = strlastGenTime.Split(delimeters, StringSplitOptions.RemoveEmptyEntries);
-                
-                this.cmbxHrGenStd.SelectedValue = timeParts[0];
-                this.cmbxMinGenStd.SelectedValue = timeParts[1];
-                this.cmbxSecsGenStd.SelectedValue = timeParts[2];
-                this.cmbxAMPMGenStd.SelectedValue = timeParts[3];                
+
+                DateTime lastGenTime = (DateTime)ActiveGeneratorInformation
+                                                .GetActiveGeneratorInformation()
+                                                .ActiveGenStartedTime;
+
+                string[] LastGenTimeParts = TimeParts(lastGenTime);
+                this.cmbxHrGenStd.SelectedValue = LastGenTimeParts[0];
+                this.cmbxMinGenStd.SelectedValue = LastGenTimeParts[1];
+                this.cmbxSecsGenStd.SelectedValue = LastGenTimeParts[2];
+                this.cmbxAMPMGenStd.SelectedValue = LastGenTimeParts[3];
+
+
+                DateTime currGenTime = DateTime.Now;
+                string[] CurrTimeParts = TimeParts(currGenTime);
+                this.cmbxHrGenSpd.SelectedValue = CurrTimeParts[0];
+                this.cmbxMinGenSpd.SelectedValue = CurrTimeParts[1];
+                this.cmbxSecsGenSpd.SelectedValue = CurrTimeParts[2];
+                this.cmbxAMPMGenSpd.SelectedValue = CurrTimeParts[3];
             }
-
-            DateTime currGenTime = DateTime.Now;
-            string strCurrGenTime = currGenTime.ToString("hh:mm:ss tt");
-            char[] delimeters1 = new char[] { ':', ' ' };
-            string[] timeParts1 = strCurrGenTime.Split(delimeters1, StringSplitOptions.RemoveEmptyEntries);
-
-            this.cmbxHrGenSpd.SelectedValue = timeParts1[0];
-            this.cmbxMinGenSpd.SelectedValue = timeParts1[1];
-            this.cmbxSecsGenSpd.SelectedValue = timeParts1[2];
-            this.cmbxAMPMGenSpd.SelectedValue = timeParts1[3];
-
-        }        
+        }
     }    
 }

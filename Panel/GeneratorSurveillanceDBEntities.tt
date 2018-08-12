@@ -241,7 +241,7 @@ public void WriteHeader(CodeStringGenerator codeStringGenerator, EntityFramework
 public void BeginNamespace(CodeGenerationTools code)
 {
     var codeNamespace = code.VsNamespaceSuggestion();
-    if (!String.IsNullOrEmpty(codeNamespace))
+    if (!String.IsGenActiveOrEmpty(codeNamespace))
     {
 #>
 namespace <#=code.EscapeNamespace(codeNamespace)#>
@@ -253,7 +253,7 @@ namespace <#=code.EscapeNamespace(codeNamespace)#>
 
 public void EndNamespace(CodeGenerationTools code)
 {
-    if (!String.IsNullOrEmpty(code.VsNamespaceSuggestion()))
+    if (!String.IsGenActiveOrEmpty(code.VsNamespaceSuggestion()))
     {
         PopIndent();
 #>
@@ -337,7 +337,7 @@ public class CodeStringGenerator
         var parameters = FunctionImportParameter.Create(edmFunction.Parameters, _code, _ef);
         foreach (var parameter in parameters.Where(p => p.NeedsLocalVariable))
         {
-            var isNotNull = parameter.IsNullableOfT ? parameter.FunctionParameterName + ".HasValue" : parameter.FunctionParameterName + " != null";
+            var isNotNull = parameter.IsGenActiveableOfT ? parameter.FunctionParameterName + ".HasValue" : parameter.FunctionParameterName + " != null";
             var notNullInit = "new ObjectParameter(\"" + parameter.EsqlParameterName + "\", " + parameter.FunctionParameterName + ")";
             var nullInit = "new ObjectParameter(\"" + parameter.EsqlParameterName + "\", typeof(" + TypeMapper.FixNamespaces(parameter.RawClrTypeName) + "))";
             writeParameter(parameter.LocalVariableName, isNotNull, notNullInit, nullInit);
@@ -422,7 +422,7 @@ public class CodeStringGenerator
 
     public string UsingDirectives(bool inHeader, bool includeCollections = true)
     {
-        return inHeader == string.IsNullOrEmpty(_code.VsNamespaceSuggestion())
+        return inHeader == string.IsGenActiveOrEmpty(_code.VsNamespaceSuggestion())
             ? string.Format(
                 CultureInfo.InvariantCulture,
                 "{0}using System;{1}" +
@@ -460,25 +460,25 @@ public class TypeMapper
 
     public string GetTypeName(TypeUsage typeUsage)
     {
-        return typeUsage == null ? null : GetTypeName(typeUsage.EdmType, _ef.IsNullable(typeUsage), modelNamespace: null);
+        return typeUsage == null ? null : GetTypeName(typeUsage.EdmType, _ef.IsGenActiveable(typeUsage), modelNamespace: null);
     }
 
     public string GetTypeName(EdmType edmType)
     {
-        return GetTypeName(edmType, isNullable: null, modelNamespace: null);
+        return GetTypeName(edmType, IsGenActiveable: null, modelNamespace: null);
     }
 
     public string GetTypeName(TypeUsage typeUsage, string modelNamespace)
     {
-        return typeUsage == null ? null : GetTypeName(typeUsage.EdmType, _ef.IsNullable(typeUsage), modelNamespace);
+        return typeUsage == null ? null : GetTypeName(typeUsage.EdmType, _ef.IsGenActiveable(typeUsage), modelNamespace);
     }
 
     public string GetTypeName(EdmType edmType, string modelNamespace)
     {
-        return GetTypeName(edmType, isNullable: null, modelNamespace: modelNamespace);
+        return GetTypeName(edmType, IsGenActiveable: null, modelNamespace: modelNamespace);
     }
 
-    public string GetTypeName(EdmType edmType, bool? isNullable, string modelNamespace)
+    public string GetTypeName(EdmType edmType, bool? IsGenActiveable, string modelNamespace)
     {
         if (edmType == null)
         {
@@ -514,7 +514,7 @@ public class TypeMapper
 
             typeName = FixNamespaces(typeName);
 
-            return clrType.IsValueType && isNullable == true ?
+            return clrType.IsValueType && IsGenActiveable == true ?
                 String.Format(CultureInfo.InvariantCulture, "Nullable<{0}>", typeName) :
                 typeName;
         }

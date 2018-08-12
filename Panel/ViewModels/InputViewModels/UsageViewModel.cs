@@ -42,12 +42,12 @@ namespace Panel.ViewModels.InputViewModels
         {
             UnitOfWork = unitOfWork;
 
-            var (IsNull, 
+            var (IsGenActive, 
                 ActiveGenName, 
                 ActiveGenStartedDate,
                 ActiveGenStartedTime, 
                 ActiveGenID) = UnitOfWork.GeneratorInformation
-                                         .GeneratorStoppedIsNull();
+                                         .GeneratorStoppedIsGenActive();
             ActiveGenerator = ActiveGenName;
 
             InitialiseUsageViewModel();            
@@ -203,11 +203,13 @@ namespace Panel.ViewModels.InputViewModels
                                   ComboBox, 
                                   ComboBox, 
                                   ComboBox, 
-                                  Button> cmbx4Btn = (Tuple<ComboBox, 
+                                  Button,
+                                  Label> cmbx4Btn = (Tuple<ComboBox, 
                                                             ComboBox, 
                                                             ComboBox, 
                                                             ComboBox, 
-                                                            Button>)x;
+                                                            Button,
+                                                            Label>)x;
 
                             cmbx4Btn.Item1.IsHitTestVisible = true;
                             cmbx4Btn.Item1.Focusable = true;
@@ -248,12 +250,12 @@ namespace Panel.ViewModels.InputViewModels
                                 return;
                             }
 
-                            var (IsNull, 
+                            var (IsGenActive, 
                                  ActiveGenName, 
                                  ActiveGenStartedDate, 
                                  ActiveGenStartedTime, 
                                  ActiveGenID) = UnitOfWork.GeneratorInformation
-                                                          .GeneratorStoppedIsNull();
+                                                          .GeneratorStoppedIsGenActive();
 
                             UnitOfWork.GeneratorUsage.GeneratorStopped(
                                                 GeneratorStoppedModelTime,

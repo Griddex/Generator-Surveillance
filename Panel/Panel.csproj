@@ -466,9 +466,6 @@
     <Resource Include="Images\Next.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="SplashScreens\GSS - SplashScreen.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Day.jpg" />
     <Resource Include="Images\Months1.jpg" />
     <Resource Include="Images\Months2.jpg" />
@@ -479,9 +476,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Download.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="SplashScreens\GSS - SplashScreen - Final.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.2">
@@ -524,6 +518,7 @@
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
       <LastGenOutput>GeneratorSurveillanceDBEntities.cs</LastGenOutput>
     </Content>
+    <SplashScreen Include="SplashScreens\GSS - SplashScreen.bmp" />
     <Resource Include="Images\Tablef.png" />
     <Resource Include="Images\Tableff.png" />
     <Resource Include="Images\Fuelling.png" />

@@ -13,7 +13,7 @@
     <Page.Resources>        
         <conv:ConvertDateTimeToFullDate x:Key="ConvStringToDate"/>
     </Page.Resources>
-    <Viewbox>
+    <Viewbox x:Name="vwbxGenUsage">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
@@ -50,7 +50,10 @@
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Row="0" 
                               Grid.Column="1">
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal"
+                                        Height="50"
+                                        Background="#F2F2F2" 
+                                        Margin="0,24,25,25">
                                 <Label x:Name="GenUsageGenerators" 
                                        Content="Generator:" 
                                        HorizontalAlignment="Center" 
@@ -69,11 +72,11 @@
                                        VerticalAlignment="Center" />
                                 <Label x:Name="lblGenRecordDate" 
                                        Content="{Binding SelectedRecordDate, Mode=OneWayToSource}" 
-                                       HorizontalAlignment="Center"
+                                       HorizontalAlignment="Left"
                                        Foreground="#1D8696" 
                                        Width="263" 
                                        Height="30" 
-                                       HorizontalContentAlignment="Center"/>
+                                       HorizontalContentAlignment="Left"/>
                             </StackPanel>
 
                         </Grid>

@@ -10,8 +10,8 @@ namespace Panel.Converters
         public object Convert(object value, Type targetType, 
             object parameter, CultureInfo culture)
         {
-            bool isNull = (bool)value;
-            if (isNull)
+            bool IsGenActive = (bool)value;
+            if (IsGenActive)
                 return $"ON";
             else
                 return "OFF";

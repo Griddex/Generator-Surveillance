@@ -18,6 +18,7 @@ namespace Panel.Views.SettingsView
     {
         public static UnityContainer container { get; private set; } =
                       (UnityContainer)Application.Current.Resources["UnityIoC"];
+
         IView mainView = container.Resolve<IView>("MainView");
 
         public SettingsView(AuthoriserSettingsViewModel authoriserSettingsViewModel,
@@ -39,11 +40,13 @@ namespace Panel.Views.SettingsView
                 remindersConfigViewModel;
 
             this.stckpnlPassword.Margin = new Thickness(0, 440, 0, 0);
+
             this.Loaded += SettingsView_Loaded;
         }
 
         private void SettingsView_Loaded(object sender, RoutedEventArgs e)
         {
+            this.stckpnlPassword.Visibility = Visibility.Visible;
             Keyboard.Focus(this.psswrdReminder);
         }
 
@@ -282,6 +285,13 @@ namespace Panel.Views.SettingsView
             this.expdrrcSettings.Height = 860;
 
             this.stckpnlPassword.Visibility = Visibility.Collapsed;
+
+            var remindersConfigViewModel =
+                    this.grpbxRemConfig.DataContext
+                    as RemindersConfigViewModel;
+
+            remindersConfigViewModel.UniqueAuthoriserFullNamesCmd
+                .Execute(null);
         }
 
         private void Reminders_Collapsed(object sender, RoutedEventArgs e)
@@ -325,6 +335,11 @@ namespace Panel.Views.SettingsView
                 this.expdrrcSettings.IsExpanded = false;
                 this.stckpnlPassword.Visibility = Visibility.Visible;
             }                
+        }
+
+        private void Expander_Expanded(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }
