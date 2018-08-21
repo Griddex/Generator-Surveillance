@@ -32,10 +32,6 @@ namespace Panel.Repositories
             DateTime? activeGenStartedTime = null;
             int activeGenID = 0;
 
-            int NoOfRecords = GeneratorSurveillanceDBContext
-                                    .GeneratorUsages
-                                    .Count();
-
             var ActiveGenerators = GeneratorSurveillanceDBContext
                                     .GeneratorUsages
                                     .Where(x => 

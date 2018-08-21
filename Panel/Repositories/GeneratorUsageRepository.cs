@@ -26,7 +26,7 @@ namespace Panel.Repositories
         public void GeneratorStarted(DateTime RecordDate, string GeneratorName, 
             DateTime GeneratorStarted)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext
+            int RecordNo = GeneratorSurveillanceDBContext
                                         .GeneratorUsages
                                         .Count();
 
@@ -34,7 +34,7 @@ namespace Panel.Repositories
             (
                 new GeneratorUsage
                 {
-                    Id = NoOfRecords,
+                    Id = RecordNo,
                     Date = RecordDate,
                     GeneratorName = GeneratorName,
                     GeneratorStarted = GeneratorStarted,
@@ -77,11 +77,11 @@ namespace Panel.Repositories
         public ObservableCollection<GeneratorUsage> GetAnyPageGeneratorUsages(
             int pageIndex = 1, int pageSize = 10)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext.GeneratorUsages.Count();
+            int RecordNo = GeneratorSurveillanceDBContext.GeneratorUsages.Count();
             var NextPageLastRowNumber = pageIndex * pageSize;
             int SkipBy = (pageIndex == 1) ? (pageIndex - 1) * pageSize 
                                           : ((pageIndex - 1) * pageSize) - 1;
-            if ((NoOfRecords - NextPageLastRowNumber) > pageSize)
+            if ((RecordNo - NextPageLastRowNumber) > pageSize)
             {
                 return new ObservableCollection<GeneratorUsage>
                         (

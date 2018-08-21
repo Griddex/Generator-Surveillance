@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Panel.Interfaces
 {
@@ -12,7 +9,7 @@ namespace Panel.Interfaces
         MailAddress FromAddress { get; set; }
         List<MailAddress> ToAddresses { get; set; }
         string MessageNotification { get; set; }
-        void SendMessage(string GeneratorName, string ReminderLevel, string NotificationTime, 
+        void SendMessage(string GeneratorName, string ReminderLevel,  
             TimeSpan NextNotificationDuration, DateTime FinalNotificationDate, int FirstID, 
             int LastID, int GeneratorID);
     }

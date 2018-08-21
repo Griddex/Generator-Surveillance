@@ -1,11 +1,9 @@
 ﻿using Panel.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 
 namespace Panel.Services.MessagingServices
@@ -13,37 +11,36 @@ namespace Panel.Services.MessagingServices
     public class EmailService : IEmailService
     {
         public MailAddress FromAddress { get; set; } = 
-            new MailAddress("gideonyte@hotmail.com", 
+            new MailAddress("gideon.sanni@aol.com", 
                 "Generator Surveillance Notification");
-
+        public SmtpClient smtpClient { get; set; } = new SmtpClient();
+        public MailMessage mailMessage { get; set; } = new MailMessage();
         public List<MailAddress> ToAddresses { get; set; }
         public List<MailAddress> CCAddresses { get; set; }
         public string MessageNotification { get; set; }
         public Tuple<string,string> SubjectAndBody { get; set; }
 
         public void SendMessage(string GeneratorName, string ReminderLevel, 
-            string NotificationTime, TimeSpan NextNotificationDuration, 
+            TimeSpan NextNotificationDuration, 
             DateTime FinalNotificationDate, int FirstID, int LastID, 
             int GeneratorID)
         {
             try
             {
-                MailMessage mailMessage = new MailMessage();
-                SmtpClient smtpClient = new SmtpClient();
                 mailMessage.From = FromAddress;
 
                 ExtractEmails extractEmails = new ExtractEmails();
-
                 foreach (var email in extractEmails.GetEmails())
                 {
                     mailMessage.To.Add(new MailAddress(email));
                 }
-                
+
                 SubjectAndBody = EmailMessage.EmailSubjectAndBody
                                                 (GeneratorName,
-                                                ReminderLevel, NotificationTime, 
+                                                ReminderLevel,
                                                 NextNotificationDuration,
-                                                FinalNotificationDate, FirstID, 
+                                                FinalNotificationDate,
+                                                FirstID,
                                                 LastID, GeneratorID);
 
                 mailMessage.Subject = SubjectAndBody.Item1;
@@ -51,18 +48,61 @@ namespace Panel.Services.MessagingServices
                 mailMessage.IsBodyHtml = true;
 
                 smtpClient.Port = 587;
-                smtpClient.Host = "smtp.live.com";
+                smtpClient.Host = "smtp.aol.com";
                 smtpClient.EnableSsl = true;
                 smtpClient.UseDefaultCredentials = false;
                 smtpClient.Credentials = new NetworkCredential(
-                                            "gideonyte@hotmail.com", 
-                                            "KazakhSTan#1");
+                                            "gideon.sanni@aol.com",
+                                            "KrygySTan#1");
+
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            }
+            catch { }
+
+            try
+            {
                 smtpClient.Send(mailMessage);
             }
-            catch (Exception ex)
+            catch (SmtpFailedRecipientsException ex)
             {
-                MessageBox.Show($"Error {ex.Message}");
+                for (int i = 0; i < ex.InnerExceptions.Length; i++)
+                {
+                    SmtpStatusCode status = ex.InnerExceptions[i].StatusCode;
+                    if (status == SmtpStatusCode.MailboxBusy ||
+                        status == SmtpStatusCode.MailboxUnavailable)
+                    {
+                        MessageBox.Show($"Delivery failed - retrying" +
+                            $" in 5 seconds.", 
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+
+                        Thread.Sleep(5000);
+                        smtpClient.Send(mailMessage);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Failed to deliver message to " +
+                            $"{ex.InnerExceptions[i].FailedRecipient}",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                    }
+                }
+            }
+            catch(SmtpException ex)
+            {
+                MessageBox.Show($"Error {ex.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Error {ex.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
     }

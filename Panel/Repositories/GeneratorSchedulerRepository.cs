@@ -29,8 +29,9 @@ namespace Panel.Repositories
         {
             return new ObservableCollection<GeneratorScheduler>
                     (
-                          GeneratorSurveillanceDBContext.GeneratorSchedulers
-                         .Where(x => x.Id >= 0)                     
+                          GeneratorSurveillanceDBContext
+                          .GeneratorSchedulers
+                          .Where(x => x.Id >= 0)                     
                     );
         }
 
@@ -124,10 +125,10 @@ namespace Panel.Repositories
                 EveryHrs, ReminderLevel);
 
             int i = 0;
-            int NoOfRecords;
+            int RecordNo;
             try
             {
-                NoOfRecords = GeneratorSurveillanceDBContext
+                RecordNo = GeneratorSurveillanceDBContext
                                         .GeneratorSchedulers
                                         .OrderByDescending(x => x.Id)
                                         .FirstOrDefault()
@@ -135,7 +136,7 @@ namespace Panel.Repositories
             }
             catch (NullReferenceException)
             {
-                NoOfRecords = 0;
+                RecordNo = 0;
             }
             
                                             
@@ -145,7 +146,7 @@ namespace Panel.Repositories
                 (
                     new GeneratorScheduler
                     {
-                        Id = NoOfRecords + i,
+                        Id = RecordNo + i,
                         GeneratorName = GeneratorName,
                         Starts = StartDate,
                         Every = EveryHrs,
@@ -176,14 +177,14 @@ namespace Panel.Repositories
         public ObservableCollection<GeneratorScheduler> GetAnyPageGeneratorScheduledRmdrs(
             int pageIndex = 1, int pageSize = 10)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext
+            int RecordNo = GeneratorSurveillanceDBContext
                                     .GeneratorSchedulers
                                     .Count();
 
             var NextPageLastRowNumber = pageIndex * pageSize;
             int SkipBy = (pageIndex == 1) ? (pageIndex - 1) * pageSize
                                           : ((pageIndex - 1) * pageSize) - 1;
-            if ((NoOfRecords - NextPageLastRowNumber) > pageSize)
+            if ((RecordNo - NextPageLastRowNumber) > pageSize)
             {
                 return new ObservableCollection<GeneratorScheduler>
                         (

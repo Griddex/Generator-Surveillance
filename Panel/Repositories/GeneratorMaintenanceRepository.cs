@@ -27,7 +27,7 @@ namespace Panel.Repositories
                                         string UnschComments, 
                                         double UnschTotalCost)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext
+            int RecordNo = GeneratorSurveillanceDBContext
                                         .GeneratorMaintenances
                                         .Count();
             GeneratorSurveillanceDBContext.GeneratorMaintenances
@@ -35,7 +35,7 @@ namespace Panel.Repositories
             (
                 new GeneratorMaintenance
                 {
-                    Id = NoOfRecords,
+                    Id = RecordNo,
                     Date = UnschMaintenancedate,
                     MaintenanceType = MaintenanceType,
                     Comments = UnschComments,
@@ -49,7 +49,7 @@ namespace Panel.Repositories
                                       string SchComments, 
                                       double SchTotalCost)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext
+            int RecordNo = GeneratorSurveillanceDBContext
                                         .GeneratorMaintenances
                                         .Count();
             GeneratorSurveillanceDBContext.GeneratorMaintenances
@@ -57,7 +57,7 @@ namespace Panel.Repositories
             (
                 new GeneratorMaintenance
                 {
-                    Id = NoOfRecords,
+                    Id = RecordNo,
                     Date = SchMaintenancedate,
                     MaintenanceType = MaintenanceType,
                     Comments = SchComments,

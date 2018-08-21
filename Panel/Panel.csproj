@@ -267,6 +267,7 @@
     <Compile Include="Services\MessagingServices\EmailService.cs" />
     <Compile Include="Services\MessagingServices\ExtractEmails.cs" />
     <Compile Include="Services\MessagingServices\Notifier.cs" />
+    <Compile Include="Services\MessagingServices\PerpertualNotifier.cs" />
     <Compile Include="Services\NavigationServices\FrameNavigationService.cs" />
     <Compile Include="StyleableWindow\ControlDoubleClickBehavior.cs" />
     <Compile Include="StyleableWindow\ShowSystemMenuBehavior.cs" />

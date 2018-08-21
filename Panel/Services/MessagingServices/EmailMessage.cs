@@ -1,9 +1,5 @@
 ﻿using Panel.BusinessLogic.AuxilliaryMethods;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Panel.Services.MessagingServices
 {
@@ -11,7 +7,7 @@ namespace Panel.Services.MessagingServices
     {
 
         public static Tuple<string,string> EmailSubjectAndBody(string GeneratorName, string ReminderLevel, 
-                                        string NotificationTime, TimeSpan NextNotificationDuration,
+                                        TimeSpan NextNotificationDuration,
                                         DateTime FinalNotificationDate, int FirstID, int LastID, 
                                         int GeneratorID)
         {
@@ -36,7 +32,7 @@ namespace Panel.Services.MessagingServices
                             <table border='1' style='width: 100 %' bordercolor='#000000' cellspacing='0' cellpadding='10'>
                                 <tr align='center'>
                                     <th bgcolor='#99e6ff'>Generator Name</th>
-                                    <th bgcolor='#99e6ff'>Maintenance Date & Time</th>
+                                    <th bgcolor='#99e6ff'>Maintenance Date & Time Deadline</th>
                                     <th bgcolor='#99e6ff'>Time Left to Maintenance</th>
                                 </tr>
                                 <tr align='center'>

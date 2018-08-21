@@ -22,17 +22,21 @@ namespace Panel.Repositories
             string LastName, string Email, string PhoneNumber,
             string JobTitle)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext
-                                    .AuthoriserSettings
-                                    .OrderByDescending(x => x.Id)
-                                    .FirstOrDefault()
-                                    .Id + 1;
+            AuthoriserSetting authoriserSetting 
+                            = GeneratorSurveillanceDBContext
+                            .AuthoriserSettings
+                            .OrderByDescending(x => x.Id)
+                            .FirstOrDefault();
+
+            int RecordNo = authoriserSetting == null ? 
+                            0 :
+                            authoriserSetting.Id + 1;
 
             GeneratorSurveillanceDBContext.AuthoriserSettings.Add
             (
                 new AuthoriserSetting
                 {
-                    Id = NoOfRecords,
+                    Id = RecordNo,
                     Date = ReminderDate,
                     FirstNameAuthoriser = FirstName,
                     LastNameAuthoriser = LastName,

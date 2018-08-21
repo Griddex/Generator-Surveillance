@@ -15,6 +15,7 @@ using Panel.Views.LandingViews;
 using Panel.Views.ReportViews;
 using Panel.Views.SettingsView;
 using Panel.Views.TableViews;
+using System.Threading.Tasks;
 using System.Windows;
 using Unity;
 using Unity.Injection;
@@ -160,7 +161,6 @@ namespace Panel
 
             IUnitOfWork unitOfWork = container.Resolve<IUnitOfWork>("UnitOfWork");
             IViewModel inputViewModel = container.Resolve<IViewModel>("InputViewModel");
-            IView inputView = container.Resolve<IView>("InputView");
 
             container.RegisterType<IView, MainView>("MainView",
                                                     new ContainerControlledLifetimeManager(),
@@ -172,7 +172,8 @@ namespace Panel
 
             Application.Current.Resources.Add("UnityIoC", container);
 
-            Notifier.Initialise();
+            Task.Run(() =>
+                    Notifier.Initialise());
 
             IView mainView = container.Resolve<IView>("MainView");
             (mainView as MainView).Show();

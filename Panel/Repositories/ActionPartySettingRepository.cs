@@ -22,17 +22,27 @@ namespace Panel.Repositories
             string LastName, string Email, string PhoneNumber,
             string JobTitle)
         {
-            int NoOfRecords = GeneratorSurveillanceDBContext
+            int RecordNo = 0;
+            try
+            {
+                 RecordNo = GeneratorSurveillanceDBContext
                                             .ActionPartySettings
                                             .OrderByDescending(x => x.Id)
                                             .FirstOrDefault()
                                             .Id + 1;
+            }
+            catch (Exception)
+            {
+
+                 RecordNo = 0;
+            }
+            
 
             GeneratorSurveillanceDBContext.ActionPartySettings.Add
             (
                 new ActionPartySetting
                 {
-                    Id = NoOfRecords,
+                    Id = RecordNo,
                     Date = ReminderDate,
                     FirstNameActionParty = FirstName,
                     LastNameActionParty = LastName,
