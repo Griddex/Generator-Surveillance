@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Panel.BusinessLogic.AuxilliaryMethods
+﻿namespace Panel.BusinessLogic.AuxilliaryMethods
 {
     public static class ReminderCondition
     {
