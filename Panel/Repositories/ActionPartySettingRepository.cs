@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 
 namespace Panel.Repositories
 {
@@ -22,21 +21,16 @@ namespace Panel.Repositories
             string LastName, string Email, string PhoneNumber,
             string JobTitle)
         {
-            int RecordNo = 0;
-            try
-            {
-                 RecordNo = GeneratorSurveillanceDBContext
-                                            .ActionPartySettings
-                                            .OrderByDescending(x => x.Id)
-                                            .FirstOrDefault()
-                                            .Id + 1;
-            }
-            catch (Exception)
-            {
 
-                 RecordNo = 0;
-            }
-            
+            ActionPartySetting actionPartySetting
+                = GeneratorSurveillanceDBContext
+                .ActionPartySettings
+                .OrderByDescending(x => x.Id)
+                .FirstOrDefault();
+
+            int RecordNo = actionPartySetting == null ?
+                            0 :
+                            actionPartySetting.Id + 1;            
 
             GeneratorSurveillanceDBContext.ActionPartySettings.Add
             (

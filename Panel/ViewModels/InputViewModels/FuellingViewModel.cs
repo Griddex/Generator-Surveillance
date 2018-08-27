@@ -48,18 +48,6 @@ namespace Panel.ViewModels.InputViewModels
             _allGeneratorFuelConsumptionRecords = new ObservableCollection<GeneratorRunningHr>
                 (_allGeneratorFuelConsumptionRecordsUnsorted
                     .OrderByDescending(x => x.Date));
-
-            //try
-            //{
-            //    var FuelCompStats = UnitOfWork.GeneratorFuelling
-            //                  .GetFuelConsumptionData(
-            //                (string)SelectedGenerator.Content);
-
-            //    CurrentFuelConsumption = FuelCompStats.Curr;
-            //    TestFuelConsumption = FuelCompStats.Test;
-            //    StandardFuelConsumption = FuelCompStats.Stnd;
-            //}
-            //catch (Exception) { }
         }
 
         public UnitOfWork UnitOfWork { get; set; }

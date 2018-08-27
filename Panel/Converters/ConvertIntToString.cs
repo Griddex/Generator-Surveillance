@@ -4,16 +4,18 @@ using System.Windows.Data;
 
 namespace Panel.Converters
 {
-    public class FloatConverter : IValueConverter
+    public class ConvertIntToString : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value;
+            return value.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value.ToString().EndsWith(".") ? "." : value;
+            if ((string)value == "")
+                return 0;
+            return value.ToString();
         }
     }
 }

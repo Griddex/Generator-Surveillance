@@ -47,6 +47,7 @@ namespace Panel.Views.SettingsView
         private void SettingsView_Loaded(object sender, RoutedEventArgs e)
         {
             this.stckpnlPassword.Visibility = Visibility.Visible;
+            this.vwbxSettings.Visibility = Visibility.Collapsed;
             Keyboard.Focus(this.psswrdReminder);
         }
 
@@ -197,18 +198,19 @@ namespace Panel.Views.SettingsView
         {
             this.expdrraSettings.IsExpanded = false;
             this.expdrrcSettings.IsExpanded = false;
-
-            this.stckpnlPassword.Margin = new Thickness(0, -10, 0, 0);
-            this.vwbxSettings.Margin = new Thickness(0, 10, 0, 0);
-            this.expdrfclSettings.Margin = new Thickness(0, 10, 0, 0);
-            this.grpbxFuelConsumption.Margin = new Thickness(0, 10, 0, 0);
-
-            this.vwbxSettings.Width = (mainView as MainView).MainViewFrame.ActualWidth * 0.8; 
-            this.vwbxSettings.Height = 860;
-            this.expdrfclSettings.Height = 860;
-            this.grpbxFuelConsumption.Height = 860;
+                        
+            double FrameWidth = (mainView as MainView).MainViewFrame.ActualWidth;
+            double FrameHeight = (mainView as MainView).MainViewFrame.ActualHeight;
+            this.vwbxSettings.Width = FrameWidth * 0.90;
+            this.vwbxSettings.Height = FrameHeight * 0.95;
+            this.expdrfclSettings.Height = FrameHeight * 0.90;
+            this.grpbxFuelConsumption.Height = FrameHeight * 0.88;
 
             this.stckpnlPassword.Visibility = Visibility.Collapsed;
+
+            this.vwbxSettings.Margin = new Thickness(0, 5, 0, 0);
+            this.expdrfclSettings.Margin = new Thickness(0, 5, 0, 0);
+            this.grpbxFuelConsumption.Margin = new Thickness(0, 5, 0, 0);
         }
 
         private void FuelComp_Collapsed(object sender, RoutedEventArgs e)
@@ -220,19 +222,19 @@ namespace Panel.Views.SettingsView
         private void expdrAuthorisers_Expanded(object sender, RoutedEventArgs e)
         {
             this.expdrfclSettings.IsExpanded = false;
-            this.expdrrcSettings.IsExpanded = false;
+            this.expdrrcSettings.IsExpanded = false;            
 
-            this.stckpnlPassword.Margin = new Thickness(0, -10, 0, 0);
-            this.vwbxSettings.Margin = new Thickness(0, 10, 0, 0);
-            this.expdrraSettings.Margin = new Thickness(0, 10, 0, 0);
-            this.grpbxAuthorisers.Margin = new Thickness(0, 10, 0, 0);
-
-            this.vwbxSettings.Width = (mainView as MainView).MainViewFrame.ActualWidth * 0.8;
-            this.vwbxSettings.Height = 860;
-            this.grpbxAuthorisers.Height = 860;
-            this.expdrraSettings.Height = 860;
+            double FrameWidth = (mainView as MainView).MainViewFrame.ActualWidth;
+            double FrameHeight = (mainView as MainView).MainViewFrame.ActualHeight;
+            this.vwbxSettings.Height = FrameHeight * 0.95;
+            this.expdrraSettings.Height = FrameHeight * 0.90;
+            this.grpbxAuthorisers.Height = FrameHeight * 0.88;            
 
             this.stckpnlPassword.Visibility = Visibility.Collapsed;
+
+            this.vwbxSettings.Margin = new Thickness(0, 5, 0, 0);
+            this.expdrraSettings.Margin = new Thickness(0, 5, 0, 0);
+            this.grpbxAuthorisers.Margin = new Thickness(0, 5, 0, 0);
         }
 
         private void Authorisers_Collapsed(object sender, RoutedEventArgs e)
@@ -272,19 +274,19 @@ namespace Panel.Views.SettingsView
         private void expdrReminders_Expanded(object sender, RoutedEventArgs e)
         {
             this.expdrfclSettings.IsExpanded = false;
-            this.expdrraSettings.IsExpanded = false;
+            this.expdrraSettings.IsExpanded = false;            
 
-            this.stckpnlPassword.Margin = new Thickness(0, -10, 0, 0);
-            this.vwbxSettings.Margin = new Thickness(0, 10, 0, 0);
-            this.expdrrcSettings.Margin = new Thickness(0, 10, 0, 0);
-            this.grpbxRemConfig.Margin = new Thickness(0, 10, 0, 0);
-
-            this.vwbxSettings.Width = (mainView as MainView).MainViewFrame.ActualWidth * 0.8;
-            this.vwbxSettings.Height = 860;
-            this.grpbxRemConfig.Height = 860;
-            this.expdrrcSettings.Height = 860;
+            double FrameWidth = (mainView as MainView).MainViewFrame.ActualWidth;
+            double FrameHeight = (mainView as MainView).MainViewFrame.ActualHeight;
+            this.vwbxSettings.Height = FrameHeight * 0.95;
+            this.grpbxRemConfig.Height = FrameHeight * 0.90;
+            this.expdrrcSettings.Height = FrameHeight * 0.88;
 
             this.stckpnlPassword.Visibility = Visibility.Collapsed;
+
+            this.vwbxSettings.Margin = new Thickness(0, 5, 0, 0);
+            this.expdrrcSettings.Margin = new Thickness(0, 5, 0, 0);
+            this.grpbxRemConfig.Margin = new Thickness(0, 5, 0, 0);
 
             var remindersConfigViewModel =
                     this.grpbxRemConfig.DataContext

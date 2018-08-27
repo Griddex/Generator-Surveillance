@@ -10,6 +10,7 @@
         
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
         <convtrs:FloatConverter x:Key="FloatToString"/>
+        <convtrs:ConvertIntToString x:Key="IntToString"/>
         <convtrs:ConvertIntArrayToTwoCharStringArray 
             x:Key="IntArrayToTwoCharStringArray"/>
         <convtrs:ConvertControlToControl x:Key="ControlToControl"/>

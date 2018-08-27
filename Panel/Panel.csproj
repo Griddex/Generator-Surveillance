@@ -167,6 +167,7 @@
     <Compile Include="Converters\ConvertItemCountToPhrase.cs" />
     <Compile Include="Converters\ConvertTrueOrFalseToVisibility.cs" />
     <Compile Include="Converters\ConvertYesNoToBoolean.cs" />
+    <Compile Include="Converters\ConvertIntToString.cs" />
     <Compile Include="Converters\PassDatePickerComboBoxAsCommandParameter.cs" />
     <Compile Include="Converters\FloatConverter.cs" />
     <Compile Include="Converters\InputViewMultiConverter.cs" />
@@ -295,9 +296,12 @@
     <Compile Include="Validations\ValidateFuelVolumeCostRule.cs" />
     <Compile Include="Validations\ValidateMaintenanceCommentsRule.cs" />
     <Compile Include="Validations\ValidateMaintenanceTotalCostRule.cs" />
+    <Compile Include="Validations\ValidPhoneNumberRuleAsync.cs" />
+    <Compile Include="Validations\ValidConsumptionRuleAsync.cs" />
     <Compile Include="Validations\ValidateRunningHoursRule.cs" />
     <Compile Include="Validations\ValidateVendorNameRule.cs" />
     <Compile Include="Validations\ValidGeneratorNameRule.cs" />
+    <Compile Include="Validations\ValidEmailRuleAsync.cs" />
     <Compile Include="Validations\ValidGeneratorNameRuleAsync.cs" />
     <Compile Include="ViewModels\ChartViewModels\ChartViewModel.cs" />
     <Compile Include="ViewModels\HelpViewModels\HelpViewModel.cs" />

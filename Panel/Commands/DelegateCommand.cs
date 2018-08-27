@@ -17,6 +17,7 @@ namespace Panel.Commands
         {
 
         }
+
         public DelegateCommand(Action<object> execute, Predicate<object> canExecute)
         {
             this.execute = execute;

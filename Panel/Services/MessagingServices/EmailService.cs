@@ -92,10 +92,29 @@ namespace Panel.Services.MessagingServices
             }
             catch(SmtpException ex)
             {
-                MessageBox.Show($"Error {ex.Message}",
-                    "Error",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                SmtpStatusCode status = ex.StatusCode;
+                for (int i = 0; i < 5; i++)
+                {
+                    if (status == SmtpStatusCode.MailboxBusy ||
+                        status == SmtpStatusCode.MailboxUnavailable)
+                    {
+                        MessageBox.Show($"Delivery failed - retrying" +
+                            $" in 5 seconds.",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+
+                        Thread.Sleep(5000);
+                        smtpClient.Send(mailMessage);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Failed to deliver message to ",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                    }
+                }
             }
             catch(Exception ex)
             {
