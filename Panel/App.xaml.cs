@@ -172,8 +172,10 @@ namespace Panel
 
             Application.Current.Resources.Add("UnityIoC", container);
 
-            Task.Run(() =>
-                    Notifier.Initialise());
+            //Task.Run(() =>
+            //        Notifier.Initialise());
+
+            Notifier.Initialise();
 
             IView mainView = container.Resolve<IView>("MainView");
             (mainView as MainView).Show();

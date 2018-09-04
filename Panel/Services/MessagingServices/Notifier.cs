@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -48,7 +49,7 @@ namespace Panel.Services.MessagingServices
         public static GeneratorSchedulerRepository GSR { get; set; } =
             new GeneratorSchedulerRepository(GSE);
 
-        public static void Initialise()
+        public static async void Initialise()
         {
             GeneratorSurveillanceDBEntities GSE  =
                 container.Resolve<GeneratorSurveillanceDBEntities>();
@@ -72,29 +73,34 @@ namespace Panel.Services.MessagingServices
             int NextGeneratorForNotificationsCount = NextGeneratorForNotifications.Count();
             if (NextGeneratorForNotificationsCount != 0)
             {
-                Task[] NotificationTasks = new Task[NextGeneratorForNotificationsCount];
-                int i = 0;
+                List<Task> NotificationTasks = new List<Task>();
                 foreach (var item in NextGeneratorForNotifications)
                 {
-                    NotificationTasks[i] = Task.Run
-                    (
-                        async () =>
+                    NotificationTasks.Add(Task.Run
+                    (async () =>
                         {
                             PrepareNotificationMetaData(dateTime, item);
 
                             double SecondsFromNextNotification =
-                                NextNotificationDuration.TotalSeconds;
+                                  NextNotificationDuration.TotalSeconds;
 
                             await Task.Delay
-                                  (Convert.ToInt32(SecondsFromNextNotification)
-                                    * 1000);
+                                  (Convert.ToInt32(SecondsFromNextNotification) * 1000);
 
                             SendNotification();
+
+                            Debug.Print(Convert.ToString(GeneratorID));
+                            Debug.Print(Convert.ToString(GeneratorName));
+                            Debug.Print(Convert.ToString(ReminderLevel));
+                            Debug.Print(Convert.ToString(FirstID));
+                            Debug.Print(Convert.ToString(LastID));
+                            Debug.Print(Convert.ToString(FinalNotificationDate));
+                            Debug.Print(Convert.ToString(NextNotificationDuration));
                         }
-                    );
-                    i += 1;
+                    ));
                 }
-            }                
+                await Task.WhenAll(NotificationTasks);
+            }
         }
 
         private static void PrepareNotificationMetaData(DateTime dateTime, 
