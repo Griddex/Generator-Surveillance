@@ -14,9 +14,12 @@ namespace Panel.Views.InputViews
     /// </summary>
     public partial class MaintenanceView : Page, IView
     {
+        public MaintenanceViewModel maintenanceViewModel { get; set; }
+
         public MaintenanceView(MaintenanceViewModel maintenanceViewModel)
         {
             this.DataContext = maintenanceViewModel;
+            this.maintenanceViewModel = maintenanceViewModel;
             InitializeComponent();
             this.dtpkrStarts.SelectedDate = DateTime.Now;
             this.Loaded += MaintenanceView_Loaded;
@@ -24,7 +27,8 @@ namespace Panel.Views.InputViews
 
         private void MaintenanceView_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            maintenanceViewModel.UniqueAuthoriserFullNamesCmd
+                                .Execute(null);
         }
 
         private void GroupbyGenerator_Click(object sender, RoutedEventArgs e)

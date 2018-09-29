@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 namespace Panel.Services.MessagingServices
 {
@@ -24,7 +25,8 @@ namespace Panel.Services.MessagingServices
 
         private static void TimerTask(object timerState)
         {
-            //Notifier.Initialise(new TimeSpan(0,5,0));
+            Notifier.Initialise();
+            Console.WriteLine(DateTime.Now);
         }
     }
 }

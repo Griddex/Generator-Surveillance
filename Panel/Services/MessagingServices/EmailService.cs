@@ -22,9 +22,9 @@ namespace Panel.Services.MessagingServices
         public Tuple<string, string> SubjectAndBody { get; set; }
 
         public void SendMessage(string GeneratorName, string ReminderLevel,
-            TimeSpan NextNotificationDuration,
-            DateTime FinalNotificationDate, int FirstID, int LastID,
-            int GeneratorID)
+                            TimeSpan NextNotificationDuration, 
+                            DateTime FinalNotificationDate, 
+                            int FirstID, int LastID, int GeneratorID)
         {
             try
             {
@@ -52,7 +52,6 @@ namespace Panel.Services.MessagingServices
 
             try
             {
-
                 smtpClient.Port = 587;
                 smtpClient.EnableSsl = true;
                 smtpClient.UseDefaultCredentials = false;
@@ -69,7 +68,7 @@ namespace Panel.Services.MessagingServices
 
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 //smtpClient.Send(mailMessage);
-                Debug.Print($"Mail sent at:  { DateTime.Now}");
+                Debug.Print($"Mail sent at:  {DateTime.Now}");
 
             }
             catch (SmtpFailedRecipientsException ex)

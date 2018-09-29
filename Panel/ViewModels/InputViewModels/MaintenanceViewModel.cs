@@ -5,6 +5,7 @@ using Panel.Models.InputModels;
 using Panel.Repositories;
 using Panel.UserControls;
 using Panel.Validations;
+using Panel.ViewModels.SettingsViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -45,8 +46,7 @@ namespace Panel.ViewModels.InputViewModels
 
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
                                         (UniqueGeneratorNamesUnsorted
-                                        .OrderBy(x => 
-                                                 x.GeneratorName));
+                                        .OrderBy(x => x.GeneratorName));
 
             AllGeneratorSchedules = unitOfWork.GeneratorScheduler
                                               .GetAllGeneratorSchedules();
@@ -54,8 +54,8 @@ namespace Panel.ViewModels.InputViewModels
             ActiveGeneratorSchedules = unitOfWork.GeneratorScheduler
                                                  .GetActiveGeneratorSchedules();
 
-            UniqueAuthoriserNames = UnitOfWork.GeneratorScheduler
-                                              .GetUniqueAuthorisers();
+            UniqueAuthoriserNames = unitOfWork.AuthoriserSetting
+                                              .GetAuthorisersFullNames();
 
             ReminderLevels.Add("Normal");
             ReminderLevels.Add("Elevated");
@@ -174,12 +174,16 @@ namespace Panel.ViewModels.InputViewModels
                                                     (SchMaintenanceSelectedGen, 
                                                     AllGeneratorSchedules);
 
+                if (SchMaintenanceStartDate < new DateTime(1900, 12, 01))
+                    SchMaintenanceStartDate = DateTime.Now;
+
                 OnPropertyChanged(nameof(SchMaintenanceStartDate));
 
                 SchMaintenanceReminderHours = UnitOfWork.GeneratorScheduler
                                                         .GetReminderInHrs(
                                                         SchMaintenanceSelectedGen, 
                                                         AllGeneratorSchedules);
+
                 OnPropertyChanged(nameof(SchMaintenanceReminderHours));
 
                 try
@@ -189,6 +193,7 @@ namespace Panel.ViewModels.InputViewModels
                                                         .GetReminderLevel(
                                                         SchMaintenanceSelectedGen, 
                                                         AllGeneratorSchedules);
+
                     OnPropertyChanged(nameof(SchMaintenanceSelectedReminderLevel));
 
                     SchMaintenanceSelectedAuthoriser = UnitOfWork
@@ -196,6 +201,7 @@ namespace Panel.ViewModels.InputViewModels
                                                         .GetAuthoriser(
                                                         SchMaintenanceSelectedGen, 
                                                         AllGeneratorSchedules);
+
                     OnPropertyChanged(nameof(SchMaintenanceSelectedAuthoriser));
                 }
                 catch (Exception) { }                
@@ -448,6 +454,16 @@ namespace Panel.ViewModels.InputViewModels
                             string Authoriser = SchMaintenanceSelectedAuthoriser;
 
                             string RepeatReminderYesNo = RepeatReminder ? "Yes" : "No";
+
+                            if(SchMaintenanceSelectedGen == null)
+                            {
+                                MessageBox.Show($"Please select a generator",
+                                                "Information",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Information);
+                                return;
+                            }
+
                             UnitOfWork.GeneratorScheduler
                                       .ActivateReminderNotification(SchMaintenanceSelectedGen, 
                                                                     SchMaintenanceStartDate, 
@@ -470,7 +486,7 @@ namespace Panel.ViewModels.InputViewModels
                                                                      .GetActiveGeneratorSchedules();
 
                                 OnPropertyChanged(nameof(ActiveGeneratorSchedules));
-                            }                                
+                            }
                             return;
                         },
                         y => !HasErrors
@@ -479,5 +495,26 @@ namespace Panel.ViewModels.InputViewModels
             }
         }
 
+        private ICommand _uniqueAuthoriserFullNamesCmd;
+        public ICommand UniqueAuthoriserFullNamesCmd
+        {
+            get
+            {
+                return this._uniqueAuthoriserFullNamesCmd ??
+                (
+                    this._uniqueAuthoriserFullNamesCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            UniqueAuthoriserNames = UnitOfWork.AuthoriserSetting
+                                                              .GetAuthorisersFullNames();
+
+                            OnPropertyChanged(nameof(UniqueAuthoriserNames));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }        
     }
 }

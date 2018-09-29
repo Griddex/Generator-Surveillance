@@ -1,5 +1,6 @@
 ﻿using Panel.BusinessLogic.AuxilliaryMethods;
 using System;
+using System.Diagnostics;
 
 namespace Panel.Services.MessagingServices
 {
@@ -7,16 +8,15 @@ namespace Panel.Services.MessagingServices
     {
 
         public static Tuple<string,string> EmailSubjectAndBody(string GeneratorName, string ReminderLevel, 
-                                        TimeSpan NextNotificationDuration,
-                                        DateTime FinalNotificationDate, int FirstID, int LastID, 
-                                        int GeneratorID)
+                                        TimeSpan NextNotificationDuration, DateTime FinalNotificationDate, 
+                                        int FirstID, int LastID, int GeneratorID)
         {
             string subject = "";
             string body = "";
             string reminderCondition = ReminderCondition
                                         .GetReminderCondition(ReminderLevel, FirstID,
                                         LastID, GeneratorID);
-
+            Debug.Print(reminderCondition);
             switch (ReminderLevel)
             {
                 case "Normal":

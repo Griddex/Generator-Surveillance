@@ -226,6 +226,7 @@ namespace Panel.Views.SettingsView
 
             double FrameWidth = (mainView as MainView).MainViewFrame.ActualWidth;
             double FrameHeight = (mainView as MainView).MainViewFrame.ActualHeight;
+            this.vwbxSettings.Width = FrameWidth * 0.90;
             this.vwbxSettings.Height = FrameHeight * 0.95;
             this.expdrraSettings.Height = FrameHeight * 0.90;
             this.grpbxAuthorisers.Height = FrameHeight * 0.88;            
@@ -278,6 +279,7 @@ namespace Panel.Views.SettingsView
 
             double FrameWidth = (mainView as MainView).MainViewFrame.ActualWidth;
             double FrameHeight = (mainView as MainView).MainViewFrame.ActualHeight;
+            this.vwbxSettings.Width = FrameWidth * 0.90;
             this.vwbxSettings.Height = FrameHeight * 0.95;
             this.grpbxRemConfig.Height = FrameHeight * 0.90;
             this.expdrrcSettings.Height = FrameHeight * 0.88;
@@ -294,6 +296,9 @@ namespace Panel.Views.SettingsView
 
             remindersConfigViewModel.UniqueAuthoriserFullNamesCmd
                 .Execute(null);
+
+            remindersConfigViewModel.RefreshRemindersTableCmd
+                .Execute(this.dtgdGenRemindersConfigTable);
         }
 
         private void Reminders_Collapsed(object sender, RoutedEventArgs e)

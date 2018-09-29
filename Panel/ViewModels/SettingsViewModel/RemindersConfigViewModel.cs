@@ -146,6 +146,27 @@ namespace Panel.ViewModels.SettingsViewModel
             }
         }
 
+
+        private ICommand _refreshRemindersTableCmd;
+        public ICommand RefreshRemindersTableCmd
+        {
+            get
+            {
+                return this._refreshRemindersTableCmd ??
+                (
+                    this._refreshRemindersTableCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                             ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
+                                                                 .GetActiveGeneratorSchedules();
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
         private ICommand _deleteRemindersCmd;
         public ICommand DeleteRemindersCmd
         {

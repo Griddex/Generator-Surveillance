@@ -105,9 +105,10 @@ namespace Panel.Repositories
         }
 
         public void ActivateReminderNotification(string GeneratorName, 
-            DateTime StartDate, double EveryHrs, string ReminderLevel, 
+            DateTime StartDate, double EveryHrs, string ReminderLevel,
             string RepeatReminderYesNo, string Authoriser)
         {
+            RepeatReminderYesNo = "Yes";
             foreach (var row in GeneratorSurveillanceDBContext
                 .GeneratorSchedulers)
             {

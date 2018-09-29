@@ -76,18 +76,53 @@ namespace Panel.Services.MessagingServices
                 List<Task> NotificationTasks = new List<Task>();
                 foreach (var item in NextGeneratorForNotifications)
                 {
+
+                    int GenID = GeneratorID;
+                    string GenName = GeneratorName;
+                    string RemLevel = ReminderLevel;
+                    int FstID = FirstID;
+                    int LstID = LastID;
+                    DateTime FlNotfnDate = FinalNotificationDate;
+                    TimeSpan NtNotfnDate = NextNotificationDuration;
+              
                     NotificationTasks.Add(Task.Run
                     (async () =>
                         {
-                            PrepareNotificationMetaData(dateTime, item);
+                            int GeneratorID = item.Id;
+                            string GeneratorName = item.GeneratorName;
+                            string ReminderLevel = item.ReminderLevel;
 
-                            double SecondsFromNextNotification =
-                                  NextNotificationDuration.TotalSeconds;
+                            int FirstID = AllGeneratorSchedules
+                                        .Where(x => x.GeneratorName ==
+                                                    item.GeneratorName)
+                                        .Where(x => x.IsActive == "Yes")
+                                        .OrderBy(x => x.Id)
+                                        .FirstOrDefault().Id;
+
+                            int LastID = AllGeneratorSchedules
+                                        .Where(x => x.GeneratorName ==
+                                                    item.GeneratorName)
+                                        .Where(x => x.IsActive == "Yes")
+                                        .OrderBy(x => x.Id)
+                                        .LastOrDefault().Id;
+
+                            DateTime FinalNotificationDate = AllGeneratorSchedules
+                                                    .Where(x => x.GeneratorName ==
+                                                                item.GeneratorName)
+                                                    .Where(x => x.IsActive == "Yes")
+                                                    .Where(x => x.ReminderDateTimeProfile > dateTime)
+                                                    .OrderByDescending(x => dateTime - x.ReminderDateTimeProfile)
+                                                    .LastOrDefault().ReminderDateTimeProfile;
+
+                            TimeSpan NextNotificationDuration = item.ReminderDateTimeProfile - dateTime;
+
+                            double SecondsFromNextNotification = NextNotificationDuration.TotalSeconds;
 
                             await Task.Delay
                                   (Convert.ToInt32(SecondsFromNextNotification) * 1000);
 
-                            SendNotification();
+                            SendNotification(GeneratorName, ReminderLevel, NextNotificationDuration, 
+                                            FinalNotificationDate, FirstID, LastID, GeneratorID);
 
                             Debug.Print(Convert.ToString(GeneratorID));
                             Debug.Print(Convert.ToString(GeneratorName));
@@ -103,43 +138,10 @@ namespace Panel.Services.MessagingServices
             }
         }
 
-        private static void PrepareNotificationMetaData(DateTime dateTime, 
-            GeneratorScheduler Notification)
-        {
-            GeneratorID = Notification.Id;
-            GeneratorName = Notification.GeneratorName;
-            ReminderLevel = Notification.ReminderLevel;
-
-            FirstID = AllGeneratorSchedules
-                        .Where(x => x.GeneratorName ==
-                                    Notification
-                                    .GeneratorName)
-                        .Where(x => x.IsActive == "Yes")
-                        .OrderBy(x => x.Id)
-                        .FirstOrDefault().Id;
-
-            LastID = AllGeneratorSchedules
-                        .Where(x => x.GeneratorName ==
-                                    Notification
-                                    .GeneratorName)
-                        .Where(x => x.IsActive == "Yes")
-                        .OrderBy(x => x.Id)
-                        .LastOrDefault().Id;
-
-            FinalNotificationDate = AllGeneratorSchedules
-                                    .Where(x => x.GeneratorName ==
-                                                Notification
-                                                .GeneratorName)
-                                    .Where(x => x.IsActive == "Yes")
-                                    .Where(x => x.ReminderDateTimeProfile > dateTime)
-                                    .OrderBy(x => dateTime - x.ReminderDateTimeProfile)
-                                    .LastOrDefault().ReminderDateTimeProfile;
-
-            NextNotificationDuration = Notification
-                                       .ReminderDateTimeProfile - dateTime;
-        }
-
-        private static void SendNotification()
+        private static void SendNotification(string GeneratorName, string ReminderLevel, 
+                                            TimeSpan NextNotificationDuration, 
+                                            DateTime FinalNotificationDate, int FirstID,
+                                            int LastID, int GeneratorID)
         {
             EmailService emailService = new EmailService();
 
