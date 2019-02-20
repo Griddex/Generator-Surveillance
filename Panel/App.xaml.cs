@@ -15,6 +15,8 @@ using Panel.Views.LandingViews;
 using Panel.Views.ReportViews;
 using Panel.Views.SettingsView;
 using Panel.Views.TableViews;
+using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Unity;
@@ -172,11 +174,18 @@ namespace Panel
 
             Application.Current.Resources.Add("UnityIoC", container);
 
-            //Notifier.Initialise();
-            PerpertualNotifier.InitiatePerpertualNotifier();
+            Task.Run(() => PerpertualNotifier.InitiatePerpertualNotifier());
 
             IView mainView = container.Resolve<IView>("MainView");
             (mainView as MainView).Show();
+
+            Debug.Print("App.xaml.cs: " + Thread.CurrentThread.ManagedThreadId.ToString());
         }
+
+        //private async Task NotifierAsync()
+        //{
+        //    await TaskFactory.StartNew(() => PerpertualNotifier.InitiatePerpertualNotifier(),
+        //        TaskCreationOptions.LongRunning);
+        //}
     }
 }

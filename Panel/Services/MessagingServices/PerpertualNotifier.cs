@@ -1,32 +1,26 @@
 ﻿using System;
-using System.Threading;
+using System.Timers;
+using System.Diagnostics;
 
 namespace Panel.Services.MessagingServices
 {
     public static class PerpertualNotifier
     {
-        class TimerState
-        {
-            public int Counter;
-        }
+        private static Timer NotifierTimer;
 
         public static void InitiatePerpertualNotifier()
         {
-            var timerState = new TimerState { Counter = 0 };
-
-            Timer timer = new Timer
-            (
-                callback: new TimerCallback(TimerTask),
-                state: timerState,
-                dueTime: 1000,
-                period: 30 * 60 * 1000
-            );
+            Trace.WriteLine($"Timer fired on: {DateTime.Now}");
+            NotifierTimer = new Timer(60 * 1000);            
+            NotifierTimer.Elapsed += OnTimedEvent;
+            NotifierTimer.AutoReset = true;
+            NotifierTimer.Enabled = true;            
         }
 
-        private static void TimerTask(object timerState)
+        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            Notifier.Initialise();
-            Console.WriteLine(DateTime.Now);
+            Trace.WriteLine($"Timer fired on: {e.SignalTime}");
+            //Notifier.Initialise();
         }
     }
 }

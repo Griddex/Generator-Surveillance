@@ -57,7 +57,7 @@ namespace Panel.Services.MessagingServices
             GeneratorSchedulerRepository GSR  =
                 new GeneratorSchedulerRepository(GSE);
 
-            TimeSpan CheckDuration = new TimeSpan(0, 20, 0);
+            TimeSpan CheckDuration = new TimeSpan(0, 30, 0);
             GeneratorSchedulerRepository = GSR;
             AllGeneratorSchedules = GSR.GetAllGeneratorSchedules();
 
@@ -125,10 +125,10 @@ namespace Panel.Services.MessagingServices
                                             FinalNotificationDate, FirstID, LastID, GeneratorID);
 
                             Debug.Print(Convert.ToString(GeneratorID));
-                            Debug.Print(Convert.ToString(GeneratorName));
-                            Debug.Print(Convert.ToString(ReminderLevel));
                             Debug.Print(Convert.ToString(FirstID));
                             Debug.Print(Convert.ToString(LastID));
+                            Debug.Print(Convert.ToString(GeneratorName));
+                            Debug.Print(Convert.ToString(ReminderLevel));                            
                             Debug.Print(Convert.ToString(FinalNotificationDate));
                             Debug.Print(Convert.ToString(NextNotificationDuration));
                         }
