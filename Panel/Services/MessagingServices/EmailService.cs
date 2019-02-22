@@ -55,21 +55,14 @@ namespace Panel.Services.MessagingServices
                 smtpClient.Port = 587;
                 smtpClient.EnableSsl = true;
                 smtpClient.UseDefaultCredentials = false;
-
-                //smtpClient.Host = "smtp.aol.com";
-                //smtpClient.Credentials = new NetworkCredential(
-                //                            "gideon.sanni@aol.com",
-                //                            "KrygySTan#1");
-
-                smtpClient.Host = "smtp.live.com";
+                smtpClient.Host = "smtp.gmail.com";
                 smtpClient.Credentials = new NetworkCredential(
-                                            "gideonyte@hotmail.com",
-                                            "KazakhSTan#1");
+                                            "email@gmail.com",
+                                            "GMail password");
 
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                //smtpClient.Send(mailMessage);
+                smtpClient.Send(mailMessage);
                 Debug.Print($"Mail sent at:  {DateTime.Now}");
-
             }
             catch (SmtpFailedRecipientsException ex)
             {

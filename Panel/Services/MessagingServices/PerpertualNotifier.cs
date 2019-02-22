@@ -20,7 +20,7 @@ namespace Panel.Services.MessagingServices
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             Trace.WriteLine($"Timer fired on: {e.SignalTime}");
-            //Notifier.Initialise();
+            Notifier.Initialise();
         }
     }
 }
