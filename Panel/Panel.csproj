@@ -65,6 +65,9 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Charts3.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.8.6\lib\net46\CommonServiceLocator.dll</HintPath>
@@ -574,6 +577,8 @@
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
       <LastGenOutput>GeneratorSurveillanceDBEntities.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\Charts3.ico" />
+    <None Include="Resources\Charts2.png" />
     <SplashScreen Include="SplashScreens\GSS - SplashScreen.bmp" />
     <Resource Include="Images\Tablef.png" />
     <Resource Include="Images\Tableff.png" />
