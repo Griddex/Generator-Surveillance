@@ -102,7 +102,7 @@ namespace Panel.Repositories
                                             .ConsumptionSettings
                                             .Where(x => x.GeneratorName ==
                                                         GeneratorName)
-                                            .OrderBy(x => x.Date)
+                                            .OrderByDescending(x => x.Date)
                                             .FirstOrDefault();
 
             if(LastRowCompSetting != null)
@@ -121,14 +121,14 @@ namespace Panel.Repositories
                                             .GeneratorRunningHrs
                                             .Where(x => x.Generator ==
                                                   GeneratorName)
-                                            .OrderBy(x => x.Date)
+                                            .OrderByDescending(x => x.Date)
                                             .FirstOrDefault();
 
             var PenultimateRowRunningHrs = GeneratorSurveillanceDBContext
                                                 .GeneratorRunningHrs
                                                 .Where(x => x.Generator ==
                                                       GeneratorName)
-                                                .OrderBy(x => x.Date)
+                                                .OrderByDescending(x => x.Date)
                                                 .Skip(1)
                                                 .FirstOrDefault();
 

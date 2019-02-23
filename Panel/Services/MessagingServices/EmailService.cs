@@ -115,8 +115,8 @@ namespace Panel.Services.MessagingServices
                 {   
                     using (var logfile = new StreamWriter(LogFilePath, true))
                     {
-                        logfile.WriteLineAsync($@"[{DateTime.Now}] --> [{GeneratorName}]  
-                            Email Delivery failed - retrying in 5 seconds.");
+                        logfile.WriteLineAsync($"[{DateTime.Now}] --> [{GeneratorName}] "  +
+                            "Email Delivery failed - retrying in 5 seconds.");
                     }
 
                     Thread.Sleep(5000);

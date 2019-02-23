@@ -14,7 +14,7 @@ namespace Panel.Validations
                 string OnlyDoublesPattern = @"\d+(?:\.\d+)?";
                 string SpecialCharactersPattern = @"[^A-Za-z0-9\-_\.\s+]+";
 
-                if (!(Regex.Match(Consumption.ToString(), NoLetter).Success))
+                if ((Regex.Match(Consumption.ToString(), NoLetter).Success))
                     return new List<string>() { $"Your input must be a number" };
                 else if (!(Regex.Match(Consumption.ToString(), OnlyDoublesPattern).Success))
                     return new List<string>() { $"Your input must be a number" };

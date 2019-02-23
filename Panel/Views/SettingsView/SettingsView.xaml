@@ -96,7 +96,7 @@
                      Width="800"
                      Height="300"
                      Margin="0,0,0,0"
-                     Visibility="Collapsed">
+                     Visibility="Visible">
                 <StackPanel x:Name="stcpnlfc2Settings"
                             Orientation="Horizontal"
                             HorizontalAlignment="Center">
@@ -185,11 +185,11 @@
                                                                 ValidatesOnDataErrors=True,
                                                                 NotifyOnValidationError=True,
                                                                 UpdateSourceTrigger=PropertyChanged,
-                                                                Converter={StaticResource IntToString}}"
+                                                                Converter={StaticResource FloatToString}}"
+                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
                                                  HorizontalContentAlignment="Center"
                                                  VerticalContentAlignment="Center"
-                                                 AcceptsReturn="True"
-                                                 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                                                 AcceptsReturn="True"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical"  
                                                 VerticalAlignment="Top"

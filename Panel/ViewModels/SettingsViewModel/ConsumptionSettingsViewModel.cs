@@ -129,7 +129,7 @@ namespace Panel.ViewModels.SettingsViewModel
                                 return;
                             }
 
-                            UnitOfWork.ConsumptionSetting.SetComsumption(ConsumptionDate,
+                            UnitOfWork.ConsumptionSetting.SetConsumption(ConsumptionDate,
                                 GeneratorName, CurrentFuelConsumption, TestFuelConsumption,
                                 StandardFuelConsumption);
 
@@ -137,7 +137,7 @@ namespace Panel.ViewModels.SettingsViewModel
                             if (Success > 0)
                             {
                                 AnyConsumptionPage = UnitOfWork.ConsumptionSetting
-                                                              .GetAnyConsumptionPage();
+                                                               .GetAnyConsumptionPage();
                                 OnPropertyChanged(nameof(AnyConsumptionPage));
 
                                 MessageBox.Show($"Successfully saved!",

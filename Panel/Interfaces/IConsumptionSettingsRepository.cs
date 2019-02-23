@@ -5,11 +5,12 @@ namespace Panel.Interfaces
 {
     public interface IConsumptionSettingsRepository
     {
-        void SetComsumption(DateTime ConsumptionDate, string GeneratorName, 
+        void SetConsumption(DateTime ConsumptionDate, string GeneratorName, 
             double CurrentFuelConsumption,
             double TestFuelConsumption, double StandardFuelConsumption);
 
-        ObservableCollection<ConsumptionSetting> GetAnyConsumptionPage(
-            int pageIndex = 1, int pageSize = 10);
+        Tuple<double, double> GetTestStandardConsumption(string GeneratorName);
+
+        ObservableCollection<ConsumptionSetting> GetAnyConsumptionPage();
     }
 }

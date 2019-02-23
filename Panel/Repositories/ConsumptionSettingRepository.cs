@@ -16,7 +16,7 @@ namespace Panel.Repositories
             get { return Context as GeneratorSurveillanceDBEntities; }
         }
 
-        public void SetComsumption(DateTime ConsumptionDate, string GeneratorName,
+        public void SetConsumption(DateTime ConsumptionDate, string GeneratorName,
             double CurrentFuelConsumption,
             double TestFuelConsumption, double StandardFuelConsumption)
         {
@@ -37,20 +37,26 @@ namespace Panel.Repositories
             );
         }
 
-        public ObservableCollection<ConsumptionSetting> GetAnyConsumptionPage(
-            int pageIndex = 1, int pageSize = 10)
+        public Tuple<double,double> GetTestStandardConsumption(string GeneratorName)
         {
-            int SkipBy = (pageIndex == 1) ? (pageIndex - 1) * pageSize 
-                                          : ((pageIndex - 1) * pageSize) - 1;
-            var AnyConsumptionPage = new ObservableCollection<ConsumptionSetting>
-                                            (
-                                                GeneratorSurveillanceDBContext
-                                                .ConsumptionSettings
-                                                .OrderBy(x => x.Id)
-                                                .Skip(SkipBy)
-                                                .Take(pageSize)                                                
-                                            );
-            return AnyConsumptionPage;
+            var LastRowCompSetting = GeneratorSurveillanceDBContext
+                                            .ConsumptionSettings
+                                            .Where(x => x.GeneratorName ==
+                                                        GeneratorName)
+                                            .OrderByDescending(x => x.Date)
+                                            .FirstOrDefault();
+            return new Tuple<double, double>(LastRowCompSetting.TestConsumption,
+                                            LastRowCompSetting.StandardConsumption);
+        }
+
+        public ObservableCollection<ConsumptionSetting> GetAnyConsumptionPage()
+        {
+            return new ObservableCollection<ConsumptionSetting>
+            (
+                GeneratorSurveillanceDBContext
+                .ConsumptionSettings
+                .AsParallel()
+            );
         }
     }
 }

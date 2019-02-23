@@ -42,6 +42,7 @@ namespace Panel.ViewModels.InputViewModels
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
                 (UniqueGeneratorNamesUnsorted
                     .OrderBy(x => x.GeneratorName));
+            OnPropertyChanged(nameof(UniqueGeneratorNames));
 
             _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr
                                                                     .GetAllRunningHours();
@@ -261,17 +262,26 @@ namespace Panel.ViewModels.InputViewModels
                             {
                                 try
                                 {
+                                    Tuple<double, double> TestStandardComp = UnitOfWork.ConsumptionSetting
+                                                                            .GetTestStandardConsumption(SelectedGenerator);                                    
+
                                     var FuelCompStats = UnitOfWork.GeneratorFuelling
                                                                   .GetFuelConsumptionData(
-                                                                   SelectedGenerator);
+                                                                   SelectedGenerator);           
+
+                                    UnitOfWork.ConsumptionSetting.SetConsumption(RunningHoursDate,
+                                                                  cmbxSelectGenFuelling.Text,
+                                                                  FuelCompStats.Curr,
+                                                                  TestStandardComp.Item1,
+                                                                  TestStandardComp.Item2);
 
                                     CurrentFuelConsumption = FuelCompStats.Curr;
                                     OnPropertyChanged(nameof(CurrentFuelConsumption));
 
-                                    TestFuelConsumption = FuelCompStats.Test;
+                                    TestFuelConsumption = TestStandardComp.Item1;
                                     OnPropertyChanged(nameof(TestFuelConsumption));
 
-                                    StandardFuelConsumption = FuelCompStats.Stnd;
+                                    StandardFuelConsumption = TestStandardComp.Item2;
                                     OnPropertyChanged(nameof(StandardFuelConsumption));
                                 }
                                 catch (Exception) { }
