@@ -11,11 +11,12 @@ using Panel.ViewModels.TableViewModels;
 using Panel.Views.ChartViews;
 using Panel.Views.HelpViews;
 using Panel.Views.InputViews;
-using Panel.Views.LandingViews;
 using Panel.Views.ReportViews;
 using Panel.Views.SettingsView;
 using Panel.Views.TableViews;
+using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -63,14 +64,7 @@ namespace Panel
                                                         new InjectionConstructor
                                                         (
                                                             typeof(UnitOfWork)
-                                                        ));
-
-            container.RegisterType<IView, LandingView>("LandingView",
-                                            new ContainerControlledLifetimeManager(),
-                                            new InjectionConstructor
-                                            (
-
-                                            ));
+                                                        ));  
 
             container.RegisterType<IView, InputView>("InputView",
                                                         new ContainerControlledLifetimeManager(),
@@ -168,8 +162,7 @@ namespace Panel
                                                     new ContainerControlledLifetimeManager(),
                                                     new InjectionConstructor
                                                     (
-                                                        typeof(InputView),
-                                                        typeof(LandingView)
+                                                        typeof(InputView)
                                                     ));
 
             Application.Current.Resources.Add("UnityIoC", container);
@@ -179,13 +172,16 @@ namespace Panel
             IView mainView = container.Resolve<IView>("MainView");
             (mainView as MainView).Show();
 
-            Debug.Print("App.xaml.cs: " + Thread.CurrentThread.ManagedThreadId.ToString());
-        }
+            string MyDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string logfilepath = $@"{MyDocuments}\Log.log";
+            using (var logfile = new StreamWriter(logfilepath, true))
+            {
+                logfile.WriteLineAsync($"****************************************************************" + "\n"
+                                      + "***UNDELIVERED EMAIL LOGGGING SESSION [" + DateTime.Now + "]***" + "\n"
+                                      + "****************************************************************" +"\n");
+            }
+            Application.Current.Properties["LogFile"] = logfilepath;
 
-        //private async Task NotifierAsync()
-        //{
-        //    await TaskFactory.StartNew(() => PerpertualNotifier.InitiatePerpertualNotifier(),
-        //        TaskCreationOptions.LongRunning);
-        //}
+        }
     }
 }

@@ -10,8 +10,9 @@ namespace Panel.Services.MessagingServices
 
         public static void InitiatePerpertualNotifier()
         {
-            Trace.WriteLine($"Timer fired on: {DateTime.Now}");
-            NotifierTimer = new Timer(60 * 1000);            
+            OnTimedEvent(null, null);
+            Trace.WriteLine($"First Timer fired on: {DateTime.Now}");
+            NotifierTimer = new Timer(600 * 1000);            
             NotifierTimer.Elapsed += OnTimedEvent;
             NotifierTimer.AutoReset = true;
             NotifierTimer.Enabled = true;            
@@ -19,7 +20,12 @@ namespace Panel.Services.MessagingServices
 
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            Trace.WriteLine($"Timer fired on: {e.SignalTime}");
+            try
+            {
+                Trace.WriteLine($"Timer fired on: {e.SignalTime}");
+            }
+            catch (Exception) { }
+            
             Notifier.Initialise();
         }
     }

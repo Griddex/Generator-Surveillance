@@ -384,9 +384,6 @@
     <Compile Include="Views\InputViews\MaintenanceView.xaml.cs">
       <DependentUpon>MaintenanceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LandingViews\LandingView.xaml.cs">
-      <DependentUpon>LandingView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ReportViews\ReportView.xaml.cs">
       <DependentUpon>ReportView.xaml</DependentUpon>
     </Compile>
@@ -454,10 +451,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\InputViews\MaintenanceView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\LandingViews\LandingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -553,6 +546,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Ardorners\" />
+    <Folder Include="Views\LandingViews\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\OpenFolder.jpg" />

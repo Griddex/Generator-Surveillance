@@ -3,7 +3,6 @@ using Panel.Interfaces;
 using Panel.Views.ChartViews;
 using Panel.Views.HelpViews;
 using Panel.Views.InputViews;
-using Panel.Views.LandingViews;
 using Panel.Views.ReportViews;
 using Panel.Views.SettingsView;
 using Panel.Views.TableViews;
@@ -26,7 +25,7 @@ namespace Panel
         private InputView _inputView;
         public (bool,string,DateTime?, DateTime?, int) ActiveGeneratorInfo { get; set; }
 
-        public MainView(InputView inputView, LandingView landingView)
+        public MainView(InputView inputView)
         {
             InitializeComponent();
             this._inputView = inputView;

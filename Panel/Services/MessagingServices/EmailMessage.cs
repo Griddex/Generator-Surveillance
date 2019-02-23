@@ -60,7 +60,7 @@ namespace Panel.Services.MessagingServices
                             <br/>
                             Automatic notification by:
                             <br/>
-                            Generator Surveillance Software &reg";
+                            Generator Surveillance Software &#174;";
                     return new Tuple<string, string>(subject, body);
                 default:
                     break;

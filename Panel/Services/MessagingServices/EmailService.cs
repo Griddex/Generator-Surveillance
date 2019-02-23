@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Threading;
@@ -20,6 +21,13 @@ namespace Panel.Services.MessagingServices
         public List<MailAddress> CCAddresses { get; set; }
         public string MessageNotification { get; set; }
         public Tuple<string, string> SubjectAndBody { get; set; }
+        public string LogFilePath { get; set; }
+
+        public EmailService()
+        {
+            LogFilePath = (string)Application.Current.Properties["LogFile"];
+
+        }
 
         public void SendMessage(string GeneratorName, string ReminderLevel,
                             TimeSpan NextNotificationDuration, 
@@ -52,14 +60,13 @@ namespace Panel.Services.MessagingServices
 
             try
             {
-                smtpClient.Port = 587;
-                smtpClient.EnableSsl = true;
+                smtpClient.Port = 587;             
                 smtpClient.UseDefaultCredentials = false;
                 smtpClient.Host = "smtp.gmail.com";
                 smtpClient.Credentials = new NetworkCredential(
-                                            "email@gmail.com",
-                                            "GMail password");
-
+                                            "generator.surveillance@gmail.com",
+                                            "generator@1");
+                smtpClient.EnableSsl = true;
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpClient.Send(mailMessage);
                 Debug.Print($"Mail sent at:  {DateTime.Now}");
@@ -72,57 +79,65 @@ namespace Panel.Services.MessagingServices
                     if (status == SmtpStatusCode.MailboxBusy ||
                         status == SmtpStatusCode.MailboxUnavailable)
                     {
-                        MessageBox.Show($"Delivery failed - retrying" +
-                            $" in 5 seconds.",
-                            "Error",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Error);
+                        using (var logfile = new StreamWriter(LogFilePath, true))
+                        {
+                            logfile.WriteLineAsync($@"[{DateTime.Now}] --> [{GeneratorName}]  
+                            Email Delivery failed - retrying in 5 seconds.");
+                        }
 
                         Thread.Sleep(5000);
                         smtpClient.Send(mailMessage);
                     }
+                    else if (status == SmtpStatusCode.GeneralFailure)
+                    {
+                        using (var logfile = new StreamWriter(LogFilePath, true))
+                        {
+                            logfile.WriteLineAsync($@"[{DateTime.Now}] --> [{GeneratorName}]  
+                            SMTP host could not be found...");
+                        }
+                    }
                     else
                     {
-                        MessageBox.Show($"Failed to deliver message to " +
-                            $"{ex.InnerExceptions[i].FailedRecipient}",
-                            "Error",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Error);
+                        using (var logfile = new StreamWriter(LogFilePath, true))
+                        {
+                            logfile.WriteLineAsync($@"[{DateTime.Now}] --> [{GeneratorName}]  
+                            Failed to deliver message to " +
+                            $"{ex.InnerExceptions[i].FailedRecipient}");
+                        }
                     }
                 }
             }
             catch (SmtpException ex)
             {
-                SmtpStatusCode status = ex.StatusCode;
-                for (int i = 0; i < 5; i++)
-                {
-                    if (status == SmtpStatusCode.MailboxBusy ||
-                        status == SmtpStatusCode.MailboxUnavailable)
+                SmtpStatusCode status = ex.StatusCode;               
+                if (status == SmtpStatusCode.MailboxBusy ||
+                    status == SmtpStatusCode.MailboxUnavailable)
+                {   
+                    using (var logfile = new StreamWriter(LogFilePath, true))
                     {
-                        MessageBox.Show($"Delivery failed - retrying" +
-                            $" in 5 seconds.",
-                            "Error",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Error);
+                        logfile.WriteLineAsync($@"[{DateTime.Now}] --> [{GeneratorName}]  
+                            Email Delivery failed - retrying in 5 seconds.");
+                    }
 
-                        Thread.Sleep(5000);
-                        smtpClient.Send(mailMessage);
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Failed to deliver message to ",
-                            "Error",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Error);
-                    }
+                    Thread.Sleep(5000);
+                    smtpClient.Send(mailMessage);
                 }
+                else
+                {
+                    using (var logfile = new StreamWriter(LogFilePath, true))
+                    {
+                        logfile.WriteLineAsync($@"[{DateTime.Now}] --> [{GeneratorName}]  
+                            Failed to deliver message to email address {ex.Message}");
+                    };
+                }                
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error {ex.Message}",
-                    "Error",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                using (var logfile = new StreamWriter(LogFilePath, true))
+                {
+                    logfile.WriteLineAsync($@"[{DateTime.Now}] --> [{GeneratorName}]  
+                            Error {ex.Message}");
+                };
             }
         }
     }
