@@ -57,7 +57,7 @@ namespace Panel.Services.MessagingServices
             GeneratorSchedulerRepository GSR  =
                 new GeneratorSchedulerRepository(GSE);
 
-            TimeSpan CheckDuration = new TimeSpan(0, 30, 0);
+            TimeSpan CheckDuration = NotificationTimerInterval.Interval;
             GeneratorSchedulerRepository = GSR;
             AllGeneratorSchedules = GSR.GetAllGeneratorSchedules();
 

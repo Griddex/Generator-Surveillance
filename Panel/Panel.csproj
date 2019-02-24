@@ -302,6 +302,7 @@
     <Compile Include="Models\TableModels\GeneratorMaintenancetableModel.cs" />
     <Compile Include="Models\TableModels\GeneratorUsageTableModel.cs" />
     <Compile Include="Models\ValidateNotifyModelBase.cs" />
+    <Compile Include="NotificationTimerInterval.cs" />
     <Compile Include="Password.cs">
       <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
     </Compile>

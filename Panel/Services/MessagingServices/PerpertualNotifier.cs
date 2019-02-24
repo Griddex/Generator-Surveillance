@@ -7,12 +7,15 @@ namespace Panel.Services.MessagingServices
     public static class PerpertualNotifier
     {
         private static Timer NotifierTimer;
+        public static TimeSpan NotificationInterval { get; set; } 
+            
 
         public static void InitiatePerpertualNotifier()
         {
+            NotificationInterval = NotificationTimerInterval.Interval;
             OnTimedEvent(null, null);
             Trace.WriteLine($"First Timer fired on: {DateTime.Now}");
-            NotifierTimer = new Timer(600 * 1000);            
+            NotifierTimer = new Timer(NotificationInterval.TotalSeconds * 1000);            
             NotifierTimer.Elapsed += OnTimedEvent;
             NotifierTimer.AutoReset = true;
             NotifierTimer.Enabled = true;            

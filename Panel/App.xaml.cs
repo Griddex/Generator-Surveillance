@@ -181,7 +181,6 @@ namespace Panel
                                       + "****************************************************************" +"\n");
             }
             Application.Current.Properties["LogFile"] = logfilepath;
-
         }
     }
 }

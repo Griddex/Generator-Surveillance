@@ -334,12 +334,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8D9E48D6A6B48601915CA614D1995AE4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C327DA00CB1E4F27BBF3342850A999B0"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -505,6 +499,12 @@
         "OwnerKey" = "8:_933F88B7BF8195D3F58AF380769FFA2B"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8D9E48D6A6B48601915CA614D1995AE4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -523,6 +523,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -539,6 +555,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -1524,7 +1548,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Generator Surveillance"
         "ProductCode" = "8:{8EB4DFB2-DBC9-4BB5-AB3F-7BD69372EABC}"
-        "PackageCode" = "8:{D86741B6-25CF-4244-B0F1-D183B06446E3}"
+        "PackageCode" = "8:{C979BAD6-E128-4D9A-A27F-AD517322B207}"
         "UpgradeCode" = "8:{97F30105-A8AA-486E-A263-3C92C6079AFE}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1537,7 +1561,7 @@
         "ARPHELPLINK" = "8:"
         "Title" = "8:Generator Surveillance"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Generator Comapny"
+        "ARPCONTACT" = "8:Generator Company"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:Generator Surveillance Software"
         "ARPURLINFOABOUT" = "8:"
