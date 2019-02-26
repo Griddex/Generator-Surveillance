@@ -15,6 +15,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>C:\Users\Gideon\Documents\CRE\Software Development Methods\GenSurveillance\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -31,8 +33,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -67,6 +67,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\Charts3.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Panel_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -509,7 +515,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\XAML_DatepickerButton.JPG" />
@@ -562,6 +570,9 @@
     <Resource Include="Images\PowerGenerator.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Database\GeneratorSurveillanceDB.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="GeneratorSurveillanceDBEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
@@ -572,9 +583,9 @@
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
       <LastGenOutput>GeneratorSurveillanceDBEntities.cs</LastGenOutput>
     </Content>
+    <SplashScreen Include="SplashScreens\GSS_SplashScreen.bmp" />
     <None Include="Resources\Charts3.ico" />
     <None Include="Resources\Charts2.png" />
-    <SplashScreen Include="SplashScreens\GSS - SplashScreen.bmp" />
     <Resource Include="Images\Tablef.png" />
     <Resource Include="Images\Tableff.png" />
     <Resource Include="Images\Fuelling.png" />
