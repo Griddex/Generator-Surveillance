@@ -5,7 +5,6 @@ using Panel.Models.InputModels;
 using Panel.Repositories;
 using Panel.UserControls;
 using Panel.Validations;
-using Panel.ViewModels.SettingsViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

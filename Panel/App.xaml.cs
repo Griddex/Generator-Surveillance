@@ -15,9 +15,9 @@ using Panel.Views.ReportViews;
 using Panel.Views.SettingsView;
 using Panel.Views.TableViews;
 using System;
-using System.Diagnostics;
+using System.Data.EntityClient;
+using System.Data.SqlClient;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Unity;
@@ -33,16 +33,42 @@ namespace Panel
     {
         public App() { }
 
+        public GeneratorSurveillanceDBEntities generatorSurveillanceDBEntities { get; set; }
+
         private  void Application_Startup(object sender, StartupEventArgs e)
         {
+            string AppDataFolder = Environment.CurrentDirectory;
+
+            string providerName = @"System.Data.SqlClient";
+            string serverName = @"(LocalDB)\MSSQLLocalDB";
+            string databaseName = "GeneratorSurveillanceDB.mdf";
+
+            SqlConnectionStringBuilder sqlBuilder = new SqlConnectionStringBuilder
+            {
+                DataSource = serverName,
+                AttachDBFilename = AppDataFolder + @"\" + databaseName,
+                IntegratedSecurity = true,
+                MultipleActiveResultSets = true
+            };
+            string providerString = sqlBuilder.ToString();
+
+
+            EntityConnectionStringBuilder EntityCSB = new EntityConnectionStringBuilder
+            {
+                Metadata = @"res://*/GeneratorSurveillanceDBEntities.csdl|res://*/GeneratorSurveillanceDBEntities.ssdl|res://*/GeneratorSurveillanceDBEntities.msl",
+                Provider = providerName,
+                ProviderConnectionString = providerString
+            };
+            String entityConnStr = EntityCSB.ToString();
+
+            generatorSurveillanceDBEntities = new GeneratorSurveillanceDBEntities(entityConnStr);
             InitialiseAllSystems();
-        }        
-       
+        }
+
         private void InitialiseAllSystems()
         {
             IUnityContainer container = new UnityContainer();
 
-            GeneratorSurveillanceDBEntities generatorSurveillanceDBEntities = new GeneratorSurveillanceDBEntities();
             container.RegisterInstance<GeneratorSurveillanceDBEntities>(generatorSurveillanceDBEntities);            
 
             container.RegisterType<IUnitOfWork, UnitOfWork>("UnitOfWork",

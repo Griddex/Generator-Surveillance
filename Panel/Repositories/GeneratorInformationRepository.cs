@@ -66,17 +66,30 @@ namespace Panel.Repositories
 
         public ObservableCollection<GeneratorNameModel> GetUniqueGeneratorNames()
         {
-            return new ObservableCollection<GeneratorNameModel>
-            (
-                GeneratorSurveillanceDBContext.GeneratorUsages
-                .Where(x => x.Id >= 1 && x.IsArchived != "Yes")
-                .OrderBy(x => x.GeneratorName)
-                .Select(x => new GeneratorNameModel
-                {
-                    GeneratorName = x.GeneratorName
-                })
-                .Distinct()
-            );
+            try
+            {
+                return new ObservableCollection<GeneratorNameModel>
+                (
+                    GeneratorSurveillanceDBContext.GeneratorUsages
+                    .Where(x => x.Id >= 1 && x.IsArchived != "Yes")
+                    .OrderBy(x => x.GeneratorName)
+                    .Select(x => new GeneratorNameModel
+                    {
+                        GeneratorName = x.GeneratorName
+                    })
+                    .Distinct()
+                );
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return null;
+            }
+            
         }
 
         public void AddGeneratorName(string GeneratorName, 

@@ -133,6 +133,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -270,6 +271,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="GeneratorSurveillanceDBEntitiesContainer.cs" />
     <Compile Include="GeneratorUsage.cs">
       <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
     </Compile>
@@ -504,6 +506,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>GeneratorSurveillanceDBEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="Data\GeneratorSurveillanceDB.mdf" />
     <None Include="GeneratorSurveillanceDBEntities.edmx.diagram">
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
     </None>
@@ -555,6 +558,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Ardorners\" />
+    <Folder Include="bin\Debug\" />
     <Folder Include="Views\LandingViews\" />
   </ItemGroup>
   <ItemGroup>
@@ -570,9 +574,9 @@
     <Resource Include="Images\PowerGenerator.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Database\GeneratorSurveillanceDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Content Include="Data\GeneratorSurveillanceDB.ldf">
+      <DependentUpon>GeneratorSurveillanceDB.mdf</DependentUpon>
+    </Content>
     <Content Include="GeneratorSurveillanceDBEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
