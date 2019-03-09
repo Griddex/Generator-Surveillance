@@ -1,4 +1,5 @@
 ﻿using Panel.BusinessLogic;
+using Panel.Database;
 using Panel.Interfaces;
 using Panel.Repositories;
 using Panel.Services.MessagingServices;
@@ -23,6 +24,11 @@ using System.Windows;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
+using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Smo;
+using System.Data;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Panel
 {
@@ -37,33 +43,113 @@ namespace Panel
 
         private  void Application_Startup(object sender, StartupEventArgs e)
         {
-            string AppDataFolder = Environment.CurrentDirectory;
 
+            string CommonAppFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string DBFolder = CommonAppFolder + @"\GeneratorSurveillance";
+            DirectoryInfo info =  Directory.CreateDirectory(DBFolder);
+
+            string DbNameMDFPath = DBFolder + @"\GeneratorSurveillanceDB.mdf";
+            string DbNameLDFPath = DBFolder + @"\GeneratorSurveillanceDB.ldf";
             string providerName = @"System.Data.SqlClient";
             string serverName = @"(LocalDB)\MSSQLLocalDB";
-            string databaseName = "GeneratorSurveillanceDB.mdf";
+            string ScriptText = DatabaseGenerationScript.GetDatabaseGenerationScript()
+                    .Replace("DB_NAME_MDF", DbNameMDFPath)
+                    .Replace("DB_NAME_LDF", DbNameLDFPath);
 
-            SqlConnectionStringBuilder sqlBuilder = new SqlConnectionStringBuilder
+
+
+            if (!File.Exists(DbNameMDFPath))
+            {              
+                //Construct Database                
+                SqlConnectionStringBuilder CreateDBSQLBuilder = new SqlConnectionStringBuilder
+                {
+                    DataSource = serverName,
+                    InitialCatalog = "master",
+                    IntegratedSecurity = true,
+                    MultipleActiveResultSets = true,
+                    ConnectTimeout = 30
+                };
+                string CreateDBProviderString = CreateDBSQLBuilder.ToString();
+
+                using (SqlConnection conn = new SqlConnection(CreateDBProviderString))
+                {
+                    conn.Open();
+                    using (var dropDB = new SqlCommand("DROP DATABASE [GeneratorSurveillanceDB]", conn))
+                    {
+                        try
+                        {
+                            dropDB.ExecuteNonQuery();
+                        }
+                        catch (Exception ex) { }                        
+                    }
+
+                    IEnumerable<string> cmdStrs = Regex.Split(ScriptText, @"^\s*GO\s*$",
+                    RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                    foreach (string s in cmdStrs)
+                    {
+                        if (s.Trim() != "")
+                        {
+                            using (var cmd = new SqlCommand(s, conn))
+                            {
+                                try
+                                {
+                                    cmd.ExecuteNonQuery();
+                                }
+                                catch (SqlException ex)
+                                {
+                                    string sperror = s.Length > 100 ? s.Substring(0, 100) + " ...\n..." : s;
+                                    MessageBox.Show(string.Format($@"Could not add tables to database.
+                                                \nPlease run as administrator and restart program
+                                                \n{ex.Message}"));
+                                    Application.Current.Shutdown();
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Add Tables to database
+                SqlConnectionStringBuilder DefineTablesSQLBuilder = new SqlConnectionStringBuilder
+                {
+                    DataSource = serverName,
+                    InitialCatalog = "GeneratorSurveillanceDB",
+                    IntegratedSecurity = true,
+                    MultipleActiveResultSets = true
+                };
+                string DefineTablesProviderString = DefineTablesSQLBuilder.ToString();
+                string TablesScript = TablesDefinitionScript.GetTablesDefinitionScript()
+                    .Replace("GO", "");
+                using (SqlConnection tableconn = new SqlConnection(DefineTablesProviderString))
+                {
+                    SqlCommand createtables = new SqlCommand(TablesScript, tableconn);
+                    tableconn.Open();
+                    createtables.ExecuteNonQuery();
+                }
+
+            }
+
+            //Connect to database via EF
+            SqlConnectionStringBuilder ConnectToDBSQLBuilder = new SqlConnectionStringBuilder
             {
                 DataSource = serverName,
-                AttachDBFilename = AppDataFolder + @"\" + databaseName,
+                InitialCatalog = "GeneratorSurveillanceDB",
                 IntegratedSecurity = true,
                 MultipleActiveResultSets = true
             };
-            string providerString = sqlBuilder.ToString();
-
+            string ConnectToDBProviderString = ConnectToDBSQLBuilder.ToString();
 
             EntityConnectionStringBuilder EntityCSB = new EntityConnectionStringBuilder
             {
                 Metadata = @"res://*/GeneratorSurveillanceDBEntities.csdl|res://*/GeneratorSurveillanceDBEntities.ssdl|res://*/GeneratorSurveillanceDBEntities.msl",
                 Provider = providerName,
-                ProviderConnectionString = providerString
+                ProviderConnectionString = ConnectToDBProviderString
             };
             String entityConnStr = EntityCSB.ToString();
 
             generatorSurveillanceDBEntities = new GeneratorSurveillanceDBEntities(entityConnStr);
             InitialiseAllSystems();
         }
+
 
         private void InitialiseAllSystems()
         {

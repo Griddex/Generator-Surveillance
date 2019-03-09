@@ -23,7 +23,7 @@ namespace Panel
                                     .Current.Resources["UnityIoC"];
         
         private InputView _inputView;
-        public (bool,string,DateTime?, DateTime?, int) ActiveGeneratorInfo { get; set; }
+        public (bool, string, DateTime?, DateTime?, int) ActiveGeneratorInfo { get; set; }
 
         public MainView(InputView inputView)
         {

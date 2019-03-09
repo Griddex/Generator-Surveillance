@@ -13,19 +13,15 @@ namespace Panel.ViewModels.TableViewModels
         public RunningHrsSchedulingTablesViewModel(UnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
-            AnyPageRnHrsRecords = UnitOfWork.GeneratorRunningHr
-                                            .GetAnyPageGeneratorRunningHrs();
-
-            AnyPageSchRemRecords = UnitOfWork.GeneratorScheduler
-                                             .GetAnyPageGeneratorScheduledRmdrs();
 
             AllRnHrsRecords = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
-
             AllSchRemRecords = UnitOfWork.GeneratorScheduler.GetAllGeneratorSchedules();
+
+            AnyPageRnHrsRecords = UnitOfWork.GeneratorRunningHr.GetAnyPageGeneratorRunningHrs();
+            AnyPageSchRemRecords = UnitOfWork.GeneratorScheduler.GetAnyPageGeneratorScheduledRmdrs();           
         }
 
         public UnitOfWork UnitOfWork { get; set; }
-
         public string PageIndexRnHrs { get; set; } = "1";
         public ComboBoxItem PageSizeRnHrs { get; set; }
 

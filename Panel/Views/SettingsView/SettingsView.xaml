@@ -100,8 +100,6 @@
                 <StackPanel x:Name="stcpnlfc2Settings"
                             Orientation="Horizontal"
                             HorizontalAlignment="Center">
-                    <!--<ScrollViewer VerticalScrollBarVisibility="Auto"
-                                  HorizontalScrollBarVisibility="Auto">-->
                     <Expander x:Name="expdrfclSettings"
                               ExpandDirection="Right"
                               Height="300"
@@ -249,9 +247,6 @@
                                     <Label Content="Fuel Consumption Table" 
                                            Height="30"
                                            Margin="10,0,0,0"/>
-                                    <!--<ScrollViewer Height="400" 
-                                                  Width="760"
-                                                  HorizontalScrollBarVisibility="Auto">-->
                                         <DataGrid x:Name="dtgdGenFuelConsumptionTable"
                                                   Style="{StaticResource DataGridStyle}"                                                  
                                                   ItemsSource="{Binding AnyConsumptionPage}"
@@ -342,15 +337,10 @@
                                                                     Width="Auto"/>
                                                 </DataGrid.Columns>
                                         </DataGrid>
-                                    <!--</ScrollViewer>-->
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
                     </Expander>
-                    <!--</ScrollViewer>-->
-
-                    <!--<ScrollViewer HorizontalScrollBarVisibility="Auto"
-                                  VerticalScrollBarVisibility="Auto">-->
                     <Expander x:Name="expdrraSettings" 
                               ExpandDirection="Right" 
                               Height="300"
@@ -379,9 +369,6 @@
                                   Width="800" 
                                   Height="860">
                             <StackPanel Orientation="Vertical">
-                                <!--<ScrollViewer HorizontalScrollBarVisibility="Auto"
-                                              VerticalScrollBarVisibility="Auto"
-                                              Height="820">-->
                                     <StackPanel Orientation="Vertical">
                                     <Expander x:Name="expdrAuthorisersPanel"
                                               ExpandDirection="Down"
@@ -530,9 +517,6 @@
                                                 <Label Content="Authorisers Details" 
                                                        Height="30" 
                                                        Margin="20,0,0,0"/>
-                                                <!--<ScrollViewer Height="400" 
-                                                              Width="745"
-                                                              HorizontalScrollBarVisibility="Auto">-->
                                                     <DataGrid x:Name="dtgdAuthoriserTable" 
                                                               Style="{StaticResource DataGridStyle}"
                                                               ItemsSource="{Binding AnyAuthorisersPage}" 
@@ -638,7 +622,6 @@
                                                                                 Width="Auto"/>
                                                         </DataGrid.Columns>
                                                     </DataGrid>
-                                                <!--</ScrollViewer>-->
                                             </StackPanel>
                                         </StackPanel>
                                     </Expander>
@@ -789,9 +772,6 @@
                                                 <Label Content="Action Party Details" 
                                                        Height="30" 
                                                        Margin="20,0,0,0"/>
-                                                <!--<ScrollViewer Height="400" 
-                                                              Width="745"
-                                                              HorizontalScrollBarVisibility="Auto">-->
                                                     <DataGrid x:Name="dtgdActionPartyTable" 
                                                               Style="{StaticResource DataGridStyle}"
                                                               ItemsSource="{Binding AnyActionPartiesPage}" 
@@ -897,19 +877,13 @@
                                                                                 Width="Auto"/>
                                                         </DataGrid.Columns>
                                                     </DataGrid>
-                                                <!--</ScrollViewer>-->
                                             </StackPanel>
                                         </StackPanel>
                                     </Expander>
                                     </StackPanel>
-                                <!--</ScrollViewer>-->
                             </StackPanel>
                         </GroupBox>
                     </Expander>
-                    <!--</ScrollViewer>-->
-
-                    <!--<ScrollViewer VerticalScrollBarVisibility="Auto"
-                                  HorizontalScrollBarVisibility="Auto">-->
                     <Expander x:Name="expdrrcSettings"
                               ExpandDirection="Right" 
                               Height="300"
@@ -1148,9 +1122,6 @@
                                              FontSize="14"
                                              Height="35"
                                              Width="750"/>
-                                    <!--<ScrollViewer Height="500"
-                                                  HorizontalScrollBarVisibility="Auto"
-                                                  VerticalScrollBarVisibility="Auto">-->
                                         <DataGrid x:Name="dtgdGenRemindersConfigTable" 
 					                              Style="{StaticResource DataGridStyle}"
 					                              ItemsSource="{Binding ActiveGeneratorSchedules}" 
@@ -1268,13 +1239,10 @@
 										                            Width="Auto"/>
                                             </DataGrid.Columns>
                                         </DataGrid>
-                                    <!--</ScrollViewer>-->
-
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
                     </Expander>
-                    <!--</ScrollViewer>-->
                 </StackPanel>
             </Viewbox>
         </StackPanel>            

@@ -36,7 +36,7 @@ namespace Panel.ViewModels.InputViewModels
         {
             UnitOfWork = unitOfWork;
 
-            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation
+            UniqueGeneratorNamesUnsorted = UnitOfWork.GeneratorInformation
                                                      .GetUniqueGeneratorNames();
 
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
@@ -133,6 +133,36 @@ namespace Panel.ViewModels.InputViewModels
             }
         }
 
+        private string _selectedGenerator;
+        public string SelectedGenerator
+        {
+            get { return _selectedGenerator; }
+            set
+            {
+                _selectedGenerator = value;
+                OnPropertyChanged(nameof(SelectedGenerator));
+
+                var FuelCompStats = UnitOfWork.GeneratorFuelling
+                                              .GetFuelConsumptionData(
+                                               SelectedGenerator);
+
+                RunningHours = FuelCompStats.RunHrs;
+                OnPropertyChanged(nameof(RunningHours));
+
+                CumFuelVolumeSinceLastReading = FuelCompStats.CumFuel;
+                OnPropertyChanged(nameof(CumFuelVolumeSinceLastReading));
+
+                CurrentFuelConsumption = FuelCompStats.Curr;
+                OnPropertyChanged(nameof(CurrentFuelConsumption));
+
+                TestFuelConsumption = FuelCompStats.Test;
+                OnPropertyChanged(nameof(TestFuelConsumption));
+
+                StandardFuelConsumption = FuelCompStats.Stnd;
+                OnPropertyChanged(nameof(StandardFuelConsumption));
+            }
+        }
+
         public DateTime RunningHoursDate { get; set; } = DateTime.Now;
 
         private double _runningHours;
@@ -191,6 +221,32 @@ namespace Panel.ViewModels.InputViewModels
                 _RequestUpdate = value;
                 OnPropertyChanged(nameof(RequestUpdate));
                 _RequestUpdate = false;
+            }
+        }
+
+        private bool _refresh;
+        public bool Refresh
+        {
+            get { return _refresh; }
+            set
+            {
+                UniqueGeneratorNamesUnsorted = UnitOfWork.GeneratorInformation
+                                                     .GetUniqueGeneratorNames();
+
+                UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
+                    (UniqueGeneratorNamesUnsorted
+                        .OrderBy(x => x.GeneratorName));
+
+                OnPropertyChanged(nameof(UniqueGeneratorNames));
+
+                _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr
+                                                                        .GetAllRunningHours();
+
+                _allGeneratorFuelConsumptionRecords = new ObservableCollection<GeneratorRunningHr>
+                    (_allGeneratorFuelConsumptionRecordsUnsorted
+                        .OrderByDescending(x => x.Date));
+
+                OnPropertyChanged(nameof(AllGeneratorFuelConsumptionRecords));
             }
         }
 
@@ -301,36 +357,6 @@ namespace Panel.ViewModels.InputViewModels
                     )
                 );
             }
-        }
-
-        private string _selectedGenerator;
-        public string SelectedGenerator
-        {
-            get { return _selectedGenerator; }
-            set
-            {
-                _selectedGenerator = value;
-                OnPropertyChanged(nameof(SelectedGenerator));
-
-                var FuelCompStats = UnitOfWork.GeneratorFuelling
-                                              .GetFuelConsumptionData(
-                                               SelectedGenerator);
-
-                RunningHours = FuelCompStats.RunHrs;
-                OnPropertyChanged(nameof(RunningHours));
-
-                CumFuelVolumeSinceLastReading = FuelCompStats.CumFuel;
-                OnPropertyChanged(nameof(CumFuelVolumeSinceLastReading));
-
-                CurrentFuelConsumption = FuelCompStats.Curr;
-                OnPropertyChanged(nameof(CurrentFuelConsumption));
-
-                TestFuelConsumption = FuelCompStats.Test;
-                OnPropertyChanged(nameof(TestFuelConsumption));
-
-                StandardFuelConsumption = FuelCompStats.Stnd;
-                OnPropertyChanged(nameof(StandardFuelConsumption));
-            }
-        }
+        }        
     }
 }

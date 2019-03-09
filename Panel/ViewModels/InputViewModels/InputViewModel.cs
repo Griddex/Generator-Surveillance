@@ -35,22 +35,25 @@ namespace Panel.ViewModels.InputViewModels
             UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation
                                                      .GetUniqueGeneratorNames();
 
-            UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
-                                (UniqueGeneratorNamesUnsorted
-                                .OrderBy(x => x.GeneratorName));
+            if(UniqueGeneratorNamesUnsorted != null)
+            {
+                UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
+                                    (UniqueGeneratorNamesUnsorted
+                                    .OrderBy(x => x.GeneratorName));
 
-            var (IsGenActive, 
-                ActiveGenName, 
-                ActiveGenStartedDate, 
-                ActiveGenStartedTime, 
-                ActiveGenID) = UnitOfWork.GeneratorInformation
-                                         .GeneratorStoppedIsGenActive();
+                var (IsGenActive, 
+                    ActiveGenName, 
+                    ActiveGenStartedDate, 
+                    ActiveGenStartedTime, 
+                    ActiveGenID) = UnitOfWork.GeneratorInformation
+                                             .GeneratorStoppedIsGenActive();
 
-            this.IsGenActive = IsGenActive;
-            this.ActiveGenStartedTime = ActiveGenStartedTime;
-            ActiveGenerator = ActiveGenName;
-            this._ActiveGenName = ActiveGenName;
-            this._ActiveGenStartedDate = ActiveGenStartedDate;
+                this.IsGenActive = IsGenActive;
+                this.ActiveGenStartedTime = ActiveGenStartedTime;
+                ActiveGenerator = ActiveGenName;
+                this._ActiveGenName = ActiveGenName;
+                this._ActiveGenStartedDate = ActiveGenStartedDate;
+            }
         }
 
         public bool IsGenActive { get; }

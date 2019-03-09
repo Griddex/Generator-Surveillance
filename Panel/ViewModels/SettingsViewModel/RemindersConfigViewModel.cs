@@ -125,14 +125,6 @@ namespace Panel.ViewModels.SettingsViewModel
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                //MessageBox.Show($"Scheduled maintenance " +
-                                //    $"reminder information " +
-                                //    $"for {SchMaintenanceSelectedGen} " +
-                                //    $"has been updated!",
-                                //    "Information", 
-                                //    MessageBoxButton.OK, 
-                                //    MessageBoxImage.Information);
-
                                 ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
                                                                      .GetActiveGeneratorSchedules();
 

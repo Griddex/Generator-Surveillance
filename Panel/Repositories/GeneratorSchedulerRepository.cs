@@ -108,7 +108,6 @@ namespace Panel.Repositories
             DateTime StartDate, double EveryHrs, string ReminderLevel,
             string RepeatReminderYesNo, string Authoriser)
         {
-            RepeatReminderYesNo = "Yes";
             foreach (var row in GeneratorSurveillanceDBContext
                 .GeneratorSchedulers)
             {
