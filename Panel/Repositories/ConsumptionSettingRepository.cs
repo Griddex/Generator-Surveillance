@@ -37,16 +37,32 @@ namespace Panel.Repositories
             );
         }
 
-        public Tuple<double,double> GetTestStandardConsumption(string GeneratorName)
+        public Tuple<double?,double?> GetTestStandardConsumption(string GeneratorName)
         {
-            var LastRowCompSetting = GeneratorSurveillanceDBContext
-                                            .ConsumptionSettings
-                                            .Where(x => x.GeneratorName ==
-                                                        GeneratorName)
-                                            .OrderByDescending(x => x.Date)
-                                            .FirstOrDefault();
-            return new Tuple<double, double>(LastRowCompSetting.TestConsumption,
-                                            LastRowCompSetting.StandardConsumption);
+            try
+            {
+                var LastRowCompSetting = GeneratorSurveillanceDBContext
+                                           .ConsumptionSettings
+                                           .Where(x => x.GeneratorName ==
+                                                       GeneratorName)
+                                           .OrderByDescending(x => x.Date)
+                                           .FirstOrDefault();
+
+                double? TestCompValue = LastRowCompSetting.TestConsumption;
+                double? StandardCompValue = LastRowCompSetting.StandardConsumption;
+
+                if (TestCompValue == null)
+                    TestCompValue = 0;
+                if (StandardCompValue == null)
+                    StandardCompValue = 0;
+
+                return new Tuple<double?, double?>(TestCompValue, StandardCompValue);
+            }
+            catch (Exception)
+            {
+                return new Tuple<double?, double?>(0, 0); ;
+            }
+           
         }
 
         public ObservableCollection<ConsumptionSetting> GetAnyConsumptionPage()

@@ -24,11 +24,10 @@ using System.Windows;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
-using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
-using System.Data;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Security.AccessControl;
+using System.Security.Principal;
 
 namespace Panel
 {
@@ -43,6 +42,18 @@ namespace Panel
 
         private  void Application_Startup(object sender, StartupEventArgs e)
         {
+            string LocalDBFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
+                @"\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB";
+
+            if (!Directory.Exists(LocalDBFolder))
+            {
+                MessageBox.Show("SQL LocalDB Server is not installed on your computer" +
+                    Environment.NewLine + Environment.NewLine +
+                    "To install, please visit:" + Environment.NewLine +
+                    "https://www.microsoft.com/en-us/download/details.aspx?id=29062",
+                    "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                Application.Current.Shutdown();
+            }
 
             string CommonAppFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             string DBFolder = CommonAppFolder + @"\GeneratorSurveillance";
@@ -55,8 +66,6 @@ namespace Panel
             string ScriptText = DatabaseGenerationScript.GetDatabaseGenerationScript()
                     .Replace("DB_NAME_MDF", DbNameMDFPath)
                     .Replace("DB_NAME_LDF", DbNameLDFPath);
-
-
 
             if (!File.Exists(DbNameMDFPath))
             {              
@@ -108,6 +117,32 @@ namespace Panel
                     }
                 }
 
+                //Add full control permission to database for current windows user
+                try
+                {
+                    DirectoryInfo dInfoMDF = new DirectoryInfo(DbNameMDFPath);
+                    DirectorySecurity dSecurityMDF = dInfoMDF.GetAccessControl();
+                    dSecurityMDF.AddAccessRule(new FileSystemAccessRule(
+                        new SecurityIdentifier(WellKnownSidType.WorldSid, null),
+                        FileSystemRights.FullControl,
+                        InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit,
+                        PropagationFlags.NoPropagateInherit,
+                        AccessControlType.Allow));
+                    dInfoMDF.SetAccessControl(dSecurityMDF);
+
+                    DirectoryInfo dInfoLDF = new DirectoryInfo(DbNameLDFPath);
+                    DirectorySecurity dSecurityLDF = dInfoLDF.GetAccessControl();
+                    dSecurityLDF.AddAccessRule(new FileSystemAccessRule(
+                        new SecurityIdentifier(WellKnownSidType.WorldSid, null),
+                        FileSystemRights.FullControl,
+                        InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit,
+                        PropagationFlags.NoPropagateInherit,
+                        AccessControlType.Allow));
+                    dInfoLDF.SetAccessControl(dSecurityLDF);
+                }
+                catch (Exception)  { }
+               
+
                 //Add Tables to database
                 SqlConnectionStringBuilder DefineTablesSQLBuilder = new SqlConnectionStringBuilder
                 {
@@ -125,7 +160,6 @@ namespace Panel
                     tableconn.Open();
                     createtables.ExecuteNonQuery();
                 }
-
             }
 
             //Connect to database via EF

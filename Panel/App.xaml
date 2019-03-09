@@ -45,6 +45,7 @@
             x:Key="PassPswbxExpdrExpdrStkPlVwBx"/>
         <convtrs:PassStackpanelAsCommandParameters 
             x:Key="PassStackpanel"/>
+        <convtrs:PassComboBoxAsCommandParameter x:Key="PassComboBox"/>
 
 
         <Window x:Key="windwPassword"

@@ -206,6 +206,15 @@
                                              NotifyOnValidationError="True"  
                                              UpdateSourceTrigger="PropertyChanged"/>
                                 </ComboBox.Text>
+                                <ComboBox.InputBindings>
+                                    <KeyBinding Key="Return" Command="{Binding Path=AddGeneratorCmd}">
+                                        <KeyBinding.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource PassComboBox}">
+                                                <Binding ElementName="cmbxGenInfo"/>
+                                            </MultiBinding>
+                                        </KeyBinding.CommandParameter>
+                                    </KeyBinding>
+                                </ComboBox.InputBindings>
                             </ComboBox>
                         </StackPanel>
 

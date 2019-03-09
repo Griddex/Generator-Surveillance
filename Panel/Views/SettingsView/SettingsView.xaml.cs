@@ -27,17 +27,10 @@ namespace Panel.Views.SettingsView
         {
             InitializeComponent();
 
-            this.expdrfclSettings.DataContext =
-                consumptionSettingsViewModel;
-
-            this.expdrraSettings.DataContext =
-                authoriserSettingsViewModel;
-
-            this.expdrrcSettings.DataContext =
-                remindersConfigViewModel;
-
-            this.stcpnlfc1Settings.DataContext =
-                remindersConfigViewModel;
+            this.expdrfclSettings.DataContext = consumptionSettingsViewModel;
+            this.expdrraSettings.DataContext = authoriserSettingsViewModel;
+            this.expdrrcSettings.DataContext = remindersConfigViewModel;
+            this.stcpnlfc1Settings.DataContext = remindersConfigViewModel;
 
             this.stckpnlPassword.Margin = new Thickness(0, 440, 0, 0);
 
@@ -211,6 +204,12 @@ namespace Panel.Views.SettingsView
             this.vwbxSettings.Margin = new Thickness(0, 5, 0, 0);
             this.expdrfclSettings.Margin = new Thickness(0, 5, 0, 0);
             this.grpbxFuelConsumption.Margin = new Thickness(0, 5, 0, 0);
+
+            var consumptionSettingsViewModel =
+                    this.grpbxFuelConsumption.DataContext
+                    as ConsumptionSettingsViewModel;
+
+            consumptionSettingsViewModel.RefreshCmd.Execute(null);
         }
 
         private void FuelComp_Collapsed(object sender, RoutedEventArgs e)
@@ -299,6 +298,8 @@ namespace Panel.Views.SettingsView
 
             remindersConfigViewModel.RefreshRemindersTableCmd
                 .Execute(this.dtgdGenRemindersConfigTable);
+
+            remindersConfigViewModel.RefreshCmd.Execute(null);
         }
 
         private void Reminders_Collapsed(object sender, RoutedEventArgs e)
@@ -318,7 +319,6 @@ namespace Panel.Views.SettingsView
                 this.expdrfclSettings.Height = 300;
                 this.expdrraSettings.Height = 300;
                 this.expdrrcSettings.Height = 300;
-
             }
         }
 

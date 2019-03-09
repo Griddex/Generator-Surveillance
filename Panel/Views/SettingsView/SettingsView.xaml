@@ -30,7 +30,7 @@
                         Orientation="Horizontal" 
                         Margin="0,0,0,0"
                         HorizontalAlignment="Center"
-                        Visibility="Visible">
+                        Visibility="Collapsed">
                 <Label VerticalContentAlignment="Center"
                        Content="Enter Password"/>
                 <PasswordBox x:Name="psswrdReminder" 

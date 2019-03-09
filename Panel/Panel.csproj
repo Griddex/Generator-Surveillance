@@ -261,6 +261,7 @@
     <Compile Include="Converters\InputViewMultiConverter.cs" />
     <Compile Include="Converters\PassComboBoxesButtonLabelAsCommandParameters.cs" />
     <Compile Include="Converters\PassDtPkrTxBxTwoCmboxsBtnAsCommandParameters.cs" />
+    <Compile Include="Converters\PassComboBoxAsCommandParameter.cs" />
     <Compile Include="Converters\PassStackpanelAsCommandParameters.cs" />
     <Compile Include="Converters\PassPswbxExpdrExpdrStkPlVwBxAsCommandParameters.cs" />
     <Compile Include="Converters\PassStackpanelExpanderButtonAsCommandParameters.cs" />
@@ -603,6 +604,7 @@
     <Resource Include="Images\PowerGenerator.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <SplashScreen Include="SplashScreens\GSS - SplashScreen - Smaller.png" />
     <EmbeddedResource Include="Database\DefineTablesScript.sql" />
     <EmbeddedResource Include="Database\GenerateDatabaseScript.sql" />
     <Content Include="Data\GeneratorSurveillanceDB.ldf">
@@ -618,7 +620,6 @@
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
       <LastGenOutput>GeneratorSurveillanceDBEntities.cs</LastGenOutput>
     </Content>
-    <SplashScreen Include="SplashScreens\GSS_SplashScreen.bmp" />
     <None Include="Resources\Charts3.ico" />
     <None Include="Resources\Charts2.png" />
     <Resource Include="Images\Tablef.png" />

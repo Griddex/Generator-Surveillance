@@ -224,29 +224,41 @@ namespace Panel.ViewModels.InputViewModels
             }
         }
 
-        private bool _refresh;
-        public bool Refresh
+        private ICommand _refreshCmd;
+        public ICommand RefreshCmd
         {
-            get { return _refresh; }
-            set
+            get
             {
-                UniqueGeneratorNamesUnsorted = UnitOfWork.GeneratorInformation
-                                                     .GetUniqueGeneratorNames();
+                return this._refreshCmd ??
+                (
+                    this._refreshCmd = new DelegateCommand
+                    (
+                        y =>
+                        {
+                            UniqueGeneratorNamesUnsorted = UnitOfWork.GeneratorInformation
+                                                .GetUniqueGeneratorNames();
 
-                UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
-                    (UniqueGeneratorNamesUnsorted
-                        .OrderBy(x => x.GeneratorName));
+                            UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
+                                (UniqueGeneratorNamesUnsorted
+                                    .OrderBy(x => x.GeneratorName));
 
-                OnPropertyChanged(nameof(UniqueGeneratorNames));
+                            OnPropertyChanged(nameof(UniqueGeneratorNames));
 
-                _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr
-                                                                        .GetAllRunningHours();
+                            _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr
+                                                                                    .GetAllRunningHours();
 
-                _allGeneratorFuelConsumptionRecords = new ObservableCollection<GeneratorRunningHr>
-                    (_allGeneratorFuelConsumptionRecordsUnsorted
-                        .OrderByDescending(x => x.Date));
+                            _allGeneratorFuelConsumptionRecords = new ObservableCollection<GeneratorRunningHr>
+                                (_allGeneratorFuelConsumptionRecordsUnsorted
+                                    .OrderByDescending(x => x.Date));
 
-                OnPropertyChanged(nameof(AllGeneratorFuelConsumptionRecords));
+                            AllGeneratorFuelConsumptionRecords = _allGeneratorFuelConsumptionRecords;
+
+                            OnPropertyChanged(nameof(AllGeneratorFuelConsumptionRecords));
+                            OnPropertyChanged(nameof(SelectedGenerator));
+                        },
+                        z => !HasErrors
+                    )
+                );                
             }
         }
 
@@ -318,8 +330,10 @@ namespace Panel.ViewModels.InputViewModels
                             {
                                 try
                                 {
-                                    Tuple<double, double> TestStandardComp = UnitOfWork.ConsumptionSetting
-                                                                            .GetTestStandardConsumption(SelectedGenerator);                                    
+                                    Tuple<double?, double?> TestStandardComp = UnitOfWork.ConsumptionSetting
+                                                                            .GetTestStandardConsumption(SelectedGenerator);
+                                    double testcmp = (double)TestStandardComp.Item1;
+                                    double stndcmp = (double)TestStandardComp.Item2;
 
                                     var FuelCompStats = UnitOfWork.GeneratorFuelling
                                                                   .GetFuelConsumptionData(
@@ -328,17 +342,28 @@ namespace Panel.ViewModels.InputViewModels
                                     UnitOfWork.ConsumptionSetting.SetConsumption(RunningHoursDate,
                                                                   cmbxSelectGenFuelling.Text,
                                                                   FuelCompStats.Curr,
-                                                                  TestStandardComp.Item1,
-                                                                  TestStandardComp.Item2);
+                                                                  testcmp,
+                                                                  stndcmp);
 
                                     CurrentFuelConsumption = FuelCompStats.Curr;
                                     OnPropertyChanged(nameof(CurrentFuelConsumption));
 
-                                    TestFuelConsumption = TestStandardComp.Item1;
+                                    TestFuelConsumption = testcmp;
                                     OnPropertyChanged(nameof(TestFuelConsumption));
 
-                                    StandardFuelConsumption = TestStandardComp.Item2;
+                                    StandardFuelConsumption = stndcmp;
                                     OnPropertyChanged(nameof(StandardFuelConsumption));
+
+                                    _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr
+                                                                                   .GetAllRunningHours();
+
+                                    _allGeneratorFuelConsumptionRecords = new ObservableCollection<GeneratorRunningHr>
+                                        (_allGeneratorFuelConsumptionRecordsUnsorted
+                                            .OrderByDescending(y => y.Date));
+
+                                    AllGeneratorFuelConsumptionRecords = _allGeneratorFuelConsumptionRecords;
+
+                                    OnPropertyChanged(nameof(AllGeneratorFuelConsumptionRecords));
                                 }
                                 catch (Exception) { }
 

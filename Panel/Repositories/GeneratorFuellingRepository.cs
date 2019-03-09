@@ -122,6 +122,7 @@ namespace Panel.Repositories
                                             .Where(x => x.Generator ==
                                                   GeneratorName)
                                             .OrderByDescending(x => x.Date)
+                                            .ThenByDescending(x => x.CumFuelVolumeSinceLastReading)
                                             .FirstOrDefault();
 
             var PenultimateRowRunningHrs = GeneratorSurveillanceDBContext
@@ -129,6 +130,7 @@ namespace Panel.Repositories
                                                 .Where(x => x.Generator ==
                                                       GeneratorName)
                                                 .OrderByDescending(x => x.Date)
+                                                .ThenByDescending(x => x.CumFuelVolumeSinceLastReading)
                                                 .Skip(1)
                                                 .FirstOrDefault();
 

@@ -9,7 +9,7 @@ namespace Panel.Interfaces
             double CurrentFuelConsumption,
             double TestFuelConsumption, double StandardFuelConsumption);
 
-        Tuple<double, double> GetTestStandardConsumption(string GeneratorName);
+        Tuple<double?, double?> GetTestStandardConsumption(string GeneratorName);
 
         ObservableCollection<ConsumptionSetting> GetAnyConsumptionPage();
     }

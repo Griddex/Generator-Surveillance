@@ -66,12 +66,12 @@ namespace Panel.Views.InputViews
         {
             this.dtgdGenScheduledRemindersTable.Items.Refresh();
 
-            ICollectionView cvsGeneratorConsumption = 
-                            CollectionViewSource
+            ICollectionView cvsGeneratorConsumption = CollectionViewSource
                             .GetDefaultView(this.dtgdGenScheduledRemindersTable
                                             .ItemsSource);
 
             cvsGeneratorConsumption.Refresh();
+            
         }
 
         private void DeactivateGenerator_Click(object sender, RoutedEventArgs e)

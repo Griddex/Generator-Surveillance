@@ -206,7 +206,34 @@ namespace Panel.ViewModels.InputViewModels
                 catch (Exception) { }                
             }
         }
-        
+
+
+        private ICommand _refreshCmd;
+        public ICommand RefreshCmd
+        {
+            get
+            {
+                return this._refreshCmd ??
+                (
+                    this._refreshCmd = new DelegateCommand
+                    (
+                        y =>
+                        {
+                            UniqueGeneratorNamesUnsorted = UnitOfWork.GeneratorInformation
+                                                .GetUniqueGeneratorNames();
+
+                            UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
+                                (UniqueGeneratorNamesUnsorted
+                                    .OrderBy(x => x.GeneratorName));
+
+                            OnPropertyChanged(nameof(UniqueGeneratorNames)); 
+                        },
+                        z => !HasErrors
+                    )
+                );
+            }
+        }
+
         private ICommand _unschMaintenanceCmd;
         public ICommand UnschMaintenanceCmd
         {
