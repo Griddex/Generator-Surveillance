@@ -20,5 +20,6 @@ namespace Panel
         public double CurrentConsumption { get; set; }
         public double TestConsumption { get; set; }
         public double StandardConsumption { get; set; }
+        public int SN { get; set; }
     }
 }

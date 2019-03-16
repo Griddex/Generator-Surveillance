@@ -21,5 +21,6 @@ namespace Panel
         public string EmailActionParty { get; set; }
         public string PhoneNumberActionParty { get; set; }
         public string JobTitleActionParty { get; set; }
+        public int SN { get; set; }
     }
 }

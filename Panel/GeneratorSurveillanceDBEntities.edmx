@@ -10,6 +10,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SN" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="FirstNameActionParty" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LastNameActionParty" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -22,6 +23,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SN" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="FirstNameAuthoriser" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LastNameAuthoriser" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -34,6 +36,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SN" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="GeneratorName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CurrentConsumption" Type="float" Nullable="false" />
@@ -45,6 +48,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SN" Type="int" Nullable="false" />
           <Property Name="Vendor" Type="varchar(max)" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="VolumeOfDiesel" Type="float" Nullable="false" />
@@ -55,6 +59,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SN" Type="int" Nullable="false" />
           <Property Name="MaintenanceType" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="TotalCost" Type="float" Nullable="false" />
@@ -65,6 +70,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SN" Type="int" Nullable="false" />
           <Property Name="Generator" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="RunningHours" Type="float" Nullable="false" />
@@ -75,6 +81,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SN" Type="int" Nullable="false" />
           <Property Name="GeneratorName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Starts" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Every" Type="float" Nullable="false" />
@@ -90,6 +97,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SN" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="GeneratorName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="GeneratorStarted" Type="datetime2" Precision="7" Nullable="false" />
@@ -101,6 +109,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SN" Type="int" Nullable="false" />
           <Property Name="ReminderPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityContainer Name="GeneratorSurveillanceDBModelStoreContainer">
@@ -118,6 +127,44 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GeneratorSurveillanceDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ActionPartySetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FirstNameActionParty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastNameActionParty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailActionParty" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumberActionParty" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JobTitleActionParty" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SN" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuthoriserSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FirstNameAuthoriser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastNameAuthoriser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailAuthoriser" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumberAuthoriser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JobTitleAuthoriser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SN" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConsumptionSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="GeneratorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CurrentConsumption" Type="Double" Nullable="false" />
+          <Property Name="TestConsumption" Type="Double" Nullable="false" />
+          <Property Name="StandardConsumption" Type="Double" Nullable="false" />
+          <Property Name="SN" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="GeneratorFuelling">
           <Key>
             <PropertyRef Name="Id" />
@@ -127,6 +174,7 @@
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="VolumeOfDiesel" Type="Double" Nullable="false" />
           <Property Name="CostOfDiesel" Type="Double" Nullable="false" />
+          <Property Name="SN" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="GeneratorMaintenance">
           <Key>
@@ -137,6 +185,7 @@
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TotalCost" Type="Double" Nullable="false" />
           <Property Name="Comments" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SN" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="GeneratorRunningHr">
           <Key>
@@ -147,6 +196,7 @@
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RunningHours" Type="Double" Nullable="false" />
           <Property Name="CumFuelVolumeSinceLastReading" Type="Double" Nullable="false" />
+          <Property Name="SN" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="GeneratorScheduler">
           <Key>
@@ -160,8 +210,9 @@
           <Property Name="Authoriser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ReminderHoursProfile" Type="Double" Nullable="false" />
           <Property Name="ReminderDateTimeProfile" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="IsActive" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="IsRepetitive" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsRepetitive" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SN" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="GeneratorUsage">
           <Key>
@@ -173,69 +224,78 @@
           <Property Name="GeneratorStarted" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="GeneratorStopped" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="IsArchived" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
-        <EntityContainer Name="GeneratorSurveillanceDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="GeneratorFuellings" EntityType="Self.GeneratorFuelling" />
-          <EntitySet Name="GeneratorMaintenances" EntityType="Self.GeneratorMaintenance" />
-          <EntitySet Name="GeneratorRunningHrs" EntityType="Self.GeneratorRunningHr" />
-          <EntitySet Name="GeneratorSchedulers" EntityType="Self.GeneratorScheduler" />
-          <EntitySet Name="GeneratorUsages" EntityType="Self.GeneratorUsage" />
-          <EntitySet Name="AuthoriserSettings" EntityType="GeneratorSurveillanceDBModel.AuthoriserSetting" />
-          <EntitySet Name="ConsumptionSettings" EntityType="GeneratorSurveillanceDBModel.ConsumptionSetting" />
-          <EntitySet Name="ActionPartySettings" EntityType="GeneratorSurveillanceDBModel.ActionPartySetting" />
-          <EntitySet Name="Passwords" EntityType="GeneratorSurveillanceDBModel.Password" />
-        </EntityContainer>
-        <EntityType Name="AuthoriserSetting">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="FirstNameAuthoriser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastNameAuthoriser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EmailAuthoriser" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberAuthoriser" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="JobTitleAuthoriser" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="ConsumptionSetting">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="GeneratorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CurrentConsumption" Type="Double" Nullable="false" />
-          <Property Name="TestConsumption" Type="Double" Nullable="false" />
-          <Property Name="StandardConsumption" Type="Double" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ActionPartySetting">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="FirstNameActionParty" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastNameActionParty" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EmailActionParty" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberActionParty" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="JobTitleActionParty" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SN" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Password">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="ReminderPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReminderPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SN" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityContainer Name="GeneratorSurveillanceDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ActionPartySettings" EntityType="Self.ActionPartySetting" />
+          <EntitySet Name="AuthoriserSettings" EntityType="Self.AuthoriserSetting" />
+          <EntitySet Name="ConsumptionSettings" EntityType="Self.ConsumptionSetting" />
+          <EntitySet Name="GeneratorFuellings" EntityType="Self.GeneratorFuelling" />
+          <EntitySet Name="GeneratorMaintenances" EntityType="Self.GeneratorMaintenance" />
+          <EntitySet Name="GeneratorRunningHrs" EntityType="Self.GeneratorRunningHr" />
+          <EntitySet Name="GeneratorSchedulers" EntityType="Self.GeneratorScheduler" />
+          <EntitySet Name="GeneratorUsages" EntityType="Self.GeneratorUsage" />
+          <EntitySet Name="Passwords" EntityType="Self.Password" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GeneratorSurveillanceDBModelStoreContainer" CdmEntityContainer="GeneratorSurveillanceDBEntities">
+        <EntityContainerMapping StorageEntityContainer="GeneratorSurveillanceDBModelStoreContainer" CdmEntityContainer="GeneratorSurveillanceDBEntities1">
+          <EntitySetMapping Name="ActionPartySettings">
+            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.ActionPartySetting">
+              <MappingFragment StoreEntitySet="ActionPartySettings">
+                <ScalarProperty Name="SN" ColumnName="SN" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="FirstNameActionParty" ColumnName="FirstNameActionParty" />
+                <ScalarProperty Name="LastNameActionParty" ColumnName="LastNameActionParty" />
+                <ScalarProperty Name="EmailActionParty" ColumnName="EmailActionParty" />
+                <ScalarProperty Name="PhoneNumberActionParty" ColumnName="PhoneNumberActionParty" />
+                <ScalarProperty Name="JobTitleActionParty" ColumnName="JobTitleActionParty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuthoriserSettings">
+            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.AuthoriserSetting">
+              <MappingFragment StoreEntitySet="AuthoriserSettings">
+                <ScalarProperty Name="SN" ColumnName="SN" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="FirstNameAuthoriser" ColumnName="FirstNameAuthoriser" />
+                <ScalarProperty Name="LastNameAuthoriser" ColumnName="LastNameAuthoriser" />
+                <ScalarProperty Name="EmailAuthoriser" ColumnName="EmailAuthoriser" />
+                <ScalarProperty Name="PhoneNumberAuthoriser" ColumnName="PhoneNumberAuthoriser" />
+                <ScalarProperty Name="JobTitleAuthoriser" ColumnName="JobTitleAuthoriser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConsumptionSettings">
+            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.ConsumptionSetting">
+              <MappingFragment StoreEntitySet="ConsumptionSettings">
+                <ScalarProperty Name="SN" ColumnName="SN" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="GeneratorName" ColumnName="GeneratorName" />
+                <ScalarProperty Name="CurrentConsumption" ColumnName="CurrentConsumption" />
+                <ScalarProperty Name="TestConsumption" ColumnName="TestConsumption" />
+                <ScalarProperty Name="StandardConsumption" ColumnName="StandardConsumption" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="GeneratorFuellings">
             <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorFuelling">
               <MappingFragment StoreEntitySet="GeneratorFuelling">
+                <ScalarProperty Name="SN" ColumnName="SN" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Vendor" ColumnName="Vendor" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -247,6 +307,7 @@
           <EntitySetMapping Name="GeneratorMaintenances">
             <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorMaintenance">
               <MappingFragment StoreEntitySet="GeneratorMaintenance">
+                <ScalarProperty Name="SN" ColumnName="SN" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="MaintenanceType" ColumnName="MaintenanceType" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -258,6 +319,7 @@
           <EntitySetMapping Name="GeneratorRunningHrs">
             <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorRunningHr">
               <MappingFragment StoreEntitySet="GeneratorRunningHrs">
+                <ScalarProperty Name="SN" ColumnName="SN" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Generator" ColumnName="Generator" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -269,8 +331,7 @@
           <EntitySetMapping Name="GeneratorSchedulers">
             <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorScheduler">
               <MappingFragment StoreEntitySet="GeneratorScheduler">
-                <ScalarProperty Name="IsRepetitive" ColumnName="IsRepetitive" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="SN" ColumnName="SN" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="GeneratorName" ColumnName="GeneratorName" />
                 <ScalarProperty Name="Starts" ColumnName="Starts" />
@@ -279,12 +340,15 @@
                 <ScalarProperty Name="Authoriser" ColumnName="Authoriser" />
                 <ScalarProperty Name="ReminderHoursProfile" ColumnName="ReminderHoursProfile" />
                 <ScalarProperty Name="ReminderDateTimeProfile" ColumnName="ReminderDateTimeProfile" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsRepetitive" ColumnName="IsRepetitive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GeneratorUsages">
             <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.GeneratorUsage">
               <MappingFragment StoreEntitySet="GeneratorUsage">
+                <ScalarProperty Name="SN" ColumnName="SN" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="GeneratorName" ColumnName="GeneratorName" />
@@ -294,49 +358,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AuthoriserSettings">
-            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.AuthoriserSetting">
-              <MappingFragment StoreEntitySet="AuthoriserSettings">
-                <ScalarProperty Name="JobTitleAuthoriser" ColumnName="JobTitleAuthoriser" />
-                <ScalarProperty Name="PhoneNumberAuthoriser" ColumnName="PhoneNumberAuthoriser" />
-                <ScalarProperty Name="EmailAuthoriser" ColumnName="EmailAuthoriser" />
-                <ScalarProperty Name="LastNameAuthoriser" ColumnName="LastNameAuthoriser" />
-                <ScalarProperty Name="FirstNameAuthoriser" ColumnName="FirstNameAuthoriser" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ConsumptionSettings">
-            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.ConsumptionSetting">
-              <MappingFragment StoreEntitySet="ConsumptionSettings">
-                <ScalarProperty Name="StandardConsumption" ColumnName="StandardConsumption" />
-                <ScalarProperty Name="TestConsumption" ColumnName="TestConsumption" />
-                <ScalarProperty Name="CurrentConsumption" ColumnName="CurrentConsumption" />
-                <ScalarProperty Name="GeneratorName" ColumnName="GeneratorName" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ActionPartySettings">
-            <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.ActionPartySetting">
-              <MappingFragment StoreEntitySet="ActionPartySettings">
-                <ScalarProperty Name="JobTitleActionParty" ColumnName="JobTitleActionParty" />
-                <ScalarProperty Name="PhoneNumberActionParty" ColumnName="PhoneNumberActionParty" />
-                <ScalarProperty Name="EmailActionParty" ColumnName="EmailActionParty" />
-                <ScalarProperty Name="LastNameActionParty" ColumnName="LastNameActionParty" />
-                <ScalarProperty Name="FirstNameActionParty" ColumnName="FirstNameActionParty" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Passwords">
             <EntityTypeMapping TypeName="GeneratorSurveillanceDBModel.Password">
               <MappingFragment StoreEntitySet="Passwords">
-                <ScalarProperty Name="ReminderPassword" ColumnName="ReminderPassword" />
+                <ScalarProperty Name="SN" ColumnName="SN" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ReminderPassword" ColumnName="ReminderPassword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

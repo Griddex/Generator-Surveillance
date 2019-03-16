@@ -10,7 +10,6 @@
 namespace Panel
 {
     using System;
-    using System.Configuration;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
@@ -18,22 +17,22 @@ namespace Panel
     {
         public GeneratorSurveillanceDBEntities()
             : base("name=GeneratorSurveillanceDBEntities")
-        {  }        
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();            
         }
     
-
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            throw new UnintentionalCodeFirstException();
+        }
+    
+        public virtual DbSet<ActionPartySetting> ActionPartySettings { get; set; }
+        public virtual DbSet<AuthoriserSetting> AuthoriserSettings { get; set; }
+        public virtual DbSet<ConsumptionSetting> ConsumptionSettings { get; set; }
         public virtual DbSet<GeneratorFuelling> GeneratorFuellings { get; set; }
         public virtual DbSet<GeneratorMaintenance> GeneratorMaintenances { get; set; }
         public virtual DbSet<GeneratorRunningHr> GeneratorRunningHrs { get; set; }
         public virtual DbSet<GeneratorScheduler> GeneratorSchedulers { get; set; }
         public virtual DbSet<GeneratorUsage> GeneratorUsages { get; set; }
-        public virtual DbSet<AuthoriserSetting> AuthoriserSettings { get; set; }
-        public virtual DbSet<ConsumptionSetting> ConsumptionSettings { get; set; }
-        public virtual DbSet<ActionPartySetting> ActionPartySettings { get; set; }
         public virtual DbSet<Password> Passwords { get; set; }
     }
 }

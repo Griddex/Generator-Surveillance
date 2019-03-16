@@ -19,5 +19,6 @@ namespace Panel
         public System.DateTime Date { get; set; }
         public double RunningHours { get; set; }
         public double CumFuelVolumeSinceLastReading { get; set; }
+        public int SN { get; set; }
     }
 }

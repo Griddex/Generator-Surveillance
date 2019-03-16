@@ -19,5 +19,6 @@ namespace Panel
         public System.DateTime Date { get; set; }
         public double VolumeOfDiesel { get; set; }
         public double CostOfDiesel { get; set; }
+        public int SN { get; set; }
     }
 }

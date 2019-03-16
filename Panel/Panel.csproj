@@ -533,11 +533,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Data\GeneratorSurveillanceDB.mdf" />
     <EntityDeploy Include="GeneratorSurveillanceDBEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>GeneratorSurveillanceDBEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Data\GeneratorSurveillanceDB.mdf" />
     <None Include="GeneratorSurveillanceDBEntities.edmx.diagram">
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
     </None>
@@ -604,12 +604,6 @@
     <Resource Include="Images\PowerGenerator.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="SplashScreens\GSS - SplashScreen - Smaller.png" />
-    <EmbeddedResource Include="Database\DefineTablesScript.sql" />
-    <EmbeddedResource Include="Database\GenerateDatabaseScript.sql" />
-    <Content Include="Data\GeneratorSurveillanceDB.ldf">
-      <DependentUpon>GeneratorSurveillanceDB.mdf</DependentUpon>
-    </Content>
     <Content Include="GeneratorSurveillanceDBEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
@@ -619,6 +613,12 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GeneratorSurveillanceDBEntities.edmx</DependentUpon>
       <LastGenOutput>GeneratorSurveillanceDBEntities.cs</LastGenOutput>
+    </Content>
+    <SplashScreen Include="SplashScreens\GSS - SplashScreen - Smaller.png" />
+    <EmbeddedResource Include="Database\DefineTablesScript.sql" />
+    <EmbeddedResource Include="Database\GenerateDatabaseScript.sql" />
+    <Content Include="Data\GeneratorSurveillanceDB.ldf">
+      <DependentUpon>GeneratorSurveillanceDB.mdf</DependentUpon>
     </Content>
     <None Include="Resources\Charts3.ico" />
     <None Include="Resources\Charts2.png" />

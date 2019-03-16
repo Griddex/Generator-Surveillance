@@ -2,11 +2,8 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Panel.Views"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:cmds="clr-namespace:Panel.Commands"
-      xmlns:usercontrol="clr-namespace:Panel.UserControls"
-      xmlns:vml="clr-namespace:Panel.ViewModels"      
       mc:Ignorable="d" 
       d:DesignHeight="920" d:DesignWidth="1930"
       Title="RunningHrsSchedulingTables"
@@ -55,7 +52,8 @@
                         <DockPanel>
                             <ToolBarTray DockPanel.Dock="Top" Height="30">
                                 <ToolBar Height="30">
-                                    <Button Click="GroupbyGeneratorRunningHours_Click">
+                                    <Button Click="GroupbyGeneratorRunningHours_Click"
+                                            ToolTip="Group Table by Generator">
                                         <Button.Content>
                                             <StackPanel Orientation="Vertical">
                                                 <Image Source="/Images/GroupBy_Red.jpg" Height="20" 
@@ -63,7 +61,9 @@
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
-                                    <Button Click="ClearRunningHoursGrouping_Click">
+                                    <Button Command="{Binding DeleteAllRowsCmd}"
+                                            CommandParameter="{Binding ElementName=dtgdGenRunningHrsTable}"
+                                            ToolTip="Delete entire table">
                                         <Button.Content>
                                             <StackPanel Orientation="Vertical">
                                                 <Image Source="/Images/Clear.png" Height="20" 
@@ -130,16 +130,23 @@
                                 </ToolBar>
                         
                             </ToolBarTray>
-                            <DataGrid x:Name="dtgdGenRunnungHrsTable" 
+                            <DataGrid x:Name="dtgdGenRunningHrsTable" 
                                       Style="{StaticResource DataGridStyle}"
                                       ItemsSource="{Binding AnyPageRnHrsRecords}" 
                                       ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
                                 <DataGrid.ContextMenu>
-                                    <ContextMenu>
+                                    <ContextMenu
+                                        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}, 
+				                                                                             Path=PlacementTarget.DataContext}">
                                         <MenuItem Header="Groupby Generator" 
                                                   Click="GroupbyGeneratorRunningHours_Click"/>
                                         <MenuItem Header="Clear Grouping" 
                                                   Click="ClearRunningHoursGrouping_Click"/>
+                                        <MenuItem Header="Delete"
+                                                  Command="{Binding DeleteSelectedRowsCmd}"
+                                                  CommandParameter="{Binding Path=PlacementTarget,
+									                                         RelativeSource={RelativeSource FindAncestor,
+																	                                        AncestorType={x:Type ContextMenu}}}"/>
                                     </ContextMenu>
                                 </DataGrid.ContextMenu>
                                 <DataGrid.GroupStyle>
@@ -302,7 +309,8 @@
                                       ItemsSource="{Binding AnyPageSchRemRecords}" 
                                       ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
                                 <DataGrid.ContextMenu>
-                                    <ContextMenu>
+                                    <ContextMenu
+                                        >
                                         <MenuItem Header="Groupby Generator" 
                                                   Click="GroupbyGeneratorScheduler_Click"/>
                                         <MenuItem Header="Clear Grouping" 

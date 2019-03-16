@@ -24,5 +24,6 @@ namespace Panel
         public System.DateTime ReminderDateTimeProfile { get; set; }
         public string IsActive { get; set; }
         public string IsRepetitive { get; set; }
+        public int SN { get; set; }
     }
 }

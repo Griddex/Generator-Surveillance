@@ -20,5 +20,6 @@ namespace Panel
         public System.DateTime GeneratorStarted { get; set; }
         public System.DateTime GeneratorStopped { get; set; }
         public string IsArchived { get; set; }
+        public int SN { get; set; }
     }
 }

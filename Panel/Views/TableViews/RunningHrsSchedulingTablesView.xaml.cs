@@ -22,7 +22,7 @@ namespace Panel.Views.TableViews
         private void GroupbyGeneratorRunningHours_Click(object sender, RoutedEventArgs e)
         {
             ICollectionView cvsGeneratorRunningHours = CollectionViewSource
-                                                       .GetDefaultView(this.dtgdGenRunnungHrsTable
+                                                       .GetDefaultView(this.dtgdGenRunningHrsTable
                                                                            .ItemsSource);
             if (cvsGeneratorRunningHours != null && cvsGeneratorRunningHours.CanGroup == true)
             {
@@ -35,7 +35,7 @@ namespace Panel.Views.TableViews
         private void ClearRunningHoursGrouping_Click(object sender, RoutedEventArgs e)
         {
             ICollectionView cvsGeneratorRunningHours = CollectionViewSource
-                                                       .GetDefaultView(this.dtgdGenRunnungHrsTable
+                                                       .GetDefaultView(this.dtgdGenRunningHrsTable
                                                        .ItemsSource);
             if (cvsGeneratorRunningHours != null && cvsGeneratorRunningHours.CanGroup == true)
             {

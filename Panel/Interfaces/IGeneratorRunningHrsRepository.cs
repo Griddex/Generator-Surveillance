@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Panel.Interfaces
 {
@@ -8,5 +9,9 @@ namespace Panel.Interfaces
 
         ObservableCollection<GeneratorRunningHr> GetAnyPageGeneratorRunningHrs(
             int pageIndex = 1, int pageSize = 10);
+
+        void DeleteRows(List<GeneratorRunningHr> ItemsToRemove);
+
+        void DeleteAllRows();
     }
 }

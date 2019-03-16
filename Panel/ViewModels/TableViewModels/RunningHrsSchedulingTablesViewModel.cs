@@ -2,7 +2,9 @@
 using Panel.Interfaces;
 using Panel.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -243,6 +245,95 @@ namespace Panel.ViewModels.TableViewModels
                             AnyPageSchRemRecords = UnitOfWork.GeneratorScheduler
                                                             .GetAnyPageGeneratorScheduledRmdrs
                                                             (pageIndexSchRem, pageSizeSchRem);
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _deleteSelectedRowsCmd;
+        public ICommand DeleteSelectedRowsCmd
+        {
+            get
+            {
+                return this._deleteSelectedRowsCmd ??
+                (
+                    this._deleteSelectedRowsCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            List<GeneratorRunningHr> ItemsToRemove = new List<GeneratorRunningHr>();
+                            DataGrid dataGrid = (DataGrid)x;
+
+                            foreach (var item in dataGrid.SelectedItems)
+                            {
+                                ItemsToRemove.Add(item as GeneratorRunningHr);
+                            }
+
+                            UnitOfWork.GeneratorRunningHr.DeleteRows(ItemsToRemove);
+
+                            int Success = UnitOfWork.Complete();
+                            if (Success > 0)
+                            {
+                                MessageBox.Show("Data deeleted!",
+                                    "Information",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
+                            }
+
+                            AnyPageRnHrsRecords = UnitOfWork.GeneratorRunningHr.GetAnyPageGeneratorRunningHrs();
+                            OnPropertyChanged(nameof(AnyPageRnHrsRecords));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _deleteAllRowsCmd;
+        public ICommand DeleteAllRowsCmd
+        {
+            get
+            {
+                return this._deleteAllRowsCmd ??
+                (
+                    this._deleteAllRowsCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            MessageBoxResult result = MessageBox.Show("You are about to delete an entire table." +
+                                Environment.NewLine + "Data recovery is impossible after this delete operation" +
+                                Environment.NewLine + "Proceed with deletion?",
+                                "Information",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+
+                            switch (result)
+                            {
+                                case MessageBoxResult.OK:
+                                case MessageBoxResult.Yes:
+                                    DataGrid dataGrid = (DataGrid)x;
+
+                                    UnitOfWork.GeneratorRunningHr.DeleteAllRows();
+
+                                    int Success = UnitOfWork.Complete();
+                                    if (Success > 0)
+                                    {
+                                        MessageBox.Show("Data Erased!",
+                                            "Information",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Information);
+                                    }
+                                    AnyPageRnHrsRecords = UnitOfWork.GeneratorRunningHr.GetAnyPageGeneratorRunningHrs();
+                                    OnPropertyChanged(nameof(AnyPageRnHrsRecords));
+                                    break;
+                                case MessageBoxResult.None:
+                                case MessageBoxResult.Cancel:                                
+                                case MessageBoxResult.No:
+                                     break;
+                            }                           
+                            return;
                         },
                         y => !HasErrors
                     )

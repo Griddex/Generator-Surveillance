@@ -19,5 +19,6 @@ namespace Panel
         public System.DateTime Date { get; set; }
         public double TotalCost { get; set; }
         public string Comments { get; set; }
+        public int SN { get; set; }
     }
 }

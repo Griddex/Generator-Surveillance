@@ -1,11 +1,11 @@
 ﻿using Panel.Interfaces;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Panel.Repositories
 {
-    public class GeneratorRunningHrsRepository : Repository<GeneratorRunningHr>, 
-        IGeneratorRunningHrsRepository
+    public class GeneratorRunningHrsRepository : Repository<GeneratorRunningHr>, IGeneratorRunningHrsRepository
     {
         public GeneratorRunningHrsRepository(GeneratorSurveillanceDBEntities context) 
             : base(context) { }
@@ -14,7 +14,6 @@ namespace Panel.Repositories
         {
             get { return Context as GeneratorSurveillanceDBEntities; }
         }
-
         
         public ObservableCollection<GeneratorRunningHr> GetAllRunningHours()
         {
@@ -58,5 +57,40 @@ namespace Panel.Repositories
                         );
             }
         }
+
+        public void DeleteRows(List<GeneratorRunningHr> RowsToDelete)
+        {
+            foreach (var x in RowsToDelete)
+            {
+                foreach (var y in GeneratorSurveillanceDBContext
+                                .GeneratorRunningHrs)
+                {
+                    if(x.Id == y.Id)
+                    {
+                        GeneratorSurveillanceDBContext.GeneratorRunningHrs
+                                                    .Remove(y);
+                        break;
+                    }                    
+                }                
+            }
+
+            int j = 0;            
+            foreach (var item in GeneratorSurveillanceDBContext
+                                .GeneratorRunningHrs)
+            {
+                item.Id = j;
+                j++;
+            }
+        }
+
+        public void DeleteAllRows()
+        {
+            foreach (var item in GeneratorSurveillanceDBContext
+                .GeneratorRunningHrs)
+            {
+                GeneratorSurveillanceDBContext.GeneratorRunningHrs
+                    .Remove(item);
+            }
+        }  
     }
 }

@@ -16,5 +16,6 @@ namespace Panel
     {
         public int Id { get; set; }
         public string ReminderPassword { get; set; }
+        public int SN { get; set; }
     }
 }

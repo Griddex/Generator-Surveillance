@@ -21,5 +21,6 @@ namespace Panel
         public string EmailAuthoriser { get; set; }
         public string PhoneNumberAuthoriser { get; set; }
         public string JobTitleAuthoriser { get; set; }
+        public int SN { get; set; }
     }
 }
