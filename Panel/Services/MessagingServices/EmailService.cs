@@ -32,7 +32,8 @@ namespace Panel.Services.MessagingServices
         public void SendMessage(string GeneratorName, string ReminderLevel,
                             TimeSpan NextNotificationDuration, 
                             DateTime FinalNotificationDate, 
-                            int FirstID, int LastID, int GeneratorID)
+                            int FirstID, int LastID, int GeneratorID,
+                            string MaintenanceDeliverable)
         {
             try
             {
@@ -49,8 +50,9 @@ namespace Panel.Services.MessagingServices
                                                 ReminderLevel,
                                                 NextNotificationDuration,
                                                 FinalNotificationDate,
-                                                FirstID,
-                                                LastID, GeneratorID);
+                                                FirstID, LastID,
+                                                GeneratorID,
+                                                MaintenanceDeliverable);
 
                 mailMessage.Subject = SubjectAndBody.Item1;
                 mailMessage.Body = SubjectAndBody.Item2;

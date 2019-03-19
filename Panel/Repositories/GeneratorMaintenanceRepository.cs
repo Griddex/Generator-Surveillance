@@ -65,31 +65,29 @@ namespace Panel.Repositories
             );
         }
 
-        public ObservableCollection<GeneratorMaintenance> 
-            GetAllGeneratorMaintenances()
+        public ObservableCollection<GeneratorMaintenance> GetAllGeneratorMaintenances()
         {
-            var AllGeneratorMaintenance = 
-                    new ObservableCollection<GeneratorMaintenance>
-                    (
-                    GeneratorSurveillanceDBContext.GeneratorMaintenances
-                    .AsParallel<GeneratorMaintenance>()
-                    );
+            var AllGeneratorMaintenance =   new ObservableCollection<GeneratorMaintenance>
+            (
+            GeneratorSurveillanceDBContext.GeneratorMaintenances
+            .AsParallel<GeneratorMaintenance>()
+            );
+
             return AllGeneratorMaintenance;
         }
 
-        public ObservableCollection<GeneratorMaintenance> 
-            GetAnyPageGeneratorMaintenance(int pageIndex = 1, 
-                                           int pageSize = 10)
+        public ObservableCollection<GeneratorMaintenance> GetAnyPageGeneratorMaintenance(int pageIndex = 1, 
+            int pageSize = 10)
         {
-            var FirstPageGeneratorMaintenance = 
-                    new ObservableCollection<GeneratorMaintenance>
-                    (
-                        GeneratorSurveillanceDBContext.GeneratorMaintenances
-                        .OrderBy(x => x.SN)
-                        .Skip((pageIndex - 1) * pageSize)
-                        .Take(10)
-                        .AsParallel<GeneratorMaintenance>()
-                    );
+            var FirstPageGeneratorMaintenance = new ObservableCollection<GeneratorMaintenance>
+            (
+                GeneratorSurveillanceDBContext.GeneratorMaintenances
+                .OrderBy(x => x.SN)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(10)
+                .AsParallel<GeneratorMaintenance>()
+            );
+
             return FirstPageGeneratorMaintenance;
         }
 

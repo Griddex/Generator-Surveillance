@@ -16,7 +16,9 @@ namespace Panel
     public partial class GeneratorSurveillanceDBEntities : DbContext
     {
         public GeneratorSurveillanceDBEntities()
-            : base("name=GeneratorSurveillanceDBEntities"){ }
+            : base("name=GeneratorSurveillanceDBEntities")
+        {
+        }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

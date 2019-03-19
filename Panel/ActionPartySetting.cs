@@ -15,12 +15,12 @@ namespace Panel
     public partial class ActionPartySetting
     {
         public int Id { get; set; }
+        public int SN { get; set; }
         public System.DateTime Date { get; set; }
         public string FirstNameActionParty { get; set; }
         public string LastNameActionParty { get; set; }
         public string EmailActionParty { get; set; }
         public string PhoneNumberActionParty { get; set; }
         public string JobTitleActionParty { get; set; }
-        public int SN { get; set; }
     }
 }

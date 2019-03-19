@@ -15,6 +15,7 @@ namespace Panel
     public partial class GeneratorScheduler
     {
         public int Id { get; set; }
+        public int SN { get; set; }
         public string GeneratorName { get; set; }
         public System.DateTime Starts { get; set; }
         public double Every { get; set; }
@@ -24,6 +25,5 @@ namespace Panel
         public System.DateTime ReminderDateTimeProfile { get; set; }
         public string IsActive { get; set; }
         public string IsRepetitive { get; set; }
-        public int SN { get; set; }
     }
 }

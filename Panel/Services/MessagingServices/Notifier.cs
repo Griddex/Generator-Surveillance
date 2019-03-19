@@ -14,14 +14,11 @@ namespace Panel.Services.MessagingServices
 {
     public static class Notifier
     {
-        public static GeneratorScheduler
-            NextGeneratorForNotification { get; set; }
+        public static GeneratorScheduler NextGeneratorForNotification { get; set; }
+        public static GeneratorScheduler NextGeneratorForNotifications { get; set; }
+        public static ObservableCollection<GeneratorScheduler> AllGeneratorSchedules { get; set; }
+        public static ObservableCollection<GeneratorMaintenance> GetAllGeneratorMaintenances { get; set; }
 
-        public static GeneratorScheduler
-            NextGeneratorForNotifications { get; set; }
-
-        public static ObservableCollection<GeneratorScheduler>
-            AllGeneratorSchedules { get; set; }
 
         public static Timer Timer { get; set; }
         public static TimerTimer timer { get; set; }
@@ -33,37 +30,31 @@ namespace Panel.Services.MessagingServices
         public static int FirstID { get; set; }
         public static int LastID { get; set; }
         public static int GeneratorID { get; set; }
+        public static string MaintenanceDeliverable { get; set; }
 
-        public static Dictionary<string, int>
-            GeneratorAndLastIDDict { get; set; }
+        public static Dictionary<string, int> GeneratorAndLastIDDict { get; set; }
+        public static GeneratorSchedulerRepository GeneratorSchedulerRepository { get; set; }
 
-        public static GeneratorSchedulerRepository
-            GeneratorSchedulerRepository { get; set; }
-
-        public static UnityContainer container =
-            (UnityContainer)Application.Current.Resources["UnityIoC"];
-
-        public static GeneratorSurveillanceDBEntities GSE {get; set; } =
-            container.Resolve<GeneratorSurveillanceDBEntities>();
-
-        public static GeneratorSchedulerRepository GSR { get; set; } =
-            new GeneratorSchedulerRepository(GSE);
+        public static UnityContainer container = (UnityContainer)Application.Current.Resources["UnityIoC"];
+        public static GeneratorSurveillanceDBEntities GSE {get; set; } = container.Resolve<GeneratorSurveillanceDBEntities>();
+        public static GeneratorSchedulerRepository GSR { get; set; } = new GeneratorSchedulerRepository(GSE);
+        public static GeneratorMaintenanceRepository GMR { get; set; } = new GeneratorMaintenanceRepository(GSE);
 
         public static async void Initialise()
         {
-            GeneratorSurveillanceDBEntities GSE  =
-                container.Resolve<GeneratorSurveillanceDBEntities>();
-
-            GeneratorSchedulerRepository GSR  =
-                new GeneratorSchedulerRepository(GSE);
+            GeneratorSurveillanceDBEntities GSE  = container.Resolve<GeneratorSurveillanceDBEntities>();
+            GeneratorSchedulerRepository GSR  = new GeneratorSchedulerRepository(GSE);
 
             TimeSpan CheckDuration = NotificationTimerInterval.Interval;
             GeneratorSchedulerRepository = GSR;
             AllGeneratorSchedules = GSR.GetAllGeneratorSchedules();
+            GetAllGeneratorMaintenances = GMR.GetAllGeneratorMaintenances();
+
+            //MaintenanceDeliverable = GetAllGeneratorMaintenances
+               
 
             DateTime dateTime = DateTime.Now;
-            List<GeneratorScheduler> NextGeneratorForNotifications
-                          = AllGeneratorSchedules
+            List<GeneratorScheduler> NextGeneratorForNotifications = AllGeneratorSchedules
                           .Where(x => x.IsActive == "Yes")
                           .Where(x => x.ReminderDateTimeProfile > dateTime)
                           .Where(x => x.ReminderDateTimeProfile < dateTime + CheckDuration)
@@ -122,7 +113,8 @@ namespace Panel.Services.MessagingServices
                                   (Convert.ToInt32(SecondsFromNextNotification) * 1000);
 
                             SendNotification(GeneratorName, ReminderLevel, NextNotificationDuration, 
-                                            FinalNotificationDate, FirstID, LastID, GeneratorID);
+                                            FinalNotificationDate, FirstID, LastID, GeneratorID,
+                                            MaintenanceDeliverable);
 
                             Debug.Print(Convert.ToString(GeneratorID));
                             Debug.Print(Convert.ToString(FirstID));
@@ -141,7 +133,8 @@ namespace Panel.Services.MessagingServices
         private static void SendNotification(string GeneratorName, string ReminderLevel, 
                                             TimeSpan NextNotificationDuration, 
                                             DateTime FinalNotificationDate, int FirstID,
-                                            int LastID, int GeneratorID)
+                                            int LastID, int GeneratorID,
+                                            string MaintenanceDeliverable)
         {
             EmailService emailService = new EmailService();
 
@@ -151,7 +144,8 @@ namespace Panel.Services.MessagingServices
                                     FinalNotificationDate,
                                     FirstID, 
                                     LastID, 
-                                    GeneratorID);
+                                    GeneratorID,
+                                    MaintenanceDeliverable);
         }
     }
 }

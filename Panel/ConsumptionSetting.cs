@@ -15,11 +15,11 @@ namespace Panel
     public partial class ConsumptionSetting
     {
         public int Id { get; set; }
+        public int SN { get; set; }
         public System.DateTime Date { get; set; }
         public string GeneratorName { get; set; }
         public double CurrentConsumption { get; set; }
         public double TestConsumption { get; set; }
         public double StandardConsumption { get; set; }
-        public int SN { get; set; }
     }
 }

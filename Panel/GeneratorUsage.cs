@@ -15,11 +15,11 @@ namespace Panel
     public partial class GeneratorUsage
     {
         public int Id { get; set; }
+        public int SN { get; set; }
         public System.DateTime Date { get; set; }
         public string GeneratorName { get; set; }
         public System.DateTime GeneratorStarted { get; set; }
         public System.DateTime GeneratorStopped { get; set; }
         public string IsArchived { get; set; }
-        public int SN { get; set; }
     }
 }

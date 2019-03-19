@@ -15,7 +15,7 @@ namespace Panel
     public partial class Password
     {
         public int Id { get; set; }
-        public string ReminderPassword { get; set; }
         public int SN { get; set; }
+        public string ReminderPassword { get; set; }
     }
 }

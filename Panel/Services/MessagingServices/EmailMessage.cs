@@ -9,14 +9,14 @@ namespace Panel.Services.MessagingServices
 
         public static Tuple<string,string> EmailSubjectAndBody(string GeneratorName, string ReminderLevel, 
                                         TimeSpan NextNotificationDuration, DateTime FinalNotificationDate, 
-                                        int FirstID, int LastID, int GeneratorID)
+                                        int FirstID, int LastID, int GeneratorID, string MaintenanceDeliverable)
         {
             string subject = "";
             string body = "";
             string reminderCondition = ReminderCondition
                                         .GetReminderCondition(ReminderLevel, FirstID,
                                         LastID, GeneratorID);
-            Debug.Print(reminderCondition);
+            
             switch (ReminderLevel)
             {
                 case "Normal":
@@ -32,12 +32,16 @@ namespace Panel.Services.MessagingServices
                             <table border='1' style='width: 100 %' bordercolor='#000000' cellspacing='0' cellpadding='10'>
                                 <tr align='center'>
                                     <th bgcolor='#99e6ff'>Generator Name</th>
+                                    <th bgcolor='#99e6ff'>Maintenance Deliverable</th>
                                     <th bgcolor='#99e6ff'>Maintenance Date & Time Deadline</th>
                                     <th bgcolor='#99e6ff'>Time Left to Maintenance</th>
                                 </tr>
                                 <tr align='center'>
                                     <td>
                                         <b>{GeneratorName}</b>
+                                    </td>
+                                    <td>
+                                        <b>{MaintenanceDeliverable}</b>
                                     </td>
                                     <td>
                                         <b>{FinalNotificationDate: dddd, MMMM dd, yyyy}</b>

@@ -15,10 +15,11 @@ namespace Panel
     public partial class GeneratorMaintenance
     {
         public int Id { get; set; }
+        public int SN { get; set; }
+        public string GeneratorName { get; set; }
         public string MaintenanceType { get; set; }
         public System.DateTime Date { get; set; }
         public double TotalCost { get; set; }
         public string Comments { get; set; }
-        public int SN { get; set; }
     }
 }
