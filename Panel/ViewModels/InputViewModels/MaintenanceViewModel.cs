@@ -303,7 +303,8 @@ namespace Panel.ViewModels.InputViewModels
                                       "Scheduled", 
                                       SchMaintenanceDate,
                                       SchMaintenanceComments, 
-                                      SchMaintenanceTotalCost);
+                                      SchMaintenanceTotalCost,
+                                      SchMaintenanceSelectedGen);
 
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)

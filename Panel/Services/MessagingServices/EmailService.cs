@@ -12,8 +12,7 @@ namespace Panel.Services.MessagingServices
 {
     public class EmailService : IEmailService
     {
-        public MailAddress FromAddress { get; set; } =
-            new MailAddress("gideonyte@hotmail.com",
+        public MailAddress FromAddress { get; set; } =   new MailAddress("gideonyte@hotmail.com",
                 "Generator Surveillance Notification");
         public SmtpClient smtpClient { get; set; } = new SmtpClient();
         public MailMessage mailMessage { get; set; } = new MailMessage();

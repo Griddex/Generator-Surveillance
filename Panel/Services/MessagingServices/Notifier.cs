@@ -50,8 +50,9 @@ namespace Panel.Services.MessagingServices
             AllGeneratorSchedules = GSR.GetAllGeneratorSchedules();
             GetAllGeneratorMaintenances = GMR.GetAllGeneratorMaintenances();
 
-            //MaintenanceDeliverable = GetAllGeneratorMaintenances
-               
+            MaintenanceDeliverable = GetAllGeneratorMaintenances
+                .Where(x => x.GeneratorName == GeneratorName)
+                .OrderByDescending(x => x.Date).FirstOrDefault().Comments;
 
             DateTime dateTime = DateTime.Now;
             List<GeneratorScheduler> NextGeneratorForNotifications = AllGeneratorSchedules

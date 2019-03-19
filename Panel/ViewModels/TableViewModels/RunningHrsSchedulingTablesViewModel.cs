@@ -339,8 +339,7 @@ namespace Panel.ViewModels.TableViewModels
                                         break;
                                 }
                             }
-                        }    
-                    ,
+                        },
                         y => !HasErrors
                     )
                 );

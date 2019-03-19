@@ -11,6 +11,6 @@ namespace Panel.Interfaces
         string MessageNotification { get; set; }
         void SendMessage(string GeneratorName, string ReminderLevel,  
             TimeSpan NextNotificationDuration, DateTime FinalNotificationDate, int FirstID, 
-            int LastID, int GeneratorID);
+            int LastID, int GeneratorID, string MaintenanceDeliverable);
     }
 }
