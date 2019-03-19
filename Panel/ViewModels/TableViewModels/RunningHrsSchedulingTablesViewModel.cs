@@ -253,6 +253,47 @@ namespace Panel.ViewModels.TableViewModels
             }
         }
 
+
+        private ICommand _refreshGeneratorRunningHrTable;
+        public ICommand RefreshGeneratorRunningHrTable
+        {
+            get
+            {
+                return this._refreshGeneratorRunningHrTable ??
+                (
+                    this._refreshGeneratorRunningHrTable = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            AnyPageRnHrsRecords = UnitOfWork.GeneratorRunningHr.GetAnyPageGeneratorRunningHrs();
+                            OnPropertyChanged(nameof(AnyPageRnHrsRecords));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _refreshGeneratorSchedMaintTable;
+        public ICommand RefreshGeneratorSchedMaintTable
+        {
+            get
+            {
+                return this._refreshGeneratorSchedMaintTable ??
+                (
+                    this._refreshGeneratorSchedMaintTable = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            AnyPageSchRemRecords = UnitOfWork.GeneratorScheduler.GetAnyPageGeneratorScheduledRmdrs();
+                            OnPropertyChanged(nameof(AnyPageSchRemRecords));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
         private ICommand _deleteSelectedRowsGenRunHrCmd;
         public ICommand DeleteSelectedRowsGenRunHrCmd
         {
@@ -277,7 +318,7 @@ namespace Panel.ViewModels.TableViewModels
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                MessageBox.Show("Data deeleted!",
+                                MessageBox.Show("Data deleted!",
                                     "Information",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Information);
@@ -370,7 +411,7 @@ namespace Panel.ViewModels.TableViewModels
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                MessageBox.Show("Data deeleted!",
+                                MessageBox.Show("Data deleted!",
                                     "Information",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Information);

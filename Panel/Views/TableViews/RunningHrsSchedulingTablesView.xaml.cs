@@ -12,11 +12,20 @@ namespace Panel.Views.TableViews
     /// </summary>
     public partial class RunningHrsSchedulingTablesView : Page, IView
     {
+        public RunningHrsSchedulingTablesViewModel RunningHrsSchedulingTablesViewModel { get; set; }
         public RunningHrsSchedulingTablesView(RunningHrsSchedulingTablesViewModel 
             runningHrsSchedulingTablesViewModel)
         {
             this.DataContext = runningHrsSchedulingTablesViewModel;
+            this.RunningHrsSchedulingTablesViewModel = runningHrsSchedulingTablesViewModel;
             InitializeComponent();
+            this.Loaded += RunningHrsSchedulingTablesView_Loaded;
+        }
+
+        private void RunningHrsSchedulingTablesView_Loaded(object sender, RoutedEventArgs e)
+        {
+            RunningHrsSchedulingTablesViewModel.RefreshGeneratorRunningHrTable.Execute(null);
+            RunningHrsSchedulingTablesViewModel.RefreshGeneratorSchedMaintTable.Execute(null);
         }
 
         private void GroupbyGeneratorRunningHours_Click(object sender, RoutedEventArgs e)

@@ -219,7 +219,7 @@ namespace Panel
                                         .Resolve<IView>("FuellingView");
 
             MainViewFrame.Navigate(fuellingView);
-            (fuellingView.DataContext as FuellingViewModel).RefreshCmd.Execute(null);
+            (fuellingView.DataContext as FuellingViewModel).RefreshFuelCompCmd.Execute(null);
             //fuellingView.cmbxSelectGenFuelling.ItemsSource = this._inputView.cmbxGenInfo.Items;
         }
 
@@ -232,7 +232,7 @@ namespace Panel
                                               .Resolve<IView>("MaintenanceView");
 
             MainViewFrame.Navigate(maintenanceView);
-            (maintenanceView.DataContext as MaintenanceViewModel).RefreshCmd.Execute(null);
+            (maintenanceView.DataContext as MaintenanceViewModel).RefreshSchMaintenanceCmd.Execute(null);
         }
 
         private void UsageMaintToRunningHrsSchedulerView_CanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;

@@ -107,27 +107,21 @@ namespace Panel.ViewModels.SettingsViewModel
             }
         }
 
-        private ICommand _refreshCmd;
-        public ICommand RefreshCmd
+        private ICommand _refreshFuelCompTable;
+        public ICommand RefreshFuelCompTable
         {
             get
             {
-                return this._refreshCmd ??
+                return this._refreshFuelCompTable ??
                 (
-                    this._refreshCmd = new DelegateCommand
+                    this._refreshFuelCompTable = new DelegateCommand
                     (
-                        y =>
+                        x =>
                         {
-                            UniqueGeneratorNamesUnsorted = UnitOfWork.GeneratorInformation
-                                                .GetUniqueGeneratorNames();
-
-                            UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
-                                (UniqueGeneratorNamesUnsorted
-                                    .OrderBy(x => x.GeneratorName));
-
-                            OnPropertyChanged(nameof(UniqueGeneratorNames));
+                            AnyConsumptionPage = UnitOfWork.ConsumptionSetting.GetAnyConsumptionPage();
+                            OnPropertyChanged(nameof(AnyConsumptionPage));
                         },
-                        z => !HasErrors
+                        y => !HasErrors
                     )
                 );
             }

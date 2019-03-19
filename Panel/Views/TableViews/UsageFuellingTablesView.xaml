@@ -57,7 +57,7 @@
                                         </StackPanel>
                                     </Button.Content>
                                 </Button>
-                                <Button Click="ClearUsageGrouping_Click">
+                                    <Button Command="{Binding DeleteAllRowsUsageCmd}">
                                     <Button.Content>
                                         <StackPanel Orientation="Vertical">
                                             <Image Source="/Images/Clear.png" Height="20" Width="20"/>
@@ -128,7 +128,17 @@
                                     <MenuItem Header="Groupby Generator" Click="GroupbyGenerator_Click"/>
                                     <MenuItem Header="Groupby Archival" Click="GroupbyArchival_Click"/>
                                     <MenuItem Header="Clear Grouping" Click="ClearUsageGrouping_Click"/>
-                                </ContextMenu>
+                                        <MenuItem Header="Delete"
+                                                  Command="{Binding DeleteSelectedRowsUsageCmd}"
+                                                  CommandParameter="{Binding Path=PlacementTarget,
+									                                         RelativeSource={RelativeSource FindAncestor,
+																	                                        AncestorType={x:Type ContextMenu}}}"/>
+                                        <MenuItem Header="Delete All"
+                                                  Command="{Binding DeleteAllRowsUsageCmd}"
+                                                  CommandParameter="{Binding Path=PlacementTarget,
+									                                         RelativeSource={RelativeSource FindAncestor,
+																	                                        AncestorType={x:Type ContextMenu}}}"/>
+                                    </ContextMenu>
                             </DataGrid.ContextMenu>
                             <DataGrid.GroupStyle>
                                 <GroupStyle>
@@ -231,7 +241,7 @@
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
-                                    <Button Click="ClearFuellingGrouping_Click">
+                                    <Button Command="{Binding DeleteAllRowsFuellingCmd}">
                                         <Button.Content>
                                             <StackPanel Orientation="Vertical">
                                                 <Image Source="/Images/Clear.png" Height="20" Width="20"/>
@@ -292,6 +302,16 @@
                                     <ContextMenu>
                                         <MenuItem Header="Groupby Vendor" Click="GroupbyVendor_Click"/>
                                         <MenuItem Header="Clear Grouping" Click="ClearFuellingGrouping_Click"/>
+                                        <MenuItem Header="Delete"
+                                                  Command="{Binding DeleteSelectedRowsFuellingCmd}"
+                                                  CommandParameter="{Binding Path=PlacementTarget,
+									                                         RelativeSource={RelativeSource FindAncestor,
+																	                                        AncestorType={x:Type ContextMenu}}}"/>
+                                        <MenuItem Header="Delete All"
+                                                  Command="{Binding DeleteAllRowsFuellingCmd}"
+                                                  CommandParameter="{Binding Path=PlacementTarget,
+									                                         RelativeSource={RelativeSource FindAncestor,
+																	                                        AncestorType={x:Type ContextMenu}}}"/>
                                     </ContextMenu>
                                 </DataGrid.ContextMenu>
                                 <DataGrid.GroupStyle>
@@ -375,7 +395,7 @@
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>
-                                        <Button Click="ClearMaintenanceGrouping_Click">
+                                    <Button Command="{Binding DeleteAllRowsMaintenanceCmd}">
                                             <Button.Content>
                                                 <StackPanel Orientation="Vertical">
                                                     <Image Source="/Images/Clear.png" Height="20" Width="20"/>
@@ -436,7 +456,17 @@
                                         <ContextMenu>
                                             <MenuItem Header="Groupby Maintenance Type" Click="GroupbyType_Click"/>
                                             <MenuItem Header="Clear Grouping" Click="ClearMaintenanceGrouping_Click"/>
-                                        </ContextMenu>
+                                        <MenuItem Header="Delete"
+                                                  Command="{Binding DeleteSelectedRowsMaintenanceCmd}"
+                                                  CommandParameter="{Binding Path=PlacementTarget,
+									                                         RelativeSource={RelativeSource FindAncestor,
+																	                                        AncestorType={x:Type ContextMenu}}}"/>
+                                        <MenuItem Header="Delete All"
+                                                  Command="{Binding DeleteAllRowsMaintenanceCmd}"
+                                                  CommandParameter="{Binding Path=PlacementTarget,
+									                                         RelativeSource={RelativeSource FindAncestor,
+																	                                        AncestorType={x:Type ContextMenu}}}"/>
+                                    </ContextMenu>
                                     </DataGrid.ContextMenu>
                                     <DataGrid.GroupStyle>
                                         <GroupStyle>

@@ -21,6 +21,10 @@ namespace Panel.Views.SettingsView
 
         IView mainView = container.Resolve<IView>("MainView");
 
+        public AuthoriserSettingsViewModel AuthoriserSettingsViewModel { get; set; }
+        public ConsumptionSettingsViewModel ConsumptionSettingsViewModel { get; set; }
+        public RemindersConfigViewModel RemindersConfigViewModel { get; set; }
+
         public SettingsView(AuthoriserSettingsViewModel authoriserSettingsViewModel,
             ConsumptionSettingsViewModel consumptionSettingsViewModel,
             RemindersConfigViewModel remindersConfigViewModel)
@@ -32,6 +36,10 @@ namespace Panel.Views.SettingsView
             this.expdrrcSettings.DataContext = remindersConfigViewModel;
             this.stcpnlfc1Settings.DataContext = remindersConfigViewModel;
 
+            AuthoriserSettingsViewModel = authoriserSettingsViewModel;
+            ConsumptionSettingsViewModel = consumptionSettingsViewModel;
+            RemindersConfigViewModel = remindersConfigViewModel;
+
             this.stckpnlPassword.Margin = new Thickness(0, 440, 0, 0);
 
             this.Loaded += SettingsView_Loaded;
@@ -42,6 +50,12 @@ namespace Panel.Views.SettingsView
             this.stckpnlPassword.Visibility = Visibility.Visible;
             this.vwbxSettings.Visibility = Visibility.Collapsed;
             Keyboard.Focus(this.psswrdReminder);
+
+            ConsumptionSettingsViewModel.RefreshFuelCompTable.Execute(null);
+            AuthoriserSettingsViewModel.RefreshAuthoriserTable.Execute(null);
+            AuthoriserSettingsViewModel.RefreshActionPartyTable.Execute(null);
+            RemindersConfigViewModel.RefreshRemindersTableCmd.Execute(null);
+
         }
 
         private void GroupbyGeneratorConsumption_Click(object sender, RoutedEventArgs e)
@@ -209,7 +223,7 @@ namespace Panel.Views.SettingsView
                     this.grpbxFuelConsumption.DataContext
                     as ConsumptionSettingsViewModel;
 
-            consumptionSettingsViewModel.RefreshCmd.Execute(null);
+            consumptionSettingsViewModel.RefreshFuelCompTable.Execute(null);
         }
 
         private void FuelComp_Collapsed(object sender, RoutedEventArgs e)
@@ -299,7 +313,7 @@ namespace Panel.Views.SettingsView
             remindersConfigViewModel.RefreshRemindersTableCmd
                 .Execute(this.dtgdGenRemindersConfigTable);
 
-            remindersConfigViewModel.RefreshCmd.Execute(null);
+            remindersConfigViewModel.RefreshRemindersTableCmd.Execute(null);
         }
 
         private void Reminders_Collapsed(object sender, RoutedEventArgs e)

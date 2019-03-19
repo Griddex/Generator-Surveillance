@@ -2,7 +2,9 @@
 using Panel.Interfaces;
 using Panel.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -47,10 +49,17 @@ namespace Panel.ViewModels.TableViewModels
             {
                 int pageIndexUsage = Convert.ToInt32(PageIndexUsage);
                 int pageSizeUsage = Convert.ToInt32(PageSizeUsage.Content);
+
                 int Toprecord = ((pageIndexUsage * pageSizeUsage) - 1 < AllUsageRecords.Count)? 
                     (pageIndexUsage * pageSizeUsage) - 1 : AllUsageRecords.Count;
-                _currentPageOutOfTotalUsage = $"{(pageIndexUsage - 1) * pageSizeUsage} - " +
+
+               if (AllUsageRecords.Count < pageSizeUsage)
+                    _currentPageOutOfTotalUsage = $"{1} - " +
                     $"{Toprecord} out of {AllUsageRecords.Count}";
+               else
+                    _currentPageOutOfTotalUsage = $"{(pageIndexUsage) * pageSizeUsage} - " +
+                    $"{Toprecord} out of {AllUsageRecords.Count}";
+
                 return _currentPageOutOfTotalUsage;
             }
             set { _currentPageOutOfTotalUsage = value; }
@@ -362,5 +371,348 @@ namespace Panel.ViewModels.TableViewModels
                 );
             }
         }
+
+
+        private ICommand _refreshGeneratorUsageTable;
+        public ICommand RefreshGeneratorUsageTable
+        {
+            get
+            {
+                return this._refreshGeneratorUsageTable ??
+                (
+                    this._refreshGeneratorUsageTable = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            AnyPageUsageRecords = UnitOfWork.GeneratorUsage.GetAnyPageGeneratorUsages();
+                            OnPropertyChanged(nameof(AnyPageUsageRecords));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _refreshGeneratorFuellingTable;
+        public ICommand RefreshGeneratorFuellingTable
+        {
+            get
+            {
+                return this._refreshGeneratorFuellingTable ??
+                (
+                    this._refreshGeneratorFuellingTable = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            AnyPageFuellingRecords = UnitOfWork.GeneratorFuelling.GetAnyPageGeneratorFuellings();
+                            OnPropertyChanged(nameof(AnyPageFuellingRecords));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _refreshGeneratorMaintenanceTable;
+        public ICommand RefreshGeneratorMaintenanceTable
+        {
+            get
+            {
+                return this._refreshGeneratorMaintenanceTable ??
+                (
+                    this._refreshGeneratorMaintenanceTable = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            AnyPageMaintenanceRecords = UnitOfWork.GeneratorMaintenance.GetAnyPageGeneratorMaintenance();
+                            OnPropertyChanged(nameof(AnyPageMaintenanceRecords));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+
+        private ICommand _deleteSelectedRowsUsageCmd;
+        public ICommand DeleteSelectedRowsUsageCmd
+        {
+            get
+            {
+                return this._deleteSelectedRowsUsageCmd ??
+                (
+                    this._deleteSelectedRowsUsageCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            List<GeneratorUsage> ItemsToRemove = new List<GeneratorUsage>();
+                            DataGrid dataGrid = (DataGrid)x;
+
+                            foreach (var item in dataGrid.SelectedItems)
+                            {
+                                ItemsToRemove.Add(item as GeneratorUsage);
+                            }
+
+                            UnitOfWork.GeneratorUsage.Delete(ItemsToRemove);
+
+                            int Success = UnitOfWork.Complete();
+                            if (Success > 0)
+                            {
+                                MessageBox.Show("Data deleted!",
+                                    "Information",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
+                            }
+
+                            AnyPageUsageRecords = UnitOfWork.GeneratorUsage.GetAnyPageGeneratorUsages();
+                            OnPropertyChanged(nameof(AnyPageUsageRecords));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _deleteAllRowsUsageCmd;
+        public ICommand DeleteAllRowsUsageCmd
+        {
+            get
+            {
+                return this._deleteAllRowsUsageCmd ??
+                (
+                    this._deleteAllRowsUsageCmd = new DelegateCommand
+                    (
+                        (dG) =>
+                        {
+                            MessageBoxResult result = MessageBox.Show("YOU ARE ABOUT TO DELETE AN ENTIRE TABLE!" +
+                                Environment.NewLine + Environment.NewLine + "Data recovery is impossible after this delete operation" +
+                                Environment.NewLine + Environment.NewLine + "Proceed with deletion?",
+                                "Information",
+                                MessageBoxButton.OKCancel,
+                                MessageBoxImage.Stop);
+
+                            if (result == MessageBoxResult.OK || result == MessageBoxResult.Yes)
+                            {
+                                MessageBoxResult resultreconfirm = MessageBox.Show("Re-confirm entire table deletion",
+                                        "Information", MessageBoxButton.OKCancel, MessageBoxImage.Stop);
+
+                                switch (resultreconfirm)
+                                {
+                                    case MessageBoxResult.OK:
+                                    case MessageBoxResult.Yes:
+                                        DataGrid dataGrid = (DataGrid)dG;
+                                        UnitOfWork.GeneratorUsage.DeleteAll();
+
+                                        int Success = UnitOfWork.Complete();
+                                        if (Success > 0)
+                                        {
+                                            MessageBox.Show("Data Erased!",
+                                                "Information",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Information);
+                                        }
+                                        AnyPageUsageRecords = UnitOfWork.GeneratorUsage.GetAnyPageGeneratorUsages();
+                                        OnPropertyChanged(nameof(AnyPageUsageRecords));
+                                        break;
+                                    case MessageBoxResult.None:
+                                    case MessageBoxResult.Cancel:
+                                    case MessageBoxResult.No:
+                                        break;
+                                }
+                            }
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+
+        private ICommand _deleteSelectedRowsFuellingCmd;
+        public ICommand DeleteSelectedRowsFuellingCmd
+        {
+            get
+            {
+                return this._deleteSelectedRowsFuellingCmd ??
+                (
+                    this._deleteSelectedRowsFuellingCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            List<GeneratorFuelling> ItemsToRemove = new List<GeneratorFuelling>();
+                            DataGrid dataGrid = (DataGrid)x;
+
+                            foreach (var item in dataGrid.SelectedItems)
+                            {
+                                ItemsToRemove.Add(item as GeneratorFuelling);
+                            }
+
+                            UnitOfWork.GeneratorFuelling.Delete(ItemsToRemove);
+
+                            int Success = UnitOfWork.Complete();
+                            if (Success > 0)
+                            {
+                                MessageBox.Show("Data deleted!",
+                                    "Information",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
+                            }
+
+                            AnyPageFuellingRecords = UnitOfWork.GeneratorFuelling.GetAnyPageGeneratorFuellings();
+                            OnPropertyChanged(nameof(AnyPageFuellingRecords));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _deleteAllRowsFuellingCmd;
+        public ICommand DeleteAllRowsFuellingCmd
+        {
+            get
+            {
+                return this._deleteAllRowsFuellingCmd ??
+                (
+                    this._deleteAllRowsFuellingCmd = new DelegateCommand
+                    (
+                        (dG) =>
+                        {
+                            MessageBoxResult result = MessageBox.Show("YOU ARE ABOUT TO DELETE AN ENTIRE TABLE!" +
+                                Environment.NewLine + Environment.NewLine + "Data recovery is impossible after this delete operation" +
+                                Environment.NewLine + Environment.NewLine + "Proceed with deletion?",
+                                "Information",
+                                MessageBoxButton.OKCancel,
+                                MessageBoxImage.Stop);
+
+                            if (result == MessageBoxResult.OK || result == MessageBoxResult.Yes)
+                            {
+                                MessageBoxResult resultreconfirm = MessageBox.Show("Re-confirm entire table deletion",
+                                        "Information", MessageBoxButton.OKCancel, MessageBoxImage.Stop);
+
+                                switch (resultreconfirm)
+                                {
+                                    case MessageBoxResult.OK:
+                                    case MessageBoxResult.Yes:
+                                        DataGrid dataGrid = (DataGrid)dG;
+                                        UnitOfWork.GeneratorFuelling.DeleteAll();
+
+                                        int Success = UnitOfWork.Complete();
+                                        if (Success > 0)
+                                        {
+                                            MessageBox.Show("Data Erased!",
+                                                "Information",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Information);
+                                        }
+                                        AnyPageFuellingRecords = UnitOfWork.GeneratorFuelling.GetAnyPageGeneratorFuellings();
+                                        OnPropertyChanged(nameof(AnyPageFuellingRecords));
+                                        break;
+                                    case MessageBoxResult.None:
+                                    case MessageBoxResult.Cancel:
+                                    case MessageBoxResult.No:
+                                        break;
+                                }
+                            }
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _deleteSelectedRowsMaintenanceCmd;
+        public ICommand DeleteSelectedRowsMaintenanceCmd
+        {
+            get
+            {
+                return this._deleteSelectedRowsMaintenanceCmd ??
+                (
+                    this._deleteSelectedRowsMaintenanceCmd = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            List<GeneratorMaintenance> ItemsToRemove = new List<GeneratorMaintenance>();
+                            DataGrid dataGrid = (DataGrid)x;
+
+                            foreach (var item in dataGrid.SelectedItems)
+                            {
+                                ItemsToRemove.Add(item as GeneratorMaintenance);
+                            }
+
+                            UnitOfWork.GeneratorMaintenance.Delete(ItemsToRemove);
+
+                            int Success = UnitOfWork.Complete();
+                            if (Success > 0)
+                            {
+                                MessageBox.Show("Data deleted!",
+                                    "Information",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
+                            }
+
+                            AnyPageMaintenanceRecords = UnitOfWork.GeneratorMaintenance.GetAnyPageGeneratorMaintenance();
+                            OnPropertyChanged(nameof(AnyPageMaintenanceRecords));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _deleteAllRowsMaintenanceCmd;
+        public ICommand DeleteAllRowsMaintenanceCmd
+        {
+            get
+            {
+                return this._deleteAllRowsMaintenanceCmd ??
+                (
+                    this._deleteAllRowsMaintenanceCmd = new DelegateCommand
+                    (
+                        (dG) =>
+                        {
+                            MessageBoxResult result = MessageBox.Show("YOU ARE ABOUT TO DELETE AN ENTIRE TABLE!" +
+                                Environment.NewLine + Environment.NewLine + "Data recovery is impossible after this delete operation" +
+                                Environment.NewLine + Environment.NewLine + "Proceed with deletion?",
+                                "Information",
+                                MessageBoxButton.OKCancel,
+                                MessageBoxImage.Stop);
+
+                            if (result == MessageBoxResult.OK || result == MessageBoxResult.Yes)
+                            {
+                                MessageBoxResult resultreconfirm = MessageBox.Show("Re-confirm entire table deletion",
+                                        "Information", MessageBoxButton.OKCancel, MessageBoxImage.Stop);
+
+                                switch (resultreconfirm)
+                                {
+                                    case MessageBoxResult.OK:
+                                    case MessageBoxResult.Yes:
+                                        DataGrid dataGrid = (DataGrid)dG;
+                                        UnitOfWork.GeneratorMaintenance.DeleteAll();
+
+                                        int Success = UnitOfWork.Complete();
+                                        if (Success > 0)
+                                        {
+                                            MessageBox.Show("Data Erased!",
+                                                "Information",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Information);
+                                        }
+                                        AnyPageMaintenanceRecords = UnitOfWork.GeneratorMaintenance.GetAnyPageGeneratorMaintenance();
+                                        OnPropertyChanged(nameof(AnyPageMaintenanceRecords));
+                                        break;
+                                    case MessageBoxResult.None:
+                                    case MessageBoxResult.Cancel:
+                                    case MessageBoxResult.No:
+                                        break;
+                                }
+                            }
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
     }
 }

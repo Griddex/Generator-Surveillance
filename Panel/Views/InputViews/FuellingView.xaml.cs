@@ -12,10 +12,18 @@ namespace Panel.Views.InputViews
     /// </summary>
     public partial class FuellingView : Page, IView
     {
+        public FuellingViewModel FuellingViewModel { get; set; }
         public FuellingView(FuellingViewModel fuellingViewModel)
         {
             InitializeComponent();
             this.DataContext = fuellingViewModel;
+            this.FuellingViewModel = fuellingViewModel;
+            this.Loaded += FuellingView_Loaded;
+        }
+
+        private void FuellingView_Loaded(object sender, RoutedEventArgs e)
+        {
+            FuellingViewModel.RefreshFuelCompCmd.Execute(null);
         }
 
         private void GroupbyGenerator_Click(object sender, RoutedEventArgs e)

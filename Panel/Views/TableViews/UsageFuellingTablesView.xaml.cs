@@ -12,10 +12,20 @@ namespace Panel.Views.TableViews
     /// </summary>
     public partial class UsageFuellingTablesView : Page, IView
     {
+        public UsageFuellingTablesViewModel UsageFuellingTablesViewModel { get; set; }
         public UsageFuellingTablesView(UsageFuellingTablesViewModel usageFuellingTablesViewModel)
         {
             this.DataContext = usageFuellingTablesViewModel;
             InitializeComponent();
+            this.UsageFuellingTablesViewModel = usageFuellingTablesViewModel;
+            this.Loaded += UsageFuellingTablesView_Loaded;
+        }
+
+        private void UsageFuellingTablesView_Loaded(object sender, RoutedEventArgs e)
+        {
+            UsageFuellingTablesViewModel.RefreshGeneratorUsageTable.Execute(null);
+            UsageFuellingTablesViewModel.RefreshGeneratorFuellingTable.Execute(null);
+            UsageFuellingTablesViewModel.RefreshGeneratorMaintenanceTable.Execute(null);
         }
 
         private void GroupbyGenerator_Click(object sender, RoutedEventArgs e)

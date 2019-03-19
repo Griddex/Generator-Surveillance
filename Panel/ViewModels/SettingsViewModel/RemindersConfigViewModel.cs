@@ -137,32 +137,7 @@ namespace Panel.ViewModels.SettingsViewModel
             }
         }
 
-        private ICommand _refreshCmd;
-        public ICommand RefreshCmd
-        {
-            get
-            {
-                return this._refreshCmd ??
-                (
-                    this._refreshCmd = new DelegateCommand
-                    (
-                        y =>
-                        {
-                            UniqueGeneratorNamesUnsorted = UnitOfWork.GeneratorInformation
-                                .GetUniqueGeneratorNames();
-
-                            UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
-                                (UniqueGeneratorNamesUnsorted
-                                    .OrderBy(x => x.GeneratorName));
-
-                            OnPropertyChanged(nameof(UniqueGeneratorNames));
-                        },
-                        z => !HasErrors
-                    )
-                );
-            }
-        }
-
+       
         private ICommand _refreshRemindersTableCmd;
         public ICommand RefreshRemindersTableCmd
         {
@@ -176,12 +151,14 @@ namespace Panel.ViewModels.SettingsViewModel
                         {
                              ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
                                   .GetActiveGeneratorSchedules();
+
+                            OnPropertyChanged(nameof(ActiveGeneratorSchedules));
                         },
                         y => !HasErrors
                     )
                 );
             }
-        }
+        }  
 
         private ICommand _deleteRemindersCmd;
         public ICommand DeleteRemindersCmd

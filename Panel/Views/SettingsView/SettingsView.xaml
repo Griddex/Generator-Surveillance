@@ -247,6 +247,8 @@
                                     <Label Content="Fuel Consumption Table" 
                                            Height="30"
                                            Margin="10,0,0,0"/>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                                  Height="700">
                                         <DataGrid x:Name="dtgdGenFuelConsumptionTable"
                                                   Style="{StaticResource DataGridStyle}"                                                  
                                                   ItemsSource="{Binding AnyConsumptionPage}"
@@ -337,6 +339,7 @@
                                                                     Width="Auto"/>
                                                 </DataGrid.Columns>
                                         </DataGrid>
+                                     </ScrollViewer>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
@@ -939,7 +942,7 @@
                                                    Content="Select Generator" 
                                                    VerticalAlignment="Top" 
                                                    HorizontalAlignment="Left" 
-                                            FontSize="14" Height="30"/>
+                                                   FontSize="14" Height="30"/>
                                             <ComboBox x:Name="cmbxSelectSchMain" 
                                                       Width="350" 
                                                       Height="55" 

@@ -12,12 +12,10 @@ namespace Panel.ViewModels.SettingsViewModel
     public class AuthoriserSettingsViewModel : ViewModelBase, IViewModel
     {
 
-        public ObservableCollection<AuthoriserSetting> 
-            AnyAuthorisersPage { get; set; } =
+        public ObservableCollection<AuthoriserSetting>   AnyAuthorisersPage { get; set; } =
             new ObservableCollection<AuthoriserSetting>();
 
-        public ObservableCollection<ActionPartySetting>
-            AnyActionPartiesPage { get; set; } =
+        public ObservableCollection<ActionPartySetting>   AnyActionPartiesPage { get; set; } =
             new ObservableCollection<ActionPartySetting>();
 
         public UnitOfWork UnitOfWork { get; set; }
@@ -39,11 +37,49 @@ namespace Panel.ViewModels.SettingsViewModel
         {
             UnitOfWork = unitOfWork;
 
-            AnyAuthorisersPage = UnitOfWork.AuthoriserSetting
-                                           .GetAllAuthorisers();
+            AnyAuthorisersPage = UnitOfWork.AuthoriserSetting.GetAllAuthorisers();
 
-            AnyActionPartiesPage = UnitOfWork.ActionPartySetting
-                                            .GetAllActionParties();
+            AnyActionPartiesPage = UnitOfWork.ActionPartySetting.GetAllActionParties();
+        }
+
+        private ICommand _refreshAuthoriserTable;
+        public ICommand RefreshAuthoriserTable
+        {
+            get
+            {
+                return this._refreshAuthoriserTable ??
+                (
+                    this._refreshAuthoriserTable = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            AnyAuthorisersPage = UnitOfWork.AuthoriserSetting.GetAllAuthorisers();
+                            OnPropertyChanged(nameof(AnyAuthorisersPage));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _refreshActionPartyTable;
+        public ICommand RefreshActionPartyTable
+        {
+            get
+            {
+                return this._refreshActionPartyTable ??
+                (
+                    this._refreshActionPartyTable = new DelegateCommand
+                    (
+                        x =>
+                        {
+                            AnyActionPartiesPage = UnitOfWork.ActionPartySetting.GetAllActionParties();
+                            OnPropertyChanged(nameof(AnyActionPartiesPage));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
         }
 
         private ICommand _setAuthoriserCmd;

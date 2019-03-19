@@ -7,11 +7,9 @@ using System.Linq;
 
 namespace Panel.Repositories
 {
-    public class GeneratorSchedulerRepository : Repository<GeneratorScheduler>, 
-        IGeneratorSchedulerRepository
+    public class GeneratorSchedulerRepository : Repository<GeneratorScheduler>, IGeneratorSchedulerRepository
     {
-        private Dictionary<string, int> GeneratorAndLastIDDict =
-            new Dictionary<string, int>();
+        private Dictionary<string, int> GeneratorAndLastIDDict = new Dictionary<string, int>();
         private GeneratorScheduler GenLastRowReminder;
 
         public GeneratorSchedulerRepository(GeneratorSurveillanceDBEntities context) 
@@ -118,8 +116,7 @@ namespace Panel.Repositories
 
             int i = 1;            
             int RecordNo = GeneratorSurveillanceDBContext
-                                    .GeneratorSchedulers
-                                    .Count();           
+                .GeneratorSchedulers.Count();           
                                             
             foreach (double Hours in NotificationHoursDateTime.Item1)
             {
@@ -128,7 +125,7 @@ namespace Panel.Repositories
                     new GeneratorScheduler
                     {
                         Id = RecordNo,
-                        SN = RecordNo + i,
+                        SN = RecordNo + 1,
                         GeneratorName = GeneratorName,
                         Starts = StartDate,
                         Every = EveryHrs,
@@ -143,6 +140,7 @@ namespace Panel.Repositories
                     }
                 );
                 i++;
+                RecordNo++;
             }           
         }
 
@@ -159,9 +157,7 @@ namespace Panel.Repositories
         public ObservableCollection<GeneratorScheduler> GetAnyPageGeneratorScheduledRmdrs(
             int pageIndex = 1, int pageSize = 10)
         {
-            int RecordNo = GeneratorSurveillanceDBContext
-                                    .GeneratorSchedulers
-                                    .Count();
+            int RecordNo = GeneratorSurveillanceDBContext.GeneratorSchedulers.Count();
 
             var NextPageLastRowNumber = pageIndex * pageSize;
             int SkipBy = (pageIndex == 1) ? (pageIndex - 1) * pageSize
@@ -242,9 +238,7 @@ namespace Panel.Repositories
                 }
             }
 
-            DateTime NextStartDate = GenLastRowReminder.Starts
-                                                       .AddHours(GenLastRowReminder
-                                                                .Every);
+            DateTime NextStartDate = GenLastRowReminder.Starts.AddHours(GenLastRowReminder.Every);
 
             ActivateReminderNotification(GeneratorName, NextStartDate,
                      GenLastRowReminder.Every, 
@@ -272,12 +266,9 @@ namespace Panel.Repositories
 
         public List<string> GetUniqueAuthorisers()
         {
-            var UniqueAuthorisers =
-                GeneratorSurveillanceDBContext
-                                .GeneratorSchedulers
-                                .Select(x => x.Authoriser)
-                                .Distinct()
-                                .ToList();
+            var UniqueAuthorisers = GeneratorSurveillanceDBContext
+                .GeneratorSchedulers.Select(x => x.Authoriser)
+                .Distinct().ToList();
 
             return UniqueAuthorisers;
         }

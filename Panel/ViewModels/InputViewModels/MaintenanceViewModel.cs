@@ -208,14 +208,14 @@ namespace Panel.ViewModels.InputViewModels
         }
 
 
-        private ICommand _refreshCmd;
-        public ICommand RefreshCmd
+        private ICommand _refreshSchMaintenanceCmd;
+        public ICommand RefreshSchMaintenanceCmd
         {
             get
             {
-                return this._refreshCmd ??
+                return this._refreshSchMaintenanceCmd ??
                 (
-                    this._refreshCmd = new DelegateCommand
+                    this._refreshSchMaintenanceCmd = new DelegateCommand
                     (
                         y =>
                         {

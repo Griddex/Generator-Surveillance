@@ -220,14 +220,14 @@ namespace Panel.ViewModels.InputViewModels
             }
         }
 
-        private ICommand _refreshCmd;
-        public ICommand RefreshCmd
+        private ICommand _refreshFuelCompCmd;
+        public ICommand RefreshFuelCompCmd
         {
             get
             {
-                return this._refreshCmd ??
+                return this._refreshFuelCompCmd ??
                 (
-                    this._refreshCmd = new DelegateCommand
+                    this._refreshFuelCompCmd = new DelegateCommand
                     (
                         y =>
                         {

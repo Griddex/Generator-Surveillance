@@ -147,7 +147,7 @@
                                                   CommandParameter="{Binding Path=PlacementTarget,
 									                                         RelativeSource={RelativeSource FindAncestor,
 																	                                        AncestorType={x:Type ContextMenu}}}"/>
-                                        <MenuItem Header="DeleteAll"
+                                        <MenuItem Header="Delete All"
                                                   Command="{Binding DeleteAllRowsGenRunHrCmd}"
                                                   CommandParameter="{Binding Path=PlacementTarget,
 									                                         RelativeSource={RelativeSource FindAncestor,
@@ -232,7 +232,7 @@
                 <ScrollViewer Grid.Row="0" Grid.Column="2">
                     <GroupBox Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" 
                               Style="{StaticResource GroupBoxStyle}" 
-                              Header="Generator Scheduled Reminder" Width="600" 
+                              Header="Generator Scheduled Maintenance Reminder" Width="600" 
                               Height="750">
                         <DockPanel>
                             <ToolBarTray DockPanel.Dock="Top" Height="30">
@@ -325,7 +325,7 @@
                                                   CommandParameter="{Binding Path=PlacementTarget,
 									                                         RelativeSource={RelativeSource FindAncestor,
 																	                                        AncestorType={x:Type ContextMenu}}}"/>
-                                        <MenuItem Header="DeleteAll"
+                                        <MenuItem Header="Delete All"
                                                   Command="{Binding DeleteAllRowsSchRemCmd}"
                                                   CommandParameter="{Binding Path=PlacementTarget,
 									                                         RelativeSource={RelativeSource FindAncestor,
