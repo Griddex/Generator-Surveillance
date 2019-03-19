@@ -178,7 +178,7 @@
                             </DataGrid.RowStyle>
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="S/N" 
-                                                    Binding="{Binding Id}" 
+                                                    Binding="{Binding SN}" 
                                                     FontSize="12"
                                                     Width="Auto"/>
                                 <DataGridTextColumn Header="Date" 
@@ -342,7 +342,7 @@
                                 </DataGrid.RowStyle>
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="S/N"
-                                                        Binding="{Binding Id}" FontSize="12" Width="Auto"/>
+                                                        Binding="{Binding SN}" FontSize="12" Width="Auto"/>
                                     <DataGridTextColumn Header="Date"
                                                         Binding="{Binding Date}" FontSize="12" Width="Auto"/>
                                     <DataGridTextColumn Header="Diesel Volume"
@@ -486,7 +486,7 @@
                                     </DataGrid.RowStyle>
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="S/N"
-                                                        Binding="{Binding Id}" FontSize="12" Width="Auto"/>
+                                                        Binding="{Binding SN}" FontSize="12" Width="Auto"/>
                                         <DataGridTextColumn Header="Maintenance Type"
                                                         Binding="{Binding MaintenanceType}" FontSize="12" Width="Auto"/>
                                         <DataGridTextColumn Header="Date"

@@ -25,33 +25,33 @@ namespace Panel.Repositories
         public ObservableCollection<GeneratorScheduler> GetAllGeneratorSchedules()
         {
             return new ObservableCollection<GeneratorScheduler>
-                    (
-                          GeneratorSurveillanceDBContext
-                          .GeneratorSchedulers
-                          .Where(x => x.Id >= 0)                     
-                    );
+            (
+                    GeneratorSurveillanceDBContext
+                    .GeneratorSchedulers
+                    .Where(x => x.SN >= 0)                     
+            );
         }
 
         public ObservableCollection<GeneratorScheduler> GetActiveGeneratorSchedules()
         {
             return new ObservableCollection<GeneratorScheduler>
-                    (
-                          GeneratorSurveillanceDBContext
-                          .GeneratorSchedulers
-                          .Where(x => x.Id >= 0 && x.IsActive == "Yes")
-                          .GroupBy(x => x.GeneratorName, 
-                                  (Key,g) => g.FirstOrDefault())                         
-                    );
+            (
+                    GeneratorSurveillanceDBContext
+                    .GeneratorSchedulers
+                    .Where(x => x.SN >= 0 && x.IsActive == "Yes")
+                    .GroupBy(x => x.GeneratorName, 
+                            (Key,g) => g.FirstOrDefault())                         
+            );
         }
 
         public ObservableCollection<GeneratorScheduler> GetAllActiveGeneratorSchedules()
         {
             return new ObservableCollection<GeneratorScheduler>
-                    (
-                          GeneratorSurveillanceDBContext
-                          .GeneratorSchedulers
-                          .Where(x => x.Id >= 0 && x.IsActive == "Yes")                         
-                    );
+            (
+                    GeneratorSurveillanceDBContext
+                    .GeneratorSchedulers
+                    .Where(x => x.SN >= 0 && x.IsActive == "Yes")                         
+            );
         }
 
         public DateTime GetStartDate(string GeneratorName, 
@@ -104,38 +104,22 @@ namespace Panel.Repositories
                     .LastOrDefault();
         }
 
-        public void ActivateReminderNotification(string GeneratorName, 
-            DateTime StartDate, double EveryHrs, string ReminderLevel,
-            string RepeatReminderYesNo, string Authoriser)
+        public void ActivateReminderNotification(string GeneratorName, DateTime StartDate, double EveryHrs, 
+            string ReminderLevel, string RepeatReminderYesNo, string Authoriser)
         {
-            foreach (var row in GeneratorSurveillanceDBContext
-                .GeneratorSchedulers)
+            foreach (var row in GeneratorSurveillanceDBContext.GeneratorSchedulers)
             {
-                if (row.GeneratorName == GeneratorName && 
-                    row.IsActive == "Yes")
+                if (row.GeneratorName == GeneratorName && row.IsActive == "Yes")
                     row.IsActive = "No";
             }
 
-            Tuple<List<double>, List<DateTime>> NotificationHoursDateTime = 
-                ScheduledMaintenanceNotificationLogic
-                .GenerateNotificationHoursAndDates(StartDate, 
-                EveryHrs, ReminderLevel);
+            Tuple<List<double>, List<DateTime>> NotificationHoursDateTime = ScheduledMaintenanceNotificationLogic
+                .GenerateNotificationHoursAndDates(StartDate, EveryHrs, ReminderLevel);
 
-            int i = 0;
-            int RecordNo;
-            try
-            {
-                RecordNo = GeneratorSurveillanceDBContext
-                                        .GeneratorSchedulers
-                                        .OrderByDescending(x => x.Id)
-                                        .FirstOrDefault()
-                                        .Id + 1;
-            }
-            catch (NullReferenceException)
-            {
-                RecordNo = 0;
-            }
-            
+            int i = 1;            
+            int RecordNo = GeneratorSurveillanceDBContext
+                                    .GeneratorSchedulers
+                                    .Count();           
                                             
             foreach (double Hours in NotificationHoursDateTime.Item1)
             {
@@ -143,7 +127,8 @@ namespace Panel.Repositories
                 (
                     new GeneratorScheduler
                     {
-                        Id = RecordNo + i,
+                        Id = RecordNo,
+                        SN = RecordNo + i,
                         GeneratorName = GeneratorName,
                         Starts = StartDate,
                         Every = EveryHrs,
@@ -154,7 +139,7 @@ namespace Panel.Repositories
                         ReminderHoursProfile = Hours,
                         ReminderDateTimeProfile = NotificationHoursDateTime
                                                     .Item2
-                                                    .ElementAt(i)
+                                                    .ElementAt(i - 1)
                     }
                 );
                 i++;
@@ -186,7 +171,7 @@ namespace Panel.Repositories
                 return new ObservableCollection<GeneratorScheduler>
                         (
                             GeneratorSurveillanceDBContext.GeneratorSchedulers
-                            .OrderBy(x => x.Id)
+                            .OrderBy(x => x.SN)
                             .Skip(SkipBy)
                             .Take(pageSize)
                             .AsParallel<GeneratorScheduler>()
@@ -198,7 +183,7 @@ namespace Panel.Repositories
                 return new ObservableCollection<GeneratorScheduler>
                         (
                             GeneratorSurveillanceDBContext.GeneratorSchedulers
-                            .OrderBy(x => x.Id)
+                            .OrderBy(x => x.SN)
                             .Skip(SkipBy)
                             .Take(pageSize)
                             .AsParallel<GeneratorScheduler>()
@@ -220,11 +205,11 @@ namespace Panel.Repositories
                                              (
                                                 GeneratorSurveillanceDBContext
                                                 .GeneratorSchedulers
-                                                .Where(x => x.Id >= 0 && 
+                                                .Where(x => x.SN >= 0 && 
                                                             x.IsActive == "Yes" && 
                                                             x.IsRepetitive == "Yes")
                                                 .GroupBy(x => x.GeneratorName, 
-                                                        (Key, g) => g.OrderByDescending(c => c.Id)
+                                                        (Key, g) => g.OrderByDescending(c => c.SN)
                                                                         .FirstOrDefault())
                                              );
 
@@ -234,7 +219,7 @@ namespace Panel.Repositories
                 {
                     if(gen == row.GeneratorName)
                     {
-                        GeneratorAndLastIDDict.Add(gen, row.Id);
+                        GeneratorAndLastIDDict.Add(gen, row.SN);
                         break;
                     }
                 }
@@ -272,7 +257,7 @@ namespace Panel.Repositories
         {
             var InactiveReminders = GeneratorSurveillanceDBContext
                                         .GeneratorSchedulers
-                                        .Where(x => x.Id >= 0 &&
+                                        .Where(x => x.SN >= 0 &&
                                                     x.IsActive == "No")
                                         .ToList();
 

@@ -40,24 +40,20 @@ namespace Panel.ViewModels.InputViewModels
                                                      .GetUniqueGeneratorNames();
 
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
-                (UniqueGeneratorNamesUnsorted
-                    .OrderBy(x => x.GeneratorName));
+                (UniqueGeneratorNamesUnsorted.OrderBy(x => x.GeneratorName));
             OnPropertyChanged(nameof(UniqueGeneratorNames));
 
             _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr
                                                                     .GetAllRunningHours();
             _allGeneratorFuelConsumptionRecords = new ObservableCollection<GeneratorRunningHr>
-                (_allGeneratorFuelConsumptionRecordsUnsorted
-                    .OrderByDescending(x => x.Date));
+                (_allGeneratorFuelConsumptionRecordsUnsorted.OrderByDescending(x => x.Date));
         }
 
         public UnitOfWork UnitOfWork { get; set; }
         public DateTime FuellingDate { get; set; } = DateTime.Now;
 
-        private ObservableCollection<GeneratorRunningHr> 
-            _allGeneratorFuelConsumptionRecords;
-        public ObservableCollection<GeneratorRunningHr> 
-            AllGeneratorFuelConsumptionRecords
+        private ObservableCollection<GeneratorRunningHr> _allGeneratorFuelConsumptionRecords;
+        public ObservableCollection<GeneratorRunningHr> AllGeneratorFuelConsumptionRecords
         {
             get => _allGeneratorFuelConsumptionRecords;
             set

@@ -15,5 +15,8 @@ namespace Panel.Interfaces
 
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
+
+        void Delete(IEnumerable<TEntity> entity);
+        void DeleteAll();
     }
 }

@@ -97,17 +97,19 @@ namespace Panel.ViewModels.InputViewModels
                                 return;
                             }
 
-                            Tuple<ComboBox, 
-                                  ComboBox, 
-                                  ComboBox, 
-                                  ComboBox, 
+                            Tuple<ComboBox,
+                                  ComboBox,
+                                  ComboBox,
+                                  ComboBox,
                                   Button,
-                                  Label> cmbx4Btn = (Tuple<ComboBox, 
-                                                           ComboBox, 
-                                                           ComboBox, 
-                                                           ComboBox, 
-                                                           Button,
-                                                           Label>)x;
+                                  RadioButton,
+                                  RadioButton> cmbx4Btn = (Tuple<ComboBox,
+                                                            ComboBox,
+                                                            ComboBox,
+                                                            ComboBox,
+                                                            Button,
+                                                            RadioButton,
+                                                            RadioButton>)x;
 
                             //if(ActiveGenerator == cmbx4Btn.Item6.Content as string)
                             //{
@@ -204,12 +206,14 @@ namespace Panel.ViewModels.InputViewModels
                                   ComboBox, 
                                   ComboBox, 
                                   Button,
-                                  Label> cmbx4Btn = (Tuple<ComboBox, 
+                                  RadioButton,
+                                  RadioButton> cmbx4Btn = (Tuple<ComboBox, 
                                                             ComboBox, 
                                                             ComboBox, 
                                                             ComboBox, 
                                                             Button,
-                                                            Label>)x;
+                                                            RadioButton,
+                                                            RadioButton>)x;
 
                             cmbx4Btn.Item1.IsHitTestVisible = true;
                             cmbx4Btn.Item1.Focusable = true;
@@ -230,20 +234,33 @@ namespace Panel.ViewModels.InputViewModels
                                                     $"{SelectedStopSecond.ToString("D2")} " +
                                                     $"{SelectedStopAMPM}";
 
-                            if (DateTime.TryParseExact(mergedStopTime, "HH:mm:ss tt", 
-                                CultureInfo.InvariantCulture, 
-                                DateTimeStyles.None, out _parsedStopTime))
-                                GeneratorStoppedModel = _parsedStopTime;
+                            if (DateTime.TryParseExact(mergedStopTime, "hh:mm:ss tt", 
+                                CultureInfo.InvariantCulture, DateTimeStyles.None, out _parsedStopTime))
+                                    GeneratorStoppedModel = _parsedStopTime;
 
-                            DateTime GeneratorStoppedModelTime = GeneratorStoppedAnotherDay + 
-                                                                    GeneratorStoppedModel.TimeOfDay;
+                            DateTime GeneratorStoppedModelTime;
+                            if (cmbx4Btn.Item6.IsChecked == true)
+                            {
+                                GeneratorStoppedModelTime = GeneratorStoppedModel;
+                            }
+                            else if(cmbx4Btn.Item7.IsChecked == true)
+                            {
+                                GeneratorStoppedModelTime = GeneratorStoppedAnotherDay +
+                                                            GeneratorStoppedModel.TimeOfDay;
+                            }
+                            else
+                            {
+                                GeneratorStoppedModelTime = GeneratorStoppedModel +
+                                                           GeneratorStoppedModel.TimeOfDay;
+                            }
+                                 
 
                             if((GeneratorStoppedModelTime - DateTime.MinValue).TotalSeconds <=
-                            (SelectedRecordDate - DateTime.MinValue).TotalSeconds)
+                                (SelectedRecordDate - DateTime.MinValue).TotalSeconds)
                             {
                                 MessageBox.Show($"{GeneratorStoppedModel.ToLongTimeString()} " +
                                     $"was not stopped\n\n" +
-                                    $"Generator must be stopped at a later date", 
+                                    $"Generator can only be stopped at a date later than when it started", 
                                     "Error",
                                     MessageBoxButton.OK, 
                                     MessageBoxImage.Error);

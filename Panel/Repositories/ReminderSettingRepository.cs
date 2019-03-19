@@ -18,7 +18,7 @@ namespace Panel.Repositories
         {
             foreach (var item in GeneratorSurveillanceDBContext
                                   .GeneratorSchedulers
-                                  .Where(x => x.Id >= 0 && x.IsActive == "Yes")
+                                  .Where(x => x.SN >= 0 && x.IsActive == "Yes")
                                   .GroupBy(x => x.GeneratorName,
                                   (Key, g) => g.FirstOrDefault()))
             {
@@ -34,7 +34,7 @@ namespace Panel.Repositories
         {
             foreach (var item in GeneratorSurveillanceDBContext
                                   .GeneratorSchedulers
-                                  .Where(x => x.Id >= 0 && x.IsActive == "Yes")
+                                  .Where(x => x.SN >= 0 && x.IsActive == "Yes")
                                   .GroupBy(x => x.GeneratorName,
                                   (Key, g) => g.FirstOrDefault()))
             {
@@ -50,7 +50,7 @@ namespace Panel.Repositories
         {
             foreach (var item in GeneratorSurveillanceDBContext
                                   .GeneratorSchedulers
-                                  .Where(x => x.Id >= 0))
+                                  .Where(x => x.SN >= 0))
             {
                 if (item.GeneratorName == GeneratorName)
                 {

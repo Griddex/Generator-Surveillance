@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Data.Entity;
 
 namespace Panel.Repositories
 {
@@ -38,7 +39,7 @@ namespace Panel.Repositories
                 return new ObservableCollection<GeneratorRunningHr>
                         (
                             GeneratorSurveillanceDBContext.GeneratorRunningHrs
-                            .OrderBy(x => x.Id)
+                            .OrderBy(x => x.SN)
                             .Skip(SkipBy)
                             .Take(pageSize)
                             .AsParallel<GeneratorRunningHr>()
@@ -50,7 +51,7 @@ namespace Panel.Repositories
                 return new ObservableCollection<GeneratorRunningHr>
                         (
                             GeneratorSurveillanceDBContext.GeneratorRunningHrs
-                            .OrderBy(x => x.Id)
+                            .OrderBy(x => x.SN)
                             .Skip(SkipBy)
                             .Take(pageSize)
                             .AsParallel<GeneratorRunningHr>()
@@ -58,39 +59,14 @@ namespace Panel.Repositories
             }
         }
 
-        public void DeleteRows(List<GeneratorRunningHr> RowsToDelete)
+        public void Delete(List<GeneratorRunningHr> RowsToDelete)
         {
-            foreach (var x in RowsToDelete)
-            {
-                foreach (var y in GeneratorSurveillanceDBContext
-                                .GeneratorRunningHrs)
-                {
-                    if(x.Id == y.Id)
-                    {
-                        GeneratorSurveillanceDBContext.GeneratorRunningHrs
-                                                    .Remove(y);
-                        break;
-                    }                    
-                }                
-            }
-
-            int j = 0;            
-            foreach (var item in GeneratorSurveillanceDBContext
-                                .GeneratorRunningHrs)
-            {
-                item.Id = j;
-                j++;
-            }
+            base.Delete(RowsToDelete);
         }
 
         public void DeleteAllRows()
         {
-            foreach (var item in GeneratorSurveillanceDBContext
-                .GeneratorRunningHrs)
-            {
-                GeneratorSurveillanceDBContext.GeneratorRunningHrs
-                    .Remove(item);
-            }
+            base.DeleteAll();
         }  
     }
 }

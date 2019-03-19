@@ -259,7 +259,7 @@
     <Compile Include="Converters\PassDatePickerComboBoxAsCommandParameter.cs" />
     <Compile Include="Converters\FloatConverter.cs" />
     <Compile Include="Converters\InputViewMultiConverter.cs" />
-    <Compile Include="Converters\PassComboBoxesButtonLabelAsCommandParameters.cs" />
+    <Compile Include="Converters\PassComboBoxesButtonRadioButtonsAsCommandParameters.cs" />
     <Compile Include="Converters\PassDtPkrTxBxTwoCmboxsBtnAsCommandParameters.cs" />
     <Compile Include="Converters\PassComboBoxAsCommandParameter.cs" />
     <Compile Include="Converters\PassStackpanelAsCommandParameters.cs" />

@@ -61,7 +61,7 @@
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
-                                    <Button Command="{Binding DeleteAllRowsCmd}"
+                                    <Button Command="{Binding DeleteAllRowsGenRunHrCmd}"
                                             CommandParameter="{Binding ElementName=dtgdGenRunningHrsTable}"
                                             ToolTip="Delete entire table">
                                         <Button.Content>
@@ -137,13 +137,18 @@
                                 <DataGrid.ContextMenu>
                                     <ContextMenu
                                         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}, 
-				                                                                             Path=PlacementTarget.DataContext}">
+				                                              Path=PlacementTarget.DataContext}">
                                         <MenuItem Header="Groupby Generator" 
                                                   Click="GroupbyGeneratorRunningHours_Click"/>
                                         <MenuItem Header="Clear Grouping" 
                                                   Click="ClearRunningHoursGrouping_Click"/>
                                         <MenuItem Header="Delete"
-                                                  Command="{Binding DeleteSelectedRowsCmd}"
+                                                  Command="{Binding DeleteSelectedRowsGenRunHrCmd}"
+                                                  CommandParameter="{Binding Path=PlacementTarget,
+									                                         RelativeSource={RelativeSource FindAncestor,
+																	                                        AncestorType={x:Type ContextMenu}}}"/>
+                                        <MenuItem Header="DeleteAll"
+                                                  Command="{Binding DeleteAllRowsGenRunHrCmd}"
                                                   CommandParameter="{Binding Path=PlacementTarget,
 									                                         RelativeSource={RelativeSource FindAncestor,
 																	                                        AncestorType={x:Type ContextMenu}}}"/>
@@ -196,7 +201,7 @@
                                 </DataGrid.RowStyle>
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="S/N" 
-                                                        Binding="{Binding Id}" 
+                                                        Binding="{Binding SN}" 
                                                         FontSize="12"
                                                         Width="Auto"/>
                                     <DataGridTextColumn Header="Generator" 
@@ -240,7 +245,7 @@
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
-                                    <Button Click="ClearSchedulerReminderGrouping_Click">
+                                    <Button Command="{Binding DeleteAllRowsSchRemCmd}">
                                         <Button.Content>
                                             <StackPanel Orientation="Vertical">
                                                 <Image Source="/Images/Clear.png" 
@@ -315,6 +320,16 @@
                                                   Click="GroupbyGeneratorScheduler_Click"/>
                                         <MenuItem Header="Clear Grouping" 
                                                   Click="ClearSchedulerReminderGrouping_Click"/>
+                                        <MenuItem Header="Delete"
+                                                  Command="{Binding DeleteSelectedRowsSchRemCmd}"
+                                                  CommandParameter="{Binding Path=PlacementTarget,
+									                                         RelativeSource={RelativeSource FindAncestor,
+																	                                        AncestorType={x:Type ContextMenu}}}"/>
+                                        <MenuItem Header="DeleteAll"
+                                                  Command="{Binding DeleteAllRowsSchRemCmd}"
+                                                  CommandParameter="{Binding Path=PlacementTarget,
+									                                         RelativeSource={RelativeSource FindAncestor,
+																	                                        AncestorType={x:Type ContextMenu}}}"/>
                                     </ContextMenu>
                                 </DataGrid.ContextMenu>
                                 <DataGrid.GroupStyle>
@@ -364,7 +379,7 @@
                                 </DataGrid.RowStyle>
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="S/N" 
-                                                        Binding="{Binding Id}" 
+                                                        Binding="{Binding SN}" 
                                                         FontSize="12"
                                                         Width="Auto"/>
                                     <DataGridTextColumn Header="Generator" 

@@ -23,12 +23,13 @@ namespace Panel.Repositories
             int RecordNo = GeneratorSurveillanceDBContext
                                     .GeneratorFuellings
                                     .Count();
-            GeneratorSurveillanceDBContext.GeneratorFuellings
-                                          .Add
+
+            GeneratorSurveillanceDBContext.GeneratorFuellings.Add
             (
                 new GeneratorFuelling
                 {
                     Id = RecordNo,
+                    SN = RecordNo + 1,
                     Date = Fuellingdate,
                     Vendor = Vendor,
                     VolumeOfDiesel = Volumeofdiesel,
@@ -45,11 +46,13 @@ namespace Panel.Repositories
             int RecordNo = GeneratorSurveillanceDBContext
                                         .GeneratorRunningHrs
                                         .Count();
+
             GeneratorSurveillanceDBContext.GeneratorRunningHrs.Add
             (
                 new GeneratorRunningHr
                 {
                     Id = RecordNo,
+                    SN = RecordNo + 1,
                     Generator = GeneratorName,
                     Date = RunningHoursDate,
                     CumFuelVolumeSinceLastReading = 
@@ -80,7 +83,7 @@ namespace Panel.Repositories
                                             (
                                                 GeneratorSurveillanceDBContext
                                                 .GeneratorFuellings
-                                                .OrderBy(x => x.Id)
+                                                .OrderBy(x => x.SN)
                                                 .Skip(SkipBy)
                                                 .Take(pageSize)
                                                 .AsParallel<GeneratorFuelling>()

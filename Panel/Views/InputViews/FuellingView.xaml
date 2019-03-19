@@ -526,7 +526,7 @@
                                                     </DataGrid.RowStyle>
                                                     <DataGrid.Columns>
                                                         <DataGridTextColumn Header="S/N" 
-                                                                            Binding="{Binding Id}" 
+                                                                            Binding="{Binding SN}" 
                                                                             FontSize="12"
                                                                             Width="Auto"/>
                                                         <DataGridTextColumn Header="Date" 

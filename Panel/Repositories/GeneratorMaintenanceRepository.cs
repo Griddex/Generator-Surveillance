@@ -27,12 +27,13 @@ namespace Panel.Repositories
             int RecordNo = GeneratorSurveillanceDBContext
                                         .GeneratorMaintenances
                                         .Count();
-            GeneratorSurveillanceDBContext.GeneratorMaintenances
-                                          .Add
+
+            GeneratorSurveillanceDBContext.GeneratorMaintenances.Add
             (
                 new GeneratorMaintenance
                 {
                     Id = RecordNo,
+                    SN = RecordNo + 1,
                     Date = UnschMaintenancedate,
                     MaintenanceType = MaintenanceType,
                     Comments = UnschComments,
@@ -49,12 +50,13 @@ namespace Panel.Repositories
             int RecordNo = GeneratorSurveillanceDBContext
                                         .GeneratorMaintenances
                                         .Count();
-            GeneratorSurveillanceDBContext.GeneratorMaintenances
-                                          .Add
+
+            GeneratorSurveillanceDBContext.GeneratorMaintenances.Add
             (
                 new GeneratorMaintenance
                 {
                     Id = RecordNo,
+                    SN = RecordNo + 1,
                     Date = SchMaintenancedate,
                     MaintenanceType = MaintenanceType,
                     Comments = SchComments,
@@ -83,7 +85,7 @@ namespace Panel.Repositories
                     new ObservableCollection<GeneratorMaintenance>
                     (
                         GeneratorSurveillanceDBContext.GeneratorMaintenances
-                        .OrderBy(x => x.Id)
+                        .OrderBy(x => x.SN)
                         .Skip((pageIndex - 1) * pageSize)
                         .Take(10)
                         .AsParallel<GeneratorMaintenance>()

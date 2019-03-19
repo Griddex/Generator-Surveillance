@@ -54,7 +54,7 @@ namespace Panel.Repositories
                 activeGenName = ActiveGeneratorsList[LastActiveGenIndex].GeneratorName;
                 activeGenStartedDate = ActiveGeneratorsList[LastActiveGenIndex].Date;
                 activeGenStartedTime = ActiveGeneratorsList[LastActiveGenIndex].GeneratorStarted;
-                activeGenID = ActiveGeneratorsList[LastActiveGenIndex].Id;
+                activeGenID = ActiveGeneratorsList[LastActiveGenIndex].SN;
 
                 return (IsGenActive, activeGenName, activeGenStartedDate, 
                     activeGenStartedTime, activeGenID);
@@ -71,7 +71,7 @@ namespace Panel.Repositories
                 return new ObservableCollection<GeneratorNameModel>
                 (
                     GeneratorSurveillanceDBContext.GeneratorUsages
-                    .Where(x => x.Id >= 1 && x.IsArchived != "Yes")
+                    .Where(x => x.SN >= 1 && x.IsArchived != "Yes")
                     .OrderBy(x => x.GeneratorName)
                     .Select(x => new GeneratorNameModel
                     {

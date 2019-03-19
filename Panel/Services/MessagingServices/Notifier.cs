@@ -88,7 +88,7 @@ namespace Panel.Services.MessagingServices
                     NotificationTasks.Add(Task.Run
                     (async () =>
                         {
-                            int GeneratorID = item.Id;
+                            int GeneratorID = item.SN;
                             string GeneratorName = item.GeneratorName;
                             string ReminderLevel = item.ReminderLevel;
 
@@ -96,15 +96,15 @@ namespace Panel.Services.MessagingServices
                                         .Where(x => x.GeneratorName ==
                                                     item.GeneratorName)
                                         .Where(x => x.IsActive == "Yes")
-                                        .OrderBy(x => x.Id)
-                                        .FirstOrDefault().Id;
+                                        .OrderBy(x => x.SN)
+                                        .FirstOrDefault().SN;
 
                             int LastID = AllGeneratorSchedules
                                         .Where(x => x.GeneratorName ==
                                                     item.GeneratorName)
                                         .Where(x => x.IsActive == "Yes")
-                                        .OrderBy(x => x.Id)
-                                        .LastOrDefault().Id;
+                                        .OrderBy(x => x.SN)
+                                        .LastOrDefault().SN;
 
                             DateTime FinalNotificationDate = AllGeneratorSchedules
                                                     .Where(x => x.GeneratorName ==

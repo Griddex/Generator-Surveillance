@@ -4,6 +4,7 @@ using Panel.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -89,7 +90,7 @@ namespace Panel.ViewModels.TableViewModels
 
                             pageSizeRnHrs = Convert.ToInt32(Convert.ToString(PageSizeRnHrs.Content));
                             CurrentPageOutOfTotalRnHrs = $"{(pageIndexRnHrs - 1) * pageSizeRnHrs} - " +
-                            $"{(pageIndexRnHrs * pageSizeRnHrs) - 1} out of {AllRnHrsRecords.Count}";
+                                $"{(pageIndexRnHrs * pageSizeRnHrs) - 1} out of {AllRnHrsRecords.Count}";
                             OnPropertyChanged(nameof(CurrentPageOutOfTotalRnHrs));
 
                             AnyPageRnHrsRecords = UnitOfWork.GeneratorRunningHr
@@ -125,7 +126,7 @@ namespace Panel.ViewModels.TableViewModels
 
                             pageSizeRnHrs = Convert.ToInt32(Convert.ToString(PageSizeRnHrs.Content));
                             CurrentPageOutOfTotalRnHrs = $"{(pageIndexRnHrs - 1) * pageSizeRnHrs} - " +
-                            $"{(pageIndexRnHrs * pageSizeRnHrs) - 1} out of {AllRnHrsRecords.Count}";
+                                $"{(pageIndexRnHrs * pageSizeRnHrs) - 1} out of {AllRnHrsRecords.Count}";
                             OnPropertyChanged(nameof(CurrentPageOutOfTotalRnHrs));
 
                             AnyPageRnHrsRecords = UnitOfWork.GeneratorRunningHr
@@ -252,14 +253,14 @@ namespace Panel.ViewModels.TableViewModels
             }
         }
 
-        private ICommand _deleteSelectedRowsCmd;
-        public ICommand DeleteSelectedRowsCmd
+        private ICommand _deleteSelectedRowsGenRunHrCmd;
+        public ICommand DeleteSelectedRowsGenRunHrCmd
         {
             get
             {
-                return this._deleteSelectedRowsCmd ??
+                return this._deleteSelectedRowsGenRunHrCmd ??
                 (
-                    this._deleteSelectedRowsCmd = new DelegateCommand
+                    this._deleteSelectedRowsGenRunHrCmd = new DelegateCommand
                     (
                         x =>
                         {
@@ -271,7 +272,7 @@ namespace Panel.ViewModels.TableViewModels
                                 ItemsToRemove.Add(item as GeneratorRunningHr);
                             }
 
-                            UnitOfWork.GeneratorRunningHr.DeleteRows(ItemsToRemove);
+                            UnitOfWork.GeneratorRunningHr.Delete(ItemsToRemove);
 
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
@@ -291,49 +292,151 @@ namespace Panel.ViewModels.TableViewModels
             }
         }
 
-        private ICommand _deleteAllRowsCmd;
-        public ICommand DeleteAllRowsCmd
+        private ICommand _deleteAllRowsGenRunHrCmd;
+        public ICommand DeleteAllRowsGenRunHrCmd
         {
             get
             {
-                return this._deleteAllRowsCmd ??
+                return this._deleteAllRowsGenRunHrCmd ??
                 (
-                    this._deleteAllRowsCmd = new DelegateCommand
+                    this._deleteAllRowsGenRunHrCmd = new DelegateCommand
+                    (
+                        (dG) =>
+                        {
+                            MessageBoxResult result = MessageBox.Show("YOU ARE ABOUT TO DELETE AN ENTIRE TABLE!" +
+                                Environment.NewLine + Environment.NewLine + "Data recovery is impossible after this delete operation" +
+                                Environment.NewLine + Environment.NewLine + "Proceed with deletion?",
+                                "Information",
+                                MessageBoxButton.OKCancel,
+                                MessageBoxImage.Stop);
+
+                            if (result == MessageBoxResult.OK || result == MessageBoxResult.Yes)
+                            {
+                                MessageBoxResult resultreconfirm = MessageBox.Show("Re-confirm entire table deletion",
+                                        "Information", MessageBoxButton.OKCancel, MessageBoxImage.Stop);
+
+                                switch (resultreconfirm)
+                                {
+                                    case MessageBoxResult.OK:
+                                    case MessageBoxResult.Yes:
+                                        DataGrid dataGrid = (DataGrid)dG;
+                                        UnitOfWork.GeneratorRunningHr.DeleteAll();
+
+                                        int Success = UnitOfWork.Complete();
+                                        if (Success > 0)
+                                        {
+                                            MessageBox.Show("Data Erased!",
+                                                "Information",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Information);
+                                        }
+                                        AnyPageRnHrsRecords = UnitOfWork.GeneratorRunningHr.GetAnyPageGeneratorRunningHrs();
+                                        OnPropertyChanged(nameof(AnyPageRnHrsRecords));
+                                        break;
+                                    case MessageBoxResult.None:
+                                    case MessageBoxResult.Cancel:
+                                    case MessageBoxResult.No:
+                                        break;
+                                }
+                            }
+                        }    
+                    ,
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _deleteSelectedRowsSchRemCmd;
+        public ICommand DeleteSelectedRowsSchRemCmd
+        {
+            get
+            {
+                return this._deleteSelectedRowsSchRemCmd ??
+                (
+                    this._deleteSelectedRowsSchRemCmd = new DelegateCommand
                     (
                         x =>
                         {
-                            MessageBoxResult result = MessageBox.Show("You are about to delete an entire table." +
-                                Environment.NewLine + "Data recovery is impossible after this delete operation" +
-                                Environment.NewLine + "Proceed with deletion?",
-                                "Information",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+                            List<GeneratorScheduler> ItemsToRemove = new List<GeneratorScheduler>();
+                            DataGrid dataGrid = (DataGrid)x;
 
-                            switch (result)
+                            foreach (var item in dataGrid.SelectedItems)
                             {
-                                case MessageBoxResult.OK:
-                                case MessageBoxResult.Yes:
-                                    DataGrid dataGrid = (DataGrid)x;
+                                ItemsToRemove.Add(item as GeneratorScheduler);
+                            }
 
-                                    UnitOfWork.GeneratorRunningHr.DeleteAllRows();
+                            UnitOfWork.GeneratorScheduler.Delete(ItemsToRemove);
 
-                                    int Success = UnitOfWork.Complete();
-                                    if (Success > 0)
-                                    {
-                                        MessageBox.Show("Data Erased!",
-                                            "Information",
-                                            MessageBoxButton.OK,
-                                            MessageBoxImage.Information);
-                                    }
-                                    AnyPageRnHrsRecords = UnitOfWork.GeneratorRunningHr.GetAnyPageGeneratorRunningHrs();
-                                    OnPropertyChanged(nameof(AnyPageRnHrsRecords));
-                                    break;
-                                case MessageBoxResult.None:
-                                case MessageBoxResult.Cancel:                                
-                                case MessageBoxResult.No:
-                                     break;
-                            }                           
-                            return;
+                            int Success = UnitOfWork.Complete();
+                            if (Success > 0)
+                            {
+                                MessageBox.Show("Data deeleted!",
+                                    "Information",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
+                            }
+
+                            AnyPageSchRemRecords = UnitOfWork.GeneratorScheduler.GetAnyPageGeneratorScheduledRmdrs();
+                            OnPropertyChanged(nameof(AnyPageSchRemRecords));
+                        },
+                        y => !HasErrors
+                    )
+                );
+            }
+        }
+
+        private ICommand _deleteAllRowsSchRemCmd;
+        public ICommand DeleteAllRowsSchRemCmd
+        {
+            get
+            {
+                return this._deleteAllRowsSchRemCmd ??
+                (
+                    this._deleteAllRowsSchRemCmd = new DelegateCommand
+                    (
+                        (dG) =>
+                        {
+                            MessageBoxResult result = MessageBox.Show("YOU ARE ABOUT TO DELETE AN ENTIRE TABLE!" +
+                                Environment.NewLine + Environment.NewLine + "Data recovery is impossible after this delete operation" +
+                                Environment.NewLine + Environment.NewLine + "Proceed with deletion?",
+                                "Information",
+                                MessageBoxButton.OKCancel,
+                                MessageBoxImage.Stop);
+
+                            if (result == MessageBoxResult.OK || result == MessageBoxResult.Yes)
+                            {
+                                MessageBoxResult resultreconfirm = MessageBox.Show("Re-confirm entire table deletion",
+                                        "Information",
+                                        MessageBoxButton.OKCancel,
+                                        MessageBoxImage.Stop);
+
+                                switch (resultreconfirm)
+                                {
+                                    case MessageBoxResult.OK:
+                                    case MessageBoxResult.Yes:
+
+                                        DataGrid dataGrid = (DataGrid)dG;
+                                        UnitOfWork.GeneratorScheduler.DeleteAll();
+
+                                        int Success = UnitOfWork.Complete();
+                                        if (Success > 0)
+                                        {
+                                            MessageBox.Show("Data Erased!",
+                                                "Information",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Information);
+                                        }
+                                        AnyPageSchRemRecords = UnitOfWork.GeneratorScheduler.GetAnyPageGeneratorScheduledRmdrs();
+                                        OnPropertyChanged(nameof(AnyPageSchRemRecords));
+
+                                        break;
+                                    case MessageBoxResult.None:
+                                    case MessageBoxResult.Cancel:
+                                    case MessageBoxResult.No:
+                                        break;
+                                }
+                            }
                         },
                         y => !HasErrors
                     )

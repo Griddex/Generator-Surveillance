@@ -22,21 +22,21 @@ namespace Panel.Repositories
             string JobTitle)
         {
 
-            ActionPartySetting actionPartySetting
-                = GeneratorSurveillanceDBContext
+            ActionPartySetting actionPartySetting = GeneratorSurveillanceDBContext
                 .ActionPartySettings
-                .OrderByDescending(x => x.Id)
+                .OrderByDescending(x => x.SN)
                 .FirstOrDefault();
 
-            int RecordNo = actionPartySetting == null ?
-                            0 :
-                            actionPartySetting.Id + 1;            
+            int RecordNo = GeneratorSurveillanceDBContext
+                                        .ActionPartySettings
+                                        .Count();
 
             GeneratorSurveillanceDBContext.ActionPartySettings.Add
             (
                 new ActionPartySetting
                 {
                     Id = RecordNo,
+                    SN = RecordNo + 1,
                     Date = ReminderDate,
                     FirstNameActionParty = FirstName,
                     LastNameActionParty = LastName,
@@ -51,7 +51,7 @@ namespace Panel.Repositories
         {
             foreach (var item in GeneratorSurveillanceDBContext
                                   .ActionPartySettings
-                                  .Where(x => x.Id >= 0))
+                                  .Where(x => x.SN >= 0))
             {
                 if (item.FirstNameActionParty == FirstName &&
                     item.LastNameActionParty == LastName)

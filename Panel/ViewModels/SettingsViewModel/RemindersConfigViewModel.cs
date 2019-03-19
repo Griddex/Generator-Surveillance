@@ -149,7 +149,7 @@ namespace Panel.ViewModels.SettingsViewModel
                         y =>
                         {
                             UniqueGeneratorNamesUnsorted = UnitOfWork.GeneratorInformation
-                                                .GetUniqueGeneratorNames();
+                                .GetUniqueGeneratorNames();
 
                             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
                                 (UniqueGeneratorNamesUnsorted
@@ -175,7 +175,7 @@ namespace Panel.ViewModels.SettingsViewModel
                         x =>
                         {
                              ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
-                                                                 .GetActiveGeneratorSchedules();
+                                  .GetActiveGeneratorSchedules();
                         },
                         y => !HasErrors
                     )
@@ -221,7 +221,7 @@ namespace Panel.ViewModels.SettingsViewModel
                                         //    MessageBoxImage.Information);
 
                                         ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
-                                                                             .GetActiveGeneratorSchedules();
+                                              .GetActiveGeneratorSchedules();
 
                                         OnPropertyChanged(nameof(ActiveGeneratorSchedules));
                                     }

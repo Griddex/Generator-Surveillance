@@ -32,6 +32,7 @@ namespace Panel.Repositories
                 new GeneratorUsage
                 {
                     Id = RecordNo,
+                    SN = RecordNo + 1,
                     Date = RecordDate,
                     GeneratorName = GeneratorName,
                     GeneratorStarted = GeneratorStarted,
@@ -44,7 +45,7 @@ namespace Panel.Repositories
         {
             var LastGeneratorUsageRecord = GeneratorSurveillanceDBContext
                                             .GeneratorUsages
-                                            .SingleOrDefault(x => x.Id == ActiveGenID);
+                                            .SingleOrDefault(x => x.SN == ActiveGenID);
             LastGeneratorUsageRecord.GeneratorStopped = GeneratorStoppedDate;
         }
 
@@ -83,7 +84,7 @@ namespace Panel.Repositories
                 return new ObservableCollection<GeneratorUsage>
                         (
                             GeneratorSurveillanceDBContext.GeneratorUsages
-                            .OrderBy(x => x.Id)
+                            .OrderBy(x => x.SN)
                             .Skip(SkipBy)
                             .Take(pageSize)
                             .AsParallel<GeneratorUsage>()
@@ -95,7 +96,7 @@ namespace Panel.Repositories
                 return new ObservableCollection<GeneratorUsage>
                         (
                             GeneratorSurveillanceDBContext.GeneratorUsages
-                            .OrderBy(x => x.Id)
+                            .OrderBy(x => x.SN)
                             .Skip(SkipBy)
                             .Take(pageSize)
                             .AsParallel<GeneratorUsage>()

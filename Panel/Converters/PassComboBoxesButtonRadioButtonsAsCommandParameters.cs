@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace Panel.Converters
 {
-    class PassComboBoxesButtonLabelAsCommandParameters : IMultiValueConverter
+    class PassComboBoxesButtonRadioButtonsAsCommandParameters : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
@@ -14,13 +14,15 @@ namespace Panel.Converters
                              ComboBox, 
                              ComboBox, 
                              Button,
-                             Label>(
+                             RadioButton,
+                             RadioButton>(
                                         (ComboBox)values[0], 
                                         (ComboBox)values[1],
                                         (ComboBox)values[2],
                                         (ComboBox)values[3],
                                         (Button)values[4],
-                                        (Label)values[5]
+                                        (RadioButton)values[5],
+                                        (RadioButton)values[6]      
                                     );
         }
 

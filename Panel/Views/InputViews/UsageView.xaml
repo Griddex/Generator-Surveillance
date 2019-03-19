@@ -193,13 +193,14 @@
                                     VerticalContentAlignment="Center"
                                     Command="{Binding AddGeneratorStartedCmd}">
                                 <Button.CommandParameter>
-                                    <MultiBinding Converter="{StaticResource PassComboBoxesButtonLabel}">
+                                    <MultiBinding Converter="{StaticResource PassComboBoxesButtonRadioButtons}">
                                         <Binding ElementName="cmbxHrGenSpd"/>
                                         <Binding ElementName="cmbxMinGenSpd"/>
                                         <Binding ElementName="cmbxSecsGenSpd"/>
                                         <Binding ElementName="cmbxAMPMGenSpd"/>
                                         <Binding ElementName="btnGenStopped"/>
-                                        <Binding ElementName="lblCurrentGeneratorName"/>
+                                        <Binding ElementName="rdbtnCurrentDay"/>
+                                        <Binding ElementName="rdbtnDifferentDay"/>                         
                                     </MultiBinding>
                                 </Button.CommandParameter>
                             </Button>
@@ -354,13 +355,14 @@
                                     HorizontalContentAlignment="Center" 
                                     VerticalContentAlignment="Center">
                                 <Button.CommandParameter>
-                                    <MultiBinding Converter="{StaticResource PassComboBoxesButtonLabel}">
+                                    <MultiBinding Converter="{StaticResource PassComboBoxesButtonRadioButtons}">
                                         <Binding ElementName="cmbxHrGenStd"/>
                                         <Binding ElementName="cmbxMinGenStd"/>
                                         <Binding ElementName="cmbxSecsGenStd"/>
                                         <Binding ElementName="cmbxAMPMGenStd"/>
                                         <Binding ElementName="btnGenStarted"/>
-                                        <Binding ElementName="lblCurrentGeneratorName"/>
+                                        <Binding ElementName="rdbtnCurrentDay"/>
+                                        <Binding ElementName="rdbtnDifferentDay"/>                                              
                                     </MultiBinding>
                                 </Button.CommandParameter>
                             </Button>

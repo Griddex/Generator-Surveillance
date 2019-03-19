@@ -24,18 +24,19 @@ namespace Panel.Repositories
             AuthoriserSetting authoriserSetting 
                             = GeneratorSurveillanceDBContext
                             .AuthoriserSettings
-                            .OrderByDescending(x => x.Id)
+                            .OrderByDescending(x => x.SN)
                             .FirstOrDefault();
 
-            int RecordNo = authoriserSetting == null ? 
-                            0 :
-                            authoriserSetting.Id + 1;
+            int RecordNo = GeneratorSurveillanceDBContext
+                                        .AuthoriserSettings
+                                        .Count();
 
             GeneratorSurveillanceDBContext.AuthoriserSettings.Add
             (
                 new AuthoriserSetting
                 {
                     Id = RecordNo,
+                    SN = RecordNo + 1,
                     Date = ReminderDate,
                     FirstNameAuthoriser = FirstName,
                     LastNameAuthoriser = LastName,
@@ -50,7 +51,7 @@ namespace Panel.Repositories
         {
             foreach (var item in GeneratorSurveillanceDBContext
                                   .AuthoriserSettings
-                                  .Where(x => x.Id >= 0))
+                                  .Where(x => x.SN >= 0))
             {
                 if (item.FirstNameAuthoriser == FirstName &&
                     item.LastNameAuthoriser == LastName)
