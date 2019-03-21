@@ -36,18 +36,13 @@ namespace Panel.ViewModels.SettingsViewModel
         {
             UnitOfWork = unitOfWork;
 
-            ActiveGeneratorSchedules = unitOfWork.GeneratorScheduler
-                                                 .GetActiveGeneratorSchedules();
+            ActiveGeneratorSchedules = unitOfWork.GeneratorScheduler.GetActiveGeneratorSchedules();
+            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
 
-            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation
-                                                     .GetUniqueGeneratorNames();
+            UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>(UniqueGeneratorNamesUnsorted
+                .OrderBy(x => x.GeneratorName));
 
-            UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
-                                        (UniqueGeneratorNamesUnsorted
-                                        .OrderBy(x => x.GeneratorName));
-
-            UniqueAuthoriserFullNames = unitOfWork.AuthoriserSetting
-                                                  .GetAuthorisersFullNames();
+            UniqueAuthoriserFullNames = unitOfWork.AuthoriserSetting.GetAuthorisersFullNames();
 
             ReminderLevels.Add("Normal");
             ReminderLevels.Add("Elevated");
@@ -84,7 +79,7 @@ namespace Panel.ViewModels.SettingsViewModel
                         x =>
                         {
                             UniqueAuthoriserFullNames = UnitOfWork.AuthoriserSetting
-                                                                  .GetAuthorisersFullNames();
+                            .GetAuthorisersFullNames();
 
                             OnPropertyChanged(nameof(UniqueAuthoriserFullNames));
                         },
@@ -114,18 +109,14 @@ namespace Panel.ViewModels.SettingsViewModel
 
                             string AuthoriserFullName = Authoriser;
 
-                            UnitOfWork.GeneratorScheduler
-                                      .ActivateReminderNotification(SchMaintenanceSelectedGen,
-                                                            SchMaintenanceStartDate, 
-                                                            SchMaintenanceReminderHours,
-                                                            ReminderLevel, RepeatReminderYesNo,
-                                                            AuthoriserFullName);
+                            UnitOfWork.GeneratorScheduler.ActivateReminderNotification(SchMaintenanceSelectedGen,
+                                SchMaintenanceStartDate, SchMaintenanceReminderHours, ReminderLevel, RepeatReminderYesNo,
+                                AuthoriserFullName);
 
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
                             {
-                                ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler
-                                                                     .GetActiveGeneratorSchedules();
+                                ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler.GetActiveGeneratorSchedules();
 
                                 OnPropertyChanged(nameof(ActiveGeneratorSchedules));
                             }

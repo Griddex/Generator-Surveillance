@@ -18,9 +18,10 @@ namespace Panel.Views.InputViews
 
         public MaintenanceView(MaintenanceViewModel maintenanceViewModel)
         {
-            this.DataContext = maintenanceViewModel;
-            this.MaintenanceViewModel = maintenanceViewModel;
             InitializeComponent();
+
+            this.DataContext = maintenanceViewModel;
+            this.MaintenanceViewModel = maintenanceViewModel;            
             this.dtpkrStarts.SelectedDate = DateTime.Now;
             this.Loaded += MaintenanceView_Loaded;
         }

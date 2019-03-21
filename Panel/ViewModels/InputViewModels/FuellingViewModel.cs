@@ -14,17 +14,14 @@ namespace Panel.ViewModels.InputViewModels
 {
     public class FuellingViewModel : ViewModelBase, IViewModel
     {
-        public ObservableCollection<GeneratorNameModel> 
-                        UniqueGeneratorNames { get; set; } = 
-                        new ObservableCollection<GeneratorNameModel>();
+        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNames { get; set; } =
+            new ObservableCollection<GeneratorNameModel>();
 
-        public ObservableCollection<GeneratorNameModel> 
-                        UniqueGeneratorNamesUnsorted { get; set; } = 
-                        new ObservableCollection<GeneratorNameModel>();
+        public ObservableCollection<GeneratorNameModel> UniqueGeneratorNamesUnsorted { get; set; } =
+            new ObservableCollection<GeneratorNameModel>();
 
-        public ObservableCollection<GeneratorRunningHr> 
-                        _allGeneratorFuelConsumptionRecordsUnsorted { get; set; } = 
-                        new ObservableCollection<GeneratorRunningHr>();
+        public ObservableCollection<GeneratorRunningHr> _allGeneratorFuelConsumptionRecordsUnsorted { get; set; } =
+            new ObservableCollection<GeneratorRunningHr>();
 
         public double CurrentFuelConsumption { get; set; }
         public double TestFuelConsumption { get; set; }
@@ -37,14 +34,15 @@ namespace Panel.ViewModels.InputViewModels
             UnitOfWork = unitOfWork;
 
             UniqueGeneratorNamesUnsorted = UnitOfWork.GeneratorInformation
-                                                     .GetUniqueGeneratorNames();
+                .GetUniqueGeneratorNames();
 
-            UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
-                (UniqueGeneratorNamesUnsorted.OrderBy(x => x.GeneratorName));
+            UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>(UniqueGeneratorNamesUnsorted
+                .OrderBy(x => x.GeneratorName));
+
             OnPropertyChanged(nameof(UniqueGeneratorNames));
 
-            _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr
-                                                                    .GetAllRunningHours();
+            _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
+
             _allGeneratorFuelConsumptionRecords = new ObservableCollection<GeneratorRunningHr>
                 (_allGeneratorFuelConsumptionRecordsUnsorted.OrderByDescending(x => x.Date));
         }
@@ -138,9 +136,8 @@ namespace Panel.ViewModels.InputViewModels
                 _selectedGenerator = value;
                 OnPropertyChanged(nameof(SelectedGenerator));
 
-                var FuelCompStats = UnitOfWork.GeneratorFuelling
-                                              .GetFuelConsumptionData(
-                                               SelectedGenerator);
+                var FuelCompStats = UnitOfWork.GeneratorFuelling.GetFuelConsumptionData(
+                    SelectedGenerator);
 
                 RunningHours = FuelCompStats.RunHrs;
                 OnPropertyChanged(nameof(RunningHours));
@@ -231,21 +228,17 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         y =>
                         {
-                            UniqueGeneratorNamesUnsorted = UnitOfWork.GeneratorInformation
-                                                .GetUniqueGeneratorNames();
+                            UniqueGeneratorNamesUnsorted = UnitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
 
                             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
-                                (UniqueGeneratorNamesUnsorted
-                                    .OrderBy(x => x.GeneratorName));
+                                (UniqueGeneratorNamesUnsorted.OrderBy(x => x.GeneratorName));
 
                             OnPropertyChanged(nameof(UniqueGeneratorNames));
 
-                            _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr
-                                                                                    .GetAllRunningHours();
+                            _allGeneratorFuelConsumptionRecordsUnsorted = UnitOfWork.GeneratorRunningHr.GetAllRunningHours();
 
                             _allGeneratorFuelConsumptionRecords = new ObservableCollection<GeneratorRunningHr>
-                                (_allGeneratorFuelConsumptionRecordsUnsorted
-                                    .OrderByDescending(x => x.Date));
+                                (_allGeneratorFuelConsumptionRecordsUnsorted.OrderByDescending(x => x.Date));
 
                             AllGeneratorFuelConsumptionRecords = _allGeneratorFuelConsumptionRecords;
 

@@ -1128,7 +1128,8 @@
                                         <DataGrid x:Name="dtgdGenRemindersConfigTable" 
 					                              Style="{StaticResource DataGridStyle}"
 					                              ItemsSource="{Binding ActiveGeneratorSchedules}" 
-					                              ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}">
+					                              ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
+                                                  MinHeight="200">
                                             <DataGrid.ContextMenu>
                                                 <ContextMenu x:Name="ctxMnuRemCongig"
                                                              DataContext="{Binding RelativeSource={RelativeSource Mode=Self}, 
@@ -1212,6 +1213,10 @@
                                                 </Style>
                                             </DataGrid.RowStyle>
                                             <DataGrid.Columns>
+                                                <DataGridTextColumn Header="S/N" 
+										                            Binding="{Binding SN}" 
+										                            FontSize="12" 
+										                            Width="Auto"/>
                                                 <DataGridTextColumn Header="Generator Name" 
 										                            Binding="{Binding GeneratorName}" 
 										                            FontSize="12" 

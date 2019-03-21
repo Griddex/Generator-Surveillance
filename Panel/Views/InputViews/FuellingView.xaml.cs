@@ -29,10 +29,9 @@ namespace Panel.Views.InputViews
         private void GroupbyGenerator_Click(object sender, RoutedEventArgs e)
         {
             ICollectionView cvsGeneratorConsumption = CollectionViewSource
-                                                      .GetDefaultView(this.dtgdGenFuelConsumptionTable
-                                                                          .ItemsSource);
-            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption
-                                                    .CanGroup == true)
+                .GetDefaultView(this.dtgdGenFuelConsumptionTable.ItemsSource);
+
+            if (cvsGeneratorConsumption != null && cvsGeneratorConsumption.CanGroup == true)
             {
                 cvsGeneratorConsumption.GroupDescriptions.Clear();
                 cvsGeneratorConsumption.GroupDescriptions.Add(
@@ -43,8 +42,8 @@ namespace Panel.Views.InputViews
         private void ClearGeneratorGrouping_Click(object sender, RoutedEventArgs e)
         {
             ICollectionView cvsGeneratorConsumption = CollectionViewSource
-                                                      .GetDefaultView(this.dtgdGenFuelConsumptionTable
-                                                                          .ItemsSource);
+                .GetDefaultView(this.dtgdGenFuelConsumptionTable.ItemsSource);
+
             if (cvsGeneratorConsumption != null && cvsGeneratorConsumption.CanGroup == true)
             {
                 cvsGeneratorConsumption.GroupDescriptions.Clear();
@@ -54,7 +53,9 @@ namespace Panel.Views.InputViews
         private void expdrFuelConsumption_Expanded(object sender, RoutedEventArgs e)
         {
             this.dtgdGenFuelConsumptionTable.Items.Refresh();
-            ICollectionView cvsGeneratorConsumption = CollectionViewSource.GetDefaultView(this.dtgdGenFuelConsumptionTable.ItemsSource);
+            ICollectionView cvsGeneratorConsumption = CollectionViewSource
+                .GetDefaultView(this.dtgdGenFuelConsumptionTable.ItemsSource);
+
             cvsGeneratorConsumption.Refresh();
         }
     }
