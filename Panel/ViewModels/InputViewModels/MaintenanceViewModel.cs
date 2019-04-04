@@ -34,27 +34,22 @@ namespace Panel.ViewModels.InputViewModels
 
         public List<string> UniqueAuthoriserNames { get; set; } = new List<string>();
 
-        public MaintenanceViewModel(UnitOfWork unitOfWork, 
-            PasswordControl passwordControl)
+        public MaintenanceViewModel(UnitOfWork unitOfWork, PasswordControl passwordControl)
         {
             UnitOfWork = unitOfWork;
             PasswordControl = passwordControl;
 
-            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation
-                                                     .GetUniqueGeneratorNames();
+            UniqueGeneratorNamesUnsorted = unitOfWork.GeneratorInformation.GetUniqueGeneratorNames();
 
             UniqueGeneratorNames = new ObservableCollection<GeneratorNameModel>
                                         (UniqueGeneratorNamesUnsorted
                                         .OrderBy(x => x.GeneratorName));
 
-            AllGeneratorSchedules = unitOfWork.GeneratorScheduler
-                                              .GetAllGeneratorSchedules();
+            AllGeneratorSchedules = unitOfWork.GeneratorScheduler.GetAllGeneratorSchedules();
 
-            ActiveGeneratorSchedules = unitOfWork.GeneratorScheduler
-                                                 .GetActiveGeneratorSchedules();
+            ActiveGeneratorSchedules = unitOfWork.GeneratorScheduler.GetActiveGeneratorSchedules();
 
-            UniqueAuthoriserNames = unitOfWork.AuthoriserSetting
-                                              .GetAuthorisersFullNames();
+            UniqueAuthoriserNames = unitOfWork.AuthoriserSetting.GetAuthorisersFullNames();
 
             ReminderLevels.Add("Normal");
             ReminderLevels.Add("Elevated");
@@ -159,6 +154,20 @@ namespace Panel.ViewModels.InputViewModels
             }
         }
 
+        //UnSchMaintenanceSelectedGen
+        private string _unSchMaintenanceSelectedGen;
+        public string UnSchMaintenanceSelectedGen
+        {
+            get => _unSchMaintenanceSelectedGen;
+            set
+            {
+                _unSchMaintenanceSelectedGen = value;
+                OnPropertyChanged(nameof(_unSchMaintenanceSelectedGen));                
+            }
+        }
+
+
+
         private string _schMaintenanceSelectedGen;
         public string SchMaintenanceSelectedGen
         {
@@ -246,8 +255,7 @@ namespace Panel.ViewModels.InputViewModels
                         x =>
                         {
                             ComboBox cmbxUnschMaintenance = x as ComboBox;
-                            if (cmbxUnschMaintenance.Text == null || 
-                            cmbxUnschMaintenance.Text == "")
+                            if (cmbxUnschMaintenance.Text == null || cmbxUnschMaintenance.Text == "")
                             {
                                 MessageBox.Show("Select a generator!", 
                                     "Error", 
@@ -255,11 +263,8 @@ namespace Panel.ViewModels.InputViewModels
                                     MessageBoxImage.Error);
                                 return;
                             }
-                            UnitOfWork.GeneratorMaintenance
-                                      .AddUnschMaintenance("Unscheduled", 
-                                      UnschMaintenanceDate, 
-                                      UnschMaintenanceComments, 
-                                      UnschMaintenanceTotalCost);
+                            UnitOfWork.GeneratorMaintenance.AddUnschMaintenance("Unscheduled", UnschMaintenanceDate, 
+                                UnschMaintenanceComments, UnschMaintenanceTotalCost, UnSchMaintenanceSelectedGen);
 
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)

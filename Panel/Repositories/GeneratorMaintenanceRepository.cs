@@ -19,8 +19,8 @@ namespace Panel.Repositories
             get { return Context as GeneratorSurveillanceDBEntities; }
         }
 
-        public void AddUnschMaintenance(string MaintenanceType, DateTime UnschMaintenancedate, 
-                                        string UnschComments, double UnschTotalCost)
+        public void AddUnschMaintenance(string MaintenanceType, DateTime UnschMaintenancedate,
+            string UnschComments, double UnschTotalCost, string GeneratorName)
         {
             int RecordNo = GeneratorSurveillanceDBContext.GeneratorMaintenances
                  .OrderByDescending(x => x.Id).Select(x => x.Id).ToArray()[0];
@@ -34,6 +34,7 @@ namespace Panel.Repositories
                 {
                     Id = RecordNo + 1,
                     SN = SNNo + 1,
+                    GeneratorName = GeneratorName,
                     Date = UnschMaintenancedate,
                     MaintenanceType = MaintenanceType,
                     Comments = UnschComments,
@@ -42,8 +43,8 @@ namespace Panel.Repositories
             );
         }
 
-        public void AddSchMaintenance(string MaintenanceType, DateTime SchMaintenancedate, 
-                                      string SchComments, double SchTotalCost, string GeneratorName)
+        public void AddSchMaintenance(string MaintenanceType, DateTime SchMaintenancedate,
+            string SchComments, double SchTotalCost, string GeneratorName)
         {
             int RecordNo = GeneratorSurveillanceDBContext.GeneratorMaintenances
                  .OrderByDescending(x => x.Id).Select(x => x.Id).ToArray()[0];

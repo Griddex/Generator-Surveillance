@@ -65,7 +65,10 @@
                                        Width="200" 
                                        Height="30" 
                                        HorizontalContentAlignment="Left" 
-                                       Margin="0,0,10,0"/>
+                                       Margin="0,0,10,0"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       VerticalContentAlignment="Center"/>
                                 <Label x:Name="GenRecordDate" 
                                        Content="Record Date:" 
                                        HorizontalAlignment="Center" 
@@ -76,7 +79,10 @@
                                        Foreground="#1D8696" 
                                        Width="263" 
                                        Height="30" 
-                                       HorizontalContentAlignment="Left"/>
+                                       HorizontalContentAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       VerticalContentAlignment="Center"
+                                       FontSize="12"/>
                             </StackPanel>
 
                         </Grid>

@@ -68,8 +68,8 @@
                                 <Grid Grid.Column="0" 
                                       Grid.Row="0" 
                                       VerticalAlignment="Bottom">
-                                    <StackPanel Height="115" 
-                                                VerticalAlignment="Bottom">
+                                    <StackPanel Height="110" 
+                                                VerticalAlignment="Top">
                                         <Label x:Name="lblGenUnSchMainGenerator" 
                                                Content="Select Generator" 
                                                VerticalAlignment="Bottom"
@@ -84,7 +84,8 @@
                                                   Foreground="Black" 
                                                   DisplayMemberPath="GeneratorName"
                                                   SelectedValuePath="GeneratorName" 
-                                                  SelectedValue="GeneratorName"
+                                                  SelectedValue="{Binding Path=UnSchMaintenanceSelectedGen, 
+                                                                          Mode=OneWayToSource}"
                                                   SelectedIndex="0" 
                                                   Style="{StaticResource alignmentFontSize}"
                                                   VerticalAlignment="Bottom"/>
@@ -123,12 +124,13 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Orientation="Vertical" 
                                                 Grid.ColumnSpan="2" 
-                                                Height="150">
+                                                Height="150"
+                                                VerticalAlignment="Top">
                                         <Label Content="Comments" 
                                                FontSize="14"/>
                                         <TextBox  Background="#F2F2F2" 
                                                   Width="500" 
-                                                  Height="122"
+                                                  Height="117"
                                                   TextWrapping="Wrap"
                                                   HorizontalAlignment="Left"
                                                   VerticalContentAlignment="Top"

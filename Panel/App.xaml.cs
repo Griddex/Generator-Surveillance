@@ -125,10 +125,12 @@ namespace Panel
                 Task.Run(FuncMaintenanceView), Task.Run(FuncUsageFuellingTablesView), Task.Run(FuncRunningHrsSchedulingTablesView), Task.Run(FuncChartView),
                 Task.Run(FuncChartViewModel), Task.Run(FuncReportView), Task.Run(FuncHelpView), Task.Run(FuncSettingsView), Task.Run(FuncMainView)};
 
-            try {
+            try
+            {
                 Task.WaitAll(RegistrationTasks);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show("The application encountered an unexpected error" +
                             Environment.NewLine + Environment.NewLine +
                            "Please restart the application" +

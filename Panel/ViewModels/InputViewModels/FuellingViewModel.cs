@@ -69,8 +69,7 @@ namespace Panel.ViewModels.InputViewModels
             {
                 _vendor = value;
                 OnPropertyChanged(nameof(Vendor));
-                ValidateVendorNameRule
-                    .ValidateVendorNameAsync(Vendor)
+                ValidateVendorNameRule.ValidateVendorNameAsync(Vendor)
                     .ContinueWith(t =>
                     {
                         lock (_errors)

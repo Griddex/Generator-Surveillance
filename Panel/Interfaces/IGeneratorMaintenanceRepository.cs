@@ -5,7 +5,7 @@ namespace Panel.Interfaces
 {
     public interface IGeneratorMaintenanceRepository : IRepository<GeneratorMaintenance>
     {
-        void AddUnschMaintenance(string MaintenanceType, DateTime UnschMaintenancedate, string UnschComments, double UnschTotalCost);
+        void AddUnschMaintenance(string MaintenanceType, DateTime UnschMaintenancedate, string UnschComments, double UnschTotalCost, string GeneratorName);
         void AddSchMaintenance(string MaintenanceType, DateTime SchMaintenancedate, string SchComments, double SchTotalCost, string GeneratorName);        
         ObservableCollection<GeneratorMaintenance> GetAnyPageGeneratorMaintenance(int pageIndex = 1, int pageSize = 10);
         ObservableCollection<GeneratorMaintenance> GetAllGeneratorMaintenances();
