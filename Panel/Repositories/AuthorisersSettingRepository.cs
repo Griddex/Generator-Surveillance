@@ -27,16 +27,19 @@ namespace Panel.Repositories
                             .OrderByDescending(x => x.SN)
                             .FirstOrDefault();
 
-            int RecordNo = GeneratorSurveillanceDBContext
-                                        .AuthoriserSettings
-                                        .Count();
+            int RecordNo = GeneratorSurveillanceDBContext.AuthoriserSettings
+                .OrderByDescending(x => x.Id).Select(x => x.Id).ToArray()[0];
+
+            int SNNo = GeneratorSurveillanceDBContext.AuthoriserSettings
+               .OrderByDescending(x => x.SN).Select(x => x.SN).ToArray()[0];
+
 
             GeneratorSurveillanceDBContext.AuthoriserSettings.Add
             (
                 new AuthoriserSetting
                 {
-                    Id = RecordNo,
-                    SN = RecordNo + 1,
+                    Id = RecordNo + 1,
+                    SN = SNNo + 1,
                     Date = ReminderDate,
                     FirstNameAuthoriser = FirstName,
                     LastNameAuthoriser = LastName,

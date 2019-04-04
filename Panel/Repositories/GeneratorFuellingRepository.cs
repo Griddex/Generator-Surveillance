@@ -20,16 +20,18 @@ namespace Panel.Repositories
         public void AddFuelPurchaseRecord(DateTime Fuellingdate, 
             string Vendor, double Volumeofdiesel, double Costofdiesel)
         {
-            int RecordNo = GeneratorSurveillanceDBContext
-                                    .GeneratorFuellings
-                                    .Count();
+            int RecordNo = GeneratorSurveillanceDBContext.GeneratorFuellings
+                .OrderByDescending(x => x.Id).Select(x => x.Id).ToArray()[0];     
+
+            int SNNo = GeneratorSurveillanceDBContext.GeneratorFuellings
+                .OrderByDescending(x => x.SN).Select(x => x.SN).ToArray()[0];
 
             GeneratorSurveillanceDBContext.GeneratorFuellings.Add
             (
                 new GeneratorFuelling
                 {
-                    Id = RecordNo,
-                    SN = RecordNo + 1,
+                    Id = RecordNo + 1,
+                    SN = SNNo + 1,
                     Date = Fuellingdate,
                     Vendor = Vendor,
                     VolumeOfDiesel = Volumeofdiesel,
@@ -43,16 +45,18 @@ namespace Panel.Repositories
             double RunningHours,
             double CumFuelVolumeSinceLastReading)
         {
-            int RecordNo = GeneratorSurveillanceDBContext
-                                        .GeneratorRunningHrs
-                                        .Count();
+            int RecordNo = GeneratorSurveillanceDBContext.GeneratorRunningHrs
+                 .OrderByDescending(x => x.Id).Select(x => x.Id).ToArray()[0];
+
+            int SNNo = GeneratorSurveillanceDBContext.GeneratorRunningHrs
+                .OrderByDescending(x => x.SN).Select(x => x.SN).ToArray()[0];
 
             GeneratorSurveillanceDBContext.GeneratorRunningHrs.Add
             (
                 new GeneratorRunningHr
                 {
-                    Id = RecordNo,
-                    SN = RecordNo + 1,
+                    Id = RecordNo + 1,
+                    SN = SNNo + 1,
                     Generator = GeneratorName,
                     Date = RunningHoursDate,
                     CumFuelVolumeSinceLastReading = 
@@ -65,11 +69,12 @@ namespace Panel.Repositories
         public ObservableCollection<GeneratorFuelling> GetAllGeneratorFuellings()
         {
             var AllGeneratorFuellings = new ObservableCollection<GeneratorFuelling>
-                                        (
-                                            GeneratorSurveillanceDBContext
-                                            .GeneratorFuellings
-                                            .AsParallel<GeneratorFuelling>()
-                                        );
+                (
+                    GeneratorSurveillanceDBContext
+                    .GeneratorFuellings
+                    .AsParallel<GeneratorFuelling>()
+                );
+
             return AllGeneratorFuellings;
         }
 
@@ -91,9 +96,8 @@ namespace Panel.Repositories
             return FirstPageGeneratorFuellings;
         }
 
-        public (double CumFuel, double RunHrs, double Curr, 
-            double Test, double Stnd) GetFuelConsumptionData(
-            string GeneratorName)
+        public (double CumFuel, double RunHrs, double Curr, double Test, double Stnd) 
+            GetFuelConsumptionData(string GeneratorName)
         {
             double TestFuelComp;
             double StndFuelComp;
@@ -101,12 +105,9 @@ namespace Panel.Repositories
             double CumFuelVol;
             double GenRunningHrs;
 
-            var LastRowCompSetting = GeneratorSurveillanceDBContext
-                                            .ConsumptionSettings
-                                            .Where(x => x.GeneratorName ==
-                                                        GeneratorName)
-                                            .OrderByDescending(x => x.Date)
-                                            .FirstOrDefault();
+            var LastRowCompSetting = GeneratorSurveillanceDBContext.ConsumptionSettings
+                .Where(x => x.GeneratorName == GeneratorName).OrderByDescending(x => x.Date)
+                .FirstOrDefault();
 
             if(LastRowCompSetting != null)
             {
@@ -119,41 +120,33 @@ namespace Panel.Repositories
                 StndFuelComp = 0;
             }
 
-
             var LastRowRunningHrs = GeneratorSurveillanceDBContext
-                                            .GeneratorRunningHrs
-                                            .Where(x => x.Generator ==
-                                                  GeneratorName)
-                                            .OrderByDescending(x => x.Date)
-                                            .ThenByDescending(x => x.CumFuelVolumeSinceLastReading)
-                                            .FirstOrDefault();
+                .GeneratorRunningHrs.Where(x => x.Generator == GeneratorName)
+                .OrderByDescending(x => x.Date).ThenByDescending(x => x.CumFuelVolumeSinceLastReading)
+                .FirstOrDefault();
 
             var PenultimateRowRunningHrs = GeneratorSurveillanceDBContext
-                                                .GeneratorRunningHrs
-                                                .Where(x => x.Generator ==
-                                                      GeneratorName)
-                                                .OrderByDescending(x => x.Date)
-                                                .ThenByDescending(x => x.CumFuelVolumeSinceLastReading)
-                                                .Skip(1)
-                                                .FirstOrDefault();
+                .GeneratorRunningHrs.Where(x => x.Generator == GeneratorName)
+                .OrderByDescending(x => x.Date).ThenByDescending(x => x.CumFuelVolumeSinceLastReading)
+                .Skip(1).FirstOrDefault();
 
             if(LastRowRunningHrs != null && PenultimateRowRunningHrs != null)
             {
                 CumFuelVol = LastRowRunningHrs.CumFuelVolumeSinceLastReading;
                 GenRunningHrs = LastRowRunningHrs.RunningHours;
 
-                CurrFuelComp = (LastRowRunningHrs
-                                .CumFuelVolumeSinceLastReading
-                                - PenultimateRowRunningHrs
-                                .CumFuelVolumeSinceLastReading) /
-                                (LastRowRunningHrs
-                                .RunningHours 
-                                - PenultimateRowRunningHrs
-                                .RunningHours);
-                if(CurrFuelComp < 0)
+                CurrFuelComp = (LastRowRunningHrs.CumFuelVolumeSinceLastReading
+                                - PenultimateRowRunningHrs.CumFuelVolumeSinceLastReading) /
+                                (LastRowRunningHrs.RunningHours 
+                                - PenultimateRowRunningHrs.RunningHours);
+
+                if (!(CurrFuelComp >= 0 && CurrFuelComp <= 100))CurrFuelComp = 0;
+                if (!(StndFuelComp >= 0 && StndFuelComp <= 100)) StndFuelComp = 0;
+                if (!(TestFuelComp >= 0 && TestFuelComp <= 100)) TestFuelComp = 0;
+
+                if (CurrFuelComp < 0)
                 {
-                    MessageBox.Show($"Negative current fuel " +
-                                    $"consumption " +
+                    MessageBox.Show($"Negative current fuel consumption " +
                                     $"rate for {GeneratorName}! " +
                                     "\n\nPlease check your last" +
                                     " two fuel consumption data",
@@ -171,8 +164,7 @@ namespace Panel.Repositories
                 CurrFuelComp = 0;
             }
 
-            return (CumFuelVol, GenRunningHrs, CurrFuelComp,  
-                    StndFuelComp, TestFuelComp);
+            return (CumFuelVol, GenRunningHrs, CurrFuelComp, StndFuelComp, TestFuelComp);
         }
 
     }

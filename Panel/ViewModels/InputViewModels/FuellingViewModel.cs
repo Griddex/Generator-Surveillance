@@ -262,12 +262,8 @@ namespace Panel.ViewModels.InputViewModels
                     (
                         x =>
                         {
-                            UnitOfWork.GeneratorFuelling
-                                      .AddFuelPurchaseRecord(
-                                            FuellingDate, 
-                                            Vendor, 
-                                            VolumeOfDiesel, 
-                                            CostOfDiesel);
+                            UnitOfWork.GeneratorFuelling.AddFuelPurchaseRecord(FuellingDate, Vendor, 
+                                VolumeOfDiesel, CostOfDiesel);
 
                             int Success = UnitOfWork.Complete();
                             if (Success > 0)
@@ -320,7 +316,8 @@ namespace Panel.ViewModels.InputViewModels
                                 try
                                 {
                                     Tuple<double?, double?> TestStandardComp = UnitOfWork.ConsumptionSetting
-                                                                            .GetTestStandardConsumption(SelectedGenerator);
+                                         .GetTestStandardConsumption(SelectedGenerator);
+
                                     double testcmp = (double)TestStandardComp.Item1;
                                     double stndcmp = (double)TestStandardComp.Item2;
 

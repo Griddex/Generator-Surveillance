@@ -1,6 +1,5 @@
 ﻿using Panel.BusinessLogic.AuxilliaryMethods;
 using System;
-using System.Diagnostics;
 
 namespace Panel.Services.MessagingServices
 {

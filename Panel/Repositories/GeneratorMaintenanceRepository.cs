@@ -22,16 +22,18 @@ namespace Panel.Repositories
         public void AddUnschMaintenance(string MaintenanceType, DateTime UnschMaintenancedate, 
                                         string UnschComments, double UnschTotalCost)
         {
-            int RecordNo = GeneratorSurveillanceDBContext
-                                        .GeneratorMaintenances
-                                        .Count();
+            int RecordNo = GeneratorSurveillanceDBContext.GeneratorMaintenances
+                 .OrderByDescending(x => x.Id).Select(x => x.Id).ToArray()[0];
+
+            int SNNo = GeneratorSurveillanceDBContext.GeneratorMaintenances
+                .OrderByDescending(x => x.SN).Select(x => x.SN).ToArray()[0];
 
             GeneratorSurveillanceDBContext.GeneratorMaintenances.Add
             (
                 new GeneratorMaintenance
                 {
-                    Id = RecordNo,
-                    SN = RecordNo + 1,
+                    Id = RecordNo + 1,
+                    SN = SNNo + 1,
                     Date = UnschMaintenancedate,
                     MaintenanceType = MaintenanceType,
                     Comments = UnschComments,
@@ -43,16 +45,18 @@ namespace Panel.Repositories
         public void AddSchMaintenance(string MaintenanceType, DateTime SchMaintenancedate, 
                                       string SchComments, double SchTotalCost, string GeneratorName)
         {
-            int RecordNo = GeneratorSurveillanceDBContext
-                                        .GeneratorMaintenances
-                                        .Count();
+            int RecordNo = GeneratorSurveillanceDBContext.GeneratorMaintenances
+                 .OrderByDescending(x => x.Id).Select(x => x.Id).ToArray()[0];
+
+            int SNNo = GeneratorSurveillanceDBContext.GeneratorMaintenances
+                .OrderByDescending(x => x.SN).Select(x => x.SN).ToArray()[0];
 
             GeneratorSurveillanceDBContext.GeneratorMaintenances.Add
             (
                 new GeneratorMaintenance
                 {
-                    Id = RecordNo,
-                    SN = RecordNo + 1,
+                    Id = RecordNo + 1,
+                    SN = SNNo + 1,
                     GeneratorName = GeneratorName,
                     Date = SchMaintenancedate,
                     MaintenanceType = MaintenanceType,

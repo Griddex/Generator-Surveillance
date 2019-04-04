@@ -23,16 +23,18 @@ namespace Panel.Repositories
         public void GeneratorStarted(DateTime RecordDate, string GeneratorName, 
             DateTime GeneratorStarted)
         {
-            int RecordNo = GeneratorSurveillanceDBContext
-                                        .GeneratorUsages
-                                        .Count();
+            int RecordNo = GeneratorSurveillanceDBContext.GeneratorUsages
+                .OrderByDescending(x => x.Id).Select(x => x.Id).ToArray()[0];
+
+            int SNNo = GeneratorSurveillanceDBContext.GeneratorUsages
+                .OrderByDescending(x => x.SN).Select(x => x.SN).ToArray()[0];
 
             GeneratorSurveillanceDBContext.GeneratorUsages.Add
             (
                 new GeneratorUsage
                 {
-                    Id = RecordNo,
-                    SN = RecordNo + 1,
+                    Id = RecordNo + 1,
+                    SN = SNNo + 1,
                     Date = RecordDate,
                     GeneratorName = GeneratorName,
                     GeneratorStarted = GeneratorStarted,
@@ -43,20 +45,21 @@ namespace Panel.Repositories
 
         public void GeneratorStopped(DateTime GeneratorStoppedDate, int ActiveGenID)
         {
-            var LastGeneratorUsageRecord = GeneratorSurveillanceDBContext
-                                            .GeneratorUsages
+            var LastGeneratorUsageRecord = GeneratorSurveillanceDBContext.GeneratorUsages
                                             .SingleOrDefault(x => x.SN == ActiveGenID);
+
             LastGeneratorUsageRecord.GeneratorStopped = GeneratorStoppedDate;
         }
 
         public ObservableCollection<GeneratorUsage> GetAllGeneratorUsages()
         {
             var AllGeneratorUsages = new ObservableCollection<GeneratorUsage>
-                                    (
-                                        GeneratorSurveillanceDBContext
-                                        .GeneratorUsages
-                                        .AsParallel<GeneratorUsage>() 
-                                    );
+                (
+                    GeneratorSurveillanceDBContext
+                    .GeneratorUsages
+                    .AsParallel<GeneratorUsage>() 
+                );
+
             return AllGeneratorUsages;
         }
 

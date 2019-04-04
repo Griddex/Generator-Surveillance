@@ -26,17 +26,19 @@ namespace Panel.Repositories
                 .ActionPartySettings
                 .OrderByDescending(x => x.SN)
                 .FirstOrDefault();
+             
+            int RecordNo = GeneratorSurveillanceDBContext.ActionPartySettings
+                .OrderByDescending(x => x.Id).Select(x => x.Id).ToArray()[0];
 
-            int RecordNo = GeneratorSurveillanceDBContext
-                                        .ActionPartySettings
-                                        .Count();
+            int SNNo = GeneratorSurveillanceDBContext.ActionPartySettings
+                .OrderByDescending(x => x.SN).Select(x => x.SN).ToArray()[0];
 
             GeneratorSurveillanceDBContext.ActionPartySettings.Add
             (
                 new ActionPartySetting
                 {
-                    Id = RecordNo,
-                    SN = RecordNo + 1,
+                    Id = RecordNo + 1,
+                    SN = SNNo + 1,
                     Date = ReminderDate,
                     FirstNameActionParty = FirstName,
                     LastNameActionParty = LastName,

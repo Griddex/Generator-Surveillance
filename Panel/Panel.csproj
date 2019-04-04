@@ -215,6 +215,7 @@
     <Compile Include="ActionPartySetting.cs">
       <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Attributes\RangeAttribute.cs" />
     <Compile Include="AuthoriserSetting.cs">
       <DependentUpon>GeneratorSurveillanceDBEntities.tt</DependentUpon>
     </Compile>
@@ -363,6 +364,7 @@
     <Compile Include="Services\MessagingServices\Notifier.cs" />
     <Compile Include="Services\MessagingServices\PerpertualNotifier.cs" />
     <Compile Include="Services\NavigationServices\FrameNavigationService.cs" />
+    <Compile Include="Startup\InitialiseDatabase.cs" />
     <Compile Include="StyleableWindow\ControlDoubleClickBehavior.cs" />
     <Compile Include="StyleableWindow\ShowSystemMenuBehavior.cs" />
     <Compile Include="StyleableWindow\SystemMenuManager.cs" />

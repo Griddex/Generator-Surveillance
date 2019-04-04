@@ -1,17 +1,9 @@
-﻿using Panel.Interfaces;
-using Panel.Repositories;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
-using System.Web.UI.WebControls;
-using System.Windows;
-using System.Windows.Data;
-using Unity;
 
 namespace Panel.ViewModels
 {
@@ -35,6 +27,7 @@ namespace Panel.ViewModels
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
         public void OnErrorsChanged(string propertyName) => ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyName)
