@@ -98,7 +98,7 @@ namespace Panel.ViewModels.SettingsViewModel
                 (
                     this._addReminderNotificationCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             string ReminderLevel = SchMaintenanceSelectedReminderLevel;
                             string Authoriser = SchMaintenanceSelectedAuthoriser;
@@ -113,7 +113,7 @@ namespace Panel.ViewModels.SettingsViewModel
                                 SchMaintenanceStartDate, SchMaintenanceReminderHours, ReminderLevel, RepeatReminderYesNo,
                                 AuthoriserFullName);
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                             {
                                 ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler.GetActiveGeneratorSchedules();
@@ -160,7 +160,7 @@ namespace Panel.ViewModels.SettingsViewModel
                 (
                     this._deleteRemindersCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             MessageBoxResult result = MessageBox.Show(
                                 "Do you want to " +
@@ -180,7 +180,7 @@ namespace Panel.ViewModels.SettingsViewModel
                                     UnitOfWork.GeneratorScheduler
                                               .DeleteInactiveReminders();
 
-                                    int Success = UnitOfWork.Complete();
+                                    int Success = await UnitOfWork.CompleteAsync();
                                     if (Success > 0)
                                     {
                                         //MessageBox.Show($"All inactive reminders" +
@@ -291,14 +291,14 @@ namespace Panel.ViewModels.SettingsViewModel
                 (
                     this._setRepeatReminderCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             GeneratorScheduler selectedRow = (GeneratorScheduler)x;
 
                             UnitOfWork.ReminderSetting.SetRepeatReminder(
                                                 selectedRow.GeneratorName);
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                             {
                                 //MessageBox.Show($"Repetitive Reminder" +
@@ -328,14 +328,14 @@ namespace Panel.ViewModels.SettingsViewModel
                 (
                     this._deactivateRepeatReminderCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             GeneratorScheduler selectedRow = (GeneratorScheduler)x;
 
                             UnitOfWork.ReminderSetting.DeactivateRepeatReminder(
                                                 selectedRow.GeneratorName);
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                             {
 
@@ -366,7 +366,7 @@ namespace Panel.ViewModels.SettingsViewModel
                 (
                     this._deleteReminderCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             GeneratorScheduler selectedRow = (GeneratorScheduler)x;
 
@@ -385,7 +385,7 @@ namespace Panel.ViewModels.SettingsViewModel
                                     UnitOfWork.ReminderSetting.DeleteReminder(
                                                 selectedRow.GeneratorName);
 
-                                    int Success = UnitOfWork.Complete();
+                                    int Success = await UnitOfWork.CompleteAsync();
                                     if (Success > 0)
                                     {
                                         ActiveGeneratorSchedules = UnitOfWork.GeneratorScheduler

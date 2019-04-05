@@ -1,4 +1,5 @@
 ﻿using Panel.Interfaces;
+using System.Threading.Tasks;
 
 namespace Panel.Repositories
 {
@@ -35,9 +36,9 @@ namespace Panel.Repositories
         public IActionPartySettingsRepository ActionPartySetting { get; private set; }
         public IReminderSettingsRepository ReminderSetting { get; private set; }
 
-        public int Complete()
+        public async Task<int> CompleteAsync()
         {
-           return _context.SaveChanges();
+           return await _context.SaveChangesAsync();
         }
 
         public void Dispose()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Panel.Interfaces
 {
@@ -9,6 +10,6 @@ namespace Panel.Interfaces
         IGeneratorRunningHrsRepository GeneratorRunningHr { get; }
         IGeneratorMaintenanceRepository GeneratorMaintenance { get; }
         IGeneratorFuellingRepository GeneratorFuelling { get; }
-        int Complete();
+        Task<int> CompleteAsync();
     }
 }

@@ -252,7 +252,7 @@ namespace Panel.ViewModels.InputViewModels
                 (
                     this._unschMaintenanceCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             ComboBox cmbxUnschMaintenance = x as ComboBox;
                             if (cmbxUnschMaintenance.Text == null || cmbxUnschMaintenance.Text == "")
@@ -266,7 +266,7 @@ namespace Panel.ViewModels.InputViewModels
                             UnitOfWork.GeneratorMaintenance.AddUnschMaintenance("Unscheduled", UnschMaintenanceDate, 
                                 UnschMaintenanceComments, UnschMaintenanceTotalCost, UnSchMaintenanceSelectedGen);
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                                 MessageBox.Show($"Unscheduled maintenance " +
                                     $"record for {cmbxUnschMaintenance.Text} " +
@@ -291,7 +291,7 @@ namespace Panel.ViewModels.InputViewModels
                 (
                     this._schMaintenanceCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             ComboBox cmbxSchMaintenance = x as ComboBox;
                             if (cmbxSchMaintenance.Text == null || 
@@ -311,7 +311,7 @@ namespace Panel.ViewModels.InputViewModels
                                       SchMaintenanceTotalCost,
                                       SchMaintenanceSelectedGen);
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                                 MessageBox.Show($"Scheduled maintenance " +
                                     $"record for " +
@@ -480,7 +480,7 @@ namespace Panel.ViewModels.InputViewModels
                 (
                     this._addReminderNotificationCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             string ReminderLevel = SchMaintenanceSelectedReminderLevel;
                             string Authoriser = SchMaintenanceSelectedAuthoriser;
@@ -503,7 +503,7 @@ namespace Panel.ViewModels.InputViewModels
                                                                     ReminderLevel, 
                                                                     RepeatReminderYesNo, 
                                                                     Authoriser);
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                             {
                                 MessageBox.Show($"Scheduled maintenance " +

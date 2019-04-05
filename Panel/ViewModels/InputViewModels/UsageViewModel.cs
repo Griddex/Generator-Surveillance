@@ -80,7 +80,7 @@ namespace Panel.ViewModels.InputViewModels
                 (
                     this._addGeneratorStartedCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             if (x == null)
                                 return;
@@ -155,7 +155,7 @@ namespace Panel.ViewModels.InputViewModels
                                                         SelectedGeneratorName, 
                                                         GeneratorStartedModelTime);
 
-                            int success = UnitOfWork.Complete();
+                            int success = await UnitOfWork.CompleteAsync();
                             if (success > 0)
                                 MessageBox.Show($"Generator started on " +
                                     $"{GeneratorStartedModelTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}", 
@@ -188,7 +188,7 @@ namespace Panel.ViewModels.InputViewModels
                 (
                     this._addGeneratorStoppedCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             if (SelectedGeneratorName == null || 
                             SelectedGeneratorName == "")
@@ -278,7 +278,7 @@ namespace Panel.ViewModels.InputViewModels
                                                 GeneratorStoppedModelTime,
                                                 ActiveGenID);
 
-                            int success = UnitOfWork.Complete();
+                            int success = await UnitOfWork.CompleteAsync();
                             if (success > 0)
                                 MessageBox.Show($"Generator stopped on " +
                                     $"{GeneratorStoppedModelTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}", 

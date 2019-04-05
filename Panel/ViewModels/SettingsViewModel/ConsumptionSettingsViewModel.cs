@@ -137,7 +137,7 @@ namespace Panel.ViewModels.SettingsViewModel
                 (
                     this._setConsumptionCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             if (CurrentFuelConsumption == 0 || TestFuelConsumption == 0
                             || StandardFuelConsumption == 0)
@@ -154,7 +154,7 @@ namespace Panel.ViewModels.SettingsViewModel
                                 GeneratorName, CurrentFuelConsumption, TestFuelConsumption,
                                 StandardFuelConsumption);
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                             {
                                 AnyConsumptionPage = UnitOfWork.ConsumptionSetting

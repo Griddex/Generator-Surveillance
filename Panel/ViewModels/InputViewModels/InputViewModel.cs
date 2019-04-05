@@ -157,7 +157,7 @@ namespace Panel.ViewModels.InputViewModels
                 (
                     archiveGeneratorCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             ComboBox cmbxGenInfo = x as ComboBox;
                             if (cmbxGenInfo.Text == null || 
@@ -176,7 +176,7 @@ namespace Panel.ViewModels.InputViewModels
                                                             UniqueGeneratorNames, 
                                                             cmbxGenInfo);
 
-                            int ArchivalSuccess = UnitOfWork.Complete();
+                            int ArchivalSuccess = await UnitOfWork.CompleteAsync();
                             if (ArchivalSuccess > 0)
                                 MessageBox.Show($"{GeneratorName} has been " +
                                     $"successfully archived!", 

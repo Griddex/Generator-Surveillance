@@ -259,12 +259,12 @@ namespace Panel.ViewModels.InputViewModels
                 (
                     this._addPurchaseCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             UnitOfWork.GeneratorFuelling.AddFuelPurchaseRecord(FuellingDate, Vendor, 
                                 VolumeOfDiesel, CostOfDiesel);
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                             {                                
                                 MessageBox.Show("Fuel purchase added!", 
@@ -289,7 +289,7 @@ namespace Panel.ViewModels.InputViewModels
                 (
                     this._addConsumptionCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             ComboBox cmbxSelectGenFuelling = x as ComboBox;
                             if(cmbxSelectGenFuelling.Text == null || 
@@ -309,7 +309,7 @@ namespace Panel.ViewModels.InputViewModels
                                             RunningHours, 
                                             CumFuelVolumeSinceLastReading);
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                             {
                                 try

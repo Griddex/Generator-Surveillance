@@ -91,7 +91,7 @@ namespace Panel.ViewModels.SettingsViewModel
                 (
                     this._setAuthoriserCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             DataGrid dtgrd = (DataGrid)x;
                             if (FirstNameAuthoriser == null || LastNameAuthoriser == null ||
@@ -126,7 +126,7 @@ namespace Panel.ViewModels.SettingsViewModel
                                 LastNameAuthoriser, EmailAuthoriser, PhoneNumberAuthoriser, 
                                 JobTitleAuthoriser);
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                             {
                                 AnyAuthorisersPage = UnitOfWork.AuthoriserSetting
@@ -149,7 +149,7 @@ namespace Panel.ViewModels.SettingsViewModel
                 (
                     this._setActionPartyCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             DataGrid dtgrd = (DataGrid)x;
                             if (FirstNameActionParty == null || LastNameActionParty == null ||
@@ -185,7 +185,7 @@ namespace Panel.ViewModels.SettingsViewModel
                                 PhoneNumberActionParty,
                                 JobTitleActionParty);
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                             {
                                 AnyActionPartiesPage = UnitOfWork.ActionPartySetting
@@ -208,7 +208,7 @@ namespace Panel.ViewModels.SettingsViewModel
                 (
                     this._deleteAuthoriserCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             if (x != null)
                             {
@@ -240,7 +240,7 @@ namespace Panel.ViewModels.SettingsViewModel
                                 }
                             }
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                             {
                                 AnyAuthorisersPage = UnitOfWork.AuthoriserSetting
@@ -264,7 +264,7 @@ namespace Panel.ViewModels.SettingsViewModel
                 (
                     this._deleteActionPartyCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             if (x != null)
                             {
@@ -296,7 +296,7 @@ namespace Panel.ViewModels.SettingsViewModel
                                 }
                             }
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                             {
                                 AnyActionPartiesPage = UnitOfWork.ActionPartySetting

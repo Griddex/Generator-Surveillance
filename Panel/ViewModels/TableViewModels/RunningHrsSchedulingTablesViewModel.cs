@@ -302,7 +302,7 @@ namespace Panel.ViewModels.TableViewModels
                 (
                     this._deleteSelectedRowsGenRunHrCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             List<GeneratorRunningHr> ItemsToRemove = new List<GeneratorRunningHr>();
                             DataGrid dataGrid = (DataGrid)x;
@@ -314,7 +314,7 @@ namespace Panel.ViewModels.TableViewModels
 
                             UnitOfWork.GeneratorRunningHr.Delete(ItemsToRemove);
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                             {
                                 MessageBox.Show("Data deleted!",
@@ -341,7 +341,7 @@ namespace Panel.ViewModels.TableViewModels
                 (
                     this._deleteAllRowsGenRunHrCmd = new DelegateCommand
                     (
-                        (dG) =>
+                        async dG =>
                         {
                             MessageBoxResult result = MessageBox.Show("YOU ARE ABOUT TO DELETE AN ENTIRE TABLE!" +
                                 Environment.NewLine + Environment.NewLine + "Data recovery is impossible after this delete operation" +
@@ -362,7 +362,7 @@ namespace Panel.ViewModels.TableViewModels
                                         DataGrid dataGrid = (DataGrid)dG;
                                         UnitOfWork.GeneratorRunningHr.DeleteAll();
 
-                                        int Success = UnitOfWork.Complete();
+                                        int Success = await UnitOfWork.CompleteAsync();
                                         if (Success > 0)
                                         {
                                             MessageBox.Show("Data Erased!",
@@ -395,7 +395,7 @@ namespace Panel.ViewModels.TableViewModels
                 (
                     this._deleteSelectedRowsSchRemCmd = new DelegateCommand
                     (
-                        x =>
+                        async x =>
                         {
                             List<GeneratorScheduler> ItemsToRemove = new List<GeneratorScheduler>();
                             DataGrid dataGrid = (DataGrid)x;
@@ -407,7 +407,7 @@ namespace Panel.ViewModels.TableViewModels
 
                             UnitOfWork.GeneratorScheduler.Delete(ItemsToRemove);
 
-                            int Success = UnitOfWork.Complete();
+                            int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)
                             {
                                 MessageBox.Show("Data deleted!",
@@ -434,7 +434,7 @@ namespace Panel.ViewModels.TableViewModels
                 (
                     this._deleteAllRowsSchRemCmd = new DelegateCommand
                     (
-                        (dG) =>
+                        async dG =>
                         {
                             MessageBoxResult result = MessageBox.Show("YOU ARE ABOUT TO DELETE AN ENTIRE TABLE!" +
                                 Environment.NewLine + Environment.NewLine + "Data recovery is impossible after this delete operation" +
@@ -458,7 +458,7 @@ namespace Panel.ViewModels.TableViewModels
                                         DataGrid dataGrid = (DataGrid)dG;
                                         UnitOfWork.GeneratorScheduler.DeleteAll();
 
-                                        int Success = UnitOfWork.Complete();
+                                        int Success = await UnitOfWork.CompleteAsync();
                                         if (Success > 0)
                                         {
                                             MessageBox.Show("Data Erased!",
