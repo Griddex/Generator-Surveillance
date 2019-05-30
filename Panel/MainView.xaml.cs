@@ -195,6 +195,8 @@ namespace Panel
                                         .GetActiveGeneratorInformation()
                                         .ActiveGenStartedTime;
 
+                usageView.lblGenStartedDate.Content = $"{lastGenTime.ToShortDateString()}  {lastGenTime.ToShortTimeString()}";
+
                 string[] LastGenTimeParts = TimeParts(lastGenTime);
                 usageView.cmbxHrGenStd.SelectedValue = LastGenTimeParts[0];
                 usageView.cmbxMinGenStd.SelectedValue = LastGenTimeParts[1];

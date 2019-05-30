@@ -257,6 +257,7 @@
     <Compile Include="Converters\ConvertTrueOrFalseToVisibility.cs" />
     <Compile Include="Converters\ConvertYesNoToBoolean.cs" />
     <Compile Include="Converters\ConvertIntToString.cs" />
+    <Compile Include="Converters\PassComboBoxesButtonFourRadioButtonsAsCommandParameters.cs" />
     <Compile Include="Converters\PassDatePickerComboBoxAsCommandParameter.cs" />
     <Compile Include="Converters\FloatConverter.cs" />
     <Compile Include="Converters\InputViewMultiConverter.cs" />
@@ -338,6 +339,7 @@
     <Compile Include="Models\InputModels\MinutesModel.cs" />
     <Compile Include="Models\InputModels\RecordDateModel.cs" />
     <Compile Include="Models\InputModels\SecondsModel.cs" />
+    <Compile Include="Models\InputModels\StartedControls.cs" />
     <Compile Include="Models\TableModels\GeneratorFuellingTableModel.cs" />
     <Compile Include="Models\TableModels\GeneratorMaintenancetableModel.cs" />
     <Compile Include="Models\TableModels\GeneratorUsageTableModel.cs" />

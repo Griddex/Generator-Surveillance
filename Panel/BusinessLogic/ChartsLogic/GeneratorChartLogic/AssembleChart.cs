@@ -33,10 +33,8 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
             switch (SelectedChartType)
             {
                 case "Column":
-                    List<ColumnSeries> ColumnSeries = AxisSeriesTuple
-                                                        .Item3
-                                                        .Cast<ColumnSeries>()
-                                                        .ToList();
+                    List<ColumnSeries> ColumnSeries = AxisSeriesTuple.Item3
+                        .Cast<ColumnSeries>().ToList();
 
                     for (int i = 0; i < AllOrdinateSeriesInHours[0].Count; i++)
                     {
@@ -51,9 +49,7 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
 
                 case "Stacked Column":
                     List<StackedColumnSeries> StackedColumnSeries = AxisSeriesTuple
-                                                                        .Item3
-                                                                        .Cast<StackedColumnSeries>()
-                                                                        .ToList();
+                        .Item3.Cast<StackedColumnSeries>().ToList();
 
                     for (int i = 0; i < AllOrdinateSeriesInHours.Count(); i++)
                     {
@@ -100,10 +96,9 @@ namespace Panel.BusinessLogic.ChartsLogic.GeneratorChartLogic
                     //    Chart.Series.Add(StackedAreaSeries);
                     //}
                     //Chart.AxisX.Add(AxisSeriesTuple.Item1);
-                    MessageBox.Show("Implementation coming soon", 
-                                    "Information", 
-                                    MessageBoxButton.OK, 
-                                    MessageBoxImage.Information);
+                    MessageBox.Show("Implementation coming soon", "Information",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+
                     return;
 
                 case "Line":

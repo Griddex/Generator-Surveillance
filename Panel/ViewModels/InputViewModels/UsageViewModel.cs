@@ -25,6 +25,8 @@ namespace Panel.ViewModels.InputViewModels
         
         public string SelectedGeneratorName { get; set; }
         public DateTime SelectedRecordDate { get; set; }
+        public DateTime LastGeneratorStartedDate { get; set; }
+        public DateTime GeneratorStartedAnotherDay { get; set; } = DateTime.Now;
         public DateTime GeneratorStoppedAnotherDay { get; set; } = DateTime.Now;
         public int SelectedStartHour { get; set; }
         public int SelectedStartMinute { get; set; }
@@ -97,19 +99,7 @@ namespace Panel.ViewModels.InputViewModels
                                 return;
                             }
 
-                            Tuple<ComboBox,
-                                  ComboBox,
-                                  ComboBox,
-                                  ComboBox,
-                                  Button,
-                                  RadioButton,
-                                  RadioButton> cmbx4Btn = (Tuple<ComboBox,
-                                                            ComboBox,
-                                                            ComboBox,
-                                                            ComboBox,
-                                                            Button,
-                                                            RadioButton,
-                                                            RadioButton>)x;
+                            var cmbx4Btn = (StartedControls)x;
 
                             //if(ActiveGenerator == cmbx4Btn.Item6.Content as string)
                             //{
@@ -123,19 +113,19 @@ namespace Panel.ViewModels.InputViewModels
                             //    return;
                             //}
 
-                            cmbx4Btn.Item1.IsHitTestVisible = true;
-                            cmbx4Btn.Item1.Focusable = true;
+                            cmbx4Btn.cmbx1.IsHitTestVisible = true;
+                            cmbx4Btn.cmbx1.Focusable = true;
 
-                            cmbx4Btn.Item2.IsHitTestVisible = true;
-                            cmbx4Btn.Item2.Focusable = true;
+                            cmbx4Btn.cmbx2.IsHitTestVisible = true;
+                            cmbx4Btn.cmbx2.Focusable = true;
 
-                            cmbx4Btn.Item3.IsHitTestVisible = true;
-                            cmbx4Btn.Item3.Focusable = true;
+                            cmbx4Btn.cmbx3.IsHitTestVisible = true;
+                            cmbx4Btn.cmbx3.Focusable = true;
 
-                            cmbx4Btn.Item4.IsHitTestVisible = true;
-                            cmbx4Btn.Item4.Focusable = true;
+                            cmbx4Btn.cmbx4.IsHitTestVisible = true;
+                            cmbx4Btn.cmbx4.Focusable = true;
 
-                            cmbx4Btn.Item5.IsEnabled = true;
+                            cmbx4Btn.btn1.IsEnabled = true;
 
                             string mergedStartTime = $"{SelectedStartHour.ToString("D2")}:" +
                                                     $"{SelectedStartMinute.ToString("D2")}:" +
@@ -147,8 +137,21 @@ namespace Panel.ViewModels.InputViewModels
                                 DateTimeStyles.None, out _parsedStartTime))
                                 GeneratorStartedModel = _parsedStartTime;
 
-                            DateTime GeneratorStartedModelTime = SelectedRecordDate.Date + 
-                                                                 GeneratorStartedModel.TimeOfDay;
+                            DateTime GeneratorStartedModelTime;
+                            if (cmbx4Btn.rdbtn3.IsChecked == true)
+                            {
+                                GeneratorStartedModelTime = GeneratorStartedModel;
+                            }
+                            else if (cmbx4Btn.rdbtn4.IsChecked == true)
+                            {
+                                GeneratorStartedModelTime = GeneratorStartedAnotherDay +
+                                                            GeneratorStartedModel.TimeOfDay;
+                            }
+                            else
+                            {
+                                GeneratorStartedModelTime = GeneratorStartedModel +
+                                                           GeneratorStartedModel.TimeOfDay;
+                            }
 
                             UnitOfWork.GeneratorUsage
                                       .GeneratorStarted(SelectedRecordDate, 
@@ -159,16 +162,11 @@ namespace Panel.ViewModels.InputViewModels
                             if (success > 0)
                                 MessageBox.Show($"Generator started on " +
                                     $"{GeneratorStartedModelTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}", 
-                                    "Success",
-                                    MessageBoxButton.OK, 
-                                    MessageBoxImage.Information);
+                                    "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                             else
                             {
                                 MessageBox.Show($"{GeneratorStartedModelTime.ToLongTimeString()} " +
-                                                $"was not saved", 
-                                                "Error",
-                                                MessageBoxButton.OK, 
-                                                MessageBoxImage.Error);
+                                                $"was not saved", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;
                             }
                         },
@@ -258,12 +256,10 @@ namespace Panel.ViewModels.InputViewModels
                             if((GeneratorStoppedModelTime - DateTime.MinValue).TotalSeconds <=
                                 (SelectedRecordDate - DateTime.MinValue).TotalSeconds)
                             {
-                                MessageBox.Show($"{GeneratorStoppedModel.ToLongTimeString()} " +
+                                MessageBox.Show($"{SelectedGeneratorName} " +
                                     $"was not stopped\n\n" +
                                     $"Generator can only be stopped at a date later than when it started", 
-                                    "Error",
-                                    MessageBoxButton.OK, 
-                                    MessageBoxImage.Error);
+                                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;
                             }
 
@@ -274,24 +270,34 @@ namespace Panel.ViewModels.InputViewModels
                                  ActiveGenID) = UnitOfWork.GeneratorInformation
                                                           .GeneratorStoppedIsGenActive();
 
-                            UnitOfWork.GeneratorUsage.GeneratorStopped(
-                                                GeneratorStoppedModelTime,
-                                                ActiveGenID);
+                            var ActiveGenStartedDateTime = (DateTime)ActiveGenStartedDate;
+                            MessageBoxResult result = MessageBox.Show($"DATA TO BE SAVED:\n\n" +
+                                $"Generator Name: {ActiveGenName}\n\nGenerator Started: {ActiveGenStartedDateTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}\n\n" +
+                                $"Generator Stopped: {GeneratorStoppedModelTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}\n\n" +
+                                $"Total hours {ActiveGenName} was on: {(GeneratorStoppedModelTime - ActiveGenStartedDateTime).Hours} hour(s)\n\n\n" +
+                                $"Do you want to save?", "Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Information);
+
+                            switch (result)
+                            {
+                                case MessageBoxResult.None:
+                                case MessageBoxResult.Cancel:
+                                case MessageBoxResult.No:
+                                    return;
+                                case MessageBoxResult.OK:
+                                case MessageBoxResult.Yes:
+                                    UnitOfWork.GeneratorUsage.GeneratorStopped(GeneratorStoppedModelTime, ActiveGenID);
+                                    break;
+                            }
 
                             int success = await UnitOfWork.CompleteAsync();
                             if (success > 0)
-                                MessageBox.Show($"Generator stopped on " +
+                                MessageBox.Show($"{SelectedGeneratorName} stopped on " +
                                     $"{GeneratorStoppedModelTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}", 
-                                    "Success",
-                                    MessageBoxButton.OK, 
-                                    MessageBoxImage.Information);
+                                    "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                             else
                             {
-                                MessageBox.Show($"{GeneratorStoppedModel.ToLongTimeString()}" +
-                                    $" was not saved", 
-                                    "Error",
-                                    MessageBoxButton.OK, 
-                                    MessageBoxImage.Error);
+                                MessageBox.Show($"{SelectedGeneratorName}" +
+                                    $" was not saved", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;
                             }
                         },

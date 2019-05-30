@@ -37,6 +37,8 @@
             x:Key="PassDatePickerComboBox"/>
         <convtrs:PassComboBoxesButtonRadioButtonsAsCommandParameters 
             x:Key="PassComboBoxesButtonRadioButtons"/>
+        <convtrs:PassComboBoxesButtonFourRadioButtonsAsCommandParameters
+            x:Key="PassComboBoxesButtonFourRadioButtons"/>
         <convtrs:PassDtPkrTxBxTwoCmboxsBtnAsCommandParameters 
             x:Key="PassDtPkrTxBxTwoCmboxsBtn"/>
         <convtrs:PassStackpanelExpanderButtonAsCommandParameters 

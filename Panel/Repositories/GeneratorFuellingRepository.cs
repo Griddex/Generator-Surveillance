@@ -6,8 +6,7 @@ using System.Windows;
 
 namespace Panel.Repositories
 {
-    public class GeneratorFuellingRepository : Repository<GeneratorFuelling>, 
-        IGeneratorFuellingRepository
+    public class GeneratorFuellingRepository : Repository<GeneratorFuelling>, IGeneratorFuellingRepository
     {
         public GeneratorFuellingRepository(GeneratorSurveillanceDBEntities context) 
             : base(context) { }

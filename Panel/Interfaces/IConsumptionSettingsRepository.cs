@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace Panel.Interfaces
 {
-    public interface IConsumptionSettingsRepository
+    public interface IConsumptionSettingsRepository 
     {
         void SetConsumption(DateTime ConsumptionDate, string GeneratorName, 
             double CurrentFuelConsumption,

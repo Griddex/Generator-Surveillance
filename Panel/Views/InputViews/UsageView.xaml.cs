@@ -13,6 +13,7 @@ namespace Panel.Views.InputViews
     /// </summary>
     public partial class UsageView : Page, IView
     {
+        public UsageViewModel UsageViewModel { get; set; }
         public UsageView(UsageViewModel usageViewModel)
         {
             InitializeComponent();
@@ -45,12 +46,13 @@ namespace Panel.Views.InputViews
                                                 .GetActiveGeneratorInformation()
                                                 .ActiveGenStartedTime;
 
+                this.dtepkrAnotherDay.DisplayDateStart = (DateTime?)lastGenTime;
+
                 string[] LastGenTimeParts = TimeParts(lastGenTime);
                 this.cmbxHrGenStd.SelectedValue = LastGenTimeParts[0];
                 this.cmbxMinGenStd.SelectedValue = LastGenTimeParts[1];
                 this.cmbxSecsGenStd.SelectedValue = LastGenTimeParts[2];
                 this.cmbxAMPMGenStd.SelectedValue = LastGenTimeParts[3];
-
 
                 DateTime currGenTime = DateTime.Now;
                 string[] CurrTimeParts = TimeParts(currGenTime);

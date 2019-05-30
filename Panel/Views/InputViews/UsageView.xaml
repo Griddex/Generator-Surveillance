@@ -37,32 +37,32 @@
                           Height="807">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="230"/>
+                            <RowDefinition Height="65"/>
+                            <RowDefinition Height="250"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="250"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="10"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Row="0" 
                               Grid.Column="1">
                             <StackPanel Orientation="Horizontal"
-                                        Height="50"
+                                        Height="40"
                                         Background="#F2F2F2" 
-                                        Margin="0,24,25,25">
+                                        Margin="0,10,25,25">
                                 <Label x:Name="GenUsageGenerators" 
-                                       Content="Generator:" 
+                                       Content="Name:" 
                                        HorizontalAlignment="Center" 
                                        VerticalAlignment="Center"/>
                                 <Label x:Name="lblCurrentGeneratorName" 
                                        Content="{Binding SelectedGeneratorName, Mode=OneWayToSource}" 
                                        HorizontalAlignment="Center"
                                        Foreground="#1D8696" 
-                                       Width="200" 
+                                       Width="150" 
                                        Height="30" 
                                        HorizontalContentAlignment="Left" 
                                        Margin="0,0,10,0"
@@ -77,7 +77,21 @@
                                        Content="{Binding SelectedRecordDate, Mode=OneWayToSource}" 
                                        HorizontalAlignment="Left"
                                        Foreground="#1D8696" 
-                                       Width="263" 
+                                       Width="150" 
+                                       Height="30" 
+                                       HorizontalContentAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       VerticalContentAlignment="Center"
+                                       FontSize="12"/>
+                                <Label x:Name="GenStartedDate" 
+                                       Content="Started Date:" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" />
+                                <Label x:Name="lblGenStartedDate" 
+                                       Content="{Binding LastGeneratorStartedDate, Mode=OneWayToSource}" 
+                                       HorizontalAlignment="Left"
+                                       Foreground="#1D8696" 
+                                       Width="150" 
                                        Height="30" 
                                        HorizontalContentAlignment="Left"
                                        VerticalAlignment="Center"
@@ -88,7 +102,7 @@
                         </Grid>
                         <Grid Grid.Row="1" Grid.Column="1">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="50"/>
                                 <RowDefinition Height="100"/>
                                 <RowDefinition Height="5"/>
                                 <RowDefinition Height="*"/>
@@ -110,7 +124,41 @@
                                    FontSize="16" 
                                    FontWeight="Bold" 
                                    Foreground="#1D8696" 
-                                   VerticalAlignment="Top"/>
+                                   VerticalAlignment="Bottom"/>
+                            <RadioButton x:Name="rdbtnStartedCurrentDay" 
+                                         Grid.Row="0" 
+                                         Grid.Column="2"
+                                         Grid.ColumnSpan="2"
+                                         Margin="0,0,0,0"
+                                         Content="Current Day" 
+                                         GroupName="WhichDay" 
+                                         IsChecked="True"
+                                         FontSize="14"
+                                         VerticalAlignment="Bottom" 
+                                         HorizontalAlignment="Right"/>
+                            <RadioButton x:Name="rdbtnStartedDifferentDay" 
+                                         Grid.Row="0" 
+                                         Grid.Column="4"
+                                         Content="Different Day" 
+                                         GroupName="WhichDay" 
+                                         IsChecked="False"
+                                         FontSize="14"
+                                         VerticalAlignment="Bottom" 
+                                         HorizontalAlignment="Center"/>
+                            <DatePicker x:Name="dtepkrStartedAnotherDay" 
+                                        Grid.Row="0" 
+                                        Grid.Column="4" 
+                                        Width="200"
+                                        Grid.ColumnSpan="3" 
+                                        Margin="150,0,0,0"
+                                        HorizontalAlignment="Left" 
+                                        Style="{DynamicResource DatePickerStyle}"
+                                        Visibility="{Binding ElementName=rdbtnStartedDifferentDay, 
+                                                             Path=IsChecked, 
+                                                             Converter={StaticResource BoolToVis}}"
+                                         
+                                        SelectedDate="{Binding GeneratorStartedAnotherDay}"
+                                        DisplayDate="{x:Static sys:DateTime.Now}"/>
                             <Grid Grid.Column="0" 
                                   Grid.Row="1">
                                 <StackPanel Orientation="Vertical" >
@@ -199,14 +247,16 @@
                                     VerticalContentAlignment="Center"
                                     Command="{Binding AddGeneratorStartedCmd}">
                                 <Button.CommandParameter>
-                                    <MultiBinding Converter="{StaticResource PassComboBoxesButtonRadioButtons}">
+                                    <MultiBinding Converter="{StaticResource PassComboBoxesButtonFourRadioButtons}">
                                         <Binding ElementName="cmbxHrGenSpd"/>
                                         <Binding ElementName="cmbxMinGenSpd"/>
                                         <Binding ElementName="cmbxSecsGenSpd"/>
                                         <Binding ElementName="cmbxAMPMGenSpd"/>
                                         <Binding ElementName="btnGenStopped"/>
                                         <Binding ElementName="rdbtnCurrentDay"/>
-                                        <Binding ElementName="rdbtnDifferentDay"/>                         
+                                        <Binding ElementName="rdbtnDifferentDay"/>
+                                        <Binding ElementName="rdbtnStartedCurrentDay"/>
+                                        <Binding ElementName="rdbtnStartedDifferentDay"/>
                                     </MultiBinding>
                                 </Button.CommandParameter>
                             </Button>
@@ -268,9 +318,7 @@
                                         Visibility="{Binding ElementName=rdbtnDifferentDay, 
                                                              Path=IsChecked, 
                                                              Converter={StaticResource BoolToVis}}"
-                                        DisplayDateStart="{Binding ElementName=lblGenRecordDate, 
-                                                                   Path=Content, 
-                                                                   Converter={StaticResource ConvStringToDate}}" 
+                                       
                                         SelectedDate="{Binding GeneratorStoppedAnotherDay}"
                                         DisplayDate="{x:Static sys:DateTime.Now}"/>
                             <Grid Grid.Column="0" 
