@@ -135,7 +135,9 @@ namespace Panel.ViewModels.InputViewModels
                             if(DateTime.TryParseExact(mergedStartTime, "hh:mm:ss tt", 
                                 CultureInfo.InvariantCulture, 
                                 DateTimeStyles.None, out _parsedStartTime))
+                            {
                                 GeneratorStartedModel = _parsedStartTime;
+                            }
 
                             DateTime GeneratorStartedModelTime;
                             if (cmbx4Btn.rdbtn3.IsChecked == true)
@@ -274,7 +276,7 @@ namespace Panel.ViewModels.InputViewModels
                             MessageBoxResult result = MessageBox.Show($"DATA TO BE SAVED:\n\n" +
                                 $"Generator Name: {ActiveGenName}\n\nGenerator Started: {ActiveGenStartedDateTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}\n\n" +
                                 $"Generator Stopped: {GeneratorStoppedModelTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}\n\n" +
-                                $"Total hours {ActiveGenName} was on: {(GeneratorStoppedModelTime - ActiveGenStartedDateTime).Hours} hour(s)\n\n\n" +
+                                $"Total hours {ActiveGenName} was on: {(GeneratorStoppedModelTime - ActiveGenStartedDateTime).TotalHours} hour(s)\n\n\n" +
                                 $"Do you want to save?", "Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Information);
 
                             switch (result)

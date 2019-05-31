@@ -247,10 +247,10 @@
                                     <Grid Grid.Column="0" 
                                           Grid.Row="1">
                                         <StackPanel Orientation="Vertical" >
-                                            <Label Content="Cumulative Fuel Volume" 
+                                            <Label Content="Fuel Volume" 
                                                    Height="27"
                                                    FontSize="14"
-                                                   ToolTip="Cumulative Fuel Volume Since Last Running Hours Reading"/>
+                                                   ToolTip="Fuel Volume Since Last Running Hours Reading"/>
                                             <TextBox  Background="#F2F2F2" 
                                                       Width="225" 
                                                       Height="50" 
@@ -346,7 +346,7 @@
                                                               FontWeight="Bold" 
                                                               FontSize="16" 
                                                               Width="200"
-                                                              Height="200"
+                                                              Height="180"
                                                               SectionsInnerRadius=".5"
                                                               Visibility="{Binding ElementName=expdrFuelConsumption, 
                                                                                    Path=IsExpanded, 
@@ -360,6 +360,22 @@
                                                                         Fill="#FF3939"/>
                                                 </lvc:AngularGauge.Sections>
                                             </lvc:AngularGauge>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Label Content="{Binding CurrentFuelConsumption}"
+                                                   FontSize="14" Background="#1D8696"
+                                                   Height="27" Width="50" Foreground="White"
+                                                   HorizontalContentAlignment="Center"
+                                                   Visibility="{Binding ElementName=expdrFuelConsumption, 
+                                                                        Path=IsExpanded, 
+                                                                        Converter={StaticResource TrueOrFalseToVisibility}}"/>
+                                                <Label Content="ltrs/hr"
+                                                   FontSize="14"
+                                                   Height="27" 
+                                                   HorizontalContentAlignment="Center"
+                                                   Visibility="{Binding ElementName=expdrFuelConsumption, 
+                                                                        Path=IsExpanded, 
+                                                                        Converter={StaticResource TrueOrFalseToVisibility}}"/>
+                                            </StackPanel>                                            
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Column="1" 
@@ -388,7 +404,7 @@
                                                               FontWeight="Bold" 
                                                               FontSize="16" 
                                                               Width="200"
-                                                              Height="200" 
+                                                              Height="180" 
                                                               SectionsInnerRadius=".5"
                                                               Visibility="{Binding ElementName=expdrFuelConsumption, 
                                                                                    Path=IsExpanded, 
@@ -402,6 +418,22 @@
                                                                         Fill="#FF3939"/>
                                                 </lvc:AngularGauge.Sections>
                                             </lvc:AngularGauge>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Label Content="{Binding TestFuelConsumption}"
+                                                   FontSize="14" Background="#1D8696"
+                                                   Height="27" Width="50" Foreground="White"
+                                                   HorizontalContentAlignment="Center"
+                                                   Visibility="{Binding ElementName=expdrFuelConsumption, 
+                                                                        Path=IsExpanded, 
+                                                                        Converter={StaticResource TrueOrFalseToVisibility}}"/>
+                                                <Label Content="ltrs/hr"
+                                                   FontSize="14"
+                                                   Height="27" 
+                                                   HorizontalContentAlignment="Center"
+                                                   Visibility="{Binding ElementName=expdrFuelConsumption, 
+                                                                        Path=IsExpanded, 
+                                                                        Converter={StaticResource TrueOrFalseToVisibility}}"/>
+                                            </StackPanel>
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Column="2" 
@@ -430,7 +462,7 @@
                                                               FontWeight="Bold" 
                                                               FontSize="16" 
                                                               Width="200"
-                                                              Height="200" 
+                                                              Height="180" 
                                                               SectionsInnerRadius=".5"
                                                               Visibility="{Binding ElementName=expdrFuelConsumption, 
                                                                                    Path=IsExpanded, 
@@ -444,6 +476,22 @@
                                                                         Fill="#FF3939"/>
                                                 </lvc:AngularGauge.Sections>
                                             </lvc:AngularGauge>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Label Content="{Binding StandardFuelConsumption}"
+                                                   FontSize="14" Background="#1D8696"
+                                                   Height="27" Width="50" Foreground="White"
+                                                   HorizontalContentAlignment="Center"
+                                                   Visibility="{Binding ElementName=expdrFuelConsumption, 
+                                                                        Path=IsExpanded, 
+                                                                        Converter={StaticResource TrueOrFalseToVisibility}}"/>
+                                                <Label Content="ltrs/hr"
+                                                   FontSize="14"
+                                                   Height="27" 
+                                                   HorizontalContentAlignment="Center"
+                                                   Visibility="{Binding ElementName=expdrFuelConsumption, 
+                                                                        Path=IsExpanded, 
+                                                                        Converter={StaticResource TrueOrFalseToVisibility}}"/>
+                                            </StackPanel>
                                         </StackPanel>
                                     </Grid>                        
                                     <Expander x:Name="expdrFuelConsumption" 

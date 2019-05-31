@@ -11,6 +11,7 @@ namespace Panel.Interfaces
             int pageIndex = 1, int pageSize = 10);
 
         void Delete(List<GeneratorRunningHr> ItemsToRemove);
+       
 
         void DeleteAll();
     }

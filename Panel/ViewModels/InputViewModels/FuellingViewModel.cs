@@ -292,8 +292,7 @@ namespace Panel.ViewModels.InputViewModels
                         async x =>
                         {
                             ComboBox cmbxSelectGenFuelling = x as ComboBox;
-                            if(cmbxSelectGenFuelling.Text == null || 
-                            cmbxSelectGenFuelling.Text == "")
+                            if(cmbxSelectGenFuelling.Text == null || cmbxSelectGenFuelling.Text == "")
                             {
                                 MessageBox.Show("Select a generator!", 
                                     "Error", 
@@ -302,12 +301,12 @@ namespace Panel.ViewModels.InputViewModels
                                 return;
                             }
 
-                            UnitOfWork.GeneratorFuelling
-                                      .AddFuelConsumptionHours(
-                                            cmbxSelectGenFuelling.Text, 
-                                            RunningHoursDate, 
-                                            RunningHours, 
-                                            CumFuelVolumeSinceLastReading);
+                            if (!UnitOfWork.GeneratorFuelling.CheckRunningHoursValidity(RunningHours, SelectedGenerator))
+                            {
+                                return;
+                            }
+                            UnitOfWork.GeneratorFuelling.AddFuelConsumptionHours(cmbxSelectGenFuelling.Text,
+                                RunningHoursDate, RunningHours, CumFuelVolumeSinceLastReading);
 
                             int Success = await UnitOfWork.CompleteAsync();
                             if (Success > 0)

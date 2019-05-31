@@ -10,6 +10,8 @@ namespace Panel.Interfaces
             double Volumeofdiesel, 
             double Costofdiesel);
 
+        bool CheckRunningHoursValidity(double GenHrsInput, string GeneratorName);
+
         void AddFuelConsumptionHours(string GeneratorName, 
             DateTime RunningHoursDate, 
             double RunningHours, 
