@@ -51,17 +51,19 @@
                         <Grid Grid.Row="0" 
                               Grid.Column="1">
                             <StackPanel Orientation="Horizontal"
-                                        Height="40"
+                                        Height="50"
                                         Background="#F2F2F2" 
-                                        Margin="0,10,25,25">
+                                        Margin="0,10,0,5">
                                 <Label x:Name="GenUsageGenerators" 
                                        Content="Name:" 
                                        HorizontalAlignment="Center" 
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center"
+                                       />
                                 <Label x:Name="lblCurrentGeneratorName" 
                                        Content="{Binding SelectedGeneratorName, Mode=OneWayToSource}" 
                                        HorizontalAlignment="Center"
-                                       Foreground="#1D8696" 
+                                       Background="#1D8696"
+                                       Foreground="White" 
                                        Width="150" 
                                        Height="30" 
                                        HorizontalContentAlignment="Left" 
@@ -76,7 +78,8 @@
                                 <Label x:Name="lblGenRecordDate" 
                                        Content="{Binding SelectedRecordDate, Mode=OneWayToSource}" 
                                        HorizontalAlignment="Left"
-                                       Foreground="#1D8696" 
+                                       Background="#1D8696"
+                                       Foreground="White" 
                                        Width="150" 
                                        Height="30" 
                                        HorizontalContentAlignment="Left"
@@ -86,12 +89,14 @@
                                 <Label x:Name="GenStartedDate" 
                                        Content="Started Date:" 
                                        HorizontalAlignment="Center" 
-                                       VerticalAlignment="Center" />
+                                       VerticalAlignment="Center" 
+                                       Margin="5,0,0,0"/>
                                 <Label x:Name="lblGenStartedDate" 
                                        Content="{Binding LastGeneratorStartedDate, Mode=OneWayToSource}" 
                                        HorizontalAlignment="Left"
-                                       Foreground="#1D8696" 
-                                       Width="150" 
+                                       Background="#1D8696"
+                                       Foreground="White" 
+                                       Width="160" 
                                        Height="30" 
                                        HorizontalContentAlignment="Left"
                                        VerticalAlignment="Center"

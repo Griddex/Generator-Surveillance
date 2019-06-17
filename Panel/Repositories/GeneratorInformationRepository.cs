@@ -13,10 +13,7 @@ namespace Panel.Repositories
         IGeneratorInformationRepository
     {
         public GeneratorInformationRepository(GeneratorSurveillanceDBEntities context) 
-            : base(context)
-        {
-            
-        }
+            : base(context){ }
                 
         public GeneratorSurveillanceDBEntities GeneratorSurveillanceDBContext
         {
@@ -32,15 +29,10 @@ namespace Panel.Repositories
             DateTime? activeGenStartedTime = null;
             int activeGenID = 0;
 
-            var ActiveGenerators = GeneratorSurveillanceDBContext
-                                    .GeneratorUsages
-                                    .Where(x => 
-                                    x.GeneratorStopped == 
-                                    new DateTime(0001, 01, 01, 00, 00, 00) || 
-                                    x.GeneratorStopped == 
-                                    new DateTime(1899, 12, 30, 00, 00, 00) ||
-                                    x.GeneratorStopped ==
-                                    new DateTime(1900, 01, 01, 00, 00, 00));
+            var ActiveGenerators = GeneratorSurveillanceDBContext.GeneratorUsages
+                .Where(x => x.GeneratorStopped == new DateTime(0001, 01, 01, 00, 00, 00) || 
+                x.GeneratorStopped == new DateTime(1899, 12, 30, 00, 00, 00) ||
+                x.GeneratorStopped == new DateTime(1900, 01, 01, 00, 00, 00));
 
             if (ActiveGenerators.ToList().Count == 0)
             {
@@ -88,8 +80,7 @@ namespace Panel.Repositories
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 return null;
-            }
-            
+            }            
         }
 
         public void AddGeneratorName(string GeneratorName, 

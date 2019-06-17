@@ -262,6 +262,8 @@
                     Value="Center"/>
             <Setter Property="Background" 
                     Value="#1D8696"/>
+            <Setter Property="Foreground"
+                    Value="White"/>
             <Style.Triggers>
                 <Trigger Property="IsPressed" 
                          Value="True">
@@ -287,6 +289,8 @@
                     Value="Center"/>
             <Setter Property="Background" 
                     Value="#FF3939"/>
+            <Setter Property="Foreground"
+                    Value="White"/>
             <Style.Triggers>
                 <Trigger Property="IsPressed" 
                          Value="True">

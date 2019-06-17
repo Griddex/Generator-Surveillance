@@ -78,7 +78,9 @@
                                    Width="200"
                                    VerticalAlignment="Center" 
                                    HorizontalAlignment="Right" 
-                                   Grid.RowSpan="2">
+                                   Grid.RowSpan="2"
+                                   Background="#F2F2F2"
+                                   Visibility="Visible">
                            <TextBox Text="Load Active Generator" 
                                     Foreground="Black" 
                                     VerticalAlignment="Center"

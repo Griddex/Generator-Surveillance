@@ -87,8 +87,7 @@ namespace Panel.ViewModels.InputViewModels
                             if (x == null)
                                 return;
 
-                            if(SelectedGeneratorName == null || 
-                            SelectedGeneratorName == "")
+                            if(SelectedGeneratorName == null || SelectedGeneratorName == "")
                             {
                                 MessageBox.Show($"Please select a " +
                                     $"generator in General " +
@@ -276,7 +275,7 @@ namespace Panel.ViewModels.InputViewModels
                             MessageBoxResult result = MessageBox.Show($"DATA TO BE SAVED:\n\n" +
                                 $"Generator Name: {ActiveGenName}\n\nGenerator Started: {ActiveGenStartedDateTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}\n\n" +
                                 $"Generator Stopped: {GeneratorStoppedModelTime.ToString("dddd, dd/MMM/yyyy hh:mm:ss tt")}\n\n" +
-                                $"Total hours {ActiveGenName} was on: {(GeneratorStoppedModelTime - ActiveGenStartedDateTime).TotalHours} hour(s)\n\n\n" +
+                                $"Total hours {ActiveGenName} was on: {Math.Round((GeneratorStoppedModelTime - ActiveGenStartedDateTime).TotalHours, 1)} hour(s)\n\n\n" +
                                 $"Do you want to save?", "Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Information);
 
                             switch (result)

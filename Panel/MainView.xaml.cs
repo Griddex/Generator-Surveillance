@@ -116,17 +116,18 @@ namespace Panel
                     .lblGenRecordDate
                     .Content = $"{this._inputView.dtepkrGenInfo.SelectedDate.Value.ToShortDateString()}";
 
-            if ((string)usageView.lblCurrentGeneratorName
-                                 .Content == ActiveGeneratorInformation
-                                                    .GetActiveGeneratorInformation()
-                                                    .ActiveGenName)
+            var ActiveGenInfo = ActiveGeneratorInformation.GetActiveGeneratorInformation();
+            if ((string)usageView.lblCurrentGeneratorName.Content == ActiveGenInfo.ActiveGenName &&
+                ActiveGenInfo.ActiveGenName != null)
             {
+                usageView.lblGenStartedDate.Content = ActiveGenInfo.ActiveGenStartedDate;
                 ParseActiveGeneratorTime();
                 GeneratorStartedControls(false);
                 GeneratorStoppedControls(true);
             }
             else
             {
+                usageView.lblGenStartedDate.Content = "";
                 ParseActiveGeneratorTime();
                 GeneratorStartedControls(true);
                 GeneratorStoppedControls(false);
@@ -137,8 +138,7 @@ namespace Panel
 
         public void GeneratorStartedControls(bool truefalse)
         {
-            UsageView usageView = (UsageView)container
-                                    .Resolve<IView>("UsageView");
+            UsageView usageView = (UsageView)container.Resolve<IView>("UsageView");
 
             usageView.cmbxHrGenStd.IsHitTestVisible = truefalse;
             usageView.cmbxHrGenStd.Focusable = truefalse;
@@ -157,8 +157,7 @@ namespace Panel
 
         public void GeneratorStoppedControls(bool truefalse)
         {
-            UsageView usageView = (UsageView)container
-                                    .Resolve<IView>("UsageView");
+            UsageView usageView = (UsageView)container.Resolve<IView>("UsageView");
 
             usageView.cmbxHrGenSpd.IsHitTestVisible = truefalse;
             usageView.cmbxHrGenSpd.Focusable = truefalse;
@@ -186,14 +185,12 @@ namespace Panel
 
         public void ParseActiveGeneratorTime()
         {
-            UsageView usageView = (UsageView)container
-                                  .Resolve<IView>("UsageView");
+            UsageView usageView = (UsageView)container.Resolve<IView>("UsageView");
 
             try
             {
-                DateTime lastGenTime = (DateTime)ActiveGeneratorInformation
-                                        .GetActiveGeneratorInformation()
-                                        .ActiveGenStartedTime;
+                DateTime lastGenTime = (DateTime)ActiveGeneratorInformation.GetActiveGeneratorInformation()
+                    .ActiveGenStartedTime;
 
                 usageView.lblGenStartedDate.Content = $"{lastGenTime.ToShortDateString()}  {lastGenTime.ToShortTimeString()}";
 
@@ -217,8 +214,7 @@ namespace Panel
 
         private void UsageToFuellingView_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            FuellingView fuellingView = (FuellingView)container
-                                        .Resolve<IView>("FuellingView");
+            FuellingView fuellingView = (FuellingView)container.Resolve<IView>("FuellingView");
 
             MainViewFrame.Navigate(fuellingView);
             (fuellingView.DataContext as FuellingViewModel).RefreshFuelCompCmd.Execute(null);
@@ -230,8 +226,7 @@ namespace Panel
         private void FuellingToMaintenanceView_Executed(object sender, 
             ExecutedRoutedEventArgs e)
         {
-            MaintenanceView maintenanceView = (MaintenanceView)container
-                                              .Resolve<IView>("MaintenanceView");
+            MaintenanceView maintenanceView = (MaintenanceView)container.Resolve<IView>("MaintenanceView");
 
             MainViewFrame.Navigate(maintenanceView);
             (maintenanceView.DataContext as MaintenanceViewModel).RefreshSchMaintenanceCmd.Execute(null);
@@ -243,8 +238,7 @@ namespace Panel
             ExecutedRoutedEventArgs e)
         {
             RunningHrsSchedulingTablesView runningHrsSchedulingTablesView = 
-                (RunningHrsSchedulingTablesView)container
-                .Resolve<IView>("RunningHrsSchedulingTablesView");
+                (RunningHrsSchedulingTablesView)container.Resolve<IView>("RunningHrsSchedulingTablesView");
 
             MainViewFrame.Navigate(runningHrsSchedulingTablesView);
         }
